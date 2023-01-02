@@ -35,5 +35,10 @@ public class HomeController {
 		
 		return "home";
 	}
+	@RequestMapping("/calendar")
+	public String calendar() {
+		return "calendar";
+	}
+	
 	
 }
