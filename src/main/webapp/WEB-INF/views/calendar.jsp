@@ -1,12 +1,17 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html; charset=utf-8" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
+
+<!DOCTYPE html>
 <html>
+
+
 <head>
 <link href="<c:url value="/static/css/main.css"/>" rel='stylesheet' />
-<script type="text/javascript" src="<c:url value="/static/js/main.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/static/js/main.js"/>" ></script>
 
  
-	<title>Home</title>
 	<script type="text/javascript">
 
       document.addEventListener('DOMContentLoaded', function() {
