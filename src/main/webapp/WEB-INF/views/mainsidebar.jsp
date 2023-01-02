@@ -139,15 +139,18 @@
 		  margin-left: 0;
 		  width: 100%;
 		}
+		.sidebar.active {
+		  width: 0;
+		  padding: 0;
+		}
 
     </style>
     <script>
 	    function navtoggle(){
-	        document.querySelector("body")[0].classList.toggle("active");
+	    	 document.getElementsByClassName('sidebar').classList.toggle('active');
+	        console.log("실행되랏 ")
 	    }
-	    function navtoggle() {
-	    	  document.querySelector('aside.sidebar').classList.toggle('active');
-	    }
+	   
 	    
     </script>
 </head>
@@ -158,10 +161,10 @@
     <div class="wrapper">
        <div class="section">
 	    <div class="top_navbar">
-	    <div class="btn btn-info hamburger" onClick="navtoggle();">Click Me</div>
+	    <div class="hamburger" type="button" onClick="navtoggle();"><i class="fas fa-bars"></i></div>
 	      <div class="hamburger">
 	        <a href="#">
-	          <i class="fas fa-bars"></i>
+	          
 	        </a>
 	      </div>
 	    </div>

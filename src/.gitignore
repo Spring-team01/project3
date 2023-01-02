@@ -2,3 +2,4 @@
 .jar
 /test/
 /.DS_Store
+/target/
