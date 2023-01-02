@@ -25,7 +25,9 @@
 	
 	<resources mapping="/static/js/**" location="/WEB-INF/resources/js/" />
 	<resources mapping="/static/css/**" location="/WEB-INF/resources/css/" />
-	
+
+	<resources mapping="/static/images/**" location="/WEB-INF/resources/images/" />
+
 	<resources   location="/WEB-INF/resources/js/" mapping="/js/**"/>
 	<resources   location="/WEB-INF/resources/css/" mapping="/css/**"/>
 	<resources   location="/WEB-INF/resources/images/" mapping="/images/**"/>
