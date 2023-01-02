@@ -17,18 +17,39 @@
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
+          headerToolbar: {
+        	left: 'prev,next today',
+        	center: 'title',
+        	right : 'dayGridMonth,timeGridDay'
+          },
+          initialView: 'dayGridMonth',
+        navLinks : true,
+		editable : true,
+		allDaySlot : false,
+		minTime: '10:00:00',
+		maxTime: '24:00:00'
+        
         });
         calendar.render();
       });
-
-    </script>
 	
+    </script>
+	<style>
+	body {
+    margin: 40px 10px;
+    padding: 0;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+  }
+
+  #calendar {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+	</style>
 </head>
 <body>
-<h1>
-	calendar is not found 
-</h1>
+
  <div id='calendar'></div>
 <P>  The time on the server is ${serverTime}. </P>
 </body>
