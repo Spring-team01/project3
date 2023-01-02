@@ -5,6 +5,9 @@
 
 <!DOCTYPE html>
 <html>
+<head>
+
+</head>
 
 <jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
 
@@ -13,29 +16,15 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="row-md-3">
+			<div class="row-lg-3">
 			
-			사이드바 위치
 			</div>
 						
-			<div class="row-md-9">
-			<div id='calendar'></div>
-			
+			<div class="row-lg-9">
+			<jsp:include page="/WEB-INF/views/calendar.jsp" />
 			</div>
 		</div>
 	</div>
-
-<script type="text/javascript">
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
-        });
-        calendar.render();
-      });
-
-    </script>
 
 
 
