@@ -1,19 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
-			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-	</head>
-	<body>
-		
-		
-	</body>
+<head>
+<link href="<c:url value="/static/css/main.css"/>" rel='stylesheet' />
+<script type="text/javascript" src="<c:url value="/static/js/main.js"/>"></script>
+
+ 
+	<title>Home</title>
+	<script type="text/javascript">
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
+
+    </script>
+	
+</head>
+<body>
+<h1>
+	calendar is not found 
+</h1>
+ <div id='calendar'></div>
+<P>  The time on the server is ${serverTime}. </P>
+</body>
 </html>
-
-
