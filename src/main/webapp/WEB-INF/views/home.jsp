@@ -5,15 +5,10 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-
-</head>
-
 <jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
 
 <body>
 	<jsp:include page="/WEB-INF/views/include/header.jsp" />
-
 	<div class="container-fluid">
 		<div class="row">
 			<div class="row-lg-3">
