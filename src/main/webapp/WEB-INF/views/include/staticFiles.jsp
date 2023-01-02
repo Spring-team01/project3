@@ -25,7 +25,7 @@
 </head>
 
 <!-- calendar -->
-<link href="<c:url value="/static/css/main.css"/>" rel='stylesheet' />
-<script type="text/javascript" src="<c:url value="/static/js/main.js"/>"></script>
+<link href="<c:url value="/static/css/calendar.css"/>" rel='stylesheet' />
+<script type="text/javascript" src="<c:url value="/static/js/calendar.js"/>"></script>
 
 </head>
