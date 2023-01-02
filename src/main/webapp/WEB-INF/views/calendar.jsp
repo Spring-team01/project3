@@ -38,7 +38,7 @@
       
     </script>
 	<style>
-	body {
+	.calendar {
     margin: 40px 10px;
     padding: 0;
     font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
@@ -53,7 +53,7 @@
 </head>
 <body>
 
- <div id='calendar'></div>
+ <div id='calendar' class='calendar'></div>
 <P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>

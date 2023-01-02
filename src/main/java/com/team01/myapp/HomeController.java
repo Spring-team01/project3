@@ -36,9 +36,9 @@ public class HomeController {
 		return "mainsidebar";
 	}
 	
-	@RequestMapping("/calendar")
+	@RequestMapping("/home")
 	public String calendar() {
-		return "calendar";
+		return "home";
 	}
 	
 	
