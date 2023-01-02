@@ -1,10 +1,11 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setBundle basename="i18n/header"/>
+<!DOCTYPE html>
 <html>
-<head>
-	<title>Home</title>
-</head>
-<body>
+	<jsp:include page="/WEB-INF/views/include/staticFiles.jsp"/>
+	<body>
+	<jsp:include page="/WEB-INF/views/include/header.jsp"/>
 <h1>
 	Hello world!  
 </h1>
