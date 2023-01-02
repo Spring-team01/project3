@@ -21,7 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<view-controller path="/" view-name="home"/>
+	<view-controller path="/" view-name="main"/>
 	
 	<resources mapping="/static/js/**" location="/WEB-INF/resources/js/" />
 	<resources mapping="/static/css/**" location="/WEB-INF/resources/css/" />
