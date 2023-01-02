@@ -5,10 +5,6 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-
-</head>
-
 <jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
 
 <body>
