@@ -6,6 +6,149 @@
 
 <!DOCTYPE html>
 <html>
+    <style>
+    	@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+		*{
+		  list-style: none;
+		  text-decoration: none;
+		  margin: 0;
+		  padding: 0;
+		  box-sizing: border-box;
+		  font-family: 'Open Sans', sans-serif;
+		}
+		
+		.main{
+		  background: #f5f6fa;
+		}
+		
+		.wrapper .sidebar{
+		  background: #0f3443;
+		  position: fixed;
+		  top: 125px;
+		  left: 0;
+		  width: 225px;
+		  height: 100%;
+		  padding: 20px 0;
+		  transition: all 0.5s ease;
+		}
+		
+		.wrapper .profile{
+		  margin-bottom: 30px;
+		  text-align: center;
+		}
+		
+		.wrapper .profile img{
+		  display: block;
+		  width: 150px;
+		  height: 150px;
+		  border-radius: 50%;
+		  margin: 0 auto;
+		}
+		
+		.wrapper h1, h2{
+		  color: #ffffff;
+		  margin: 10px 0 5px;
+		}
+		
+		.wrapper p{
+		  color: rgb(206, 240, 253);
+		  font-size: 14px;
+		}
+		
+		.wrapper .sidebar ul li a{
+		  display: block;
+		  padding: 13px 30px;
+		  border-bottom: 1px solid #0f3443;
+		  color: rgb(241, 237, 237);
+		  font-size: 16px;
+		  position: relative;
+		}
+		
+		.wrapper .sidebar ul li a .icon{
+		  color: #dee4ec;
+		  width: 30px;
+		  display: inline-block;
+		}
+		
+		 
+		
+		.wrapper .sidebar ul li a:hover,
+		.wrapper .sidebar ul li a.active{
+		  color: #546041;
+		
+		  background:white;
+		    border-right: 2px solid rgb(5, 68, 104);
+		}
+		
+		.wrapper .sidebar ul li a:hover .icon,
+		.wrapper .sidebar ul li a.active .icon{
+		  color: #546041;
+		}
+		
+		.wrapper .sidebar ul li a:hover:before,
+		.wrapper .sidebar ul li a.active:before{
+		  display: block;
+		}
+		
+		.wrapper .section{
+		  width: calc(100% - 225px);
+		  margin-left: 225px;
+		  transition: all 0.5s ease;
+		}
+		
+		.wrapper .section .top_navbar{
+		  background: #0f3443;
+		  height: 50px;
+		  position: fixed;
+		  top:135px;
+		  border-bottom-right-radius:10px;
+		  align-items: center;
+		  padding: 0 20px;
+		
+		 
+		}
+		
+		.wrapper .section .top_navbar .hamburger a{
+		  font-size: 28px;
+		  color: #f4fbff;
+		}
+		
+		.wrapper .section .top_navbar .hamburger a:hover{
+		  color: #a2ecff;
+		}
+		
+		 .wrapper .section .container{
+		  margin: 30px;
+		  background: #fff;
+		  padding: 50px;
+		  margin-top:30px;
+		  line-height: 28px;
+		}
+		
+		.main.active .wrapper .sidebar{
+		  left: -225px;
+		}
+		
+		.main.active .wrapper .section{
+		  margin-left: 0;
+		  width: 100%;
+		}
+		.sidebar.active {
+		  width: 0;
+		  padding: 0;
+		}
+		.welcome {
+			height: 200px;
+			width:100%;
+			background: #0f3443;  /* fallback for old browsers */
+			background: -webkit-linear-gradient(to left, #34e89e,#0f3443);  /* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to left, #34e89e,#0f3443); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+			border-radius: 5px;
+			margin-top:120px;
+		}
+
+    </style>
 
 <jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
 <body>
@@ -45,150 +188,82 @@
 					</div>
 	    		</div>
 	        </div>
-        <div class="sidebar close">
-		    <div class="logo-details">
-		      <i class='bx bxl-c-plus-plus'></i>
-		      <span class="logo_name">CodingLab</span>
-		    </div>
-		    <ul class="nav-links">
-		      <li>
-		        <a href="#">
-		          <i class='bx bx-grid-alt' ></i>
-		          <span class="link_name">Dashboard</span>
-		        </a>
-		        <ul class="sub-menu blank">
-		          <li><a class="link_name" href="#">Category</a></li>
-		        </ul>
-		      </li>
-		      <li>
-		        <div class="iocn-link">
-		          <a href="#">
-		            <i class='bx bx-collection' ></i>
-		            <span class="link_name">Category</span>
-		          </a>
-		          <i class='bx bxs-chevron-down arrow' ></i>
-		        </div>
-		        <ul class="sub-menu">
-		          <li><a class="link_name" href="#">Category</a></li>
-		          <li><a href="#">HTML & CSS</a></li>
-		          <li><a href="#">JavaScript</a></li>
-		          <li><a href="#">PHP & MySQL</a></li>
-		        </ul>
-		      </li>
-		      <li>
-		        <div class="iocn-link">
-		          <a href="#">
-		            <i class='bx bx-book-alt' ></i>
-		            <span class="link_name">Posts</span>
-		          </a>
-		          <i class='bx bxs-chevron-down arrow' ></i>
-		        </div>
-		        <ul class="sub-menu">
-		          <li><a class="link_name" href="#">Posts</a></li>
-		          <li><a href="#">Web Design</a></li>
-		          <li><a href="#">Login Form</a></li>
-		          <li><a href="#">Card Design</a></li>
-		        </ul>
-		      </li>
-		      <li>
-		        <a href="#">
-		          <i class='bx bx-pie-chart-alt-2' ></i>
-		          <span class="link_name">Analytics</span>
-		        </a>
-		        <ul class="sub-menu blank">
-		          <li><a class="link_name" href="#">Analytics</a></li>
-		        </ul>
-		      </li>
-		      <li>
-		        <a href="#">
-		          <i class='bx bx-line-chart' ></i>
-		          <span class="link_name">Chart</span>
-		        </a>
-		        <ul class="sub-menu blank">
-		          <li><a class="link_name" href="#">Chart</a></li>
-		        </ul>
-		      </li>
-		      <li>
-		        <div class="iocn-link">
-		          <a href="#">
-		            <i class='bx bx-plug' ></i>
-		            <span class="link_name">Plugins</span>
-		          </a>
-		          <i class='bx bxs-chevron-down arrow' ></i>
-		        </div>
-		        <ul class="sub-menu">
-		          <li><a class="link_name" href="#">Plugins</a></li>
-		          <li><a href="#">UI Face</a></li>
-		          <li><a href="#">Pigments</a></li>
-		          <li><a href="#">Box Icons</a></li>
-		        </ul>
-		      </li>
-		      <li>
-		        <a href="#">
-		          <i class='bx bx-compass' ></i>
-		          <span class="link_name">Explore</span>
-		        </a>
-		        <ul class="sub-menu blank">
-		          <li><a class="link_name" href="#">Explore</a></li>
-		        </ul>
-		      </li>
-		      <li>
-		        <a href="#">
-		          <i class='bx bx-history'></i>
-		          <span class="link_name">History</span>
-		        </a>
-		        <ul class="sub-menu blank">
-		          <li><a class="link_name" href="#">History</a></li>
-		        </ul>
-		      </li>
-		      <li>
-		        <a href="#">
-		          <i class='bx bx-cog' ></i>
-		          <span class="link_name">Setting</span>
-		        </a>
-		        <ul class="sub-menu blank">
-		          <li><a class="link_name" href="#">Setting</a></li>
-		        </ul>
-		      </li>
-		      <li>
-		    <div class="profile-details">
-		      <div class="profile-content">
-		        <img src="image/profile.jpg" alt="profileImg">
-		      </div>
-		      <div class="name-job">
-		        <div class="profile_name">Prem Shahi</div>
-		        <div class="job">Web Desginer</div>
-		      </div>
-		      <i class='bx bx-log-out' ></i>
-		    </div>
-		  </li>
-		</ul>
-		  </div>
-		  <section class="home-section">
-		    <div class="home-content">
-		      <i class='bx bx-menu' ></i>
-		      <span class="text">Drop Down Sidebar</span>
-		    </div>
-		  </section>
-
+        <div class="sidebar">
+            
+            <ul>
+                <li>
+                    <a href="#" type="button" class="dropdown-btn">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">Home</span>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-container">
+                    	<a href="#">Link 1</a>
+					    <a href="#">Link 2</a>
+					    <a href="#">Link 3</a>
+                    </div>
+                </li>
+                <li>
+               		<a href="#" type="button" class="dropdown-btn">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">출결관리</span>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-container">
+                    	<a href="#">Link 1</a>
+					    <a href="#">Link 2</a>
+					    <a href="#">Link 3</a>
+                    </div>
+                </li>
+                <li>
+                	<a href="#" type="button" class="dropdown-btn">
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">강의게시판</span>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-container">
+                    	<a href="#">Link 1</a>
+					    <a href="#">Link 2</a>
+					    <a href="#">Link 3</a>
+                    </div>
+                </li>
+                <li>
+                	<a href="#" type="button" class="dropdown-btn">
+                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+                        <span class="item">커뮤니티</span>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-container">
+                    	<a href="#">Link 1</a>
+					    <a href="#">Link 2</a>
+					    <a href="#">Link 3</a>
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+        
     </div>
-   </div>
+    </div>
   <script>
-	  let arrow = document.querySelectorAll(".arrow");
-	  for (var i = 0; i < arrow.length; i++) {
-	    arrow[i].addEventListener("click", (e) => {
-	   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
-	   arrowParent.classList.toggle("showMenu");
-	    });
-	  }
+   var hamburger = document.querySelector(".hamburger");
+		hamburger.addEventListener("click", function(){
+		document.querySelector(".main").classList.toggle("active");
+	})
+	var dropdown = document.getElementsByClassName("dropdown-btn");
+	var i;
 	
-	  let sidebar = document.querySelector(".sidebar");
-	  let sidebarBtn = document.querySelector(".bx-menu");
-	  console.log(sidebarBtn);
-	  sidebarBtn.addEventListener("click", () => {
-	    sidebar.classList.toggle("close");
+	for (i = 0; i < dropdown.length; i++) {
+	  dropdown[i].addEventListener("click", function() {
+	    this.classList.toggle("active");
+	    var dropdownContent = this.nextElementSibling;
+	    if (dropdownContent.style.display === "block") {
+	      dropdownContent.style.display = "none";
+	    } else {
+	      dropdownContent.style.display = "block";
+	    }
 	  });
-
+	}
   </script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
