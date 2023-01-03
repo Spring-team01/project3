@@ -19,24 +19,26 @@
                     </a>
                 </div>
             </div>
+           
+            
             <div class="welcome d-flex align-items-center">
-     			<div class="profile p-2 m-5">
-                	<img src="https://1.bp.blogspot.com/-vhmWFWO2r8U/YLjr2A57toI/AAAAAAAACO4/0GBonlEZPmAiQW4uvkCTm5LvlJVd_-l_wCNcBGAsYHQ/s16000/team-1-2.jpg" alt="profile_picture">
+     			<div class="profile px-5 m-5" >
+                	<img src="<c:url value="/static/images/gg.jpeg"/>" alt="profile_picture">
                 </div>
                 <div class="p-2 m-4"id="userInfo">
                 	<h1>이연희 님 환영합니다.</h1>
                 	<p>경영학과 2학년 1학기 </p>
                 </div>
-                
-            	
      		</div>
+     		<div class="mainview d-flex">
+           	 welcome 필요없는 사람은 이거 살리고 Welcome은 지우기 
+            </div>
               <div class="container">
       				<div class="container-fluid">
 						<div class="row">
 							<div class="row-lg-3">
-							
+							각자 작성할 부분
 							</div>
-										
 							<div class="row-lg-9">
 							<jsp:include page="/WEB-INF/views/calendar.jsp" />
 							</div>
