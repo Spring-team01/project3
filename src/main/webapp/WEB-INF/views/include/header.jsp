@@ -3,8 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setBundle basename="i18n/header"/>
 
-<div class="container-fluid" id="header-bar">
-	<div class="row">
+<div class="header" id="header-bar">
+	<div class="row" >
 		<div class="col-1">
 			<div id="image-box">
 				<img id="image-content" src="<c:url value="/static/images/univlogo.png"/>"/>
@@ -36,7 +36,7 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div id="black-bar">
+	<div id="black-bar">
 		
+	</div>
 </div>

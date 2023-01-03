@@ -10,10 +10,12 @@
 <title>Insert title here</title>
 
 <!-- Favicon -->
-<%-- 
-    <link href="<c:url value='/favicon.png'/>" rel="icon" type="image/png">
-	<link rel="stylesheet" href="<c:url value='/css/default.css'/>">
-		 --%>
+	<link rel="icon" type="image/png" sizes="18x18"  href="../resources/images/univlogo.png">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="theme-color" content="#ffffff">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
@@ -22,9 +24,9 @@
 
 <!-- header css -->
 <link href="<c:url value="/static/css/header.css"/>" rel='stylesheet' />
+<link href="<c:url value="/static/css/footer.css"/>" rel='stylesheet'/>
 
 <!-- calendar -->
 <link href="<c:url value="/static/css/calendar.css"/>" rel='stylesheet' />
 <script type="text/javascript" src="<c:url value="/static/js/calendar.js"/>"></script>
 
-</head>
