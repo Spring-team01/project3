@@ -16,8 +16,15 @@
 	height : 100%;
 }
 
-#title {
-	margin-top : 30px;
+#name-box {
+	width : 300px;
+	height : 100px;
+	overflow : hidden;
+}
+
+#name-content {
+	width : 100%;
+	height : 100%;
 }
 
 #button-box {
