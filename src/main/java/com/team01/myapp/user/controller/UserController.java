@@ -1,5 +1,9 @@
 package com.team01.myapp.user.controller;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -53,4 +57,10 @@ public class UserController {
 		session.invalidate();	
 		return "user/login";
 	}
+	
+	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		
+		return "home";
+	}	
 }
