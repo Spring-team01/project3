@@ -23,7 +23,6 @@ public class UserController {
 	@RequestMapping(value="/user/login", method=RequestMethod.POST)
 	public String login(String userid, String password, HttpSession session, Model model) {
 		User user = userService.selectUser(userid);
-		System.out.println("컨트롤러");
 		if(user != null) {
 			String dbPassword = user.getPassword();
 				if(dbPassword == null) {
