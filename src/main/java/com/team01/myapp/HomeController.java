@@ -33,15 +33,6 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "user/login";
-	}
-	
-	@RequestMapping("/home")
-	public String calendar() {
-		return "home";
-	}
-	
-	
-	
-	
+	}	
 	
 }
