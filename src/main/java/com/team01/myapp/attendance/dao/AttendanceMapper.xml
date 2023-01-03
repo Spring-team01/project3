@@ -18,13 +18,25 @@
 		]]>
 	</select>
 	
+	<select id="selectAtterdanceCheck" parameterType="map" resultType="int">
+		<![CDATA[
+			SELECT
+				count(att_no)
+			FROM attendance
+			WHERE TO_CHAR(att_date, 'YYYYMMDD') = #{attDate}
+			AND u_id = #{uId}
+		]]>
+	</select>
+	
 	<insert id="insertAttendance" parameterType="com.team01.myapp.attendance.model.Attendance">
 		<![CDATA[
 			INSERT INTO
 			attendance
 				(att_no, att_date, att_time, leave_time, status, u_id, subject_id)
-			VALUE
-				(seq_att_no.NEXTVAL, sysdate, #{attTime}, null, #{status}, #{uId}, #{subjectId})
+			VALUES
+				(seq_att_no.NEXTVAL, sysdate, sysdate, null, #{status}, #{uId}, #{subjectId})
 		]]>
 	</insert>
+	
+	
 </mapper>

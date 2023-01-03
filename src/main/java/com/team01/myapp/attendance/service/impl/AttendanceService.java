@@ -19,5 +19,15 @@ public class AttendanceService implements IAttendanceService {
 	public List<Attendance> selectAttendanceList() {
 		return AttendanceRepository.selectAttendanceList();
 	}
+	
+	@Override
+	public void insertAttendance(Attendance attendance) {
+		AttendanceRepository.insertAttendance(attendance);
+	}
+	
+	@Override
+	public int selectAtterdanceCheck(String attDate, String uId) {
+		return AttendanceRepository.selectAtterdanceCheck(attDate, uId);
+	}
 
 }
