@@ -19,7 +19,7 @@
                     </a>
                 </div>
             </div>
-            <div class="welcome d-flex align-items-center">
+            <div class="welcome1 d-flex align-items-center">
      			<div class="profile p-2 m-5">
                 	<img src="https://1.bp.blogspot.com/-vhmWFWO2r8U/YLjr2A57toI/AAAAAAAACO4/0GBonlEZPmAiQW4uvkCTm5LvlJVd_-l_wCNcBGAsYHQ/s16000/team-1-2.jpg" alt="profile_picture">
                 </div>
@@ -48,27 +48,7 @@
  <jsp:include page="/WEB-INF/views/include/adminsidebar.jsp" />       
     </div>
     </div>
-  <script>
-   var hamburger = document.querySelector(".hamburger");
-		hamburger.addEventListener("click", function(){
-		document.querySelector(".main").classList.toggle("active");
-	})
-	
-	var dropdown = document.getElementsByClassName("dropdown-btn");
-	var i;
-	
-	for (i = 0; i < dropdown.length; i++) {
-	  dropdown[i].addEventListener("click", function() {
-	    
-	    var dropdownContent = this.nextElementSibling;
-	    if (dropdownContent.style.display === "block") {
-	      dropdownContent.style.display = "none";
-	    } else {
-	      dropdownContent.style.display = "block";
-	    }
-	  });
-	}
-  </script>
+  
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>
