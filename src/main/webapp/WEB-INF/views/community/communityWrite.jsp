@@ -18,13 +18,14 @@
 <link href="<c:url value="/static/css/communityDetail.css"/>" rel='stylesheet' />
 
 <body>
-	<jsp:include page="/WEB-INF/views/include/header.jsp" />
 	<!-- Page content-->
 	<div class="container mt-5">
 		<div class="row">
 			<div class="col-lg">
-				<!-- Post header-->
-				<section class="mb-5">
+				
+				<!-- Post content-->
+				<article>
+					<section class="mb-5">
 					<!-- 게시글 카테고리 -->
 					<div class="container">
 						<div class="row">
@@ -39,14 +40,13 @@
 							<!-- 게시글 제목 입력 -->
 							<div class="col-10">
 								<div class="input-group-prepend">
-									<textarea class="form-control" rows="2" placeholder="게시글 제목"></textarea>
+									<textarea class="form-control" rows="5" placeholder="게시글 제목"></textarea>
 								</div>
 							</div>
 						</div>
 					</div>
 				</section>
-				<!-- Post content-->
-				<article>
+				
 					<!-- Post content-->
 					<section class="mb-5">
 						<textarea class="form-control" rows="15" placeholder="게시글 입력"></textarea>
@@ -63,8 +63,8 @@
 					</div>
 				</article>
 				
-				<button id="write" class="btn btn-sm btn-dark">작성</button>
-				<button id="back" class="btn btn-sm btn-dark">취소</button>
+				<button id="write" class="btn btn-sm btn-dark" type="submit" formmethod="post">작성</button>
+				<button id="back" class="btn btn-sm btn-dark" type="submit" formmethod="post">취소</button>
 				
 
 			</div>

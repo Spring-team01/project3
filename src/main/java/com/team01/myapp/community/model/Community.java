@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.ToString;
 @Data
 @ToString(exclude="file")
-public class community {
+public class Community {
 	private int communityBoardId;
 	private int communityCategoryId;
 	private String communityEmail;
@@ -23,9 +23,6 @@ public class community {
 	private String communityFileName;
 	private String communityFileSize;
 	private String communityContentType;
-	
-	
-	
 	
 	
 }
