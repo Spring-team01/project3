@@ -6,24 +6,6 @@
 
 <!DOCTYPE html>
 <html>
-
-<jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
-
-<body>
-	<jsp:include page="/WEB-INF/views/include/header.jsp" />
-	<div class="container-fluid">
-		<div class="row">
-			<div class="row-lg-3">
-			
-			</div>
-						
-			<div class="row-lg-9">
-			<jsp:include page="/WEB-INF/views/calendar.jsp" />
-			</div>
-		</div>
-	</div>
-
-
     <style>
     	@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
