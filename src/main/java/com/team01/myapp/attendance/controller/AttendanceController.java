@@ -33,7 +33,7 @@ public class AttendanceController {
 		return "attendance/list";
 	}
 	
-	@RequestMapping("/attendance/list")
+	@RequestMapping("/attendance")
 	public String checkAttendance(Attendance attendance, HttpSession session, Model model) {
 		Date date = new Date();
 		
@@ -48,7 +48,7 @@ public class AttendanceController {
 		int choice = AttendanceService.selectAtterdanceCheck(attDate, uId);
 		if(choice == 1) {
 			model.addAttribute("message", "이미 출근을 누르셨습니다.");
-			return "attendance/list";
+			return "/home";
 		} else {
 			
 			// 현재 시간 생성
@@ -61,12 +61,15 @@ public class AttendanceController {
 				attendance.setStatus("출근");
 			} else if (time < 8) {
 				// 8시 전에 출근을 눌렀을 때
-				
+				model.addAttribute("message", "아직 출근 시간 전입니다. 8시 이후에 눌러주세요.");
+				return "/home";
 			} else if(8 < time && time < 18) {
 				// 18시 이후에 출근을 눌렀을 때
 				attendance.setStatus("지각");
 			} else {
 				// 18시 24시까지 시간을 눌렀을 때
+				model.addAttribute("message", "너무 늦은 시간에 누르셨습니다. ㅠㅠ");
+				return "/home";
 			}
 			
 			// attendance subjectId 담기
@@ -75,7 +78,7 @@ public class AttendanceController {
 			
 			AttendanceService.insertAttendance(attendance);
 			
-			return "attendance/list";
+			return "/home";
 		}
 	}
 	

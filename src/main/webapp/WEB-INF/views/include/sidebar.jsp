@@ -3,9 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-
-<!DOCTYPE html>
-
 <div class="sidebar">
             <ul>
                 <li>
@@ -27,9 +24,8 @@
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <div class="dropdown-container">
-                    	<a href="#">Link 1</a>
-					    <a href="#">Link 2</a>
-					    <a href="#">Link 3</a>
+                    	<a href="#">출결 확인</a>
+					    <a href="#">공결 관리</a>
                     </div>
                 </li>
                 <li>

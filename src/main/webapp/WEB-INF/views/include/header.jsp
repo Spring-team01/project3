@@ -49,7 +49,7 @@
 		</div>
 		<div class="col-5" id="button-box">
 			<div class="button-sub-box">
-				<form action="<c:url value='/attendance/list'/>" method="post" enctype="multipart/form-data">
+				<form action="<c:url value='/attendance'/>" method="post" enctype="multipart/form-data">
 					<button class="btn btn-lg btn-dark mt-4">
 						출근
 					</button>
@@ -61,7 +61,7 @@
 				</a>
 			</div>
 			<div class="button-sub-box">
-				<form action="<c:url value='/leave/list'/>" method="post" enctype="multipart/form-data">
+				<form action="<c:url value='/leave'/>" method="post" enctype="multipart/form-data">
 					<button class="btn btn-lg btn-dark mt-4">
 						퇴근
 					</button>
