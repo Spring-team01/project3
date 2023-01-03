@@ -30,7 +30,6 @@
 	<resources location="/WEB-INF/resources/js/" mapping="/js/**"/>
 	<resources location="/WEB-INF/resources/css/" mapping="/css/**"/>
 	<resources location="/WEB-INF/resources/images/" mapping="/images/**"/>
-	<resources location="/WEB-INF/resources/font-awesome/" mapping="/font-awesome/**"/>
 	<resources location="/WEB-INF/resources/fonts/" mapping="/fonts/**"/>
 	<resources location="/WEB-INF/resources/scss/" mapping="/scss/**"/>
 	<resources location="/WEB-INF/resources/vendor/" mapping="/vendor/**"/>
