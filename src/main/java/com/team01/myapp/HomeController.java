@@ -33,7 +33,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "loginform";
+		return "user/login";
 	}
 	
 	@RequestMapping("/home")

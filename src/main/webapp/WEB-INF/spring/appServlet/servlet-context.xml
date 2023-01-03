@@ -21,18 +21,18 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<view-controller path="/" view-name="loginform"/>
+	<view-controller path="/" view-name="/user/login"/>
 	
 	<resources mapping="/static/js/**" location="/WEB-INF/resources/js/" />
 	<resources mapping="/static/css/**" location="/WEB-INF/resources/css/" />
 
 	<resources mapping="/static/images/**" location="/WEB-INF/resources/images/" />
 
-	<resources   location="/WEB-INF/resources/js/" mapping="/js/**"/>
-	<resources   location="/WEB-INF/resources/css/" mapping="/css/**"/>
-	<resources   location="/WEB-INF/resources/images/" mapping="/images/**"/>
-	<resources   location="/WEB-INF/resources/font-awesome/" mapping="/font-awesome/**"/>
-	<resources   location="/WEB-INF/resources/assets/" mapping="/assets/**"/>
+	<resources location="/WEB-INF/resources/js/" mapping="/js/**"/>
+	<resources location="/WEB-INF/resources/css/" mapping="/css/**"/>
+	<resources location="/WEB-INF/resources/images/" mapping="/images/**"/>
+	<resources location="/WEB-INF/resources/font-awesome/" mapping="/font-awesome/**"/>
+	<resources location="/WEB-INF/resources/assets/" mapping="/assets/**"/>
     
 	<context:component-scan base-package="com.team01.myapp" />
 	
