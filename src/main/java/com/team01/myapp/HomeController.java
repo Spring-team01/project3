@@ -42,4 +42,12 @@ public class HomeController {
 	}
 	
 	
+	
+	
+	@RequestMapping("communityList")
+	public String communityDetail() {
+		return "community/communityList";
+	}
+	
+	
 }
