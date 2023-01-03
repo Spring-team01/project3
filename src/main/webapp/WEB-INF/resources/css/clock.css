@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.date {
+	font-size : 30px;
+	color : green;
+	text-align : center;
+}
+
+.time {
+	font-size : 30px;
+	font-weight : bold;
+	color : green;
+	text-align : center;
+}
