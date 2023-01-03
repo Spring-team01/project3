@@ -47,13 +47,18 @@ public class CommunityController {
 							RedirectAttributes redirectAttrs, HttpSession session) {
 		try {
 		community.setUsersId((String)session.getAttribute("uId"));
-		community.setCommunityTitle(Jsoup.clean(community.getCommunityTitle(), Whitelist.basic()));
+		community.setCommunityEmail((String)session.getAttribute("email"));
+		//카테고리 아이디 임시로 1
+		community.setCommunityCategoryId(1);
+		
+		communityService.writeCommunity(community);
+		
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 			redirectAttrs.addFlashAttribute("message", e.getMessage());
 		}
-		return "redirect:/community/" + community.getCommunityBoardId();
+		return "redirect:/community/write/1";
 	}
 	
 	

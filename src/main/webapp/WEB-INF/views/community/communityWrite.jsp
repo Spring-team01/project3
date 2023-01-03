@@ -14,12 +14,12 @@
 			<div class="col-lg">
 				
 				<!-- Post content-->
-				<article>
+				<form action="<c:url value='/community/write/'/>" method="post">
 					<section class="mb-5">
 					<!-- 게시글 카테고리 -->
 					<div class="container">
 						<div class="row">
-							<div class="col-2">
+							<div class="col-1">
 								<select class="custom-select custom-select">
 									<option selected>카테고리</option>
 									<option value="1">공지사항</option>
@@ -28,18 +28,31 @@
 								</select>
 							</div>
 							<!-- 게시글 제목 입력 -->
-							<div class="col-10">
+							<div class="col-8">
 								<div class="input-group-prepend">
-									<textarea class="form-control" rows="5" placeholder="게시글 제목"></textarea>
+									<textarea class="form-control" rows="3" 
+									id="communityTitle" name="communityTitle"
+									placeholder="게시글 제목"></textarea>
 								</div>
 							</div>
+							<!-- 패스워드 입력 -->
+							<div class="col-8">
+								<div class="input-group-prepend">
+									<textarea class="form-control" rows="3" 
+									id="communityPassword" name="communityPassword"
+									placeholder="게시글 비밀번호"></textarea>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 				</section>
 				
 					<!-- Post content-->
 					<section class="mb-5">
-						<textarea class="form-control" rows="15" placeholder="게시글 입력"></textarea>
+						<textarea class="form-control" rows="15" 
+						id="communityContent" name="communityContent"
+						placeholder="게시글 입력"></textarea>
 					</section>
 
 					<!-- file input -->
@@ -51,10 +64,9 @@
 							<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"> <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
 						</div>
 					</div>
-				</article>
-				
-				<button id="write" class="btn btn-sm btn-dark" type="submit" formmethod="post">작성</button>
-				<button id="back" class="btn btn-sm btn-dark" type="submit" formmethod="post">취소</button>
+				<button id="write" class="btn btn-sm btn-dark" type="submit" >작성</button>
+				<button id="back" class="btn btn-sm btn-dark"  >취소</button>
+				</form>
 				
 
 			</div>
