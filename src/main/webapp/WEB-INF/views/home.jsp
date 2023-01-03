@@ -101,8 +101,8 @@
 		  background: #0f3443;
 		  height: 50px;
 		  position: fixed;
-		  top:125px;
-		  
+		  top:135px;
+		  border-bottom-right-radius:10px;
 		  align-items: center;
 		  padding: 0 20px;
 		
@@ -149,6 +149,7 @@
 		}
 
     </style>
+
 <jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
 <body>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
@@ -158,7 +159,7 @@
             <div class="top_navbar">
                 <div class="hamburger">
                     <a href="#">
-                        <i class="fas fa-bars"></i>
+                        <i class="fa-solid fa-bars"></i>
                     </a>
                 </div>
             </div>

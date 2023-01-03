@@ -21,10 +21,6 @@
 }
 
 
-#title {
-	margin-top : 20px;
-}
-
 #button-box {
 	display: flex;
 	justify-content : right;
