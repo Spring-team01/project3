@@ -45,10 +45,14 @@ public class CommunityController {
 	@RequestMapping(value="/community/write/", method=RequestMethod.POST)
 	public String writeCommunity(Community community, BindingResult result, 
 							RedirectAttributes redirectAttrs, HttpSession session) {
+		try {
 		community.setUsersId((String)session.getAttribute("uId"));
 		community.setCommunityTitle(Jsoup.clean(community.getCommunityTitle(), Whitelist.basic()));
 		
-		
+		} catch (Exception e) {
+			e.printStackTrace();
+			redirectAttrs.addFlashAttribute("message", e.getMessage());
+		}
 		return "redirect:/community/" + community.getCommunityBoardId();
 	}
 	

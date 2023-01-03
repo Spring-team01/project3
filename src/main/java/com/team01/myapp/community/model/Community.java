@@ -24,5 +24,6 @@ public class Community {
 	private String communityFileSize;
 	private String communityContentType;
 	
-	
+	private String communityContent;
+	private int communityMasterId;
 }

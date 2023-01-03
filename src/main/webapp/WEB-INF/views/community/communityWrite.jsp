@@ -5,16 +5,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<title>공지사항 게시글 작성</title>
-<!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<!-- Core theme CSS (includes Bootstrap)-->
-
-</head>
 <link href="<c:url value="/static/css/communityDetail.css"/>" rel='stylesheet' />
 
 <body>
