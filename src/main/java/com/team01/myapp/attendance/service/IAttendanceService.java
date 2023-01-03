@@ -6,4 +6,6 @@ import com.team01.myapp.attendance.model.Attendance;
 
 public interface IAttendanceService {
 	List<Attendance> selectAttendanceList();
+	void insertAttendance(Attendance attendance);
+	int selectAtterdanceCheck(String attDate, String uId);
 }

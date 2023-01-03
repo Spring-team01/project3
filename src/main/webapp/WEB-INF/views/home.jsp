@@ -9,6 +9,8 @@
 <jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
 <body>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
+
+
 <div class="main">
     <div class="wrapper">
         <div class="section">
@@ -50,27 +52,6 @@
  <jsp:include page="/WEB-INF/views/include/sidebar.jsp" />       
     </div>
     </div>
-  <script>
-   var hamburger = document.querySelector(".hamburger");
-		hamburger.addEventListener("click", function(){
-		document.querySelector(".main").classList.toggle("active");
-	})
-	
-	var dropdown = document.getElementsByClassName("dropdown-btn");
-	var i;
-	
-	for (i = 0; i < dropdown.length; i++) {
-	  dropdown[i].addEventListener("click", function() {
-	    
-	    var dropdownContent = this.nextElementSibling;
-	    if (dropdownContent.style.display === "block") {
-	      dropdownContent.style.display = "none";
-	    } else {
-	      dropdownContent.style.display = "block";
-	    }
-	  });
-	}
-  </script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>
