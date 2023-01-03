@@ -45,7 +45,13 @@ public class UserController {
 					session.setAttribute("password", user.getPassword());
 					session.setAttribute("email", user.getEmail());
 					session.setAttribute("subjectId", user.getSubjectId());
-					return "redirect:/home";
+					
+					if(user.getuType().equals("USER")) {
+						return "redirect:/home";
+					}else {
+						return "admin/adminhome";
+					}
+					
 				}else {
 					//비밀번호 불일치
 					model.addAttribute("message", "WRONG_PASSWORD");
