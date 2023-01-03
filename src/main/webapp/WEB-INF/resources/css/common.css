@@ -1,0 +1,88 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+		*{
+		  list-style: none;
+		  text-decoration: none;
+		  margin: 0;
+		  padding: 0;
+		  box-sizing: border-box;
+		  font-family: 'Open Sans', sans-serif;
+		}
+		
+		.main{
+		  background: #f5f6fa;
+		  
+		}
+		<!--sidebar-->
+		.dropdown-btn {
+		  padding: 6px 8px 6px 16px;
+		  text-decoration: none;
+		  font-size: 20px;
+		  color: #818181;
+		  display: block;`
+		  border: none;
+		  background: none;
+		  width:100%;
+		  text-align: left;
+		  cursor: pointer;
+		  outline: none;
+		}
+		.dropdown-btn:hover {
+		  color: #f1f1f1;
+		}
+		.dropdown-container {
+		  display: none;
+		  background-color: black;
+		  padding-left: 8px;
+		}
+		
+		/* Optional: Style the caret down icon */
+		.fa-caret-down {
+		  float: right;
+		  padding-right: 8px;
+		}
+		
+		
+		<!------->
+		.wrapper .profile{
+		  margin-bottom: 30px;
+		  text-align: center;
+		}
+		
+		.wrapper .profile img{
+		  display: block;
+		  width: 150px;
+		  height: 150px;
+		  border-radius: 50%;
+		  margin: 0 auto;
+		}
+		
+		.wrapper h1, h2{
+		  color: #ffffff;
+		  margin: 10px 0 5px;
+		}
+		
+		.wrapper p{
+		  color: rgb(206, 240, 253);
+		  font-size: 14px;
+		}
+		
+		 
+		 .wrapper .section .container{
+		  margin: 30px;
+		  background: #fff;
+		  padding: 50px;
+		  margin-top:30px;
+		  line-height: 28px;
+		}
+		
+		.welcome {
+			height: 200px;
+			width:100%;
+			background: #0f3443;  /* fallback for old browsers */
+			background: -webkit-linear-gradient(to left, #34e89e,#0f3443);  /* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to left, #34e89e,#0f3443); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+			border-radius: 5px;
+			margin-top:120px;
+		}

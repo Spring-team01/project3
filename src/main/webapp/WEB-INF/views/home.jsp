@@ -192,28 +192,52 @@
             
             <ul>
                 <li>
-                    <a href="#" >
+                    <a href="#" type="button" class="dropdown-btn">
                         <span class="icon"><i class="fas fa-home"></i></span>
                         <span class="item">Home</span>
+                        <i class="fa fa-caret-down"></i>
                     </a>
+                    <div class="dropdown-container">
+                    	<a href="#">Link 1</a>
+					    <a href="#">Link 2</a>
+					    <a href="#">Link 3</a>
+                    </div>
                 </li>
                 <li>
-                    <a href="#">
+               		<a href="#" type="button" class="dropdown-btn">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">My Info</span>
+                        <span class="item">출결관리</span>
+                        <i class="fa fa-caret-down"></i>
                     </a>
+                    <div class="dropdown-container">
+                    	<a href="#">Link 1</a>
+					    <a href="#">Link 2</a>
+					    <a href="#">Link 3</a>
+                    </div>
                 </li>
                 <li>
-                    <a href="#">
+                	<a href="#" type="button" class="dropdown-btn">
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
-                        <span class="item">강의 게시판</span>
+                        <span class="item">강의게시판</span>
+                        <i class="fa fa-caret-down"></i>
                     </a>
+                    <div class="dropdown-container">
+                    	<a href="#">Link 1</a>
+					    <a href="#">Link 2</a>
+					    <a href="#">Link 3</a>
+                    </div>
                 </li>
                 <li>
-                    <a href="#">
+                	<a href="#" type="button" class="dropdown-btn">
                         <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
                         <span class="item">커뮤니티</span>
+                        <i class="fa fa-caret-down"></i>
                     </a>
+                    <div class="dropdown-container">
+                    	<a href="#">Link 1</a>
+					    <a href="#">Link 2</a>
+					    <a href="#">Link 3</a>
+                    </div>
                 </li>
                 
             </ul>
@@ -222,10 +246,24 @@
     </div>
     </div>
   <script>
-       var hamburger = document.querySelector(".hamburger");
+   var hamburger = document.querySelector(".hamburger");
 		hamburger.addEventListener("click", function(){
 		document.querySelector(".main").classList.toggle("active");
 	})
+	var dropdown = document.getElementsByClassName("dropdown-btn");
+	var i;
+	
+	for (i = 0; i < dropdown.length; i++) {
+	  dropdown[i].addEventListener("click", function() {
+	    this.classList.toggle("active");
+	    var dropdownContent = this.nextElementSibling;
+	    if (dropdownContent.style.display === "block") {
+	      dropdownContent.style.display = "none";
+	    } else {
+	      dropdownContent.style.display = "block";
+	    }
+	  });
+	}
   </script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
