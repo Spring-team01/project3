@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,7 @@ public class CommunityController {
 	public String writeCommunity(Community community, BindingResult result, 
 							RedirectAttributes redirectAttrs, HttpSession session) {
 		community.setUsersId((String)session.getAttribute("uId"));
+		community.setCommunityTitle(Jsoup.clean(community.getCommunityTitle(), Whitelist.basic()));
 		
 		
 		return "redirect:/community/" + community.getCommunityBoardId();
