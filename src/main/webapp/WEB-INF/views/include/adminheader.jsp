@@ -3,34 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setBundle basename="i18n/header"/>
 
-<script type="text/javascript">
-	var message = "<c:out value='${message}'/>";
-	if(message) {
-		$(window).on('load',function(){
-			$('#modal').modal('show');
-		});
-	}
-</script>
-
-<div id="modal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" style="color: #000;">Error message</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>${message}</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="header" id="header-bar">
 	<div class="row" >
 		<div class="col-1">
@@ -49,7 +21,7 @@
 		</div>
 		<div class="col-5" id="button-box">
 			<div class="button-sub-box">
-				<form action="<c:url value='/attendance'/>" method="post" enctype="multipart/form-data">
+				<form action="<c:url value='/attendance/list'/>" method="post" enctype="multipart/form-data">
 					<button class="btn btn-lg btn-dark mt-4">
 						출근
 					</button>
@@ -61,7 +33,7 @@
 				</a>
 			</div>
 			<div class="button-sub-box">
-				<form action="<c:url value='/leave'/>" method="post" enctype="multipart/form-data">
+				<form action="<c:url value='/leave/list'/>" method="post" enctype="multipart/form-data">
 					<button class="btn btn-lg btn-dark mt-4">
 						퇴근
 					</button>
