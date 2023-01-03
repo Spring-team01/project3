@@ -9,19 +9,13 @@
 
 <body>
 	<jsp:include page="/WEB-INF/views/include/header.jsp" />
+
 	<div class="container-fluid">
-		<div class="row">
-			<div class="row-lg-3">
-			
-			</div>
-						
-			<div class="row-lg-9">
-			<jsp:include page="/WEB-INF/views/calendar.jsp" />
-			</div>
-		</div>
+		<c:forEach var="attendance" items="${attendanceList}">
+			<tr>
+				<td>${attendance.attNo}</td>
+			</tr>
+		</c:forEach>
 	</div>
-
-
-
 </body>
 </html>

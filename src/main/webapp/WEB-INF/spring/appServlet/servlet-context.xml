@@ -35,7 +35,7 @@
 	<resources location="/WEB-INF/resources/assets/" mapping="/assets/**"/>
     
 	<context:component-scan base-package="com.team01.myapp" />
-	
+
 	<beans:bean   id="multipartResolver"   
    	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
       <beans:property   name="maxUploadSize">
@@ -43,6 +43,7 @@
       </beans:property>
    	</beans:bean>
    
+   <context:component-scan base-package="com.team01.myapp.attendance.controller"></context:component-scan>
    
 	
 	

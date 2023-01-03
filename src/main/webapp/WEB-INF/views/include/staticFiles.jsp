@@ -22,6 +22,12 @@
 
 <!-- header css -->
 <link href="<c:url value="/static/css/header.css"/>" rel='stylesheet' />
+</head>
+
+
+<!-- Clock css -->
+<link href="<c:url value="/static/css/clock.css"/>" rel='stylesheet' />
+<script type="text/javascript" src="<c:url value="/static/js/clock.js"/>"></script>
 
 <!-- calendar -->
 <link href="<c:url value="/static/css/calendar.css"/>" rel='stylesheet' />
