@@ -18,7 +18,6 @@
 <link href="<c:url value="/static/css/communityDetail.css"/>" rel='stylesheet' />
 
 <body>
-	<jsp:include page="/WEB-INF/views/include/header.jsp" />
 	<!-- Page content-->
 	<div class="container mt-5">
 		<div class="row">
@@ -64,8 +63,8 @@
 					</div>
 				</article>
 				
-				<button id="write" class="btn btn-sm btn-dark">작성</button>
-				<button id="back" class="btn btn-sm btn-dark">취소</button>
+				<button id="write" class="btn btn-sm btn-dark" type="submit" formmethod="post">작성</button>
+				<button id="back" class="btn btn-sm btn-dark" type="submit" formmethod="post">취소</button>
 				
 
 			</div>

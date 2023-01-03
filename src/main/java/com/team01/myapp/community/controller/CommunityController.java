@@ -2,14 +2,18 @@ package com.team01.myapp.community.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team01.myapp.community.dao.ICommunityRepository;
 import com.team01.myapp.community.model.Community;
@@ -24,6 +28,7 @@ public class CommunityController {
 	ICommunityRepository communityRepository;
 	
 	
+	
 // 게시글 조회 (GET)
 	@RequestMapping(value="/community/write/{communityCategoryId}", method=RequestMethod.GET)
 	public String writeCommunity(@PathVariable int communityCategoryId, Model model) {
@@ -35,6 +40,14 @@ public class CommunityController {
 	}
 	
 	
+	@RequestMapping(value="/community/write/", method=RequestMethod.POST)
+	public String writeCommunity(Community community, BindingResult result, 
+							RedirectAttributes redirectAttrs, HttpSession session) {
+		community.setUsersId((String)session.getAttribute("uId"));
+		
+		
+		return "redirect:/community/" + community.getCommunityBoardId();
+	}
 	
 	
 	
