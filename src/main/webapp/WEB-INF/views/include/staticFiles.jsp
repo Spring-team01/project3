@@ -26,6 +26,9 @@
 <!-- header css -->
 <link href="<c:url value="/static/css/header.css"/>" rel='stylesheet' />
 
+<!-- sidebar+navbar css -->
+<link href="<c:url value="/static/css/common.css"/>" rel='stylesheet' />
+
 <!-- footer css -->
 <link href="<c:url value="/static/css/footer.css"/>" rel='stylesheet'/>
 
