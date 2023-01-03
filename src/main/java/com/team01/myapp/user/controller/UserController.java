@@ -1,5 +1,9 @@
 package com.team01.myapp.user.controller;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -41,7 +45,7 @@ public class UserController {
 					session.setAttribute("password", user.getPassword());
 					session.setAttribute("email", user.getEmail());
 					session.setAttribute("subjectId", user.getSubjectId());
-					return "home";
+					return "redirect:/home";
 				}else {
 					//비밀번호 불일치
 					model.addAttribute("message", "WRONG_PASSWORD");
@@ -53,4 +57,10 @@ public class UserController {
 		session.invalidate();	
 		return "user/login";
 	}
+	
+	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		
+		return "home";
+	}	
 }
