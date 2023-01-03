@@ -22,6 +22,8 @@
 
 <!-- header css -->
 <link href="<c:url value="/static/css/header.css"/>" rel='stylesheet' />
+</head>
+
 
 <!-- Clock css -->
 <link href="<c:url value="/static/css/clock.css"/>" rel='stylesheet' />
