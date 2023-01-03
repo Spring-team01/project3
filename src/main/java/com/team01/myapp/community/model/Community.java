@@ -25,7 +25,4 @@ public class Community {
 	private String communityContentType;
 	
 	
-	
-	
-	
 }

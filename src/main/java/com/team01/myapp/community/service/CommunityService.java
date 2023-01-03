@@ -26,7 +26,7 @@ public class CommunityService implements ICommunityService {
 
 	@Override
 	public List<Community> getCommunityListByCategory() {
-		return null;
+		return communityRepository.getCommunityListByCategory();
 	}
 
 }
