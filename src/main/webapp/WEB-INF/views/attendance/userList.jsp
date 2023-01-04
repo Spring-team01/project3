@@ -14,17 +14,27 @@
 	document.addEventListener('DOMContentLoaded', function() {
 		var calendarEl = document.getElementById('calendar');
 		var calendar = new FullCalendar.Calendar(calendarEl, {
+			headerToolbar : {
+	            left : 'prev,next today',
+	            center : 'title',
+	            right : 'dayGridMonth,listWeek'
+	         },
 			initialView: 'dayGridMonth',
 			events: [
 				<c:forEach items = "${attendanceList}" var="list">
 					{
-						title : '${list.attTime} / ${list.status}',
+						title : '${list.attTime} [${list.status}]',
 						start : '${list.attDate}'
 					},
-					{
-						title : '${list.leaveTime}',
-						start : '${list.attDate}'
-					},
+					<c:if test="${list.leaveTime == null}">
+					
+					</c:if>
+					<c:if test="${list.leaveTime != null}">
+						{
+							title : '${list.leaveTime}',
+							start : '${list.attDate}'
+						},
+					</c:if>
 				</c:forEach>
 			]
 		});
