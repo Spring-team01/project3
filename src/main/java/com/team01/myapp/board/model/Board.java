@@ -3,7 +3,6 @@ package com.team01.myapp.board.model;
 import java.sql.Date;
 
 import lombok.Data;
-import lombok.ToString;
 
 @Data
 public class Board {
@@ -15,6 +14,6 @@ public class Board {
 	private String title;
 	private String content;
 	private Date writeDate;
-	private int masterId;
+	private int readCount;
 	private String uId;
 }

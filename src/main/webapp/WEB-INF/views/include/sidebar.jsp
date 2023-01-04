@@ -29,7 +29,7 @@
                     </div>
                 </li>
                 <li>
-                	<a href="<c:url value='/boardlist'/>" type="button" class="dropdown-btn" >
+                	<a href="<c:url value='/boardlist/1'/>" type="button" class="dropdown-btn" >
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">강의게시판</span>
                         <i class="fa fa-caret-down"></i>
