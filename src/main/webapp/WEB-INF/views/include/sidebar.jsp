@@ -48,8 +48,8 @@
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <div class="dropdown-container">
-                    	<a href="community/communityList/1">커뮤니티 게시판</a>
-					    <a href="community/write/1">글 작성</a>
+                    	<a href="<c:url value='/community/communityList/1/1'/>">커뮤니티 게시판</a>
+					    <a href="<c:url value='/community/write/1'/>">글 작성</a>
 					    <a href="community/write/3">Link 3</a>
                     </div>
                 </li>

@@ -49,6 +49,15 @@ public class Pager {
 		endRowNo = pageNo * rowsPerPage;
 		endRowIndex = endRowNo - 1; 
 	}
+
+	@Override
+	public String toString() {
+		return "Pager [totalRows=" + totalRows + ", totalPageNo=" + totalPageNo + ", totalGroupNo=" + totalGroupNo
+				+ ", startPageNo=" + startPageNo + ", endPageNo=" + endPageNo + ", pageNo=" + pageNo
+				+ ", pagesPerGroup=" + pagesPerGroup + ", groupNo=" + groupNo + ", rowsPerPage=" + rowsPerPage
+				+ ", startRowNo=" + startRowNo + ", startRowIndex=" + startRowIndex + ", endRowNo=" + endRowNo
+				+ ", endRowIndex=" + endRowIndex + "]";
+	}
 	
 	/*객체 생성
 	 * Pager pager = new Pager(10, 5, ?, ?) 

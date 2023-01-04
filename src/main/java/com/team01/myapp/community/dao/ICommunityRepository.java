@@ -2,6 +2,8 @@ package com.team01.myapp.community.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.team01.myapp.community.model.Community;
 import com.team01.myapp.community.model.CommunityFile;
 
@@ -12,6 +14,6 @@ public interface ICommunityRepository {
 	void writeCommunity(Community community);
 	void insertFileData(CommunityFile communityFile);
 	
-	List<Community> getCommunityListByCategory(int categoryId);
+	List<Community> getCommunityListByCategory(@Param("start") int start, @Param("end") int end);
 	
 }
