@@ -19,32 +19,6 @@
 			<div id="date" class="date"></div>
 			<div id="time" class="time"></div>
 		</div>
-		<div class="col-5" id="button-box">
-			<div class="button-sub-box">
-				<form action="<c:url value='/attendance/list'/>" method="post" enctype="multipart/form-data">
-					<button class="btn btn-lg btn-dark mt-4">
-						출근
-					</button>
-				</form>
-			</div>
-			<div class="time-sub-box">
-				<a class="time-text">
-					-- : -- : --
-				</a>
-			</div>
-			<div class="button-sub-box">
-				<form action="<c:url value='/leave/list'/>" method="post" enctype="multipart/form-data">
-					<button class="btn btn-lg btn-dark mt-4">
-						퇴근
-					</button>
-				</form>
-			</div>
-			<div class="time-sub-box">
-				<a class="time-text">
-					-- : -- : --
-				</a>
-			</div>
-		</div>
 	</div>
 	<div id="black-bar">
 		
