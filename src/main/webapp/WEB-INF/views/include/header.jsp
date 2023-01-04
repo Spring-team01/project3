@@ -56,9 +56,14 @@
 				</form>
 			</div>
 			<div class="time-sub-box">
-				<a class="time-text">
-					-- : -- : --
-				</a>
+				<p class="time-text">
+					<c:if test="${attTime == null}">
+						-- : -- : --
+					</c:if>
+					<c:if test="${attTime != null}">
+						${attTime}
+					</c:if>
+				</p>
 			</div>
 			<div class="button-sub-box">
 				<form action="<c:url value='/leave'/>" method="post" enctype="multipart/form-data">
@@ -68,9 +73,14 @@
 				</form>
 			</div>
 			<div class="time-sub-box">
-				<a class="time-text">
-					-- : -- : --
-				</a>
+				<p class="time-text">
+					<c:if test="${leaveTime == null}">
+						-- : -- : --
+					</c:if>
+					<c:if test="${leaveTime != null}">
+						${leaveTime}
+					</c:if>
+				</p>
 			</div>
 		</div>
 	</div>
