@@ -14,4 +14,6 @@ public interface IAttendanceRepository {
 	
 	String selectAttTime(@Param("today") String today, @Param("uId") String uId);
 	String selectLeaveTime(@Param("today") String today, @Param("uId") String uId);
+
+	List<Attendance> selectOneUserAttendanceList(String uId);
 }

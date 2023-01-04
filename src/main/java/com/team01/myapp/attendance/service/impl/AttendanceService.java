@@ -39,5 +39,10 @@ public class AttendanceService implements IAttendanceService {
 	public String selectLeaveTime(String today, String uId) {
 		return AttendanceRepository.selectLeaveTime(today, uId);
 	}
+	
+	@Override
+	public List<Attendance> selectOneUserAttendanceList(String uId) {
+		return AttendanceRepository.selectOneUserAttendanceList(uId);
+	}
 
 }

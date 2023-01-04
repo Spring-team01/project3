@@ -12,4 +12,6 @@ public interface IAttendanceService {
 	
 	String selectAttTime(String today, String uId);
 	String selectLeaveTime(String today, String uId);
+	
+	List<Attendance> selectOneUserAttendanceList(String uId);
 }

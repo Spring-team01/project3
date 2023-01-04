@@ -81,9 +81,13 @@ public class AttendanceController {
 	}
 	
 	@RequestMapping("/attendance/list")
-	public String getListAttendance(Model model) {
+	public String getListAttendance(Model model, HttpSession session) {
 		
-		List<Attendance> attendanceList = attendanceService.selectAttendanceList();
+		String uId = (String) session.getAttribute("uId");
+		
+		List<Attendance> attendanceList = attendanceService.selectOneUserAttendanceList(uId);
+		
+		System.out.println(attendanceList.toString());
 		
 		model.addAttribute("attendanceList", attendanceList);
 		
