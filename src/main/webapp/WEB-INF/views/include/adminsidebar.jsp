@@ -23,14 +23,6 @@
                 <li>
                 	<a href="boardlist" type="button" class="dropdown-btn" >
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
-                        <span class="item">관리자 조회</span>
-                    
-                    </a>
-                 
-                </li>
-                <li>
-                	<a href="boardlist" type="button" class="dropdown-btn" >
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">사용자 등록</span>
                     
                     </a>
@@ -47,13 +39,13 @@
                 <li>
                 	<a href="#" type="button" class="dropdown-btn">
                         <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">커뮤니티</span>
+                        <span class="item">게시판 관리</span>
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <div class="dropdown-container">
-                    	<a href="#">Link 1</a>
-					    <a href="#">Link 2</a>
-					    <a href="#">Link 3</a>
+                    	<a href="#">공지사항</a>
+					    <a href="#">자유게시판</a>
+					    <a href="#">자료실</a>
                     </div>
                 </li>
                 

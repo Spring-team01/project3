@@ -6,7 +6,8 @@
 
 <!DOCTYPE html>
 <html>
-<jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
+<jsp:include page="/WEB-INF/views/include/adminstaticFiles.jsp" />
+
 <body>
 <jsp:include page="/WEB-INF/views/include/adminheader.jsp" />
 <div class="main">
@@ -38,7 +39,7 @@
 							</div>
 										
 							<div class="row-lg-9">
-							<jsp:include page="/WEB-INF/views/calendar.jsp" />
+							<jsp:include page="/WEB-INF/views/admin/usertable.jsp" />
 							</div>
 						</div>
 					</div>

@@ -67,7 +67,7 @@ public class UserController {
 					if(user.getuType().equals("USER")) {
 						return "redirect:/home";
 					}else {
-						return "admin/adminhome";
+						return "redirect:/admin/adminhome";
 					}
 					
 				}else {
@@ -82,9 +82,10 @@ public class UserController {
 		return "user/login";
 	}
 	
-	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		
-		return "home";
-	}	
+	@RequestMapping(value="/user/login", method=RequestMethod.GET)
+	public String login() {
+		return "user/login";
+	}
+	
+	
 }
