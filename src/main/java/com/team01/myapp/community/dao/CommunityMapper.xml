@@ -32,13 +32,13 @@
 			    C_TITLE ,
 			    C_WRITE_DATE ,
 			    C_READ_COUNT,
-			    U_ID,
+			    U_ID ,
 			    C_CONTENT
 			    )
 			values (#{communityBoardId}, #{communityCategoryId}, #{communityEmail}, 
 					#{communityPassword}, #{communityTitle}, sysdate, 0,
-					#{usersId}, ${communityContent}
-					)
+					#{usersId}, #{communityContent} )
+					
 			]]>
 	</insert>	
 	

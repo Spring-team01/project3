@@ -30,8 +30,8 @@ public class CommunityService implements ICommunityService {
 	}
 
 	@Override
-	public List<Community> getCommunityListByCategory() {
-		return communityRepository.getCommunityListByCategory();
+	public List<Community> getCommunityListByCategory(int categoryId) {
+		return communityRepository.getCommunityListByCategory(categoryId);
 	}
 
 }

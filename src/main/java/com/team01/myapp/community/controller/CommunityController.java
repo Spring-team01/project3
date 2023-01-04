@@ -31,17 +31,17 @@ public class CommunityController {
 	
 	
 	
-// 게시글 조회 (GET)
+	// 게시글 작성 (GET)
 	@RequestMapping(value="/community/write/{communityCategoryId}", method=RequestMethod.GET)
 	public String writeCommunity(@PathVariable int communityCategoryId, Model model) {
-		List<Community> communityList = communityService.getCommunityListByCategory();
+		
+		List<Community> communityList = communityService.getCommunityListByCategory(communityCategoryId);
 		model.addAttribute("communityList", communityList);
-//		혹시 몰라서 넣음.
 		model.addAttribute("communityCategoryId", communityCategoryId);
 		return "community/communityWrite";
 	}
 	
-	
+	// 게시글 작성 (POST)
 	@RequestMapping(value="/community/write/", method=RequestMethod.POST)
 	public String writeCommunity(Community community, BindingResult result, 
 							RedirectAttributes redirectAttrs, HttpSession session) {
@@ -51,8 +51,10 @@ public class CommunityController {
 		//카테고리 아이디 임시로 1
 		community.setCommunityCategoryId(1);
 		
-		communityService.writeCommunity(community);
 		
+		
+		
+		communityService.writeCommunity(community);
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -61,6 +63,15 @@ public class CommunityController {
 		return "redirect:/community/write/1";
 	}
 	
+	// 게시글 조회(GET)
+	@RequestMapping(value="/community/communityList/{categoryId}", method=RequestMethod.GET)
+	public String getCommunityListByCategory(@PathVariable int categoryId, Model model) {
+		model.addAttribute("categoryId", categoryId);
+		List<Community> communityList = communityService.getCommunityListByCategory(categoryId);
+		model.addAttribute("communityList", communityList);
+		
+		return "community/communityList";
+	}
 	
 	
 	

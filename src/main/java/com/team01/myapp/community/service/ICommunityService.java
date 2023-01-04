@@ -10,7 +10,7 @@ public interface ICommunityService {
 	void writeCommunity(Community community);
 	void insertFileData(CommunityFile communityFile);
 	
-	List<Community> getCommunityListByCategory();
+	List<Community> getCommunityListByCategory(int categoryId);
 	
 	
 }

@@ -48,9 +48,9 @@
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <div class="dropdown-container">
-                    	<a href="#">Link 1</a>
-					    <a href="#">Link 2</a>
-					    <a href="#">Link 3</a>
+                    	<a href="community/communityList/1">커뮤니티 게시판</a>
+					    <a href="community/write/1">글 작성</a>
+					    <a href="community/write/3">Link 3</a>
                     </div>
                 </li>
                 
