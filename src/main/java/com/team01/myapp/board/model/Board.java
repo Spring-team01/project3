@@ -3,6 +3,7 @@ package com.team01.myapp.board.model;
 import java.sql.Date;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 public class Board {

@@ -61,15 +61,12 @@
             <div class="p-2">
                 <div class="col col-social-icons">
                     <h5>[ Follow us ]</h5>
-                    <li> <a href="#"><i class="fa fa-facebook"></i>페이스북 </a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i>구글 </a></li>
-                    <li>  <a href="#"><i class="fa fa-linkedin"></i>링크드인 </a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i>트위터 </a></li>
-                   
-                    
-                  
-                    
-                
+                    <ul>
+                    	<li> <a href="#"><i class="fa fa-facebook"></i>페이스북 </a></li>
+	                    <li><a href="#"><i class="fa fa-google-plus"></i>구글 </a></li>
+	                    <li>  <a href="#"><i class="fa fa-linkedin"></i>링크드인 </a></li>
+	                    <li><a href="#"><i class="fa fa-twitter"></i>트위터 </a></li>
+                    </ul>
                 </div>
 			</div>
 
