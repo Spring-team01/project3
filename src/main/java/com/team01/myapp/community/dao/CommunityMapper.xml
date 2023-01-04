@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.team01.myapp.community.dao.ICommunityRepository">
-
 	<select id="getCommunityListByCategory"
 		resultType="com.team01.myapp.community.model.Community">
 		<![CDATA[
@@ -15,12 +14,39 @@
 		    C_TITLE as "communityTitle",
 		    C_WRITE_DATE as "communityWriteDate",
 		    C_READ_COUNT as "communityReadCount",
-		    U_ID as "usersId"
+		    U_ID as "usersId",
+		    C_CONTENT as "communityContent"
 		    
 		from community
 		]]>
+		
 	</select>
 	
+	<insert id="writeCommunity" parameterType ="com.team01.myapp.community.model.Community">
+		<![CDATA[
+			insert into community (
+			    C_BOARD_ID, 
+			    C_CATEGORY_ID ,
+			    C_EMAIL,
+			    C_PASSWORD ,
+			    C_TITLE ,
+			    C_WRITE_DATE ,
+			    C_READ_COUNT,
+			    U_ID ,
+			    C_CONTENT
+			    )
+			values (#{communityBoardId}, #{communityCategoryId}, #{communityEmail}, 
+					#{communityPassword}, #{communityTitle}, sysdate, 0,
+					#{usersId}, #{communityContent} )
+					
+			]]>
+	</insert>	
+	
+	<select id="selectMaxListNo" resultType ="int">
+		<![CDATA[
+			select nvl(max(c_board_id),0) as "communityBoardId" from community
+		]]>
+	</select>
 	
 	
 	

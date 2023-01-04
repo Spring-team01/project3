@@ -6,6 +6,7 @@
 
 <!DOCTYPE html>
 <html>
+
 <jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
 <body>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
