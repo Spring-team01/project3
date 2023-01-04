@@ -41,9 +41,7 @@ public class CommunityController {
 			community.setCommunityEmail((String) session.getAttribute("email"));
 			// 카테고리 아이디 임시로 1
 			community.setCommunityCategoryId(1);
-
 			communityService.writeCommunity(community);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			redirectAttrs.addFlashAttribute("message", e.getMessage());
@@ -55,17 +53,22 @@ public class CommunityController {
 	//게시글 조회 (pagind -> service 에서)
 	@RequestMapping(value = "/community/communityList/{categoryId}/{pageNo}", method = RequestMethod.GET)
 	public String getCommunityListByCategory(@PathVariable int categoryId, @PathVariable String pageNo, Model model, Pager pager) {
-		
 		pager = communityService.returnPage(pageNo, pager);
-		
 		List<Community> communityList = communityService.getCommunityListByCategory(categoryId, pager);
-		
-		
-		
 		model.addAttribute("communityList", communityList);
 		model.addAttribute("pager", pager);
 		
 		return "community/communityList";
 	}
+	
+	//상세 게시글 조회
+	@RequestMapping(value="/community/communityDetail/{communityBoardId}")
+	public String readCommunity(@PathVariable int communityBoardId, Model model) {
+		Community community = communityService.readCommunityDetail(communityBoardId);
+		model.addAttribute("community", community);
+		
+		return "community/communityDetail";
+	}
+	
 
 }
