@@ -24,7 +24,7 @@
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <div class="dropdown-container">
-                    	<a href="#">출결 확인</a>
+                    	<a href="<c:url value='/attendance/list'/>">출결 확인</a>
 					    <a href="#">공결 관리</a>
                     </div>
                 </li>

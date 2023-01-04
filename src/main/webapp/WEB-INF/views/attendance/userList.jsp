@@ -10,6 +10,15 @@
 <body>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+	    var calendarEl = document.getElementById('calendar');
+	    var calendar = new FullCalendar.Calendar(calendarEl, {
+	      initialView: 'dayGridMonth',
+	    });
+	    calendar.render();
+	  });
+</script>
 
 <div class="main">
     <div class="wrapper">
@@ -25,13 +34,9 @@
             </div>
               <div class="container">
       				<div class="container-fluid">
-						<div class="row">
-							<div class="row-lg-3">
-							각자 작성할 부분
-							</div>
-							<div class="row-lg-9">
-							<jsp:include page="/WEB-INF/views/calendar.jsp" />
-							</div>
+						<div>
+							<h1>MyCalendar</h1>
+							<div id="calendar"></div>
 						</div>
 					</div>
 	    		</div>
