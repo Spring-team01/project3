@@ -38,7 +38,7 @@
      		<div class="mainview d-flex">
            
             </div>
-              <div class="container">
+              <div class="container-fluid" style="background-color:white; margin:50px; width:92%;">
       				
 					${message}
 					<div class="board_content">
@@ -50,30 +50,7 @@
 							</div>	
 							<input type="submit" class="btn btn-warning btn-sm m-1" value="<fmt:message key="SEARCH"/>">
 						</form>
-						<table class="table table-hover table-bordered">
-							<thead>
-								<tr>
-									<td><fmt:message key="BOARD_ID"/></td>
-									<td class="pc"><fmt:message key="WRITER"/></td>
-									<td><fmt:message key="SUBJECT"/></td>
-									<td class="pc"><fmt:message key="WRITE_DATE"/></td>
-									<td class="pc"><fmt:message key="READ_COUNT"/></td>
-								</tr>
-							</thead>
-							<c:set var="seq" value="${(page-1)*10}" scope="page"/>
-							<c:forEach var="board" items="${boardList}">
-								<tr>
-									<c:set var="seq" value="${seq+1}" scope="page"/>
-									<td>${board.boardId}</td>
-									<td class="pc">${board.writer}</td>
-									<td>
-										<a href='<c:url value="board/${board.boardId}"/>'>${board.title}</a>
-									</td>
-									<td class="pc"><fmt:formatDate value="${board.writeDate}" pattern="YYYY-MM-dd"/></td>
-									<td class="pc">${board.readCount}</td>
-								</tr>
-							</c:forEach>
-						</table>
+						
 						<!--템플릿  -->
 						<div class="container-fluid py-4">
 					      <div class="row">
