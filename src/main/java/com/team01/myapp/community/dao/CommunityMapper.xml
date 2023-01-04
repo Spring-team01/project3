@@ -90,6 +90,32 @@
 		]]>
 	</select>
 
+	<update id="updateReadCount" parameterType="int">
+		<![CDATA[
+			update community
+    		set c_read_count = c_read_count+1
+			where c_board_id = #{communityBoardId}
+		]]>
+	</update>
+	
+	<select id="readCommunityDetail" parameterType="int" resultType="com.team01.myapp.community.model.Community">
+		<![CDATA[
+			select
+				C_BOARD_ID as "communityBoardId", 
+				C_CATEGORY_ID as "communityCategoryId",
+				C_EMAIL as "communityEmail",
+				C_PASSWORD as "communityPassword",
+				C_TITLE as "communityTitle",
+				C_WRITE_DATE as "communityWriteDate",
+				C_READ_COUNT as "communityReadCount",
+				U_ID as "usersId",
+				C_CONTENT as "communityContent"
+			from community
+			where c_board_id=#{communityBoardId}
+		]]>
+	</select>
+	
+	
 
 
 

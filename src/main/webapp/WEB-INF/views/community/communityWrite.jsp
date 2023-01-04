@@ -35,55 +35,45 @@
 					</div>
 				</div>
 				<div class="mainview d-flex"></div>
-				<div class="container">
-					<div class="container-fluid py-4">
-						<div class="row">
-							<div class="col-12">
-								<div class="card my-4">
-									<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-										<div class="bg-gradient-secondary shadow-primary border-radius-lg pt-4 pb-3">
-											<h6 class="text-white text-capitalize ps-3">커뮤니티 게시판</h6>
-										</div>
-									</div>
-									<form action="<c:url value='/community/write/'/>" method="post">
-									<div class="card-body px-0 pb-2">
-										<div class="table-responsive p-0">
-											<select class="custom-select custom-select">
-												<option selected>카테고리</option>
-												<option value="1">공지사항</option>
-												<option value="2">자유게시판</option>
-												<option value="3">강의게시판</option>
-											</select>
-
-
-											<div class="input-group-prepend">
-												<textarea class="form-control" rows="2" id="communityTitle" name="communityTitle" placeholder="게시글 제목"></textarea>
-											</div>
-
-											<div class="col-8">
-												<div class="input-group-prepend">
-													<textarea class="form-control" rows="3" id="communityPassword" name="communityPassword" placeholder="게시글 비밀번호"></textarea>
-												</div>
-											</div>
-											<textarea class="form-control" rows="15" id="communityContent" name="communityContent" placeholder="게시글 입력"></textarea>
-											<div class="input-group mb-3">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="">Upload</span>
-												</div>
-												<div class="custom-file">
-													<input type="file" class="custom-file-input" id="" aria-describedby="inputGroupFileAddon01"> <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-												</div>
-											</div>
-											<button id="write" class="btn btn-sm btn-dark" type="submit">작성</button>
-											<button id="back" class="btn btn-sm btn-dark">취소</button>
-										</div>
-									</div>
-									</form>
-									
-									
-								</div>
+				<div class="container-fluid" style="background-color: white; margin: 50px; width: 92%;">
+					<div class="card my-4">
+						<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+							<div class="bg-gradient-secondary shadow-primary border-radius-lg pt-4 pb-3">
+								<h6 class="text-white text-capitalize ps-3">커뮤니티 게시판</h6>
 							</div>
 						</div>
+						<form action="<c:url value='/community/write/'/>" method="post">
+							<div class="card-body px-0 pb-2">
+								<div class="table-responsive p-0">
+									<select class="custom-select custom-select">
+										<option selected>카테고리</option>
+										<option value="1">공지사항</option>
+										<option value="2">자유게시판</option>
+										<option value="3">강의게시판</option>
+									</select>
+									<div class="input-group-prepend">
+										<textarea class="form-control" rows="2" id="communityTitle" name="communityTitle" placeholder="게시글 제목"></textarea>
+									</div>
+
+									<div class="col-8">
+										<div class="input-group-prepend">
+											<textarea class="form-control" rows="3" id="communityPassword" name="communityPassword" placeholder="게시글 비밀번호"></textarea>
+										</div>
+									</div>
+									<textarea class="form-control" rows="15" id="communityContent" name="communityContent" placeholder="게시글 입력"></textarea>
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="">Upload</span>
+										</div>
+										<div class="custom-file">
+											<input type="file" class="custom-file-input" id="" aria-describedby="inputGroupFileAddon01"> <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+										</div>
+									</div>
+									<button id="write" class="btn btn-sm btn-dark" type="submit">작성</button>
+									<button id="back" class="btn btn-sm btn-dark">취소</button>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>

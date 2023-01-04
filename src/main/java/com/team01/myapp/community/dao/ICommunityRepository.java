@@ -15,5 +15,7 @@ public interface ICommunityRepository {
 	void insertFileData(CommunityFile communityFile);
 	
 	List<Community> getCommunityListByCategory(@Param("start") int start, @Param("end") int end);
+	void updateReadCount(int communityBoardId);
+	Community readCommunityDetail(int communityBoardId);
 	
 }

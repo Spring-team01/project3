@@ -50,4 +50,12 @@ public class CommunityService implements ICommunityService {
 		return pager;
 	}
 
+	@Override
+	@Transactional
+	public Community readCommunityDetail(int communityBoardId) {
+		communityRepository.updateReadCount(communityBoardId);
+		return communityRepository.readCommunityDetail(communityBoardId);
+	}
+	
+	
 }
