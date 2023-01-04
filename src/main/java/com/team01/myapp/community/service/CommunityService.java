@@ -5,17 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 import com.team01.myapp.community.dao.ICommunityRepository;
 import com.team01.myapp.community.model.Community;
 import com.team01.myapp.community.model.CommunityFile;
+import com.team01.myapp.util.Pager;
+
 @Service
 public class CommunityService implements ICommunityService {
-	
+
 	@Autowired
 	ICommunityRepository communityRepository;
-	
+
 	@Override
 	@Transactional
 	public void writeCommunity(Community community) {
@@ -29,8 +30,24 @@ public class CommunityService implements ICommunityService {
 	}
 
 	@Override
-	public List<Community> getCommunityListByCategory(int categoryId) {
-		return communityRepository.getCommunityListByCategory(categoryId);
+	public List<Community> getCommunityListByCategory(int categoryId, Pager pager) {
+		int end = pager.getPageNo() * pager.getRowsPerPage();
+		int start = (pager.getPageNo()-1)* pager.getRowsPerPage()+1;
+		
+		return communityRepository.getCommunityListByCategory(start, end);
+	}
+
+	@Override
+	public Pager returnPage(String pageNo, Pager pager) {
+		// pager
+				int totalBoardNum = ((int)communityRepository.selectMaxListNo());
+				
+				if (pageNo == null) {
+					pageNo = "1";
+				}
+				int pagerNo = Integer.parseInt(pageNo);
+				pager = new Pager(5, 5, totalBoardNum, pagerNo);
+		return pager;
 	}
 
 }
