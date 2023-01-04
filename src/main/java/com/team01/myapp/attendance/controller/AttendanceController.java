@@ -21,12 +21,12 @@ public class AttendanceController {
 	static final Logger logger = LoggerFactory.getLogger(AttendanceController.class);
 	
 	@Autowired
-	IAttendanceService AttendanceService;
+	IAttendanceService attendanceService;
 	
-	@RequestMapping("/list")
+	@RequestMapping("/user/attendancelist")
 	public String getListAttendance(Model model) {
 		
-		List<Attendance> attendanceList = AttendanceService.selectAttendanceList();
+		List<Attendance> attendanceList = attendanceService.selectAttendanceList();
 		
 		model.addAttribute("attendanceList", attendanceList);
 		
@@ -45,7 +45,8 @@ public class AttendanceController {
 		SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("YYYYMMDD");
 		
 		String attDate = simpleDateFormat1.format(date);
-		int choice = AttendanceService.selectAtterdanceCheck(attDate, uId);
+		
+		int choice = attendanceService.selectAtterdanceCheck(attDate, uId);
 		if(choice == 1) {
 			model.addAttribute("message", "이미 출근을 누르셨습니다.");
 			return "/home";
@@ -76,7 +77,13 @@ public class AttendanceController {
 			int subjectId = (Integer) session.getAttribute("subjectId");
 			attendance.setSubjectId(subjectId);
 			
-			AttendanceService.insertAttendance(attendance);
+			attendanceService.insertAttendance(attendance);
+			
+			String attTime = attendanceService.selectAttTime(attDate, uId);
+			String leaveTime = attendanceService.selectLeaveTime(attDate, uId);
+			
+			session.setAttribute("attTime", attTime);
+			session.setAttribute("leaveTime", leaveTime);
 			
 			return "/home";
 		}

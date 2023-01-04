@@ -29,5 +29,15 @@ public class AttendanceService implements IAttendanceService {
 	public int selectAtterdanceCheck(String attDate, String uId) {
 		return AttendanceRepository.selectAtterdanceCheck(attDate, uId);
 	}
+	
+	@Override
+	public String selectAttTime(String today, String uId) {
+		return AttendanceRepository.selectAttTime(today, uId);
+	}
+	
+	@Override
+	public String selectLeaveTime(String today, String uId) {
+		return AttendanceRepository.selectLeaveTime(today, uId);
+	}
 
 }

@@ -11,4 +11,7 @@ public interface IAttendanceRepository {
 	
 	int selectAtterdanceCheck(@Param("attDate") String attDate, @Param("uId") String uId);
 	void insertAttendance(Attendance attendance);
+	
+	String selectAttTime(@Param("today") String today, @Param("uId") String uId);
+	String selectLeaveTime(@Param("today") String today, @Param("uId") String uId);
 }
