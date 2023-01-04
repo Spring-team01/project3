@@ -15,9 +15,9 @@
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <div class="dropdown-container">
-                    	<a href="#">java</a>
+                    	<a href="<c:url value='/admin/userList/1/1'/>">c언어</a>
 					    <a href="#">python</a>
-					    <a href="#">c언어</a>
+					    <a href="#">java</a>
                     </div>
                 </li>
                 <li>

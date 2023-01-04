@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team01.myapp.admin.dao.IAdminRepository">
+	<select id="getUserListBySubject" parameterType="map"
+		resultType="com.team01.myapp.admin.model.User">
+		<![CDATA[
+		
+		select 
+			 rownum,
+		    u_id as "uId",
+			u_name as "uName",
+			major  ,
+			grade,
+			phone,
+			u_type as "uType",
+			password,
+			email,
+			subject_id as "subjectId" 
+			from(
+				select 
+					rownum as rnum,
+		            u_id ,
+					u_name,
+					major,
+					grade,
+					phone,
+					u_type,
+					password,
+					email,
+					subject_id 
+				from(
+				select       
+					u_id ,
+					u_name,
+					major,
+					grade,
+					phone,
+					u_type,
+					password,
+					email,
+					subject_id  
+						from(
+						    select 
+						        u_id ,
+								u_name,
+								major,
+								grade,
+								phone,
+								u_type,
+								password,
+								email,
+								subject_id
+				            from users
+				            where subject_id = #{subjectId}
+				        )
+				order by u_id desc
+				) 
+				where rownum <= #{end}
+				) 
+				where rnum >= #{start}
+		]]>
+
+	</select>
+	
+	<select id="selectMaxListNo" resultType="int">
+		<![CDATA[
+			select nvl(max(u_id),0) as "uId" from users
+		]]>
+	</select>
+</mapper>
