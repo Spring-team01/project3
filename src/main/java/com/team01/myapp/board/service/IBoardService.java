@@ -6,8 +6,10 @@ import com.team01.myapp.board.model.Board;
 
 public interface IBoardService { 
 	
-	List<Board> selectList(int categoryId);
+	List<Board> selectTotalArticleList(int page);
+	int selectTotalArticleCount();
 	
-	int selectTotalListCount();
+	List<Board> selectArticleListByCategory(int categoryId, int page);
+	int selectTotalArticleCountByCategoryId(int categoryId);
 
 }

@@ -1,11 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.coderby.myapp.member.dao.mapper.IMemberRepository">
-	<select id="selectArticleListByCategory" parameterType="hashmap" resultType="com.team01.myapp.board.model.Board">
-		SELECT
-			BOARD_ID as "boardId",
-			CATEGORY_ID as "categoryId",
-			WRITER as "writer",
-			EMAIL
+<mapper namespace="com.team01.myapp.board.dao.IBoardRepository">
+
+	<select id="selectTotalArticleCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(BOARD_ID) AS "count"
+		FROM BOARD
+		]]>
 	</select>
+	
+	<select id="selectTotalArticleList" parameterType="hashmap" resultType="com.team01.myapp.board.model.Board">
+		<![CDATA[
+				SELECT
+					BOARD_ID		AS "boardId",
+					CATEGORY_ID		AS "categoryId",
+					WRITER			AS "writer",
+					EMAIL			AS "email",
+					TITLE			AS "title",
+					CONTENT 		AS "content",
+					WRITE_DATE		AS "writeDate",
+					READ_COUNT		AS "readCount",
+					RNUM			AS "seq"
+				FROM (
+					SELECT
+						BOARD_ID,
+						CATEGORY_ID,
+						WRITER,
+						EMAIL,
+						TITLE,
+						CONTENT,
+						WRITE_DATE,
+						READ_COUNT,
+						ROWNUM AS RNUM
+					FROM (
+						SELECT * FROM BOARD
+						ORDER BY WRITE_DATE
+						)
+					)
+				WHERE RNUM BETWEEN #{start} AND #{end}
+		]]>
+	</select>
+	
+	<select id="selectArticleListByCategory" parameterType="map"
+		resultType="com.team01.myapp.board.model.Board">
+		<![CDATA[
+				SELECT
+					BOARD_ID		AS "boardId",
+					CATEGORY_ID		AS "categoryId",
+					WRITER			AS "writer",
+					EMAIL			AS "email",
+					TITLE			AS "title",
+					WRITE_DATE		AS "writeDate",
+					READ_COUNT		AS "readCount",
+					RNUM			AS "seq"
+				FROM (
+					SELECT
+						BOARD_ID,
+						CATEGORY_ID,
+						WRITER,
+						EMAIL,
+						TITLE,
+						WRITE_DATE,
+						READ_COUNT,
+						ROWNUM AS RNUM
+					FROM (
+						SELECT * FROM BOARD
+						WHERE CATEGORY_ID=#{categoryId}
+						ORDER BY WRITE_DATE
+						)
+					)
+				WHERE RNUM BETWEEN #{start} AND #{end}
+		]]>
+	</select>
+	
 </mapper>

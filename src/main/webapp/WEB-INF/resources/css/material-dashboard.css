@@ -68,8 +68,8 @@
   --bs-border-radius-xl: 0.75rem;
   --bs-border-radius-2xl: 1rem;
   --bs-border-radius-pill: 50rem;
-  --bs-link-color: #e91e63;
-  --bs-link-hover-color: #e91e63;
+  --bs-link-color: #2F4F4F;
+  --bs-link-hover-color: #000000;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fcf8e3;
 }
@@ -25894,10 +25894,7 @@ h4,
   letter-spacing: -0.05rem;
 }
 
-a {
-  letter-spacing: 0rem;
-  color: #344767;
-}
+
 
 .text-sm {
   line-height: 1.5;
