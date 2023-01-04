@@ -73,4 +73,14 @@
 			WHERE u_id = #{uId}
 		]]>
 	</select>
+	
+	<!-- 퇴근 시 attendance 테이블에 leave_time을 추가하기 위한 update문 -->
+	<update id="updateLeaveCheck" parameterType="map">
+		<![CDATA[
+			UPDATE attendance
+			SET leave_time = sysdate
+			WHERE u_id = ${uId}
+			AND att_date = ${attDate}
+		]]>
+	</update>
 </mapper>

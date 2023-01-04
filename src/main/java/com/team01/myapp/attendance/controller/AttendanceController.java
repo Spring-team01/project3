@@ -80,6 +80,14 @@ public class AttendanceController {
 		}
 	}
 	
+	@RequestMapping("/leave")
+	public String checkOut(HttpSession session) {
+		
+		
+		return "/home";
+	}
+	
+	
 	@RequestMapping("/attendance/list")
 	public String getListAttendance(Model model, HttpSession session) {
 		

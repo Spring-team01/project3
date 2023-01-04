@@ -1,5 +1,6 @@
 package com.team01.myapp.attendance.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.team01.myapp.attendance.model.Attendance;
@@ -9,6 +10,8 @@ public interface IAttendanceService {
 	
 	int selectAtterdanceCheck(String attDate, String uId);
 	void insertAttendance(Attendance attendance);
+	
+	void updateLeaveCheck(Date attDate, String uId);
 	
 	String selectAttTime(String today, String uId);
 	String selectLeaveTime(String today, String uId);
