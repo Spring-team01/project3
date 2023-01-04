@@ -3,26 +3,68 @@
 <mapper
 	namespace="com.team01.myapp.community.dao.ICommunityRepository">
 	<select id="getCommunityListByCategory"
+		parameterType="map"
 		resultType="com.team01.myapp.community.model.Community">
 		<![CDATA[
 		
 		select 
-		    C_BOARD_ID as "communityBoardId",
-		    C_CATEGORY_ID as "communityCategoryId",
-		    C_EMAIL as "communityEmail",
-		    C_PASSWORD as "communityPassword",
-		    C_TITLE as "communityTitle",
-		    C_WRITE_DATE as "communityWriteDate",
-		    C_READ_COUNT as "communityReadCount",
-		    U_ID as "usersId",
-		    C_CONTENT as "communityContent"
-		    
-		from community
+			 rownum,
+		     C_BOARD_ID as "communityBoardId", 
+		     C_CATEGORY_ID as "communityCategoryId",
+		     C_EMAIL as "communityEmail",
+		     C_PASSWORD as "communityPassword",
+		     C_TITLE as "communityTitle",
+		     C_WRITE_DATE as "communityWriteDate",
+		     C_READ_COUNT as "communityReadCount",
+		     U_ID as "usersId",
+		     C_CONTENT as "communityContent"
+			from(
+				select 
+					rownum as rnum,
+		            C_BOARD_ID ,
+				    C_CATEGORY_ID ,
+				    C_EMAIL ,
+				    C_PASSWORD ,
+				    C_TITLE ,
+				    C_WRITE_DATE , 
+				    C_READ_COUNT ,
+				    U_ID ,
+				    C_CONTENT 
+				from(
+				select      C_BOARD_ID ,
+						    C_CATEGORY_ID ,
+						    C_EMAIL ,
+						    C_PASSWORD ,
+						    C_TITLE ,
+						    C_WRITE_DATE , 
+						    C_READ_COUNT ,
+						    U_ID ,
+						    C_CONTENT 
+						from(
+						    select 
+						        C_BOARD_ID ,
+						        C_CATEGORY_ID ,
+						        C_EMAIL  ,
+						        C_PASSWORD ,
+						        C_TITLE ,
+						        C_WRITE_DATE ,
+						        C_READ_COUNT ,
+						        U_ID ,
+						        C_CONTENT
+		                
+				            from community
+				        )
+				order by C_BOARD_ID desc
+				) 
+				where rownum <= #{end}
+				) 
+				where rnum >= #{start}
 		]]>
-		
+
 	</select>
-	
-	<insert id="writeCommunity" parameterType ="com.team01.myapp.community.model.Community">
+
+	<insert id="writeCommunity"
+		parameterType="com.team01.myapp.community.model.Community">
 		<![CDATA[
 			insert into community (
 			    C_BOARD_ID, 
@@ -40,15 +82,15 @@
 					#{usersId}, #{communityContent} )
 					
 			]]>
-	</insert>	
-	
-	<select id="selectMaxListNo" resultType ="int">
+	</insert>
+
+	<select id="selectMaxListNo" resultType="int">
 		<![CDATA[
 			select nvl(max(c_board_id),0) as "communityBoardId" from community
 		]]>
 	</select>
-	
-	
-	
+
+
+
 
 </mapper>
