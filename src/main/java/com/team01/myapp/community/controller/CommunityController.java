@@ -42,11 +42,12 @@ public class CommunityController {
 			// 카테고리 아이디 임시로 1
 			community.setCommunityCategoryId(1);
 			communityService.writeCommunity(community);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			redirectAttrs.addFlashAttribute("message", e.getMessage());
 		}
-		return "redirect:/community/write/1";
+		return "redirect:/community/write/" + community.getCommunityBoardId();
 	}
 
 	

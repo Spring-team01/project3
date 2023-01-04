@@ -20,7 +20,6 @@
 <!-- CSS Files -->
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
-
 <body>
 	<jsp:include page="/WEB-INF/views/include/header.jsp" />
 
@@ -42,15 +41,10 @@
 								<h6 class="text-white text-capitalize ps-3">커뮤니티 게시판</h6>
 							</div>
 						</div>
-						<form action="<c:url value='/community/write/'/>" method="post">
+						<form id="write" name="write" action="<c:url value='/community/write/'/>" method="post">
 							<div class="card-body px-0 pb-2">
 								<div class="table-responsive p-0">
-									<select class="custom-select custom-select">
-										<option selected>카테고리</option>
-										<option value="1">공지사항</option>
-										<option value="2">자유게시판</option>
-										<option value="3">강의게시판</option>
-									</select>
+
 									<div class="input-group-prepend">
 										<textarea class="form-control" rows="2" id="communityTitle" name="communityTitle" placeholder="게시글 제목"></textarea>
 									</div>
@@ -66,13 +60,14 @@
 											<span class="input-group-text" id="">Upload</span>
 										</div>
 										<div class="custom-file">
-											<input type="file" class="custom-file-input" id="" aria-describedby="inputGroupFileAddon01"> <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+											<input type="file" class="custom-file-input" id="i_file" name="file" aria-describedby="inputGroupFileAddon01"> 
+											<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
 										</div>
 									</div>
-									<button id="write" class="btn btn-sm btn-dark" type="submit">작성</button>
-									<button id="back" class="btn btn-sm btn-dark">취소</button>
 								</div>
 							</div>
+							<input type="button" onclick="submit()" class="btn btn-dark shadow" value="작성"> 
+							<a type="button" href="<c:url value='/community/communityList//1/1'/>5" class="btn btn-dark shadow">글 목록</a>
 						</form>
 					</div>
 				</div>

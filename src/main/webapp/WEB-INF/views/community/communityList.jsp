@@ -77,7 +77,7 @@
 													<a href="<c:url value='/community/communityDetail/${community.communityBoardId}'/>" class="mb-0 text-sm">${community.communityTitle}</a>
 												</td>
 												<td class="align-middle text-center text-sm">
-													<span class="badge badge-sm bg-gradient-success">${community.communityReadCount}</span>
+													<span class="text-secondary text-xs font-weight-bold">${community.communityReadCount}</span>
 												</td>
 												<td class="align-middle text-center">
 													<span class="text-secondary text-xs font-weight-bold">${community.communityWriteDate}</span>
