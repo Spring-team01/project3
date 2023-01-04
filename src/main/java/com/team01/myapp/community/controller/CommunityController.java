@@ -51,7 +51,7 @@ public class CommunityController {
 		//카테고리 아이디 임시로 1
 		community.setCommunityCategoryId(1);
 		
-		
+		System.out.println(community.toString());
 		
 		
 		communityService.writeCommunity(community);
@@ -69,7 +69,7 @@ public class CommunityController {
 		model.addAttribute("categoryId", categoryId);
 		List<Community> communityList = communityService.getCommunityListByCategory(categoryId);
 		model.addAttribute("communityList", communityList);
-		
+		System.out.println(model.toString());
 		return "community/communityList";
 	}
 	

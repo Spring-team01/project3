@@ -20,7 +20,6 @@ public class CommunityService implements ICommunityService {
 	@Transactional
 	public void writeCommunity(Community community) {
 		community.setCommunityBoardId(communityRepository.selectMaxListNo() + 1);
-		System.out.println(community.toString());
 		communityRepository.writeCommunity(community);
 	}
 
