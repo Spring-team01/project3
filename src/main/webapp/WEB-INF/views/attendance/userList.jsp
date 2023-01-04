@@ -41,32 +41,29 @@
 		calendar.render();
 	});
 </script>
-
-<div class="main">
-    <div class="wrapper">
-        <div class="section">
-            <div class="top_navbar">
-                <div class="hamburger">
-                    <a href="#">
-                        <i class="fa-solid fa-bars"></i>
-                    </a>
-                </div>
-            </div>
-     		<div class="mainview d-flex">
-            </div>
-              <div class="container">
-      				<div class="container-fluid">
-						<div>
-							<h1>나의 출석</h1>
-							<div id="calendar"></div>
-						</div>
-					</div>
-	    		</div>
-	        </div>
-        
- <jsp:include page="/WEB-INF/views/include/sidebar.jsp" />       
-    </div>
-    </div>
-<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+	<div class="main">
+	    <div class="wrapper">
+	        <div class="section">
+	            <div class="top_navbar">
+	                <div class="hamburger">
+	                    <a href="#">
+	                        <i class="fa-solid fa-bars"></i>
+	                    </a>
+	                </div>
+	            </div>
+	     		<div class="mainview d-flex">
+	     		</div>
+	     			<div class="container-fluid" style="background-color:white; margin:60px; width:92%; padding:50px;">
+	     				<div>
+	     					<h1>나의 출석</h1>
+	     				<div id="calendar">
+	     				</div>
+	     			</div>
+	     		</div>
+	     	</div>
+	    	<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />       
+	    </div>
+	</div>
+	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>
