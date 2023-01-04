@@ -68,8 +68,8 @@
   --bs-border-radius-xl: 0.75rem;
   --bs-border-radius-2xl: 1rem;
   --bs-border-radius-pill: 50rem;
-  --bs-link-color: #e91e63;
-  --bs-link-hover-color: #e91e63;
+  --bs-link-color: #2F4F4F;
+  --bs-link-hover-color: #000000;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fcf8e3;
 }
@@ -683,55 +683,6 @@ progress {
   margin-left: auto;
 }
 
-@media (min-width: 576px) {
-
-  .container,
-  .container-sm {
-    max-width: 540px;
-  }
-}
-
-@media (min-width: 768px) {
-
-  .container,
-  .container-sm,
-  .container-md {
-    max-width: 720px;
-  }
-}
-
-@media (min-width: 992px) {
-
-  .container,
-  .container-sm,
-  .container-md,
-  .container-lg {
-    max-width: 960px;
-  }
-}
-
-@media (min-width: 1200px) {
-
-  .container,
-  .container-sm,
-  .container-md,
-  .container-lg,
-  .container-xl {
-    max-width: 1140px;
-  }
-}
-
-@media (min-width: 1400px) {
-
-  .container,
-  .container-sm,
-  .container-md,
-  .container-lg,
-  .container-xl,
-  .container-xxl {
-    max-width: 1320px;
-  }
-}
 
 .row {
   --bs-gutter-x: 1.5rem;
@@ -25894,10 +25845,7 @@ h4,
   letter-spacing: -0.05rem;
 }
 
-a {
-  letter-spacing: 0rem;
-  color: #344767;
-}
+
 
 .text-sm {
   line-height: 1.5;

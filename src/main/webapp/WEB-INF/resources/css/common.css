@@ -213,7 +213,9 @@
 			border-radius: 5px;
 			margin-top:120px;
 		}
-		
+		.welcome h1, .welcome p {
+			color: white;
+		}
 		
 		
 		

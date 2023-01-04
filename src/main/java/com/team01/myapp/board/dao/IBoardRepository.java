@@ -8,14 +8,17 @@ import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.model.BoardUploadFile;
 
 public interface IBoardRepository {
-	int selectMaxArticleNo();
-	int selectMaxFileId();
+//	int selectMaxArticleNo();
+//	int selectMaxFileId();
 	
 	void insertArticle(Board board);
 	void insertFileData(BoardUploadFile file);
+	
+	List<Board> selectTotalArticleList(@Param("start")int start, @Param("end") int end);
 	
 	List<Board> selectArticleListByCategory(@Param("categoryId") int categoryId, @Param("start") int start, @Param("end") int end);
 	
 	int selectTotalArticleCount();
 	int selectTotalArticleCountByCategoryId(int categoryId);
+	
 }
