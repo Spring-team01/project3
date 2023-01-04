@@ -38,15 +38,9 @@
 		  margin: 0 auto;
 		}
 		
-		.wrapper h1, h2{
-		  color: #ffffff;
-		  margin: 10px 0 5px;
-		}
 		
-		.wrapper p{
-		  color: rgb(206, 240, 253);
-		  font-size: 14px;
-		}
+		
+		
 		
 		.wrapper .sidebar ul li a{
 		  display: block;
@@ -191,17 +185,6 @@
 		  border-radius: 50%;
 		  margin: 0 auto;
 		}
-		
-		.wrapper h1, h2{
-		  color: #ffffff;
-		  margin: 10px 0 5px;
-		}
-		
-		.wrapper p{
-		  color: rgb(206, 240, 253);
-		  font-size: 14px;
-		}
-		
 		 
 		 .wrapper .section .container{
 		  margin: 30px;

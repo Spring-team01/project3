@@ -23,16 +23,6 @@ public class AttendanceController {
 	@Autowired
 	IAttendanceService attendanceService;
 	
-	@RequestMapping("/user/attendancelist")
-	public String getListAttendance(Model model) {
-		
-		List<Attendance> attendanceList = attendanceService.selectAttendanceList();
-		
-		model.addAttribute("attendanceList", attendanceList);
-		
-		return "attendance/list";
-	}
-	
 	@RequestMapping("/attendance")
 	public String checkAttendance(Attendance attendance, HttpSession session, Model model) {
 		Date date = new Date();
@@ -86,7 +76,18 @@ public class AttendanceController {
 			session.setAttribute("leaveTime", leaveTime);
 			
 			return "/home";
+			
 		}
+	}
+	
+	@RequestMapping("/attendance/list")
+	public String getListAttendance(Model model) {
+		
+		List<Attendance> attendanceList = attendanceService.selectAttendanceList();
+		
+		model.addAttribute("attendanceList", attendanceList);
+		
+		return "attendance/userList";
 	}
 	
 }
