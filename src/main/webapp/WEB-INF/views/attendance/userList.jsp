@@ -12,12 +12,24 @@
 
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
-	    var calendarEl = document.getElementById('calendar');
-	    var calendar = new FullCalendar.Calendar(calendarEl, {
-	      initialView: 'dayGridMonth',
-	    });
-	    calendar.render();
-	  });
+		var calendarEl = document.getElementById('calendar');
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			initialView: 'dayGridMonth',
+			events: [
+				<c:forEach items = "${attendanceList}" var="list">
+					{
+						title : '${list.attTime} / ${list.status}',
+						start : '${list.attDate}'
+					},
+					{
+						title : '${list.leaveTime}',
+						start : '${list.attDate}'
+					},
+				</c:forEach>
+			]
+		});
+		calendar.render();
+	});
 </script>
 
 <div class="main">
@@ -35,7 +47,7 @@
               <div class="container">
       				<div class="container-fluid">
 						<div>
-							<h1>MyCalendar</h1>
+							<h1>나의 출석</h1>
 							<div id="calendar"></div>
 						</div>
 					</div>

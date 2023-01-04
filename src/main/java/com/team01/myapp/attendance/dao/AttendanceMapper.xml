@@ -60,4 +60,17 @@
 			AND u_id = #{uId}
 		]]>
 	</select>
+	
+	<!-- 학생 개인의 일정을 불러오기 위한 select 문 -->
+	<select id="selectOneUserAttendanceList" parameterType="string" resultType="com.team01.myapp.attendance.model.AttendanceList">
+		<![CDATA[
+			SELECT 
+				ATT_DATE AS "attDate", 
+				STATUS AS "status",
+				TO_CHAR(ATT_TIME, 'HH24:MI') AS "attTime",
+				TO_CHAR(LEAVE_TIME, 'HH24:MI') AS "leaveTime"
+			FROM ATTENDANCE
+			WHERE u_id = #{uId}
+		]]>
+	</select>
 </mapper>
