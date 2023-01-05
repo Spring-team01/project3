@@ -11,7 +11,7 @@ public interface IBoardService {
 	List<Board> getTotalArticleList(Pager pager);
 	
 	Pager returnCategoryPage(int categoryId, String pageNo, Pager pager);
-	List<Board> getArticleListByCategory(int categoryId, Pager pager);
+	List<Board> getArticleListbyCategory(int categoryId, Pager pager);
 
 	
 	
