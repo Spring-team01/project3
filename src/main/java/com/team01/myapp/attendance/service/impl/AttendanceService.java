@@ -47,7 +47,7 @@ public class AttendanceService implements IAttendanceService {
 	}
 
 	@Override
-	public void updateLeaveCheck(Date attDate, String uId) {
+	public void updateLeaveCheck(String attDate, String uId) {
 		AttendanceRepository.updateLeaveCheck(attDate, uId);
 	}
 	

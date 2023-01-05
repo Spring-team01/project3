@@ -10,36 +10,62 @@
 <body>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 
+<script src="fullcalendar/lib/locales-all.js"></script>
 <script>
-	document.addEventListener('DOMContentLoaded', function() {
-		var calendarEl = document.getElementById('calendar');
-		var calendar = new FullCalendar.Calendar(calendarEl, {
-			headerToolbar : {
-	            left : 'prev,next today',
-	            center : 'title',
-	            right : 'dayGridMonth,listWeek'
-	         },
-			initialView: 'dayGridMonth',
-			events: [
-				<c:forEach items = "${attendanceList}" var="list">
-					{
-						title : '${list.attTime} [${list.status}]',
-						start : '${list.attDate}'
-					},
-					<c:if test="${list.leaveTime == null}">
-					
+document.addEventListener('DOMContentLoaded', function() {
+	var calendarEl = document.getElementById('calendar');
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+		headerToolbar : {
+            left : 'prev,next today',
+            center : 'title',
+            right : 'dayGridMonth,listWeek'
+         },
+        locale: "ko",
+		initialView: 'dayGridMonth',
+		events: [
+			<c:forEach items = "${attendanceList}" var="list">
+				{
+					title : '${list.attTime} [${list.status}]',
+					start : '${list.attDate}',
+					<c:if test="${list.status eq '지각'}">
+						backgroundColor : '#ffc107',
+						borderColor : '#ffc107'
 					</c:if>
-					<c:if test="${list.leaveTime != null}">
-						{
-							title : '${list.leaveTime}',
-							start : '${list.attDate}'
-						},
+					<c:if test="${list.status eq '출근'}">
+						backgroundColor : '#49a3f1',
+						borderColor : '#49a3f1'
 					</c:if>
-				</c:forEach>
-			]
-		});
-		calendar.render();
+					<c:if test="${list.status eq '휴가'}">
+						backgroundColor : '#66BB6A',
+						borderColor : '#66BB6A'
+					</c:if>
+				},
+				<c:if test="${list.leaveTime == null}">
+				
+				</c:if>
+				<c:if test="${list.leaveTime != null}">
+				{
+					title : '${list.leaveTime}',
+					start : '${list.attDate}',
+						<c:if test="${list.status eq '지각'}">
+							backgroundColor : '#ffc107',
+							borderColor : '#ffc107'
+						</c:if>
+						<c:if test="${list.status eq '출근'}">
+							backgroundColor : '#49a3f1',
+							borderColor : '#49a3f1'
+						</c:if>
+						<c:if test="${list.status eq '휴가'}">
+							backgroundColor : '#66BB6A',
+							borderColor : '#66BB6A'
+						</c:if>
+				},
+				</c:if>
+			</c:forEach>
+		]
 	});
+	calendar.render();
+});
 </script>
 	<div class="main">
 	    <div class="wrapper">
@@ -53,7 +79,7 @@
 	            </div>
 	     		<div class="mainview d-flex">
 	     		</div>
-	     			<div class="container-fluid" style="background-color:white; margin:60px; width:92%; padding:50px;">
+	     			<div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
 	     				<div>
 	     					<h1>나의 출석</h1>
 	     				<div id="calendar">
