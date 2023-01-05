@@ -18,6 +18,6 @@ public interface ICommunityRepository {
 	void updateReadCount(int communityBoardId);
 	Community readCommunityDetail(int communityBoardId);
 	
-	CommunityFile getFile(int communityCBoardId);
+	CommunityFile getFile(int communityBoardId);
 	
 }

@@ -57,10 +57,10 @@
 											<c:set var="len" value="${fn:length(community.communityFileName)}" />
 											<c:set var="filetype" value="${fn:toUpperCase(fn:substring(community.communityFileName, len-4, len))}" />
 											<c:if test="${(filetype eq '.JPG') or (filetype eq 'JPEG') or (filetype eq '.PNG') or (filetype eq '.GIF')}">
-												<img src='<c:url value="/file/${community.communityBoardId}"/>' class="img-fluid rounded">
+												<img src='<c:url value="/files/${community.communityBoardId}"/>' class="img-fluid rounded">
 												<br>
 											</c:if>
-											<a href='<c:url value="/file/${community.communityBoardId}"/>'>${community.communityFileName}
+											<a href='<c:url value="/files/${community.communityBoardId}"/>'>${community.communityFileName}
 											</a>
 										</td>
 									</tr>

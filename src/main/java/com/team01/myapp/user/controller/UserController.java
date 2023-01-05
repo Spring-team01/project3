@@ -2,7 +2,6 @@ package com.team01.myapp.user.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 

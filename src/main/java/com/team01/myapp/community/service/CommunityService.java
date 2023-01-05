@@ -68,8 +68,8 @@ public class CommunityService implements ICommunityService {
 	}
 
 	@Override
-	public CommunityFile getFile(int communityCBoardId) {
-		return communityRepository.getFile(communityCBoardId);
+	public CommunityFile getFile(int communityBoardId) {
+		return communityRepository.getFile(communityBoardId);
 	}
 	
 	

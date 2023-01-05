@@ -57,7 +57,7 @@ public class CommunityController {
 			community.setCommunityCategoryId(1);
 			
 			MultipartFile mfile = community.getFile();
-			communityService.writeCommunity(community);
+			
 			
 			if(mfile != null && !mfile.isEmpty()) {
 				CommunityFile file = new CommunityFile();
@@ -67,7 +67,7 @@ public class CommunityController {
 				file.setCommunityFileData(mfile.getBytes());
 				communityService.writeCommunity(community, file);
 			} else {
-				
+				communityService.writeCommunity(community);
 			}
 			
 		} catch (Exception e) {
@@ -98,9 +98,9 @@ public class CommunityController {
 		return "community/communityDetail";
 	}
 	
-	@RequestMapping(value="/file/{communityCBoardId}")
-	public ResponseEntity<byte[]> getFile(@PathVariable int communityCBoardId){
-		CommunityFile communityFile = communityService.getFile(communityCBoardId);
+	@RequestMapping(value="/files/{communityBoardId}")
+	public ResponseEntity<byte[]> getFile(@PathVariable int communityBoardId){
+		CommunityFile communityFile = communityService.getFile(communityBoardId);
 		HttpHeaders header = new HttpHeaders();
 		String[] filetypes = communityFile.getCommunityFileContentType().split("/");
 		header.setContentType(new MediaType(filetypes[0], filetypes[1]));
