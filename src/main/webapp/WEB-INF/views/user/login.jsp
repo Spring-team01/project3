@@ -22,7 +22,7 @@
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-						한국대학교 lms
+						한국대학교 lms   
 					</span>
 
 					<small style="color:red"> <fmt:message key="${not empty message ? message : 'BLANK'}"/></small>

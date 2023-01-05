@@ -2,20 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team01.myapp.admin.dao.IAdminRepository">
 	<select id="getUserListBySubject" parameterType="map"
-		resultType="com.team01.myapp.admin.model.User">
+		resultType="com.team01.myapp.admin.model.UserList">
 		<![CDATA[
 		
 		select 
 			 rownum,
 		    u_id as "userId",
 			u_name as "userName",
-			major  ,
+			major ,
 			grade,
-			phone,
-			u_type as "userType",
-			password,
-			email,
-			subject_id as "subjectId" 
+			subject_name as "subjectName" 
 			from(
 				select 
 					rownum as rnum,
@@ -23,35 +19,23 @@
 					u_name,
 					major,
 					grade,
-					phone,
-					u_type,
-					password,
-					email,
-					subject_id 
+					subject_name 
 				from(
 				select       
 					u_id ,
 					u_name,
 					major,
 					grade,
-					phone,
-					u_type,
-					password,
-					email,
-					subject_id  
+					subject_name  
 						from(
 						    select 
 						        u_id ,
 								u_name,
 								major,
 								grade,
-								phone,
-								u_type,
-								password,
-								email,
-								subject_id
-				            from users
-				            where subject_id = #{subjectId}
+								s.subject_name
+				            from users u, subject s 
+				            where #{subjectId} = s.subject_id and u.subject_id = #{subjectId}
 				        )
 				order by grade desc, u_id asc
 				) 

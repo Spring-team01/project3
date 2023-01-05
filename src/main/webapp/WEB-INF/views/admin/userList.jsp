@@ -63,7 +63,7 @@
 													<h3 align="center" class="text-md font-weight-bold mb-0">${user.grade}</h3>
 												</td>
 												<td>
-													<h3 align="center" class="text-md font-weight-bold mb-0">c언어</h3>
+													<h3 align="center" class="text-md font-weight-bold mb-0">${user.subjectName}</h3>
 												</td>
 												
 											</tr>
