@@ -41,18 +41,15 @@
               <div class="container-fluid" style="background-color:white; margin:50px; width:92%;">
       				
 					${message}
-					<div class="board_content">
-						<form class="d-flex align-items-center" action="<c:url value='/board/search'/>" method="get">
-							<div class="pull-right" style="margin-bottom: 5px;">
-								<div class="col-xs-9">
-									<input type="text" name="keyword" class="form-control">
-								</div>
-							</div>	
-							<input type="submit" class="btn btn-warning btn-sm m-1" value="<fmt:message key="SEARCH"/>">
-						</form>
+						
 						
 						<!--템플릿  -->
 						<div class="container-fluid py-4">
+						<div class="board_content">
+						<form class="form-inline m-2 justify-content-end" action="<c:url value='/board/search'/>" method="get">
+							<input type="text" name="keyword" class="form-control" placeholder="Search" style="border: 1px solid gray; width:200px; height:35px; padding:0px 10px;">
+							<input type="submit" class="btn btn-warning m-1" value="<fmt:message key="SEARCH"/>">
+						</form>
 					      <div class="row">
 					        <div class="col-12">
 					          <div class="card my-4">
@@ -66,36 +63,38 @@
 					                <table class="table align-items-center justify-content-center mb-0">
 					                  <thead>
 					                    <tr>
-					                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><fmt:message key="BOARD_ID"/></th>
+					                      <th class="text-center text-secondary text-xxs font-weight-bolder opacity-7 text-center"><fmt:message key="BOARD_ID"/></th>
 					                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"><fmt:message key="CATEGORY"/></th>
 					                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"><fmt:message key="WRITER"/></th>
-					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><fmt:message key="SUBJECT"/></th>
-					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><fmt:message key="CONTENT"/></th>
+					                      <th class="text-uppercase text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><fmt:message key="SUBJECT"/></th>
+					                      <th class="text-uppercase text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><fmt:message key="CONTENT"/></th>
 					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><fmt:message key="WRITE_DATE"/></th>
 					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><fmt:message key="READ_COUNT"/></th>
 					                    </tr>
 					                  </thead>
 					                  <tbody>
-					                  <c:set var="seq" value="${(page-1)*10}" scope="page"/>
 										<c:forEach var="board" items="${boardList}">
 											<tr>
 												<c:set var="seq" value="${seq+1}" scope="page"/>
-												<td><p class="text-xs font-weight-bold mb-0">${board.boardId}</p></td>
+												<td><p class="text-xs font-weight-bold mb-0 text-center">${board.boardId}</p></td>
 												<td>
-													<span class="badge badge-sm bg-gradient-success">
 													<c:choose>
-													<c:when test="${board.categoryId eq 1}">공지사항</c:when>
-													<c:when test="${board.categoryId eq 2}">강의게시판</c:when>
-													<c:when test="${board.categoryId eq 3}">과제제출</c:when>
-													<c:when test="${board.categoryId eq 4}">질문게시판</c:when>
+													<c:when test="${board.categoryId eq 1}"><span class="badge badge-sm bg-gradient-success">공지사항</span></c:when>
+													<c:when test="${board.categoryId eq 2}"><span class="badge badge-sm bg-gradient-info">강의게시판</span></c:when>
+													<c:when test="${board.categoryId eq 3}"><span class="badge badge-sm bg-gradient-warning">과제제출</span></c:when>
+													<c:when test="${board.categoryId eq 4}"><span class="badge badge-sm bg-gradient-secondary">질문게시판</span></c:when>
 													</c:choose>
-													</span>
 												</td>
-												<td class="pc"><span class="text-secondary text-xs font-weight-bold">${board.writer}</span></td>
-												<td class="pc"><span class="text-secondary text-xs font-weight-bold"><a href='<c:url value="board/${board.boardId}"/>'>${board.title}</a></span></td>
-												<td class="pc"><span class="text-secondary text-xs font-weight-bold"><a href='<c:url value="board/${board.boardId}"/>'>${board.content}</a></span></td>
-												<td class="pc"><span class="text-secondary text-xs font-weight-bold"><fmt:formatDate value="${board.writeDate}" pattern="YYYY-MM-dd"/></span></td>
-												<td class="pc"><span class="text-secondary font-weight-bold text-xs" >${board.readCount}</span></td>
+												<td class="pc">
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm">${board.writer}</h6>
+													<p class="text-xs text-secondary mb-0">${board.email}</p>
+												</div>
+												</td>
+												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold"><a href='<c:url value="/board/${board.boardId}"/>'>${board.title}</a></h6></td>
+												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold"><a href='<c:url value="/board/${board.boardId}"/>'>${board.content}</a></h6></td>
+												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold"><fmt:formatDate value="${board.writeDate}" pattern="YYYY-MM-dd"/></h6></td>
+												<td class="pc text-center"><span class="text-secondary text-xs font-weight-bold">${board.readCount}</span></td>
 											</tr>
 										</c:forEach>
 					                  </tbody>
@@ -107,19 +106,38 @@
 					      </div>
 					      
 					      <!-- 템플릿 끝! -->
-						<table class="table">
-							<tr>
-								<td align="left">
-									
-								</td>
-								<td align="right">
-									<a href='<c:url value="/board/write/${categoryId}"/>'>
-									<button><fmt:message key="WRITE_NEW_ARTICLE"/>
-									</button>
-									</a>
-								</td>
-							</tr>
-						</table>
+				      <div class="d-flex justify-content-end">  
+				        <a type="button" href="<c:url value='/board/write'/>" class="btn btn-muted shadow">글 작성</a>
+				      </div>
+						<div class="pager d-flex justify-content-center my-3">
+							<div class="flex-fulfill"></div>
+							<div class="pagingButtonSet d-flex justify-content-center">
+								<c:if test="${pager.pageNo > 1}">
+									<a href="1" type="button" class="btn btn-muted shadow">◀◀</a>
+								</c:if>
+
+								<c:if test="${pager.groupNo > 1}">
+									<a href="${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
+								</c:if>
+
+								<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+									<c:if test="${pager.pageNo != i}">
+										<a href="${i}" type="button" class="btn btn-white shadow">${i}</a>
+									</c:if>
+									<c:if test="${pager.pageNo == i}">
+										<a href="${i}" type="button" class="btn btn-dark shadow">${i}</a>
+									</c:if>
+								</c:forEach>
+
+								<c:if test="${pager.groupNo < pager.totalGroupNo }">
+									<a href="${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
+
+								</c:if>
+								<a href="${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+							</div>
+							<div class="flex-fulfill"></div>
+						</div>
+						
 					</div>
 	    		</div>
 	        </div>

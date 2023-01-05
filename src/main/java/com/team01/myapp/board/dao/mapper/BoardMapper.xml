@@ -9,35 +9,72 @@
 		]]>
 	</select>
 	
+	<select id="selectCategoryArticleCount" parameterType="int" resultType="int">
+	<![CDATA[
+		SELECT COUNT(BOARD_ID) AS "count"
+		FROM BOARD
+		WHERE CATEGORY_ID = #{categoryId}
+		]]>
+	</select>
+	
 	<select id="selectTotalArticleList" parameterType="hashmap" resultType="com.team01.myapp.board.model.Board">
 		<![CDATA[
-				SELECT
-					BOARD_ID		AS "boardId",
-					CATEGORY_ID		AS "categoryId",
-					WRITER			AS "writer",
-					EMAIL			AS "email",
-					TITLE			AS "title",
-					CONTENT 		AS "content",
-					WRITE_DATE		AS "writeDate",
-					READ_COUNT		AS "readCount",
-					RNUM			AS "seq"
-				FROM (
-					SELECT
-						BOARD_ID,
-						CATEGORY_ID,
-						WRITER,
-						EMAIL,
-						TITLE,
-						CONTENT,
-						WRITE_DATE,
-						READ_COUNT,
-						ROWNUM AS RNUM
-					FROM (
-						SELECT * FROM BOARD
-						ORDER BY WRITE_DATE
-						)
-					)
-				WHERE RNUM BETWEEN #{start} AND #{end}
+		select 
+			 rownum,
+		     BOARD_ID as "boardId", 
+		     CATEGORY_ID as "categoryId",
+		     EMAIL as "email",
+             WRITER as "writer",
+		     PASSWORD as "password",
+		     TITLE as "title",
+		     WRITE_DATE as "writeDate",
+		     READ_COUNT as "readCount",
+		     U_ID as "uId",
+		     CONTENT as "content"
+			from(
+				select 
+					rownum as rnum,
+		            BOARD_ID ,
+				    CATEGORY_ID ,
+				    EMAIL ,
+                    WRITER,
+				    PASSWORD ,
+				    TITLE ,
+				    WRITE_DATE , 
+				    READ_COUNT ,
+				    U_ID ,
+				    CONTENT 
+				from(
+				select      BOARD_ID ,
+						    CATEGORY_ID ,
+						    EMAIL ,
+                            WRITER,
+						    PASSWORD ,
+						    TITLE ,
+						    WRITE_DATE , 
+						    READ_COUNT ,
+						    U_ID ,
+						    CONTENT 
+						from(
+						    select 
+						        BOARD_ID ,
+						        CATEGORY_ID ,
+						        EMAIL  ,
+                                WRITER,
+						        PASSWORD ,
+						        TITLE ,
+						        WRITE_DATE ,
+						        READ_COUNT ,
+						        U_ID ,
+						        CONTENT
+		                
+				            from board
+				        )
+				order by BOARD_ID desc
+				) 
+				where rownum <= #{end}
+				) 
+				where rnum >= #{start}
 		]]>
 	</select>
 	

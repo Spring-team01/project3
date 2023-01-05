@@ -44,13 +44,14 @@
 			</div>
 		</div>
 		<div class="col-3" id="clock-box">
-			<div id="date" class="date"></div>
-			<div id="time" class="time"></div>
+		<div class="clock-sub-box">
+		<span id="date" class="date"></span><span id="time" class="time"></span>
+		</div>
 		</div>
 		<div class="col-5" id="button-box">
 			<div class="button-sub-box">
 				<form action="<c:url value='/attendance'/>" method="post" enctype="multipart/form-data">
-					<button class="btn btn-lg btn-dark mt-4">
+					<button class="btn btn-lg btn-dark mt-4" style="white-space:nowrap;">
 						출근
 					</button>
 				</form>
@@ -67,7 +68,7 @@
 			</div>
 			<div class="button-sub-box">
 				<form action="<c:url value='/leave'/>" method="post" enctype="multipart/form-data">
-					<button class="btn btn-lg btn-dark mt-4">
+					<button class="btn btn-lg btn-dark mt-4" style="white-space:nowrap;">
 						퇴근
 					</button>
 				</form>

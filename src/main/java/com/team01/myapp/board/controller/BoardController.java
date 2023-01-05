@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.service.IBoardService;
+import com.team01.myapp.util.Pager;
 
 @Controller
 public class BoardController {
@@ -22,43 +24,26 @@ public class BoardController {
 	@Autowired
 	IBoardService boardService;
 	
-	@RequestMapping("/boardlist/{page}")
-	public String getListAll(@PathVariable int page, HttpSession session, Model model) {
+	@RequestMapping(value="/boardlist/{pageNo}", method = RequestMethod.GET)
+	public String getListAll(@PathVariable String pageNo, HttpSession session, Model model, Pager pager) {
+		pager = boardService.returnPage(pageNo, pager);
 		
-		session.setAttribute("page", page);
-		List<Board> boardList = boardService.selectTotalArticleList(page);
+		List<Board> boardList = boardService.getTotalArticleList(pager);
 		model.addAttribute("boardList", boardList);
-		System.out.println(boardList);
-		//paging start
-		int bbsCount = boardService.selectTotalArticleCount();
-		int totalPage = 0;
-		if(bbsCount > 0) {
-			totalPage=(int)Math.ceil(bbsCount/10.0);
-		}
-		model.addAttribute("totalPageCount", totalPage);
-		model.addAttribute("page",page);
+		model.addAttribute("pager",pager);
 		
 		return "board/list";
 		
 	}
-
-	@RequestMapping("/board/cat/{categoryId}/{page}")
-	public String getListByCategory(@PathVariable int categoryId, @PathVariable int page, HttpSession session, Model model) {
+	
+	@RequestMapping(value="/board/{categoryId}/{pageNo}",  method = RequestMethod.GET)
+	public String getListByCategory(@PathVariable int categoryId, @PathVariable String pageNo, HttpSession session, Model model, Pager pager) {
 		
-		session.setAttribute("page", page);
-		model.addAttribute("categoryId", categoryId);
+		pager = boardService.returnPage(pageNo, pager);
 		
-		List<Board> boardList= boardService.selectArticleListByCategory(categoryId, page);
+		List<Board> boardList = boardService.getArticleListByCategory(categoryId, pager);
 		model.addAttribute("boardList", boardList);
-		
-		//paging start
-		int bbsCount = boardService.selectTotalArticleCountByCategoryId(categoryId);
-		int totalPage = 0;
-		if(bbsCount > 0) {
-			totalPage=(int)Math.ceil(bbsCount/10.0);
-		}
-		model.addAttribute("totalPageCount", totalPage);
-		model.addAttribute("page",page);
+		model.addAttribute("pager",pager);
 		
 		return "board/list";
 	}

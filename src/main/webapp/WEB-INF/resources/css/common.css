@@ -17,7 +17,7 @@
 		.wrapper .sidebar{
 		  background: #0f3443;
 		  position: fixed;
-		  top: 125px;
+		  top: 120px;
 		  left: 0;
 		  width: 225px;
 		  height: 100%;
@@ -86,7 +86,7 @@
 		  background: #0f3443;
 		  height: 50px;
 		  position: fixed;
-		  top:135px;
+		  top:120px;
 		  border-bottom-right-radius:10px;
 		  align-items: center;
 		  padding: 0 20px;
