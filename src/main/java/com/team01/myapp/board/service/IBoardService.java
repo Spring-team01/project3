@@ -8,6 +8,7 @@ import com.team01.myapp.util.Pager;
 
 public interface IBoardService { 
 	
+	//리스트 
 	Pager returnPage(String pageNo, Pager pager);
 	List<Board> getTotalArticleList(Pager pager);
 	
@@ -16,7 +17,16 @@ public interface IBoardService {
 	
 	//읽기 
 	Board selectArticle(int boardId);
-	BoardUploadFile getFile(int fileId);
+	BoardUploadFile getFile(int boardFileId);
+	
+	//쓰기 
+	void insertArticle(Board board);
+	void insertArticle(Board board, BoardUploadFile file);
+	
+
+
+	
+	
 	
 	
 

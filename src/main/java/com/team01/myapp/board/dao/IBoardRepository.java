@@ -8,12 +8,11 @@ import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.model.BoardUploadFile;
 
 public interface IBoardRepository {
-//	int selectMaxArticleNo();
-//	int selectMaxFileId();
+	// 시퀀스 역할
+	int selectMaxArticleNo();
+	int selectMaxFileId();
 	
-	void insertArticle(Board board);
-	void insertFileData(BoardUploadFile file);
-	
+	//리스트 기능 
 	int selectTotalArticleCount();
 	List<Board> selectTotalArticleList(@Param("start")int start, @Param("end") int end);
 
@@ -23,7 +22,11 @@ public interface IBoardRepository {
 	//읽기 기능 
 	void updateReadCount(int boardId);
 	Board selectArticle(int boardId);
-	BoardUploadFile getFile(int fileId);
+	BoardUploadFile getFile(int boardFileId);
+	
+	//쓰기 기능
+	void insertArticle(Board board);
+	void insertFileData(BoardUploadFile file);
 	
 
 	

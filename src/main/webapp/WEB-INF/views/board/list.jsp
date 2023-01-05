@@ -126,7 +126,7 @@
 								</div>
 								<div class="flex-fulfill"></div>
 								<div class="d-flex justify-content-end">  
-							      <a type="button" href="<c:url value='board/write'/>" class="btn btn-muted shadow">글 작성</a>
+							      <a type="button" href="<c:url value="/board/write/${board.categoryId}"/>" class="btn btn-muted shadow">글 작성</a>
 							      </div>
 					            </div>
 								</div>

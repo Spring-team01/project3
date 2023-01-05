@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.team01.myapp.board.dao.IBoardRepository;
 import com.team01.myapp.board.model.Board;
@@ -44,7 +45,7 @@ public class BoardService implements IBoardService {
 				pager = new Pager(5, 5, totalBoardNum, pagerNo);
 		return pager;
 	}
-
+	//리스트 가져오기 
 	@Override
 	public List<Board> getTotalArticleList(Pager pager) {
 		int end = pager.getPageNo() * pager.getRowsPerPage();
@@ -61,7 +62,7 @@ public class BoardService implements IBoardService {
 		
 		return boardRepository.selectArticleListByCategory(categoryId, start, end);
 	}
-
+	//읽기 
 	@Override
 	public Board selectArticle(int boardId) {
 		boardRepository.updateReadCount(boardId);
@@ -69,9 +70,28 @@ public class BoardService implements IBoardService {
 	}
 
 	@Override
-	public BoardUploadFile getFile(int fileId) {
-		return boardRepository.getFile(fileId);
+	public BoardUploadFile getFile(int boardFileId) {
+		return boardRepository.getFile(boardFileId);
 	}
+	
+	//쓰기 
+	@Transactional
+	public void insertArticle(Board board) {
+		board.setBoardId(boardRepository.selectMaxArticleNo()+1);
+		boardRepository.insertArticle(board);
+	}
+	
 
+	@Transactional
+	public void insertArticle(Board board, BoardUploadFile file) {
+		board.setBoardId(boardRepository.selectMaxArticleNo()+1);
+		boardRepository.insertArticle(board);
+		if(file != null && file.getBoardFileName() != null && !file.getBoardFileName().equals("")) {
+			file.setBoardId(board.getBoardId());
+			file.setBoardFileId(boardRepository.selectMaxFileId()+1);
+			boardRepository.insertFileData(file);
+		}
+		
+	}
 	
 }

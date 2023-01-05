@@ -16,6 +16,21 @@
 		WHERE CATEGORY_ID = #{categoryId}
 		]]>
 	</select>
+	<select id="selectMaxArticleNo" parameterType="int" resultType="int">
+	<![CDATA[
+		SELECT
+			NVL(MAX(BOARD_ID),0) AS "articleNo"
+		FROM BOARD
+	]]>
+	</select>
+	
+	<select id="selectMaxFileId" parameterType="int" resultType="int">
+	<![CDATA[
+		SELECT
+			NVL(MAX(BOARD_ID),0) AS "boardFileId"
+		FROM B_FILE
+	]]>
+	</select>
 	
 	<select id="selectTotalArticleList" parameterType="hashmap" resultType="com.team01.myapp.board.model.Board">
 		<![CDATA[
@@ -146,15 +161,38 @@
 	<![CDATA[
 		SELECT 
 			B_FILE_ID		AS "boardFileId",
-			BOARD_ID	AS "boardoardId",
+			BOARD_ID	AS "boardId",
 			B_FILE_NAME	AS "boardFileName",
 			B_FILE_SIZE	AS "boardFileSize",
 			B_FILE_CONTENT_TYPE AS "boardFileContentType",
 			B_FILE_DATA	AS	"boardFileData"
 		FROM B_FILE
-		WHERE B_FILE_ID=#{fileId}			
+		WHERE B_FILE_ID=#{boardFileId}			
 	]]>		
 	</select>
+	
+	<!-- 쓰기  -->
+	
+	<insert id="insertArticle" parameterType="com.team01.myapp.board.model.Board">
+	<![CDATA[
+		INSERT INTO
+		BOARD
+			(BOARD_ID, CATEGORY_ID, WRITER, EMAIL, PASSWORD, TITLE, CONTENT, WRITE_DATE, U_ID, READ_COUNT)
+		VALUES
+			(#{boardId}, #{categoryId}, #{writer}, #{email}, #{password}, #{title}, #{content}, SYSDATE, #{userId}, 0)
+	]]>
+	</insert>
+	
+	<insert id="insertFileData"  parameterType="com.team01.myapp.board.model.BoardUploadFile">
+	<![CDATA[	
+		INSERT INTO
+		B_FILE
+			(B_FILE_ID, BOARD_ID, B_FILE_NAME, B_FILE_SIZE, B_FILE_CONTENT_TYPE, B_FILE_DATA)
+		VALUES
+			(#{boardFileId}, #{boardId}, #{boardFileName}, #{boardFileSize}, #{boardFileContentType}, #{boardFileData})
+	]]>
+	</insert>
+	
 	
 	
 </mapper>
