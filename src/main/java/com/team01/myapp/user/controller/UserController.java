@@ -40,12 +40,12 @@ public class UserController {
 				//아이디 있음
 				if(dbPassword.equals(password)) {
 					//비밀번호 일치
-					session.setAttribute("uId", userid);
-					session.setAttribute("uName", user.getuName());
+					session.setAttribute("userId", userid);
+					session.setAttribute("userName", user.getUserName());
 					session.setAttribute("major", user.getMajor());
 					session.setAttribute("grade", user.getGrade());
 					session.setAttribute("phone", user.getPhone());
-					session.setAttribute("uType", user.getuType());
+					session.setAttribute("userType", user.getUserType());
 					session.setAttribute("password", user.getPassword());
 					session.setAttribute("email", user.getEmail());
 					session.setAttribute("subjectId", user.getSubjectId());
@@ -56,15 +56,15 @@ public class UserController {
 					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMDD");
 					String today = simpleDateFormat.format(date);
 					
-					String uId = (String) session.getAttribute("uId");
+					String userId = (String) session.getAttribute("userId");
 					
-					String attTime = attendanceService.selectAttTime(today, uId);
-					String leaveTime = attendanceService.selectLeaveTime(today, uId);
+					String attTime = attendanceService.selectAttTime(today, userId);
+					String leaveTime = attendanceService.selectLeaveTime(today, userId);
 					
 					session.setAttribute("attTime", attTime);
 					session.setAttribute("leaveTime", leaveTime);
 					
-					if(user.getuType().equals("USER")) {
+					if(user.getUserType().equals("USER")) {
 						return "redirect:/home";
 					}else {
 						return "redirect:/admin/adminhome";
