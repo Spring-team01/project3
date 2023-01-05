@@ -110,4 +110,51 @@
 		]]>
 	</select>
 	
+	<!-- 읽기 기능 -->
+	
+	<select id="selectArticle" parameterType="int"
+		resultType="com.team01.myapp.board.model.Board">
+	<![CDATA[
+		SELECT
+		    BOARD.BOARD_ID			AS "boardId",
+		    CATEGORY_ID				AS "categoryId",
+		    WRITER					AS "writer",
+		    EMAIL					AS "email",
+		    TITLE					AS "title",
+		    CONTENT					AS "content",
+		    READ_COUNT				AS "readCount",
+		    WRITE_DATE				AS "writeDate",
+		    B_FILE_ID	AS "BFileId",
+		    B_FILE_NAME AS "BFileName",
+		    B_FILE_SIZE	AS "BFileSize",
+		    B_FILE_CONTENT_TYPE AS "BFileContentType"
+		FROM BOARD LEFT OUTER JOIN B_FILE
+		    ON BOARD.BOARD_ID=B_FILE.BOARD_ID
+		WHERE BOARD.BOARD_ID=#{boardId}
+	]]>
+	</select>
+	
+	<update id="updateReadCount" parameterType="int">
+	<![CDATA[
+		UPDATE BOARD
+			SET READ_COUNT = READ_COUNT+1
+		WHERE BOARD_ID=#{boardId}
+	]]>
+	</update>
+	
+	<select id="getFile" parameterType="int" resultType="com.team01.myapp.board.model.BoardUploadFile">
+	<![CDATA[
+		SELECT 
+			B_FILE_ID		AS "BFileId",
+			BOARD_ID	AS "BoardId",
+			B_FILE_NAME	AS "BFileName",
+			B_FILE_SIZE	AS "BFileSize",
+			B_FILE_CONTENT_TYPE AS "BFileContentType",
+			B_FILE_DATA	AS	"BFileData"
+		FROM B_FILE
+		WHERE B_FILE_ID=#{fileId}			
+	]]>		
+	</select>
+	
+	
 </mapper>
