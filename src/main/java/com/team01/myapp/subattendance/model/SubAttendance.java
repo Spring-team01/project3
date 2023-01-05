@@ -1,6 +1,9 @@
 package com.team01.myapp.subattendance.model;
 
 import java.sql.Timestamp;
+import java.util.Date;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -13,4 +16,7 @@ public class SubAttendance {
 	private int attNo;
 	private String content;
 	private String result;
+	private String subAttendanceTitle;
+	private Date date;
+	private MultipartFile file;
 }
