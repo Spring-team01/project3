@@ -51,7 +51,7 @@ public class CommunityController {
 			community.setCommunityContent(Jsoup.clean(community.getCommunityContent(), Whitelist.basic()));
 			
 			community.setCommunityContent(community.getCommunityContent().replace("\r\n", "<br>"));
-			community.setUsersId((String) session.getAttribute("uId"));
+			community.setUsersId((String) session.getAttribute("userId"));
 			community.setCommunityEmail((String) session.getAttribute("email"));
 			// 카테고리 아이디 임시로 1
 			community.setCommunityCategoryId(1);
