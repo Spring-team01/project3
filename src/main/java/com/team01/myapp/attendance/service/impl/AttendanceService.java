@@ -27,28 +27,28 @@ public class AttendanceService implements IAttendanceService {
 	}
 	
 	@Override
-	public int selectAtterdanceCheck(String attDate, String uId) {
-		return AttendanceRepository.selectAtterdanceCheck(attDate, uId);
+	public int selectAtterdanceCheck(String attDate, String userId) {
+		return AttendanceRepository.selectAtterdanceCheck(attDate, userId);
 	}
 	
 	@Override
-	public String selectAttTime(String today, String uId) {
-		return AttendanceRepository.selectAttTime(today, uId);
+	public String selectAttTime(String today, String userId) {
+		return AttendanceRepository.selectAttTime(today, userId);
 	}
 	
 	@Override
-	public String selectLeaveTime(String today, String uId) {
-		return AttendanceRepository.selectLeaveTime(today, uId);
+	public String selectLeaveTime(String today, String userId) {
+		return AttendanceRepository.selectLeaveTime(today, userId);
 	}
 	
 	@Override
-	public List<Attendance> selectOneUserAttendanceList(String uId) {
-		return AttendanceRepository.selectOneUserAttendanceList(uId);
+	public List<Attendance> selectOneUserAttendanceList(String userId) {
+		return AttendanceRepository.selectOneUserAttendanceList(userId);
 	}
 
 	@Override
-	public void updateLeaveCheck(String attDate, String uId) {
-		AttendanceRepository.updateLeaveCheck(attDate, uId);
+	public void updateLeaveCheck(String attDate, String userId) {
+		AttendanceRepository.updateLeaveCheck(attDate, userId);
 	}
 	
 }

@@ -47,7 +47,7 @@ public class BoardController {
 		
 		pager = boardService.returnCategoryPage(categoryId, pageNo, pager);
 		
-		List<Board> boardList = boardService.getArticleListbyCategory(categoryId, pager);
+		List<Board> boardList = boardService.getArticleListByCategory(categoryId, pager);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pager",pager);
 		

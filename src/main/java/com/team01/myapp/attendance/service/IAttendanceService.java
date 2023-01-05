@@ -8,13 +8,13 @@ import com.team01.myapp.attendance.model.Attendance;
 public interface IAttendanceService {
 	List<Attendance> selectAttendanceList();
 	
-	int selectAtterdanceCheck(String attDate, String uId);
+	int selectAtterdanceCheck(String attDate, String userId);
 	void insertAttendance(Attendance attendance);
 	
-	void updateLeaveCheck(String attDate, String uId);
+	void updateLeaveCheck(String attDate, String userId);
 	
-	String selectAttTime(String today, String uId);
-	String selectLeaveTime(String today, String uId);
+	String selectAttTime(String today, String userId);
+	String selectLeaveTime(String today, String userId);
 	
-	List<Attendance> selectOneUserAttendanceList(String uId);
+	List<Attendance> selectOneUserAttendanceList(String userId);
 }

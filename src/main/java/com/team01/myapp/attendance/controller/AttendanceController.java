@@ -28,16 +28,16 @@ public class AttendanceController {
 	public String checkAttendance(Attendance attendance, HttpSession session, Model model) {
 		Date date = new Date();
 		
-		// attendance uId 담기
-		String uId = (String) session.getAttribute("uId");
-		attendance.setUId(uId);
+		// attendance userId 담기
+		String userId = (String) session.getAttribute("userId");
+		attendance.setUserId(userId);
 		
 		// 비교하기 위한 날짜 생성
 		SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("YYYYMMDD");
 		
 		String attDate = simpleDateFormat1.format(date);
 		
-		int choice = attendanceService.selectAtterdanceCheck(attDate, uId);
+		int choice = attendanceService.selectAtterdanceCheck(attDate, userId);
 		if(choice == 1) {
 			model.addAttribute("message", "이미 출근을 누르셨습니다.");
 			return "/home";
@@ -70,8 +70,8 @@ public class AttendanceController {
 			
 			attendanceService.insertAttendance(attendance);
 			
-			String attTime = attendanceService.selectAttTime(attDate, uId);
-			String leaveTime = attendanceService.selectLeaveTime(attDate, uId);
+			String attTime = attendanceService.selectAttTime(attDate, userId);
+			String leaveTime = attendanceService.selectLeaveTime(attDate, userId);
 			
 			session.setAttribute("attTime", attTime);
 			session.setAttribute("leaveTime", leaveTime);
@@ -97,13 +97,13 @@ public class AttendanceController {
 		String attDate2 = simpleDateFormat2.format(date);
 		
 		// 회원 아이디 불러오기
-		String uId = (String) session.getAttribute("uId");
+		String userId = (String) session.getAttribute("userId");
 		
 		// 행이 있는지 체크 ( 출근을 했는지 안 했는지)
-		int choice = attendanceService.selectAtterdanceCheck(attDate2, uId);
+		int choice = attendanceService.selectAtterdanceCheck(attDate2, userId);
 		
 		// 퇴근을 눌렀는지 확인하기 위한 leaveTime 생성 (null 또는 값이 있음)
-		String leaveTime = attendanceService.selectLeaveTime(attDate2, uId);
+		String leaveTime = attendanceService.selectLeaveTime(attDate2, userId);
 		
 		// 현재 시간 생성
 		// 현재 시간 생성
@@ -116,8 +116,8 @@ public class AttendanceController {
 					model.addAttribute("message", "아직 퇴근 시간 전 입니다.");
 					return "/home";
 				} else {
-					attendanceService.updateLeaveCheck(attDate1, uId);
-					leaveTime = attendanceService.selectLeaveTime(attDate2, uId);
+					attendanceService.updateLeaveCheck(attDate1, userId);
+					leaveTime = attendanceService.selectLeaveTime(attDate2, userId);
 					session.setAttribute("leaveTime", leaveTime);
 				}
 			} else {
@@ -135,9 +135,9 @@ public class AttendanceController {
 	@RequestMapping("/attendance/list")
 	public String getListAttendance(Model model, HttpSession session) {
 		
-		String uId = (String) session.getAttribute("uId");
+		String userId = (String) session.getAttribute("userId");
 		
-		List<Attendance> attendanceList = attendanceService.selectOneUserAttendanceList(uId);
+		List<Attendance> attendanceList = attendanceService.selectOneUserAttendanceList(userId);
 		
 		model.addAttribute("attendanceList", attendanceList);
 		
