@@ -56,44 +56,67 @@
 								<h6 class="text-white text-capitalize ps-3">강의 게시판</h6>
 							</div>
 						</div>
-						<form action="<c:url value='/board/write/'/>" method="post">
+						<form action="<c:url value='/board/write/'/>" method="post" enctype="multipart/form-data">
 							<div class="card-body px-0 pb-2">
 								<div class="m-5">
-								 	<select class="custom-select custom-select">
+									<div class="form-group">
+									<label for="categoryId"><fmt:message key="CATEGORY"/></label>	
+								 	<select class="custom-select" name="categoryId" style="width:50%; justify-content:left;">
 										<option selected>카테고리</option>
 										<option value="1">공지사항</option>
 										<option value="2">강의게시판</option>
 										<option value="3">과제제출</option>
 										<option value="4">질문게시판</option>
 									</select>
-									
-									<div class="input-group-prepend">
-										<input class="form-control" id="boardTitle" name="boardTitle" placeholder="게시글 제목"></input>
 									</div>
-
-									<div class="col-8 p-0">
-										<div class="input-group-prepend">
-											<input class="form-control" id="boardPassword" name="boardPassword" placeholder="게시글 비밀번호"></input>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="name"><fmt:message key="WRITER"/></label>
+										<div class="col-sm-2" >
+											<input type="text" name="writer" id="name" 
+											value="${sessionScope.uId}" ${!empty sessionScope.uId ? "readonly" : "" } >
 										</div>
 									</div>
-									<textarea class="form-control" rows="15" id="boardContent" name="boardContent" placeholder="게시글 입력"></textarea>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="email"><fmt:message key="EMAIL"/></label>
+										<div class="col-sm-4">
+											<input type="text" name="email" id="email" 
+											value="${sessionScope.email}" ${!empty sessionScope.email ? "readonly" : "" } 
+											class="form-control" required>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="password">게시글 비밀번호</label>
+										<div class="col-sm-2">
+											<input type="password" name="password" id="password" 
+											class="form-control" placeholder="게시글 비밀번호" required>
+										</div>
+									</div>		
+									
+									<div class="input-group-prepend">
+										<input class="form-control" id="title" name="title" placeholder="게시글 제목"></input>
+									</div>
+
+									<textarea class="form-control" rows="15" id="content" name="content" placeholder="게시글 입력"></textarea>
 									<div class="input-group mb-3">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="">Upload</span>
 										</div>
 										<div class="container mt-3">
-										  
-										    <p>Custom file:</p>
-										    <div class="custom-file mb-3">
-										      <input type="file" class="custom-file-input" id="customFile" name="filename">
-										      <label class="custom-file-label" for="customFile">Choose file</label>
-										    </div>
 										    
+										    <div class="custom-file mb-3 form-group">
+												<label class="control-label col-sm-2" for="photo"><fmt:message key="FILE"/></label>
+												<div class="col-sm-8">
+													<input type="file" name="file" id="i_file"><span id="droparea" class="help-block"><fmt:message key="FILESIZE_ERROR"/></span>
+												</div>
+											</div>
 										   
 										    <div class="mt-3">
-											    <button type="submit" class="btn btn-primary">Submit</button>
-											    <button id="write" class="btn btn-sm btn-info" type="submit">작성</button>
-												<button id="back" class="btn btn-sm btn-warning" type="reset">취소</button>
+											    <input type="hidden" name="boardId" value="${board.boardId}">
+												<%-- <input type="hidden" name="masterId" value="${board.masterId}">
+												<input type="hidden" name="replyNumber" value="${board.replyNumber}">
+												<input type="hidden" name="replyStep" value="${board.replyStep}"> --%>
+												<input type="submit" id="i_submit" class="btn btn-info" value="<fmt:message key="SAVE"/>">
+												<input type="reset"  class="btn btn-info" value="<fmt:message key="CANCEL"/>">
 										    </div>
 										    
 										</div>
@@ -113,8 +136,8 @@
 <script>
 // Add the following code if you want the name of the file appear on select
 $(".custom-file-input").on("change", function() {
-  var fileName = $(this).val().split("\\").pop();
-  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  var boardFileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(boardFileName);
 });
 </script>
  

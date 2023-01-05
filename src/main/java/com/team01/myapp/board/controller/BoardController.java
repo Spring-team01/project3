@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.model.BoardUploadFile;
@@ -65,9 +70,9 @@ public class BoardController {
 		return "board/view";
 	}
 	
-	@RequestMapping("/file/{fileId}")
-	public ResponseEntity<byte[]> getFile(@PathVariable int fileId){
-		BoardUploadFile file = boardService.getFile(fileId);
+	@RequestMapping("/boardfile/{boardFileId}")
+	public ResponseEntity<byte[]> getBoardFile(@PathVariable int boardFileId){
+		BoardUploadFile file = boardService.getFile(boardFileId);
 		logger.info("getFile"+file.toString());
 		final HttpHeaders headers =new HttpHeaders();
 		String[] mtypes = file.getBoardFileContentType().split("/");
@@ -76,6 +81,7 @@ public class BoardController {
 		headers.setContentDispositionFormData("attachment", file.getBoardFileName(),Charset.forName("UTF-8"));
 		return new ResponseEntity<byte[]>(file.getBoardFileData(),headers,HttpStatus.OK);
 	}
+	
 	//쓰기 
 	@RequestMapping(value="/board/write/{categoryId}", method=RequestMethod.GET)
 	public String writeArticle(@PathVariable int categoryId, Model model) {
@@ -83,31 +89,37 @@ public class BoardController {
 		return "board/write";
 	}
 	
-//	@RequestMapping(value="/board/write", method=RequestMethod.POST)
-//	public String writeArticle(Board board, BindingResult result, RedirectAttributes redirectAttrs ) {
-//		logger.info("/board/write: " +board.toString());
-//		try {
-//			board.setTitle(Jsoup.clean(board.getTitle(), Whitelist.basic()));
-//			board.setContent(Jsoup.clean(board.getContent(), Whitelist.basic()));
-//			MultipartFile mfile = board.getFile();
-//			if(mfile!=null&& !mfile.isEmpty()) {
-//				logger.info("/board/write : "+mfile.getOriginalFilename());
-//				BoardUploadFile file = new BoardUploadFile();
-//				file.setFileName(mfile.getOriginalFilename());
-//				file.setFileSize(mfile.getSize());
-//				file.setFileContentType(mfile.getContentType());
-//				file.setFileData(mfile.getBytes());
-//				logger.info("/board/write : " +file.toString());
-//				
-//				boardService.insertArticle(board, file);
-//			}else {
-//				boardService.insertArticle(board);
-//			}
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//			redirectAttrs.addFlashAttribute("message", e.getMessage());
-//		}
-//		
-//		return "redirect:/board/cat/"+board.getCategoryId();
-//	}
+	@RequestMapping(value="/board/write", method=RequestMethod.POST)
+	public String writeArticle(Board board, BindingResult result, RedirectAttributes redirectAttrs,HttpSession session) {
+		logger.info("/board/write: " +board.toString());
+		try {
+			board.setTitle(Jsoup.clean(board.getTitle(), Whitelist.basic()));
+			board.setContent(Jsoup.clean(board.getContent(), Whitelist.basic()));
+			board.setContent(board.getContent().replace("\r\n", "<br>"));
+			board.setUserId((String) session.getAttribute("userId"));
+			board.setEmail((String) session.getAttribute("email"));
+			MultipartFile mfile = board.getFile();
+			if(mfile!=null&& !mfile.isEmpty()) {
+				logger.info("/board/write : "+mfile.getOriginalFilename());
+				BoardUploadFile file = new BoardUploadFile();
+				file.setBoardFileName(mfile.getOriginalFilename());
+				file.setBoardFileSize(mfile.getSize());
+				file.setBoardFileContentType(mfile.getContentType());
+				file.setBoardFileData(mfile.getBytes());
+				logger.info("/board/write : " +file.toString());
+				
+				boardService.insertArticle(board, file);
+			}else {
+				boardService.insertArticle(board);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			redirectAttrs.addFlashAttribute("message", e.getMessage());
+		}
+		
+		return "redirect:/board/"+board.getCategoryId()+"/"+1;
+	}
+	
+	
+	
 }
