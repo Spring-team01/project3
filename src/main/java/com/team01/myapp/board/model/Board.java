@@ -16,14 +16,14 @@ public class Board {
 	private String content;
 	private Date writeDate;
 	private int readCount;
-	private String uId;
+	private String userId;
 	private int page;
 	
 	//file 게시판 입력양식에 file이 있다 spring에 multipartfile 임
 	private MultipartFile file;
 	//file정보들
-	private int bFileId;
-	private String bFileName;
-	private long bFileSize;
-	private String bFileContentType;
+	private int boardFileId;
+	private String boardFileName;
+	private long boardFileSize;
+	private String boardFileContentType;
 }

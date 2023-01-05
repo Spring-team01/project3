@@ -4,13 +4,13 @@ import lombok.Data;
 import lombok.ToString;
 
 @Data
-@ToString(exclude="bFileData")
+@ToString(exclude="boardFileData")
 public class BoardUploadFile {
-	private int bFileId;
-	private String bFileName;
-	private long bFileSize;
-	private String bFileContentType;
-	private byte[] bFileData;
+	private int boardFileId;
+	private String boardFileName;
+	private long boardFileSize;
+	private String boardFileContentType;
+	private byte[] boardFileData;
 	private int boardId;
 
 }

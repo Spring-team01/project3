@@ -70,11 +70,11 @@ public class BoardController {
 		BoardUploadFile file = boardService.getFile(fileId);
 		logger.info("getFile"+file.toString());
 		final HttpHeaders headers =new HttpHeaders();
-		String[] mtypes = file.getBFileContentType().split("/");
+		String[] mtypes = file.getBoardFileContentType().split("/");
 		headers.setContentType(new MediaType(mtypes[0], mtypes[1]));
-		headers.setContentLength(file.getBFileSize());
-		headers.setContentDispositionFormData("attachment", file.getBFileName(),Charset.forName("UTF-8"));
-		return new ResponseEntity<byte[]>(file.getBFileData(),headers,HttpStatus.OK);
+		headers.setContentLength(file.getBoardFileSize());
+		headers.setContentDispositionFormData("attachment", file.getBoardFileName(),Charset.forName("UTF-8"));
+		return new ResponseEntity<byte[]>(file.getBoardFileData(),headers,HttpStatus.OK);
 	}
 	//쓰기 
 	@RequestMapping(value="/board/write/{categoryId}", method=RequestMethod.GET)

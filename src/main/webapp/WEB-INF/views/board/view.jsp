@@ -81,14 +81,14 @@
 							<td><fmt:message key="CONTENT"/></td>
 							<td class="board_content">${board.content}</td>
 						</tr>
-						<c:if test="${!empty board.BFileName}">
+						<c:if test="${!empty board.boardFileName}">
 						<tr>
 							<td><fmt:message key="FILE"/></td>
 							<td>
-							<c:set var="len" value="${fn:length(board.BFileName)}"/>
-							<c:set var="filetype" value="${fn:toUpperCase(fn:substring(board.BFileName, len-4, len))}"/>
-							<c:if test="${(filetype eq '.JPG') or (filetype eq 'JPEG') or (filetype eq '.PNG') or (filetype eq '.GIF')}"><img src='<c:url value="/file/${board.BFileId}"/>' class="img-thumbnail"><br></c:if>
-							<a href='<c:url value="/file/${board.BFileId}"/>'>${board.BFileName} (<fmt:formatNumber>${board.BFileSize}</fmt:formatNumber>byte)</a>
+							<c:set var="len" value="${fn:length(board.boardFileName)}"/>
+							<c:set var="filetype" value="${fn:toUpperCase(fn:substring(board.boardFileName, len-4, len))}"/>
+							<c:if test="${(filetype eq '.JPG') or (filetype eq 'JPEG') or (filetype eq '.PNG') or (filetype eq '.GIF')}"><img src='<c:url value="/file/${board.boardFileId}"/>' class="img-thumbnail"><br></c:if>
+							<a href='<c:url value="/file/${board.boardFileId}"/>'>${board.boardFileName} (<fmt:formatNumber>${board.boardFileSize}</fmt:formatNumber>byte)</a>
 							</td>
 						</tr>
 						</c:if>
