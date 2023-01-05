@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team01.myapp.admin.dao.IAdminRepository;
-import com.team01.myapp.admin.model.User;
+import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.util.Pager;
 @Service
 public class AdminService implements IAdminService {
@@ -28,7 +28,7 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
-	public List<User> getUserListBySubject(int subjectId, Pager pager) {
+	public List<UserList> getUserListBySubject(int subjectId, Pager pager) {
 		int end = pager.getPageNo() * pager.getRowsPerPage();
 		int start = (pager.getPageNo()-1)* pager.getRowsPerPage()+1;
 		

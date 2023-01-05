@@ -16,8 +16,8 @@
                     </a>
                     <div class="dropdown-container">
                     	<a href="<c:url value='/admin/userList/1/1'/>">c언어</a>
-					    <a href="#">python</a>
-					    <a href="#">java</a>
+					    <a href="<c:url value='/admin/userList/2/1'/>">python</a>
+					    <a href="<c:url value='/admin/userList/3/1'/>">java</a>
                     </div>
                 </li>
                 <li>

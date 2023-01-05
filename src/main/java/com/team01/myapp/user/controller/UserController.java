@@ -86,5 +86,10 @@ public class UserController {
 		return "user/login";
 	}
 	
+	@RequestMapping(value="/user/update", method=RequestMethod.GET)
+	public String userUpdate() {
+		return "user/login";
+	}
+	
 	
 }

@@ -12,6 +12,7 @@
 <!--     Fonts and icons     -->
 <link rel="stylesheet" type="text/css"
 	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+	
 <!-- Nucleo Icons -->
 <link href="<c:url value="/static/css/nucleo-icons.css"/>"
 	rel="stylesheet" />
@@ -36,6 +37,11 @@
 	rel="stylesheet" />
 <link href="<c:url value="/static/css/nucleo-svg.css"/>"
 	rel="stylesheet" />
+
+<!-- Clock css -->
+<link href="<c:url value="/static/css/clock.css"/>" rel='stylesheet' />
+<script type="text/javascript" src="<c:url value="/static/js/clock.js"/>"></script>
+	
 <!-- Font Awesome Icons -->
 <script src="https://kit.fontawesome.com/42d5adcbca.js"
 	crossorigin="anonymous"></script>
