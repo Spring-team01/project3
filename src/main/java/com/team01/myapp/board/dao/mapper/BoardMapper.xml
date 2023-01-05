@@ -124,10 +124,10 @@
 		    CONTENT					AS "content",
 		    READ_COUNT				AS "readCount",
 		    WRITE_DATE				AS "writeDate",
-		    B_FILE_ID	AS "BFileId",
-		    B_FILE_NAME AS "BFileName",
-		    B_FILE_SIZE	AS "BFileSize",
-		    B_FILE_CONTENT_TYPE AS "BFileContentType"
+		    B_FILE_ID	AS "boardFileId",
+		    B_FILE_NAME AS "boardFileName",
+		    B_FILE_SIZE	AS "boardFileSize",
+		    B_FILE_CONTENT_TYPE AS "boardFileContentType"
 		FROM BOARD LEFT OUTER JOIN B_FILE
 		    ON BOARD.BOARD_ID=B_FILE.BOARD_ID
 		WHERE BOARD.BOARD_ID=#{boardId}
@@ -145,12 +145,12 @@
 	<select id="getFile" parameterType="int" resultType="com.team01.myapp.board.model.BoardUploadFile">
 	<![CDATA[
 		SELECT 
-			B_FILE_ID		AS "BFileId",
-			BOARD_ID	AS "BoardId",
-			B_FILE_NAME	AS "BFileName",
-			B_FILE_SIZE	AS "BFileSize",
-			B_FILE_CONTENT_TYPE AS "BFileContentType",
-			B_FILE_DATA	AS	"BFileData"
+			B_FILE_ID		AS "boardFileId",
+			BOARD_ID	AS "boardoardId",
+			B_FILE_NAME	AS "boardFileName",
+			B_FILE_SIZE	AS "boardFileSize",
+			B_FILE_CONTENT_TYPE AS "boardFileContentType",
+			B_FILE_DATA	AS	"boardFileData"
 		FROM B_FILE
 		WHERE B_FILE_ID=#{fileId}			
 	]]>		

@@ -66,6 +66,7 @@
 										<option value="3">과제제출</option>
 										<option value="4">질문게시판</option>
 									</select>
+									
 									<div class="input-group-prepend">
 										<input class="form-control" id="boardTitle" name="boardTitle" placeholder="게시글 제목"></input>
 									</div>
@@ -81,29 +82,23 @@
 											<span class="input-group-text" id="">Upload</span>
 										</div>
 										<div class="container mt-3">
-										  <h2>첨부파일</h2>
-										  <p>To create a custom file upload, wrap a container element with a class of .custom-file around the input with type="file". Then add the .custom-file-input to the file input:</p>
-										  <form action="/action_page.php">
+										  
 										    <p>Custom file:</p>
 										    <div class="custom-file mb-3">
 										      <input type="file" class="custom-file-input" id="customFile" name="filename">
 										      <label class="custom-file-label" for="customFile">Choose file</label>
 										    </div>
 										    
-										    <p>Default file:</p>
-										    <input type="file" id="myFile" name="filename2">
-										  
+										   
 										    <div class="mt-3">
-										      <button type="submit" class="btn btn-primary">Submit</button>
+											    <button type="submit" class="btn btn-primary">Submit</button>
+											    <button id="write" class="btn btn-sm btn-info" type="submit">작성</button>
+												<button id="back" class="btn btn-sm btn-warning" type="reset">취소</button>
 										    </div>
-										  </form>
-										</div>
-										<div class="custom-file">
-											<input type="file" class="custom-file-input" id="" aria-describedby="inputGroupFileAddon01"> <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+										    
 										</div>
 									</div>
-									<button id="write" class="btn btn-sm btn-dark" type="submit">작성</button>
-									<button id="back" class="btn btn-sm btn-dark" type="reset">취소</button>
+									
 								</div>
 							</div>
 						</form>
