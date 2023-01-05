@@ -80,7 +80,8 @@
 			UPDATE attendance
 			SET leave_time = sysdate
 			WHERE u_id = ${uId}
-			AND att_date = ${attDate}
+			AND TO_CHAR(att_date, 'YY/MM/DD') = #{attDate}
 		]]>
 	</update>
+	
 </mapper>

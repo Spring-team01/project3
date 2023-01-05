@@ -11,7 +11,7 @@ public interface IAttendanceService {
 	int selectAtterdanceCheck(String attDate, String uId);
 	void insertAttendance(Attendance attendance);
 	
-	void updateLeaveCheck(Date attDate, String uId);
+	void updateLeaveCheck(String attDate, String uId);
 	
 	String selectAttTime(String today, String uId);
 	String selectLeaveTime(String today, String uId);

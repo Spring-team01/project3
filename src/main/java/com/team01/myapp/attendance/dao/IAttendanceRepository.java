@@ -13,7 +13,7 @@ public interface IAttendanceRepository {
 	int selectAtterdanceCheck(@Param("attDate") String attDate, @Param("uId") String uId);
 	void insertAttendance(Attendance attendance);
 	
-	void updateLeaveCheck(@Param("attDate") Date attDate, @Param("uId") String uId);
+	void updateLeaveCheck(@Param("attDate") String attDate, @Param("uId") String uId);
 	
 	String selectAttTime(@Param("today") String today, @Param("uId") String uId);
 	String selectLeaveTime(@Param("today") String today, @Param("uId") String uId);
