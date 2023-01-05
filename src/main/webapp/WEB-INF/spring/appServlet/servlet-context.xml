@@ -47,7 +47,7 @@
    
    <context:component-scan base-package="com.team01.myapp.attendance.controller"></context:component-scan>
    
-    <context:component-scan base-package="com.team01.myapp.community"></context:component-scan>
+   <context:component-scan base-package="com.team01.myapp.community"></context:component-scan>
 	
 	<interceptors>
 		<interceptor>
