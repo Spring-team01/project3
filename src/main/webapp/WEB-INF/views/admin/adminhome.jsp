@@ -33,9 +33,126 @@
 				</div>
 				<div class="container-fluid"
 					style="background-color: white; margin: 50px; width: 92%;">
-					<div>각자 작성할 부분</div>
+
 					<div class="row-lg-9">
-						<jsp:include page="/WEB-INF/views/admin/alist.jsp" />
+						<div class="container-fluid py-4">
+							<div class="row">
+								<div class="col-12">
+
+									<div class="card my-4">
+										<div
+											class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+											<div
+												class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
+												<h6 class="text-white text-capitalize ps-3">일별 요약</h6>
+											</div>
+										</div>
+										<div class="card-body px-0 pb-2">
+											<div class="table-responsive p-0">
+												<table
+													class="table align-items-center justify-content-center mb-0">
+													<thead>
+														<tr>
+															<td>과목</td>
+															<td>출석</td>
+															<td>지각</td>
+															<td>결석</td>
+															<td>미처리</td>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>c언어</td>
+															<td>20</td>
+															<td>0</td>
+															<td>0</td>
+															<td>4</td>
+														</tr>
+														<tr>
+															<td>python</td>
+															<td>20</td>
+															<td>0</td>
+															<td>0</td>
+															<td>4</td>
+														</tr>
+														<tr>
+															<td>java</td>
+															<td>20</td>
+															<td>0</td>
+															<td>0</td>
+															<td>4</td>
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+									</div>
+									<div class="m-2" style="height: 100px"></div>
+									<div class="card my-4">
+										<div
+											class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+											<div
+												class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
+												<h6 class="text-white text-capitalize ps-3">휴가 신청 목록</h6>
+											</div>
+										</div>
+										<div class="card-body px-0 pb-2">
+											<div class="table-responsive p-0">
+												<table
+													class="table align-items-center justify-content-center mb-0">
+													<thead>
+														<tr>
+															<td>이름</td>
+															<td>학번</td>
+															<td>학년</td>
+															<td>과목</td>
+
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>이연희</td>
+															<td>2016680001</td>
+															<td>4</td>
+															<td>c언어</td>
+
+														</tr>
+														<tr>
+															<td>김태희</td>
+															<td>2016680003</td>
+															<td>4</td>
+															<td>java</td>
+
+														</tr>
+														<tr>
+															<td>김희률</td>
+															<td>2016680004</td>
+															<td>4</td>
+															<td>c언어</td>
+
+														</tr>
+														<tr>
+															<td>강지성</td>
+															<td>2016680007</td>
+															<td>4</td>
+															<td>java</td>
+
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+									</div>
+
+
+								</div>
+							</div>
+
+						</div>
 					</div>
 
 				</div>

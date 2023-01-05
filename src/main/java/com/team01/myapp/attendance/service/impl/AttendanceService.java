@@ -1,5 +1,6 @@
 package com.team01.myapp.attendance.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +46,9 @@ public class AttendanceService implements IAttendanceService {
 		return AttendanceRepository.selectOneUserAttendanceList(uId);
 	}
 
+	@Override
+	public void updateLeaveCheck(Date attDate, String uId) {
+		AttendanceRepository.updateLeaveCheck(attDate, uId);
+	}
+	
 }

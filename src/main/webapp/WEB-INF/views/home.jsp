@@ -37,14 +37,12 @@
            	 welcome 필요없는 사람은 이거 살리고 Welcome은 지우기 
             </div>
                <div class="container-fluid" style="background-color:white; margin:50px; width:92%;">
-      				
-							<div>
-							각자 작성할 부분
-							</div>
-							<div class="row-lg-9">
-							<jsp:include page="/WEB-INF/views/calendar.jsp" />
-							</div>
-						
+					<div>
+					각자 작성할 부분
+					</div>
+					<div class="row-lg-9">
+					<jsp:include page="/WEB-INF/views/calendar.jsp" />
+					</div>
 	    		</div>
 	        </div>
         
