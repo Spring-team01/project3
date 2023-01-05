@@ -7,19 +7,9 @@
 
 <!DOCTYPE html>
 <html>
-<jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
-<!--     Fonts and icons     -->
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-<!-- Nucleo Icons -->
-<link href="<c:url value="/static/css/nucleo-icons.css"/>" rel="stylesheet" />
-<link href="<c:url value="/static/css/nucleo-svg.css"/>" rel="stylesheet" />
-<!-- Font Awesome Icons -->
-<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-<!-- Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-<!-- CSS Files -->
-<link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
-
+<head>
+	<jsp:include page="/WEB-INF/views/include/adminstaticFiles.jsp" />
+</head>
 <body>
 	<jsp:include page="/WEB-INF/views/include/adminheader.jsp" />
 
@@ -35,7 +25,7 @@
 				</div>
 				<div class="mainview d-flex"></div>
 
-				<div class="container-fluid" style="background-color: white; margin: 50px; width: 92%;">
+				<div class="container-fluid" style="background-color: white; margin: 50px; width: 92%; min-height: 600px;">
 
 					<div class="card my-4">
 						<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -48,11 +38,11 @@
 								<table class="table align-items-center mb-0">
 									<thead>
 										<tr>
-											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">학번</th>
-											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">이름</th>
-											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">학과</th>
-											<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">학년</th>
-											<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">과목</th>
+											<th class="text-center text-uppercase text-secondary text-sm font-weight-bolder opacity-7">학번</th>
+											<th class="text-center text-uppercase text-secondary text-sm font-weight-bolder opacity-7">이름</th>
+											<th class="text-center text-uppercase text-secondary text-sm font-weight-bolder opacity-7 ps-2">학과</th>
+											<th class="text-center text-uppercase text-secondary text-sm font-weight-bolder opacity-7">학년</th>
+											<th class="text-center text-uppercase text-secondary text-sm font-weight-bolder opacity-7">과목</th>
 											
 										</tr>
 									</thead>
@@ -60,20 +50,20 @@
 										<c:forEach var="user" items="${userList}">
 											<tr>
 												<td>
-													<h3 align="center" class="text-xs font-weight-bold mb-0">${user.uId}</h3>
+													<h3 align="center" class="text-md font-weight-bold mb-0">${user.uId}</h3>
 												</td>
 												<td>
-													<h3 align="center" class="text-xs font-weight-bold mb-0">${user.uName}</h3>
+													<h3 align="center" class="text-md font-weight-bold mb-0">${user.uName}</h3>
 													
 												</td>
 												<td>
-													<h3 align="center" class="text-xs font-weight-bold mb-0">${user.uName}</h3>
+													<h3 align="center" class="text-md font-weight-bold mb-0">${user.major}</h3>
 												</td>
 												<td>
-													<h3 align="center" class="text-xs font-weight-bold mb-0">${user.major}</h3>
+													<h3 align="center" class="text-md font-weight-bold mb-0">${user.grade}</h3>
 												</td>
 												<td>
-													<h3 align="center" class="text-xs font-weight-bold mb-0">c언어</h3>
+													<h3 align="center" class="text-md font-weight-bold mb-0">c언어</h3>
 												</td>
 												
 											</tr>
@@ -107,7 +97,7 @@
 										</c:if>
 										<a href="${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
 									</div>
-									
+								</div>	
 							</div>
 						</div>
 					</div>

@@ -7,7 +7,9 @@
 
 <!DOCTYPE html>
 <html>
-<jsp:include page="/WEB-INF/views/include/adminstaticFiles.jsp" />
+<head>
+	<jsp:include page="/WEB-INF/views/include/adminstaticFiles.jsp" />
+</head>
 
 <body>
 	<jsp:include page="/WEB-INF/views/include/adminheader.jsp" />
@@ -32,7 +34,7 @@
 					</div>
 				</div>
 				<div class="container-fluid"
-					style="background-color: white; margin: 50px; width: 92%;">
+					style="background-color: white; margin: 50px; width: 92%; min-height: 600px;">
 
 					<div class="row-lg-9">
 						<div class="container-fluid py-4">

@@ -21,7 +21,7 @@
                     </div>
                 </li>
                 <li>
-                	<a href="boardlist" type="button" class="dropdown-btn" >
+                	<a href="<c:url value='/admin/register'/>" type="button" class="dropdown-btn" >
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">사용자 등록</span>
                     

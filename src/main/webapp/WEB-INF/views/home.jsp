@@ -36,7 +36,7 @@
      		<div class="mainview d-flex">
            	 welcome 필요없는 사람은 이거 살리고 Welcome은 지우기 
             </div>
-               <div class="container-fluid" style="background-color:white; margin:50px; width:92%;">
+               <div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
 					<div>
 					각자 작성할 부분
 					</div>

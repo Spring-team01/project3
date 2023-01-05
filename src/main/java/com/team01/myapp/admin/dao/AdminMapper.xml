@@ -53,7 +53,7 @@
 				            from users
 				            where subject_id = #{subjectId}
 				        )
-				order by u_id desc
+				order by grade desc, u_id asc
 				) 
 				where rownum <= #{end}
 				) 
