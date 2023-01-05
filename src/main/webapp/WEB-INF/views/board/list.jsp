@@ -38,11 +38,9 @@
      		<div class="mainview d-flex">
            
             </div>
-              <div class="container-fluid" style="background-color:white; margin:50px; width:92%;">
+              <div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
       				
 					${message}
-						
-						
 						<!--템플릿  -->
 						<div class="container-fluid py-4">
 						<div class="board_content">
@@ -91,8 +89,8 @@
 													<p class="text-xs text-secondary mb-0">${board.email}</p>
 												</div>
 												</td>
-												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold"><a href='<c:url value="/board/${board.boardId}"/>'>${board.title}</a></h6></td>
-												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold"><a href='<c:url value="/board/${board.boardId}"/>'>${board.content}</a></h6></td>
+												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold"><a href='<c:url value="/board/view/${board.boardId}/${seq}"/>'>${board.title}</a></h6></td>
+												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold"><a href='<c:url value="/board/view/${board.boardId}/${seq}"/>'>${board.content}</a></h6></td>
 												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold"><fmt:formatDate value="${board.writeDate}" pattern="YYYY-MM-dd"/></h6></td>
 												<td class="pc text-center"><span class="text-secondary text-xs font-weight-bold">${board.readCount}</span></td>
 											</tr>
@@ -100,44 +98,41 @@
 					                  </tbody>
 					                </table>
 					              </div>
+					              <div class="pager d-flex justify-content-center my-3">
+								<div class="flex-fulfill"></div>
+								<div class="pagingButtonSet d-flex justify-content-center">
+									<c:if test="${pager.pageNo > 1}">
+										<a href="1" type="button" class="btn btn-muted shadow">◀◀</a>
+									</c:if>
+	
+									<c:if test="${pager.groupNo > 1}">
+										<a href="${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
+									</c:if>
+	
+									<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+										<c:if test="${pager.pageNo != i}">
+											<a href="${i}" type="button" class="btn btn-white shadow">${i}</a>
+										</c:if>
+										<c:if test="${pager.pageNo == i}">
+											<a href="${i}" type="button" class="btn btn-dark shadow">${i}</a>
+										</c:if>
+									</c:forEach>
+	
+									<c:if test="${pager.groupNo < pager.totalGroupNo }">
+										<a href="${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
+	
+									</c:if>
+									<a href="${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+								</div>
+								<div class="flex-fulfill"></div>
+								<div class="d-flex justify-content-end">  
+							      <a type="button" href="<c:url value='board/write'/>" class="btn btn-muted shadow">글 작성</a>
+							      </div>
 					            </div>
+								</div>
 					          </div>
 					        </div>
 					      </div>
-					      
-					      <!-- 템플릿 끝! -->
-				      <div class="d-flex justify-content-end">  
-				        <a type="button" href="<c:url value='/board/write'/>" class="btn btn-muted shadow">글 작성</a>
-				      </div>
-						<div class="pager d-flex justify-content-center my-3">
-							<div class="flex-fulfill"></div>
-							<div class="pagingButtonSet d-flex justify-content-center">
-								<c:if test="${pager.pageNo > 1}">
-									<a href="1" type="button" class="btn btn-muted shadow">◀◀</a>
-								</c:if>
-
-								<c:if test="${pager.groupNo > 1}">
-									<a href="${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
-								</c:if>
-
-								<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
-									<c:if test="${pager.pageNo != i}">
-										<a href="${i}" type="button" class="btn btn-white shadow">${i}</a>
-									</c:if>
-									<c:if test="${pager.pageNo == i}">
-										<a href="${i}" type="button" class="btn btn-dark shadow">${i}</a>
-									</c:if>
-								</c:forEach>
-
-								<c:if test="${pager.groupNo < pager.totalGroupNo }">
-									<a href="${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
-
-								</c:if>
-								<a href="${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
-							</div>
-							<div class="flex-fulfill"></div>
-						</div>
-						
 					</div>
 	    		</div>
 	        </div>

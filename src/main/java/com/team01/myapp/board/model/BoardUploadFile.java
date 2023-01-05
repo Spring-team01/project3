@@ -7,7 +7,6 @@ import lombok.ToString;
 @ToString(exclude="bFileData")
 public class BoardUploadFile {
 	private int bFileId;
-	private int bBoardId;
 	private String bFileName;
 	private long bFileSize;
 	private String bFileContentType;

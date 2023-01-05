@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.team01.myapp.board.dao.IBoardRepository;
 import com.team01.myapp.board.model.Board;
+import com.team01.myapp.board.model.BoardUploadFile;
 import com.team01.myapp.board.service.IBoardService;
-import com.team01.myapp.community.model.Community;
 import com.team01.myapp.util.Pager;
 
 @Service
@@ -55,9 +55,22 @@ public class BoardService implements IBoardService {
 	
 
 	@Override
-	public List<Board> getArticleListbyCategory(int categoryId, Pager pager) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Board> getArticleListByCategory(int categoryId, Pager pager) {
+		int end = pager.getPageNo() * pager.getRowsPerPage();
+		int start = (pager.getPageNo()-1)* pager.getRowsPerPage()+1;
+		
+		return boardRepository.selectArticleListByCategory(categoryId, start, end);
+	}
+
+	@Override
+	public Board selectArticle(int boardId) {
+		boardRepository.updateReadCount(boardId);
+		return boardRepository.selectArticle(boardId);
+	}
+
+	@Override
+	public BoardUploadFile getFile(int fileId) {
+		return boardRepository.getFile(fileId);
 	}
 
 	

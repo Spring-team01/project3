@@ -29,16 +29,17 @@
                     </div>
                 </li>
                 <li>
-                	<a href="<c:url value='/boardlist/1'/>" type="button" class="dropdown-btn" >
+                	<a href="#" type="button" class="dropdown-btn" >
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">강의게시판</span>
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <div class="dropdown-container">
-                    	<a href="<c:url value='/board/cat/1'/>">공지사항</a>
-					    <a href="<c:url value='/board/cat/2'/>">강의게시판</a>
-					  	<a href="<c:url value='/board/cat/3'/>">과제제출</a>
-					    <a href="<c:url value='/board/cat/4'/>">질문게시판</a>
+                    	<a href="<c:url value='/boardlist/1'/>">전체강의게시판</a>
+                    	<a href="<c:url value='/board/1/1'/>">공지사항</a>
+					    <a href="<c:url value='/board/2/1'/>">강의게시판</a>
+					  	<a href="<c:url value='/board/3/1'/>">과제제출</a>
+					    <a href="<c:url value='/board/4/1'/>">질문게시판</a>
                     </div>
                 </li>
                 <li>
