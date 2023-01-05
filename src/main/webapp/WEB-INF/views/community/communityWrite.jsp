@@ -34,40 +34,37 @@
 					</div>
 				</div>
 				<div class="mainview d-flex"></div>
-				<div class="container-fluid" style="background-color: white; margin: 50px; width: 92%;">
+				<div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
 					<div class="card my-4">
 						<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
 							<div class="bg-gradient-secondary shadow-primary border-radius-lg pt-4 pb-3">
-								<h6 class="text-white text-capitalize ps-3">커뮤니티 게시판</h6>
+								<h6 class="text-white text-capitalize ps-3">커뮤니티 게시글 작성</h6>
 							</div>
 						</div>
 						<form id="write" name="write" action="<c:url value='/community/write'/>" method="post" enctype="multipart/form-data">
 							<div class="card-body px-0 pb-2">
-								<div class="table-responsive p-0">
 
+								<div class="input-group-prepend">
+									<textarea  class="form-control bg-gray-100 border-0 border-radius-lg" rows="2" id="communityTitle" name="communityTitle" placeholder="게시글 제목"></textarea>
+								</div>
+								<div class="input-group-prepend">
+									<textarea class="form-control" rows="3" id="communityPassword" name="communityPassword" placeholder="게시글 비밀번호"></textarea>
+								</div>
+								<textarea class="form-control" rows="15" id="communityContent" name="communityContent" placeholder="게시글 입력"></textarea>
+								<div class="input-group mb-3">
 									<div class="input-group-prepend">
-										<textarea class="form-control" rows="2" id="communityTitle" name="communityTitle" placeholder="게시글 제목"></textarea>
+										<span class="input-group-text" id="">Upload</span>
 									</div>
+									<div class="custom-file">
+										<input type="file" id="i_file" name="file"><span id="droparea" class="help-block"></span>
 
-									<div class="col-8">
-										<div class="input-group-prepend">
-											<textarea class="form-control" rows="3" id="communityPassword" name="communityPassword" placeholder="게시글 비밀번호"></textarea>
-										</div>
-									</div>
-									<textarea class="form-control" rows="15" id="communityContent" name="communityContent" placeholder="게시글 입력"></textarea>
-									<div class="input-group mb-3">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="">Upload</span>
-										</div>
-										<div class="custom-file">
-											<input type="file" id="i_file" name="file"><span id="droparea" class="help-block"></span>
-						
-										</div>
 									</div>
 								</div>
 							</div>
+							<div align="center">
 							<input type="button" onclick="submit()" class="btn btn-dark shadow" value="작성"> 
 							<a type="button" href="<c:url value='/community/communityList//1/1'/>5" class="btn btn-dark shadow">글 목록</a>
+							</div>
 						</form>
 					</div>
 				</div>

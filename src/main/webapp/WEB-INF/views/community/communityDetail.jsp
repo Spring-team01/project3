@@ -35,7 +35,7 @@
 					</div>
 				</div>
 				<div class="mainview d-flex"></div>
-				<div class="container-fluid" style="background-color: white; margin: 50px; width: 92%;">
+				<div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
 					<div class="row">
 						<!-- Post content-->
 						<article>

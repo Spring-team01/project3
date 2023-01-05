@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,10 @@ public class CommunityController {
 	public String writeCommunity(Community community, BindingResult result, RedirectAttributes redirectAttrs,
 			HttpSession session) {
 		try {
+			//XSSS 대응
+			community.setCommunityTitle(Jsoup.clean(community.getCommunityTitle(), Whitelist.basic()));
+			community.setCommunityContent(Jsoup.clean(community.getCommunityContent(), Whitelist.basic()));
+			
 			community.setCommunityContent(community.getCommunityContent().replace("\r\n", "<br>"));
 			community.setUsersId((String) session.getAttribute("uId"));
 			community.setCommunityEmail((String) session.getAttribute("email"));
