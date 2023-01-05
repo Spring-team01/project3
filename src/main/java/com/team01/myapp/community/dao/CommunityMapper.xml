@@ -151,7 +151,28 @@
 			where C_BOARD_ID = #{communityCBoardId}
 		]]>
 	</select>
-
+	
+	<update id="updateCommunityReplyNumber" parameterType="int">
+		<![CDATA[
+		update community
+   	 	set C_REPLY_NUMBER = C_REPLY_NUMBER +1
+   	 	where C_BOARD_ID = #{communityBoardId}
+		]]>
+	</update>
+	
+	
+	<insert id="writeCommunityReply" parameterType="com.team01.myapp.community.model.CommunityComment">
+		<![CDATA[
+		insert into C_COMMENT
+   			( CC_COMMENT_NO,
+   			 CC_WRITE_DATE,
+  			 U_ID,
+    		CC_CONTENT,
+    		C_BOARD_ID,
+    		CC_REPLY_NUMBER)
+		values (1, sysdate, 201668003, 'TEST 댓글', 1, 1);
+		]]>
+	</insert>
 
 
 </mapper>

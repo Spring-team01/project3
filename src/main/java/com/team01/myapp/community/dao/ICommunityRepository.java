@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.team01.myapp.community.model.Community;
+import com.team01.myapp.community.model.CommunityComment;
 import com.team01.myapp.community.model.CommunityFile;
 
 public interface ICommunityRepository {
@@ -17,7 +18,10 @@ public interface ICommunityRepository {
 	List<Community> getCommunityListByCategory(@Param("start") int start, @Param("end") int end);
 	void updateReadCount(int communityBoardId);
 	Community readCommunityDetail(int communityBoardId);
+	CommunityFile getFile(int communityBoardId);
 	
-	CommunityFile getFile(int communityCBoardId);
+	void updateCommunityReplyNumber(@Param("communityBoardId") int communityBoardId);
+	void writeCommunityReply(CommunityComment comment);
+	
 	
 }
