@@ -13,7 +13,7 @@
 				att_time AS "attTime",
 				leave_time AS "leaveTime",
 				status AS "status",
-				u_id AS "uId",
+				u_id AS "userId",
 				subject_id AS "subjectId"
 			FROM attendance
 		]]>
@@ -26,7 +26,7 @@
 				count(att_no)
 			FROM attendance
 			WHERE TO_CHAR(att_date, 'YYYYMMDD') = #{attDate}
-			AND u_id = #{uId}
+			AND u_id = #{userId}
 		]]>
 	</select>
 	
@@ -37,7 +37,7 @@
 			attendance
 				(att_no, att_date, att_time, leave_time, status, u_id, subject_id)
 			VALUES
-				(seq_att_no.NEXTVAL, sysdate, sysdate, null, #{status}, #{uId}, #{subjectId})
+				(seq_att_no.NEXTVAL, sysdate, sysdate, null, #{status}, #{userId}, #{subjectId})
 		]]>
 	</insert>
 	
@@ -47,7 +47,7 @@
 			SELECT TO_CHAR(att_time, 'HH:MI:SS') AS att_time
 			FROM ATTENDANCE
 			WHERE to_char(att_date, 'YYYYMMDD') = #{today}
-			AND u_id = #{uId}
+			AND u_id = #{userId}
 		]]>
 	</select>
 	
@@ -57,7 +57,7 @@
 			SELECT TO_CHAR(leave_time, 'HH24:MI:SS') AS leave_time
 			FROM ATTENDANCE
 			WHERE to_char(att_date, 'YYYYMMDD') = #{today}
-			AND u_id = #{uId}
+			AND u_id = #{userId}
 		]]>
 	</select>
 	
@@ -70,7 +70,7 @@
 				TO_CHAR(ATT_TIME, 'HH24:MI') AS "attTime",
 				TO_CHAR(LEAVE_TIME, 'HH24:MI') AS "leaveTime"
 			FROM ATTENDANCE
-			WHERE u_id = #{uId}
+			WHERE u_id = #{userId}
 		]]>
 	</select>
 	
@@ -79,7 +79,7 @@
 		<![CDATA[
 			UPDATE attendance
 			SET leave_time = sysdate
-			WHERE u_id = ${uId}
+			WHERE u_id = ${userId}
 			AND TO_CHAR(att_date, 'YY/MM/DD') = #{attDate}
 		]]>
 	</update>

@@ -9,7 +9,7 @@ public class SubAttendance {
 	private int subAttNo;
 	private Timestamp subAttTime;
 	private Timestamp subleaveTime;
-	private String uId;
+	private String userId;
 	private int attNo;
 	private String content;
 	private String result;

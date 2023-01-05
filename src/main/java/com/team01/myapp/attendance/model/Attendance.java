@@ -12,6 +12,6 @@ public class Attendance {
 	private Timestamp attTime;
 	private Timestamp leaveTime;
 	private String status;
-	private String uId;
+	private String userId;
 	private int subjectId;
 }
