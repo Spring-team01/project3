@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.team01.myapp.community.dao.ICommunityRepository;
 import com.team01.myapp.community.model.Community;
+import com.team01.myapp.community.model.CommunityComment;
 import com.team01.myapp.community.model.CommunityFile;
 import com.team01.myapp.util.Pager;
 
@@ -70,6 +71,18 @@ public class CommunityService implements ICommunityService {
 	@Override
 	public CommunityFile getFile(int communityBoardId) {
 		return communityRepository.getFile(communityBoardId);
+	}
+
+	@Override
+	public List<CommunityComment> getCommunityComment() {
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public void writeCommunityReply(CommunityComment comment) {
+		communityRepository.updateCommunityReplyNumber(comment.getCommunityCommentReplyNumber()+1);
+		communityRepository.writeCommunityReply(comment);
 	}
 	
 	

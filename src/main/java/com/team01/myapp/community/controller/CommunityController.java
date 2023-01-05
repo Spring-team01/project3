@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team01.myapp.community.model.Community;
+import com.team01.myapp.community.model.CommunityComment;
 import com.team01.myapp.community.model.CommunityFile;
 import com.team01.myapp.community.service.ICommunityService;
 import com.team01.myapp.util.Pager;
@@ -90,9 +91,10 @@ public class CommunityController {
 	}
 	
 	//상세 게시글 조회
-	@RequestMapping(value="/community/communityDetail/{communityBoardId}")
+	@RequestMapping(value="/community/communityDetail/{communityBoardId}", method = RequestMethod.GET)
 	public String readCommunity(@PathVariable int communityBoardId, Model model) {
 		Community community = communityService.readCommunityDetail(communityBoardId);
+		
 		model.addAttribute("community", community);
 		
 		return "community/communityDetail";
@@ -109,6 +111,23 @@ public class CommunityController {
 											Charset.forName("UTF-8"));
 		return new ResponseEntity<byte[]>(communityFile.getCommunityFileData(), header,HttpStatus.OK);
 	}
-
-
+	
+	
+	//상세 게시글 답글 작성 ( + 수정)
+	@RequestMapping(value="/community/reply", method = RequestMethod.GET)
+	public String writeCommunityReply() {
+		
+		return "community/communityReply";
+	}
+	
+	@RequestMapping(value="/community/reply/comment", method = RequestMethod.POST) 
+	public String writeCommunityReply(CommunityComment comment, BindingResult result, RedirectAttributes redirectAttrs,
+			HttpSession session) {
+			
+			comment.setUserId((String)session.getAttribute("userId"));
+			communityService.writeCommunityReply(comment);
+			
+		return "community/communityReply";
+	}
+	
 }

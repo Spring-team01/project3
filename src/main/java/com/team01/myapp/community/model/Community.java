@@ -25,5 +25,5 @@ public class Community {
 	private String communityContentType;
 	
 	private String communityContent;
-	private int communityMasterId;
+	private int communityReplyNumber;
 }

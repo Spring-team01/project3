@@ -63,7 +63,7 @@
 							</div>
 							<div align="center">
 							<input type="button" onclick="submit()" class="btn btn-dark shadow" value="작성"> 
-							<a type="button" href="<c:url value='/community/communityList//1/1'/>5" class="btn btn-dark shadow">글 목록</a>
+							<a type="button" href="<c:url value='/community/communityList//1/1'/>" class="btn btn-dark shadow">글 목록</a>
 							</div>
 						</form>
 					</div>
