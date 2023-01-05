@@ -35,7 +35,7 @@
 					</div>
 				</div>
 				<div class="mainview d-flex"></div>
-				<div class="container-fluid" style="background-color: white; margin: 50px; width: 92%;">
+				<div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
 					<div class="row">
 						<!-- Post content-->
 						<article>
@@ -51,12 +51,22 @@
 							</header>
 							<!-- Preview image figure-->
 							<figure class="mb-4">
-								<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
-							</figure>
-							<!-- Post content-->
-							<section class="mb-5">
+								<c:if test="${!empty community.communityFileName}">
+									<tr>
+										<td>
+											<c:set var="len" value="${fn:length(community.communityFileName)}" />
+											<c:set var="filetype" value="${fn:toUpperCase(fn:substring(community.communityFileName, len-4, len))}" />
+											<c:if test="${(filetype eq '.JPG') or (filetype eq 'JPEG') or (filetype eq '.PNG') or (filetype eq '.GIF')}">
+												<img src='<c:url value="/file/${community.communityBoardId}"/>' class="img-fluid rounded">
+												<br>
+											</c:if>
+											<a href='<c:url value="/file/${community.communityBoardId}"/>'>${community.communityFileName}
+											</a>
+										</td>
+									</tr>
+								</c:if>
 								<p class="fs-5 mb-4">${community.communityContent}</p>
-							</section>
+							</figure>
 						</article>
 
 						<!-- Comments section-->

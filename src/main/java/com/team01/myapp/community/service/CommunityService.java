@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.team01.myapp.community.dao.ICommunityRepository;
 import com.team01.myapp.community.model.Community;
@@ -23,11 +24,20 @@ public class CommunityService implements ICommunityService {
 		community.setCommunityBoardId(communityRepository.selectMaxListNo() + 1);
 		communityRepository.writeCommunity(community);
 	}
-
+	
 	@Override
-	public void insertFileData(CommunityFile communityFile) {
-
+	@Transactional
+	public void writeCommunity(Community community, CommunityFile file) {
+		community.setCommunityBoardId(communityRepository.selectMaxListNo() + 1);
+		communityRepository.writeCommunity(community);
+		if(file != null && file.getCommunityFileName() != null && !file.getCommunityFileName().equals("")) {
+			file.setCommunityCBoardId(community.getCommunityBoardId());
+			file.setCommunityFileId(communityRepository.selectMaxFileId()+1);
+			
+			communityRepository.insertFileData(file);
+		} 
 	}
+	
 
 	@Override
 	public List<Community> getCommunityListByCategory(int categoryId, Pager pager) {
@@ -55,6 +65,11 @@ public class CommunityService implements ICommunityService {
 	public Community readCommunityDetail(int communityBoardId) {
 		communityRepository.updateReadCount(communityBoardId);
 		return communityRepository.readCommunityDetail(communityBoardId);
+	}
+
+	@Override
+	public CommunityFile getFile(int communityCBoardId) {
+		return communityRepository.getFile(communityCBoardId);
 	}
 	
 	

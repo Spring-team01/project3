@@ -8,7 +8,7 @@ import lombok.ToString;
 public class CommunityFile {
 	private int communityFileId;
 	private String communityFileName;
-	private String communityFileSize;
+	private Long communityFileSize;
 	private String communityFileContentType;
 	private byte[] communityFileData;
 	private int communityCBoardId;
