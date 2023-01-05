@@ -15,10 +15,11 @@ public interface IBoardRepository {
 	void insertFileData(BoardUploadFile file);
 	
 	List<Board> selectTotalArticleList(@Param("start")int start, @Param("end") int end);
-	
 	List<Board> selectArticleListByCategory(@Param("categoryId") int categoryId, @Param("start") int start, @Param("end") int end);
 	
 	int selectTotalArticleCount();
 	int selectTotalArticleCountByCategoryId(int categoryId);
+
+	int selectCategoryArticleCount(int categoryId);
 	
 }
