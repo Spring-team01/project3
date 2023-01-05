@@ -101,21 +101,56 @@
 	<select id="readCommunityDetail" parameterType="int" resultType="com.team01.myapp.community.model.Community">
 		<![CDATA[
 			select
-				C_BOARD_ID as "communityBoardId", 
-				C_CATEGORY_ID as "communityCategoryId",
-				C_EMAIL as "communityEmail",
-				C_PASSWORD as "communityPassword",
-				C_TITLE as "communityTitle",
-				C_WRITE_DATE as "communityWriteDate",
-				C_READ_COUNT as "communityReadCount",
-				U_ID as "usersId",
-				C_CONTENT as "communityContent"
-			from community
-			where c_board_id=#{communityBoardId}
+				COMMUNITY.C_BOARD_ID as "communityBoardId", 
+				COMMUNITY.C_CATEGORY_ID as "communityCategoryId",
+				COMMUNITY.C_EMAIL as "communityEmail",
+				COMMUNITY.C_PASSWORD as "communityPassword",
+				COMMUNITY.C_TITLE as "communityTitle",
+				COMMUNITY.C_WRITE_DATE as "communityWriteDate",
+				COMMUNITY.C_READ_COUNT as "communityReadCount",
+				COMMUNITY.U_ID as "usersId",
+				COMMUNITY.C_CONTENT as "communityContent",
+				C_FILE.C_FILE_ID AS "communityFileId",
+                C_FILE.C_FILE_NAME AS "communityFileName",
+                C_FILE.C_FILE_SIZE AS "communityFileSize",
+                C_FILE.C_FILE_CONTENT_TYPE AS "communityContentType"
+                
+			from COMMUNITY left outer join C_FILE
+            	on COMMUNITY.C_BOARD_ID = C_FILE.C_BOARD_ID
+			where COMMUNITY.c_board_id = #{communityBoardId}
+		]]>
+	</select>
+	<select id="selectMaxFileId" parameterType="int" resultType="int">
+		<![CDATA[
+			select 
+			    nvl(max(c_file_id), 0) as "communityFileId"
+			 from c_file
 		]]>
 	</select>
 	
+	<insert id="insertFileData" parameterType="com.team01.myapp.community.model.CommunityFile">
+		<![CDATA[
+			insert into C_FILE
+				(C_FILE_ID, C_FILE_NAME, C_FILE_SIZE, C_FILE_CONTENT_TYPE, C_FILE_DATA, C_BOARD_ID)
+			values (#{communityFileId}, #{communityFileName}, #{communityFileSize}, #{communityFileContentType}, 
+					#{communityFileData}, #{communityCBoardId})
+			
+		]]>
+	</insert>
 	
+	<select id="getFile" parameterType="int" resultType="com.team01.myapp.community.model.CommunityFile">
+		<![CDATA[
+			select
+			    C_FILE_ID as "communityFileId",
+			    C_FILE_NAME as "communityFileName",
+			    C_FILE_SIZE as "communityFileSize",
+			    C_FILE_CONTENT_TYPE as "communityFileContentType",
+			    C_FILE_DATA as "communityFileData",
+			    C_BOARD_ID as "communityCBoardId"
+			from C_FILE
+			where C_BOARD_ID = #{communityCBoardId}
+		]]>
+	</select>
 
 
 

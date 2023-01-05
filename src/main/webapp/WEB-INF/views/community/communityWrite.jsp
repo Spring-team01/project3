@@ -41,7 +41,7 @@
 								<h6 class="text-white text-capitalize ps-3">커뮤니티 게시판</h6>
 							</div>
 						</div>
-						<form id="write" name="write" action="<c:url value='/community/write/'/>" method="post">
+						<form id="write" name="write" action="<c:url value='/community/write'/>" method="post" enctype="multipart/form-data">
 							<div class="card-body px-0 pb-2">
 								<div class="table-responsive p-0">
 
@@ -60,8 +60,8 @@
 											<span class="input-group-text" id="">Upload</span>
 										</div>
 										<div class="custom-file">
-											<input type="file" class="custom-file-input" id="i_file" name="file" aria-describedby="inputGroupFileAddon01"> 
-											<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+											<input type="file" id="i_file" name="file"><span id="droparea" class="help-block"></span>
+						
 										</div>
 									</div>
 								</div>

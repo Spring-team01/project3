@@ -9,10 +9,11 @@ import com.team01.myapp.util.Pager;
 public interface ICommunityService {
 	
 	void writeCommunity(Community community);
-	void insertFileData(CommunityFile communityFile);
+	void writeCommunity(Community community, CommunityFile file);
+	
 	Pager returnPage(String pageNo, Pager pager);
 	List<Community> getCommunityListByCategory(int categoryId, Pager pager);
 	Community readCommunityDetail(int communityBoardId);
 	
-	
+	CommunityFile getFile(int communityCBoardId);
 }
