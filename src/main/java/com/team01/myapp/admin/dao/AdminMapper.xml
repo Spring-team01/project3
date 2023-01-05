@@ -7,12 +7,12 @@
 		
 		select 
 			 rownum,
-		    u_id as "uId",
-			u_name as "uName",
+		    u_id as "userId",
+			u_name as "userName",
 			major  ,
 			grade,
 			phone,
-			u_type as "uType",
+			u_type as "userType",
 			password,
 			email,
 			subject_id as "subjectId" 
@@ -64,7 +64,7 @@
 	
 	<select id="selectMaxListNo" resultType="int">
 		<![CDATA[
-			select nvl(max(u_id),0) as "uId" from users
+			select nvl(max(u_id),0) as "userId" from users
 		]]>
 	</select>
 </mapper>

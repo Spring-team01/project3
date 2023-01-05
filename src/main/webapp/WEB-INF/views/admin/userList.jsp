@@ -50,10 +50,10 @@
 										<c:forEach var="user" items="${userList}">
 											<tr>
 												<td>
-													<h3 align="center" class="text-md font-weight-bold mb-0">${user.uId}</h3>
+													<h3 align="center" class="text-md font-weight-bold mb-0">${user.userId}</h3>
 												</td>
 												<td>
-													<h3 align="center" class="text-md font-weight-bold mb-0">${user.uName}</h3>
+													<h3 align="center" class="text-md font-weight-bold mb-0">${user.userName}</h3>
 													
 												</td>
 												<td>

@@ -7,12 +7,12 @@
 	<select id="selectUser" parameterType="string" resultType="com.team01.myapp.user.User">
 	<![CDATA[
 		SELECT 
-			u_id as "uId",
-			u_name as "uName",
+			u_id as "userId",
+			u_name as "userName",
 			major  ,
 			grade,
 			phone,
-			u_type as "uType",
+			u_type as "userType",
 			password,
 			email,
 			subject_id as "subjectId" 
