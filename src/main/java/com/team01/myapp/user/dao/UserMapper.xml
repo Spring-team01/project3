@@ -9,7 +9,7 @@
 		SELECT 
 			u_id as "userId",
 			u_name as "userName",
-			major  ,
+			major,
 			grade,
 			phone,
 			u_type as "userType",
