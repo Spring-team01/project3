@@ -52,11 +52,26 @@
 	<interceptors>
 		<interceptor>
 			<mapping path = "/community/write/**" />
+			<mapping path = "/community/reply/comment/**" />
 			<mapping path = "/board/write/**" />
 			<mapping path = "/admin/**"/>
 			<beans:bean class= "com.team01.myapp.filter.LoginInterceptor" /> 
 		</interceptor>	
 	</interceptors>
 	
+	<beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+      <beans:property name="messageConverters">
+         <beans:list>
+            <beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+               <beans:property name="supportedMediaTypes">
+                  <beans:list>
+                     <beans:value>text/html;charset=UTF-8</beans:value>
+                     <beans:value>application/json;charset=UTF-8</beans:value>
+                  </beans:list>
+               </beans:property>
+            </beans:bean>
+         </beans:list>
+      </beans:property>
+   </beans:bean>
 	
 </beans:beans>

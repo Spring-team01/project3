@@ -14,10 +14,12 @@ public interface ICommunityService {
 	
 	Pager returnPage(String pageNo, Pager pager);
 	List<Community> getCommunityListByCategory(int categoryId, Pager pager);
+	List<CommunityComment> getCommunityComment(int communityBoardId);
+	
 	Community readCommunityDetail(int communityBoardId);
 	CommunityFile getFile(int communityCBoardId);
 	
-	List<CommunityComment> getCommunityComment();
+	
 	void writeCommunityReply(CommunityComment comment);
 	
 }

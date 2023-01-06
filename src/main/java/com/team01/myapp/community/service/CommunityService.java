@@ -67,23 +67,27 @@ public class CommunityService implements ICommunityService {
 		communityRepository.updateReadCount(communityBoardId);
 		return communityRepository.readCommunityDetail(communityBoardId);
 	}
-
+	
+	@Override
+	public List<CommunityComment> getCommunityComment(int communityBoardId) {
+		return communityRepository.getCommunityCommentList(communityBoardId);
+	}
+	
 	@Override
 	public CommunityFile getFile(int communityBoardId) {
 		return communityRepository.getFile(communityBoardId);
 	}
 
 	@Override
-	public List<CommunityComment> getCommunityComment() {
-		return null;
-	}
-
-	@Override
 	@Transactional
 	public void writeCommunityReply(CommunityComment comment) {
-		communityRepository.updateCommunityReplyNumber(comment.getCommunityCommentReplyNumber()+1);
+		
+		communityRepository.updateCommunityReplyNumber(comment.getCommunityBoardId());
+		comment.setCommunityCommentNo(comment.getCommunityCommentReplyNumber()+1);
 		communityRepository.writeCommunityReply(comment);
 	}
+
+	
 	
 	
 }

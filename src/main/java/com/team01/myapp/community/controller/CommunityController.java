@@ -53,6 +53,7 @@ public class CommunityController {
 			
 			community.setCommunityContent(community.getCommunityContent().replace("\r\n", "<br>"));
 			community.setUsersId((String) session.getAttribute("userId"));
+			community.setUserName((String) session.getAttribute("userName"));
 			community.setCommunityEmail((String) session.getAttribute("email"));
 			// 카테고리 아이디 임시로 1
 			community.setCommunityCategoryId(1);
@@ -79,14 +80,15 @@ public class CommunityController {
 	}
 
 	
-	//게시글 조회 (pagind -> service 에서)
 	@RequestMapping(value = "/community/communityList/{categoryId}/{pageNo}", method = RequestMethod.GET)
-	public String getCommunityListByCategory(@PathVariable int categoryId, @PathVariable String pageNo, Model model, Pager pager) {
+	public String getCommunityListByCategory(@PathVariable int categoryId, @PathVariable String pageNo, Model model, Pager pager, HttpSession session) {
 		pager = communityService.returnPage(pageNo, pager);
 		List<Community> communityList = communityService.getCommunityListByCategory(categoryId, pager);
+		model.addAttribute("sessionUserId", (String)session.getAttribute("userId"));
 		model.addAttribute("communityList", communityList);
 		model.addAttribute("pager", pager);
 		
+		System.out.println(model.toString());
 		return "community/communityList";
 	}
 	
@@ -94,8 +96,10 @@ public class CommunityController {
 	@RequestMapping(value="/community/communityDetail/{communityBoardId}", method = RequestMethod.GET)
 	public String readCommunity(@PathVariable int communityBoardId, Model model) {
 		Community community = communityService.readCommunityDetail(communityBoardId);
+		List<CommunityComment> commentList = communityService.getCommunityComment(communityBoardId);
 		
 		model.addAttribute("community", community);
+		model.addAttribute("commentList", commentList);
 		
 		return "community/communityDetail";
 	}
@@ -113,20 +117,19 @@ public class CommunityController {
 	}
 	
 	
-	//상세 게시글 답글 작성 ( + 수정)
-	@RequestMapping(value="/community/reply", method = RequestMethod.GET)
-	public String writeCommunityReply() {
-		
-		return "community/communityReply";
-	}
-	
 	@RequestMapping(value="/community/reply/comment", method = RequestMethod.POST) 
 	public String writeCommunityReply(CommunityComment comment, BindingResult result, RedirectAttributes redirectAttrs,
 			HttpSession session) {
-			
-			comment.setUserId((String)session.getAttribute("userId"));
+		
+			comment.setUserId((String) session.getAttribute("userId"));	
 			communityService.writeCommunityReply(comment);
 			
+		return "redirect:/community/communityDetail/" + (comment.getCommunityBoardId());
+	}
+	
+	@RequestMapping(value="/community/example")
+	public String example() {
+		
 		return "community/communityReply";
 	}
 	

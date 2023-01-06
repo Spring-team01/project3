@@ -8,8 +8,10 @@ public class CommunityComment {
 	private int communityCommentNo;
 	private DATE communityCommentWriteDate;
 	private String userId;
+	private String userName;
 	private String communityCommentContent;
 	private int communityBoardId;
 	private int communityCommentReplyNumber;
+	private int communityCommentMasterNumber;
 	
 }

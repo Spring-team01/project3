@@ -17,6 +17,7 @@ public class Community {
 	private Date communityWriteDate;
 	private int communityReadCount;
 	private String usersId;
+	private String userName;
 	private MultipartFile file;
 	
 	private int communityFileId;
