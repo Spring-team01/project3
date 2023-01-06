@@ -32,8 +32,9 @@
 					<div class="card card-4">
 						<div class="card-body">
 							<h2 class="title">사용자 등록</h2>
-							<form method="POST">
-								<div class="row row-space">
+							
+							<form method="POST" action="<c:url value='/admin/file'/>" enctype="multipart/form-data">
+								<!-- <div class="row row-space">
 									<div class="col-6">
 										<div class="input-group">
 											<label class="label">학번</label> <input class="input--style-4"
@@ -101,7 +102,7 @@
 												class="input--style-4" type="text" name="phone">
 										</div>
 									</div>
-								</div>
+								</div> -->
 
 								<div class="row row-space">
 									<div class="input-group">

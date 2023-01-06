@@ -15,9 +15,9 @@
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <div class="dropdown-container">
-                    	<a href="<c:url value='/admin/userList/1/1'/>">c언어</a>
-					    <a href="<c:url value='/admin/userList/2/1'/>">python</a>
-					    <a href="<c:url value='/admin/userList/3/1'/>">java</a>
+                    	<a href="<c:url value='/admin/userlist/1/1'/>">c언어</a>
+					    <a href="<c:url value='/admin/userlist/2/1'/>">python</a>
+					    <a href="<c:url value='/admin/userlist/3/1'/>">java</a>
                     </div>
                 </li>
                 <li>
@@ -29,13 +29,20 @@
                  
                 </li>
                 <li>
-                	<a href="boardlist" type="button" class="dropdown-btn" >
+                	<a href="#" type="button" class="dropdown-btn" >
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">휴가신청목록</span>
+                        <i class="fa fa-caret-down"></i>
+                    </a>    
+                        <div class="dropdown-container">
+                    	<a href="<c:url value='/admin/reasonlist/1/1'/>">미처리 목록</a>
+					    <a href="<c:url value='/admin/reasonlist/2/1'/>">처리 목록</a>					   
+                    </div>
                     
-                    </a>
+                  
                  
                 </li>
+                 
                 <li>
                 	<a href="#" type="button" class="dropdown-btn">
                         <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
