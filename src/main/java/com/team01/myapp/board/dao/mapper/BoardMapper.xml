@@ -32,6 +32,7 @@
 	]]>
 	</select>
 	
+	<!-- 리스트 불러오기 -->
 	<select id="selectTotalArticleList" parameterType="hashmap" resultType="com.team01.myapp.board.model.Board">
 		<![CDATA[
 		select 
@@ -134,6 +135,7 @@
 		    BOARD.BOARD_ID			AS "boardId",
 		    CATEGORY_ID				AS "categoryId",
 		    WRITER					AS "writer",
+		    U_ID					AS "userId",
 		    EMAIL					AS "email",
 		    TITLE					AS "title",
 		    CONTENT					AS "content",
@@ -192,7 +194,32 @@
 			(#{boardFileId}, #{boardId}, #{boardFileName}, #{boardFileSize}, #{boardFileContentType}, #{boardFileData})
 	]]>
 	</insert>
+	<!-- 수정하기 -->
 	
+	<update id="updateArticle" parameterType="com.team01.myapp.board.model.Board">
+	<![CDATA[
+		UPDATE 
+			BOARD
+		SET 
+			CATEGORY_ID=#{categoryId}, WRITER=#{writer},
+			EMAIL=#{email}, TITLE=#{title},
+			CONTENT=#{content}, WRITE_DATE=SYSDATE
+		WHERE 
+			BOARD_ID=#{boardId}
+	]]>
+	</update>
 	
+	<update id="updateFileData" parameterType="com.team01.myapp.board.model.BoardUploadFile">
+	<![CDATA[
+		UPDATE 
+			B_FILE
+		SET 
+			B_FILE_NAME=#{boardFileName}, B_FILE_SIZE=#{boardFileSize},
+			B_FILE_CONTENT_TYPE=#{boardFileContentType}, B_FILE_DATA=#{boardFileData},
+			BOARD_ID=#{boardId}
+		WHERE 
+			B_FILE_ID=#{boardFileId}
+	]]>
+	</update>
 	
 </mapper>

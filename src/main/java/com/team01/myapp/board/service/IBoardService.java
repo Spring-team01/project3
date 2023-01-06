@@ -23,6 +23,15 @@ public interface IBoardService {
 	void insertArticle(Board board);
 	void insertArticle(Board board, BoardUploadFile file);
 	
+	//수정
+	String getPassword(int boardId);
+	void updateArticle(Board board, BoardUploadFile file);
+	void updateArticle(Board board);
+	
+	//삭제
+	Board selectDeleteArticle(int boardId);
+	void deleteArticle(int categoryId);
+	
 
 
 	

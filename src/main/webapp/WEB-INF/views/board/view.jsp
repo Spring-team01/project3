@@ -20,7 +20,7 @@
 <!-- CSS Files -->
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
-  
+
 <body>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 
@@ -38,7 +38,7 @@
      		<div class="mainview d-flex">
            
             </div>
-              <div class="container-fluid" style="background-color:white; margin:50px; width:92%;">
+              <div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
 				${message}
 				<div class="container-fluid py-4">
 					<div class="board_content">
@@ -94,11 +94,18 @@
 						</c:if>
 						<tr>
 							<td colspan=2 align="right">
-							<a href='<c:url value="/board/${categoryId}/${page}"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
-							<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
-							<a href='<c:url value="/board/reply/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="REPLY"/></button></a>
-							<a href='<c:url value="/board/update/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="UPDATE"/></button></a>
-							<a href='<c:url value="/board/delete/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="DELETE"/></button></a>
+							<c:if test="${board.userId==sessionScope.userId}">
+								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
+								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
+								<a href='<c:url value="/board/reply/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="REPLY"/></button></a>
+								<a href='<c:url value="/board/update/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="UPDATE"/></button></a>
+								<a href='<c:url value="/board/delete/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="DELETE"/></button></a>
+							</c:if>
+							<c:if test="${board.userId!=sessionScope.userId}">
+								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
+								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
+								<a href='<c:url value="/board/reply/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="REPLY"/></button></a>
+							</c:if>
 							</td>
 						</tr>
 						</table>
