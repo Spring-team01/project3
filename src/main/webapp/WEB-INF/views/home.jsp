@@ -28,7 +28,7 @@
      			<div class="profile px-5 m-5" >
                 	<img src="<c:url value="/static/images/profile2.jpeg"/>" alt="profile_picture">
                 </div>
-                <div class="p-2 m-4"id="userInfo">
+                <div class="p-2 m-4 align-self-center"id="userInfo">
                 	<h1>${userName}님 환영합니다.</h1>
                 	<p>${major} ${grade}학년  <a href="/user/update"><i class="material-icons">settings</i></a> </p>
                 </div>

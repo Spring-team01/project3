@@ -25,7 +25,7 @@
 				</div>
 				<div class="mainview d-flex"></div>
 
-				<div class="container-fluid" style="background-color: white; margin: 50px; width: 92%; min-height: 600px;">
+				 <div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
 
 					<div class="card my-4">
 						<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -49,8 +49,9 @@
 									<tbody>
 										<c:forEach var="user" items="${userList}">
 											<tr>
+												
 												<td>
-													<h3 align="center" class="text-md font-weight-bold mb-0">${user.userId}</h3>
+													<h3 align="center" class="text-md font-weight-bold mb-0"><a style="text-decoration: none;" href="<c:url value='/admin/userdetail/${user.userId}'/>"> ${user.userId}</a> </h3>
 												</td>
 												<td>
 													<h3 align="center" class="text-md font-weight-bold mb-0">${user.userName}</h3>
@@ -64,6 +65,9 @@
 												</td>
 												<td>
 													<h3 align="center" class="text-md font-weight-bold mb-0">${user.subjectName}</h3>
+												</td>
+												<td class="align-middle">
+													<a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> Edit </a>
 												</td>
 												
 											</tr>

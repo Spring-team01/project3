@@ -17,6 +17,8 @@ public class SubAttendance {
 	private String content;
 	private String result;
 	private String subAttendanceTitle;
-	private Date date;
+	private Date subAttDate;
+	private String subStatus;
+	
 	private MultipartFile file;
 }

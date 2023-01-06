@@ -120,6 +120,70 @@ public class BoardController {
 		return "redirect:/board/"+board.getCategoryId()+"/"+1;
 	}
 	
+	//수정
+	@RequestMapping(value="/board/update/{boardId}", method=RequestMethod.GET)
+	public String updateArticle(@PathVariable int boardId, Model model) {
+		Board board =boardService.selectArticle(boardId);
+		model.addAttribute("userId", board.getUserId());
+		model.addAttribute("categoryId",board.getCategoryId());
+		model.addAttribute("board",board);
+		return "board/update";
+	}
+	
+	@RequestMapping(value="/board/update", method=RequestMethod.POST)
+	public String updateArticle(Board board, BindingResult result, RedirectAttributes redirectAttrs, HttpSession session) {
+		logger.info("/board/update " + board.toString());
+		try {
+			board.setTitle(Jsoup.clean(board.getTitle(), Whitelist.basic()));
+			board.setContent(Jsoup.clean(board.getTitle(), Whitelist.basic()));
+			MultipartFile mfile = board.getFile();
+			if(mfile!=null&&!mfile.isEmpty()) {
+				logger.info("/board/update: "+mfile.getOriginalFilename());
+				BoardUploadFile file = new BoardUploadFile();
+				file.setBoardFileName(mfile.getOriginalFilename());
+				file.setBoardFileSize(mfile.getSize());
+				file.setBoardFileId(board.getBoardFileId());
+				file.setBoardFileContentType(mfile.getContentType());
+				file.setBoardFileData(mfile.getBytes());
+				logger.info("/board/update : "+ file.toString());
+				
+				boardService.updateArticle(board, file);
+			}else {
+				boardService.updateArticle(board);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			redirectAttrs.addFlashAttribute("message", e.getMessage());
+		}
+		return "redirect:/board/view/"+board.getBoardId()+"/"+board.getCategoryId();
+	}
+	
+	//삭제
+	@RequestMapping(value="/board/delete/{boardId}", method=RequestMethod.GET)
+	public String deleteArticle(@PathVariable int boardId, Model model) {
+		Board board =boardService.selectDeleteArticle(boardId);
+		model.addAttribute("categoryId",board.getCategoryId());
+		model.addAttribute("board",board);
+		return "board/delete";
+	}
+	@RequestMapping(value="/board/delete",method=RequestMethod.POST)
+	public String deleteArticle(Board board, BindingResult result, HttpSession session, Model model) {
+		try {
+			String dbpw = boardService.getPassword(board.getBoardId());
+			if(dbpw.equals(board.getPassword())) {
+				boardService.deleteArticle(board.getCategoryId());
+				return "redirect:/board/"+board.getCategoryId()+"/"+(Integer)session.getAttribute("page");
+			}else {
+				model.addAttribute("message", "WRONG_PASSWORD_NOT_DELETED");
+				return "redirect:/board/"+board.getCategoryId()+"/"+(Integer)session.getAttribute("page");
+			}
+		}catch(Exception e) {
+			model.addAttribute("message", e.getMessage());
+			e.printStackTrace();
+			return "redirect:/board/"+board.getCategoryId()+"/"+(Integer)session.getAttribute("page");
+			
+		}
+	}
 	
 	
 }

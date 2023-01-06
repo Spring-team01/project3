@@ -120,13 +120,12 @@
 	
 									<c:if test="${pager.groupNo < pager.totalGroupNo }">
 										<a href="${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
-	
 									</c:if>
 									<a href="${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
 								</div>
 								<div class="flex-fulfill"></div>
 								<div class="d-flex justify-content-end">  
-							      <a type="button" href="<c:url value="/board/write/${board.categoryId}"/>" class="btn btn-muted shadow">글 작성</a>
+							      <a type="button" href="<c:url value="/board/write/1/"/>" class="btn btn-muted shadow">글 작성</a>
 							      </div>
 					            </div>
 								</div>

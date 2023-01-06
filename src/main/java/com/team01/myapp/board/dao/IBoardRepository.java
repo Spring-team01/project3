@@ -28,6 +28,16 @@ public interface IBoardRepository {
 	void insertArticle(Board board);
 	void insertFileData(BoardUploadFile file);
 	
+	//수정 기능 
+	String getPassword(int boardId);
+	void updateArticle(Board board);
+	void updateFileData(BoardUploadFile file);
+	
+	//삭제 기능
+	Board selectDeleteArticle(int boardId);
+	void deleteFileData(int boardId);
+	void deleteArticle(int boardId);
+	
 
 	
 }

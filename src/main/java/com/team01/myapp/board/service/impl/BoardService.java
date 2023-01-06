@@ -93,5 +93,41 @@ public class BoardService implements IBoardService {
 		}
 		
 	}
+
+	@Override
+	public String getPassword(int boardId) {
+		return boardRepository.getPassword(boardId);
+	}
+
+	@Override
+	public void updateArticle(Board board) {
+		boardRepository.updateArticle(board);
+	}
+
+    @Transactional
+	public void updateArticle(Board board, BoardUploadFile file) {
+		boardRepository.updateArticle(board);
+		if(file !=null && file.getBoardFileName() !=null && !file.getBoardFileName().equals("")){
+			file.setBoardId(board.getBoardId());
+			if(file.getBoardFileId()>0) {
+				boardRepository.updateFileData(file);
+			}else {
+				file.setBoardFileId(boardRepository.selectMaxFileId()+1);
+				boardRepository.insertFileData(file);
+			}
+		}
+	}
+    
+    // 삭제   
+	@Override
+	public Board selectDeleteArticle(int boardId) {
+		return boardRepository.selectDeleteArticle(boardId);
+	}
+	
+	@Transactional
+	public void deleteArticle(int boardId) {
+		boardRepository.deleteFileData(boardId);
+		boardRepository.deleteArticle(boardId);
+	}
 	
 }

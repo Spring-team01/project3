@@ -8,8 +8,8 @@
 	<div class="row">
 		<div class="col-1">
 			<div id="image-box">
-				<img id="image-content"
-					src="<c:url value="/static/images/univlogo.png"/>" />
+				<a href="<c:url value="/admin/adminhome"/>"><img id="image-content"
+					src="<c:url value="/static/images/univlogo.png"/>" /></a>
 			</div>
 		</div>
 		<div class="col-3">

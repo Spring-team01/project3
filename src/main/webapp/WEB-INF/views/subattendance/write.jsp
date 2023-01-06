@@ -24,17 +24,34 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-  
+
 <script>
-	$(document).ready(function () {
-		$('input.timepicker').timepicker({
-	            timeFormat: 'HH:mm',
-	            interval: 30,
-	            startTime: '00:00',
-	            dynamic: false,
-	            dropdown: true,
-	            scrollbar: true
-	        });
+	function changeCategory(){
+	    var langSelect = document.getElementById("categoryList");
+	    var selectValue = langSelect.options[langSelect.selectedIndex].value;
+	    console.log(selectValue);
+	    
+	    if(selectValue == '조퇴') {
+	    		$("#subAttTimeName").css("display", "none");
+	    		$("#subAttTime").css("display", "none");
+	    		$("#subLeaveTime").css("display", "");
+	    		$("#subLeaveTimeName").css("display", "");
+	    	} else if(selectValue == '공가') {
+	    		$("#subAttTimeName").css("display", "none");
+	    		$("#subAttTime").css("display", "none");
+	    		$("#subLeaveTime").css("display", "none");
+	    		$("#subLeaveTimeName").css("display", "none");
+	    	} else if(selectValue == '외출') {
+	    		$("#subAttTimeName").css("display", "");
+	    		$("#subAttTime").css("display", "");
+	    		$("#subLeaveTime").css("display", "");
+	    		$("#subLeaveTimeName").css("display", "");
+	    	} else if(selectValue == '경조사') {
+	    		$("#subAttTimeName").css("display", "none");
+	    		$("#subAttTime").css("display", "none");
+	    		$("#subLeaveTime").css("display", "none");
+	    		$("#subLeaveTimeName").css("display", "none");
+	    	}
 	    }
 </script>
 
@@ -66,18 +83,22 @@
 						<form action="<c:url value='/subattendance/write/'/>" method="post">
 							<div class="card-body px-0 pb-2">
 								<div class="m-5">
-									<select class="custom-select custom-select" name="category">
-										<option selected>휴가신청</option>
-										<option value="1">조퇴</option>
-										<option value="2">공가</option>
-										<option value="3">외출</option>
+									<select id="categoryList" class="custom-select custom-select" name="subStatus" onchange="changeCategory()">
+										<option selected value="조퇴">조퇴</option>
+										<option value="공가">공가</option>
+										<option value="외출">외출</option>
+										<option value="경조사">경조사</option>
 									</select>
 									<div class="input-group-prepend">
-										<input class="form-control" name="date" type="date">
+										<input name="date" type="date" id="Date" autocomplete="off">
 									</div>
 									<div class="input-group-prepend">
-										<input type="text" class="time" name="subAttTime" required>
-										<input type="text" class="time" name="subleaveTime" required>
+										<div class="input-group-prepend" style="margin:auto">
+											<div id="subAttTimeName" class="time" style="margin:auto 100px; display:none;">start</div>
+											<input id="subAttTime" type="text" class="time" name="subAttTime" autocomplete="off" value="09:00" style="display:none">
+											<div id="subLeaveTimeName" class="time" style="margin:auto 100px">end</div>
+											<input id="subLeaveTime" type="text" class="time" name="subLeaveTime" autocomplete="off" value="18:00">
+										</div>
 									</div>
 									<div class="input-group-prepend">
 										<input class="form-control" name="subAttendanceTitle" placeholder="휴가신청 제목"></input>
@@ -117,6 +138,11 @@
     </div>
 <script>
 // Add the following code if you want the name of the file appear on select
+	var now_utc = Date.now();
+	var timeOff = new Date().getTimezoneOffset()*60000;
+	var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+	document.getElementById("Date").setAttribute("min", today);
+
 	$(".custom-file-input").on("change", function() {
 	  var fileName = $(this).val().split("\\").pop();
 	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
