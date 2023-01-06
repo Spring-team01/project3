@@ -53,6 +53,7 @@ public class CommunityController {
 			
 			community.setCommunityContent(community.getCommunityContent().replace("\r\n", "<br>"));
 			community.setUsersId((String) session.getAttribute("userId"));
+			community.setUserName((String) session.getAttribute("userName"));
 			community.setCommunityEmail((String) session.getAttribute("email"));
 			// 카테고리 아이디 임시로 1
 			community.setCommunityCategoryId(1);
@@ -80,12 +81,14 @@ public class CommunityController {
 
 	
 	@RequestMapping(value = "/community/communityList/{categoryId}/{pageNo}", method = RequestMethod.GET)
-	public String getCommunityListByCategory(@PathVariable int categoryId, @PathVariable String pageNo, Model model, Pager pager) {
+	public String getCommunityListByCategory(@PathVariable int categoryId, @PathVariable String pageNo, Model model, Pager pager, HttpSession session) {
 		pager = communityService.returnPage(pageNo, pager);
 		List<Community> communityList = communityService.getCommunityListByCategory(categoryId, pager);
+		model.addAttribute("sessionUserId", (String)session.getAttribute("userId"));
 		model.addAttribute("communityList", communityList);
 		model.addAttribute("pager", pager);
 		
+		System.out.println(model.toString());
 		return "community/communityList";
 	}
 	
@@ -122,6 +125,12 @@ public class CommunityController {
 			communityService.writeCommunityReply(comment);
 			
 		return "redirect:/community/communityDetail/" + (comment.getCommunityBoardId());
+	}
+	
+	@RequestMapping(value="/community/example")
+	public String example() {
+		
+		return "community/communityReply";
 	}
 	
 }

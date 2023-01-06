@@ -35,10 +35,9 @@
 				</div>
 				<div class="mainview d-flex"></div>
 
-				<div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
+				<div class="container-fluid" style="background-color: white; margin: 50px; width: 92%; min-height: 600px;">
 					<form class="form-inline m-2 justify-content-end" action="<c:url value='/board/search'/>" method="get">
-							<input type="text" name="keyword" class="form-control" placeholder="Search" style="border: 1px solid gray; width:200px; height:35px; padding:0px 10px;">
-							<input type="submit" class="btn btn-dark m-1" value="<fmt:message key="SEARCH"/>">
+						<input type="text" name="keyword" class="form-control" placeholder="Search" style="border: 1px solid gray; width: 200px; height: 35px; padding: 0px 10px;"> <input type="submit" class="btn btn-dark m-1" value="<fmt:message key="SEARCH"/>">
 					</form>
 					<div class="card my-4">
 						<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -85,13 +84,16 @@
 												<td class="align-middle text-center">
 													<span class="text-secondary text-xs font-weight-bold">${community.communityWriteDate}</span>
 												</td>
-												
-												
+
+
 												<td class="align-middle">
-													<a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> Edit </a>
+														<c:set var="userId" value="${sessionUserId}" />
+														<c:if test="${userId eq community.usersId}">
+															<a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> Edit </a>
+														</c:if>
+														
+														
 												</td>
-												
-												
 											</tr>
 										</c:forEach>
 

@@ -20,6 +20,40 @@
 <!-- CSS Files -->
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
+<script>
+	function action1(){
+		let html = ' ';
+		html+='<input id ="CommunityComment" name="CommunityComment" value="">'
+		htm += '<button type="button" onclick="function1()" >'
+		$("#replydiv").after(html);
+		
+		
+	}
+
+	function function1(){
+		let replyContent= $(CommunityComment).val();
+		
+		$.ajax({
+	         type : 'POST',
+	         url : "/myapp/board/reply/update",
+	         data : {replyId: i, replyContent: rContent},
+	         error : function() {
+	            alert('통신실패!');
+	         },
+	         success : function(data) {
+	            if(data==0) {
+	               alert("댓글 수정에 실패하였습니다");
+	            } else {
+	               alert("댓글 수정에 성공하였습니다!");
+	               location.relode();
+	            }
+	         }
+	      });
+		
+	}
+	
+</script>
+
 
 <body>
 	<jsp:include page="/WEB-INF/views/include/header.jsp" />
@@ -35,7 +69,7 @@
 					</div>
 				</div>
 				<div class="mainview d-flex"></div>
-				<div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
+				<div class="container-fluid" style="background-color: white; margin: 50px; width: 92%; min-height: 600px;">
 					<div class="row">
 						<!-- Post content-->
 						<article>
@@ -60,17 +94,50 @@
 												<img src='<c:url value="/files/${community.communityBoardId}"/>' class="img-fluid rounded">
 												<br>
 											</c:if>
-											<a href='<c:url value="/files/${community.communityBoardId}"/>'>${community.communityFileName}
-											</a>
+											<a href='<c:url value="/files/${community.communityBoardId}"/>'>${community.communityFileName} </a>
 										</td>
 									</tr>
 								</c:if>
 								<p class="fs-5 mb-4">${community.communityContent}</p>
 							</figure>
 						</article>
-						<jsp:include page="/WEB-INF/views/community/communityReply.jsp" />
-						<!-- Comments section-->
-						
+						<section class="mb-5">
+							<div class="card bg-light">
+								<div class="card-body">
+									<form class="mb-4" action="<c:url value='/community/reply/comment'/>" method="post">
+										<textarea name="communityCommentContent" class="form-control" rows="3" placeholder="댓글 작성"></textarea>
+										<br> <input type="submit" class="btn btn-dark shadow" value="작성"> <a type="button" href="<c:url value='/community/communityList//1/1'/>" class="btn btn-dark shadow">글 목록</a> <input type="hidden" name="communityBoardId" value="${community.communityBoardId}"> <input type="hidden" name="communityCommentReplyNumber" value="${community.communityReplyNumber}">
+									</form>
+
+									<form >
+										<c:if test="${community.communityReplyNumber!=0}">
+											<c:forEach var="commentList" items="${commentList}">
+												<div class="d-flex flex-column mb-3">
+													<div class="ms-3">
+														<div class="d-flex justify-content-around">
+															<div>
+																<div class="flex-shrink-0">
+																	<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+																</div>
+															</div>
+															<div class="ms-3">
+																<div class="fw-bold">${commentList.userId}</div>
+																${commentList.communityCommentContent}
+															</div>
+															<div class="ms-auto">
+																<input type="submit" onclick="action1()" class="btn btn-sm btn-dark shadow" value="답글">
+																<div id="replydiv">123123</div>
+															</div>
+														</div>
+
+													</div>
+												</div>
+											</c:forEach>
+										</c:if>
+									</form>
+								</div>
+							</div>
+						</section>
 					</div>
 				</div>
 			</div>
