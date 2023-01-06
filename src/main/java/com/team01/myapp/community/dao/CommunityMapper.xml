@@ -110,6 +110,7 @@
 				COMMUNITY.C_READ_COUNT as "communityReadCount",
 				COMMUNITY.U_ID as "usersId",
 				COMMUNITY.C_CONTENT as "communityContent",
+				COMMUNITY.C_REPLY_NUMBER as "communityReplyNumber",
 				C_FILE.C_FILE_ID AS "communityFileId",
                 C_FILE.C_FILE_NAME AS "communityFileName",
                 C_FILE.C_FILE_SIZE AS "communityFileSize",
@@ -152,6 +153,10 @@
 		]]>
 	</select>
 	
+	
+	
+	
+	
 	<update id="updateCommunityReplyNumber" parameterType="int">
 		<![CDATA[
 		update community
@@ -159,7 +164,6 @@
    	 	where C_BOARD_ID = #{communityBoardId}
 		]]>
 	</update>
-	
 	
 	<insert id="writeCommunityReply" parameterType="com.team01.myapp.community.model.CommunityComment">
 		<![CDATA[
@@ -169,10 +173,28 @@
   			 U_ID,
     		CC_CONTENT,
     		C_BOARD_ID,
-    		CC_REPLY_NUMBER)
-		values (1, sysdate, 201668003, 'TEST 댓글', 1, 1);
+    		CC_REPLY_NUMBER )
+		values (SEQ_CC_COMMENT_NO.nextval, sysdate, #{userId}, #{communityCommentContent}, #{communityBoardId}, #{communityCommentReplyNumber})
 		]]>
 	</insert>
-
+	
+	
+	<select id="getCommunityCommentList" parameterType="int" resultType="com.team01.myapp.community.model.CommunityComment">
+		<![CDATA[
+			select 
+			    c_comment.CC_COMMENT_NO as "communityCommentNo",
+			    c_comment.CC_WRITE_DATE as "communityCommentWriteDate",
+			    c_comment.U_ID as "userId",
+			    c_comment.CC_CONTENT as "communityCommentContent",
+			    c_comment.CC_REPLY_NUMBER as "communityCommentReplyNumber",
+			    c_comment.CC_MASTER_NUMBER as "communityCommentMasterNumber"
+			from community left outer join c_comment
+			on community.c_board_id = c_comment.C_BOARD_ID
+			where community.c_board_id = #{communityBoardId}
+			order by CC_REPLY_NUMBER asc
+		]]>
+	</select>
+	
+	
 
 </mapper>

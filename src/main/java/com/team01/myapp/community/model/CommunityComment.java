@@ -11,5 +11,6 @@ public class CommunityComment {
 	private String communityCommentContent;
 	private int communityBoardId;
 	private int communityCommentReplyNumber;
+	private int communityCommentMasterNumber;
 	
 }
