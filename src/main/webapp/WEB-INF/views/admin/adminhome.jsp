@@ -8,7 +8,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="/WEB-INF/views/include/adminstaticFiles.jsp" />
+<jsp:include page="/WEB-INF/views/include/adminstaticFiles.jsp" />
+
 </head>
 
 <body>
@@ -29,8 +30,9 @@
 							alt="profile_picture">
 					</div>
 					<div class="p-2 m-4" id="userInfo">
-						<h1>이연희 관리자님</h1>
-						<p>경영학과 2학년 1학기</p>
+						<div class="p-2 m-4" id="userInfo">
+							<h1>${userName}님 환영합니다.</h1>
+						</div>
 					</div>
 				</div>
 				<div class="container-fluid"

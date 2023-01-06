@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team01.myapp.admin.dao.IAdminRepository">
+	
 	<select id="getUserListBySubject" parameterType="map"
 		resultType="com.team01.myapp.admin.model.UserList">
 		<![CDATA[
@@ -51,4 +52,73 @@
 			select nvl(max(u_id),0) as "userId" from users
 		]]>
 	</select>
+	
+	<select id="getReasonListbyResult" parameterType="map"
+		resultType="com.team01.myapp.admin.model.ReasonList">
+		<![CDATA[
+		
+		select 
+			rownum,
+			sub_att_no as "subAttNo",
+		    u_id as "userId",
+			u_name as "userName",
+			sub_attendance_title as "title",
+			sub_att_date as "writeDate",
+			result 
+			from(
+				select 
+					rownum as rnum,
+		            sub_att_no ,
+					u_id,
+					u_name,
+					sub_attendance_title,
+					sub_att_date,
+					result 
+				from(
+				select       
+					sub_att_no ,
+					u_id,
+					u_name,
+					sub_attendance_title,
+					sub_att_date,
+					result 
+						from(
+						    select 
+						       	sub_att_no,
+								u.u_id,
+								u.u_name,
+								sub_attendance_title,
+								sub_att_date,
+								result 						
+				            from users u, sub_attendance s 
+				            where u.u_id = s.u_id  and result = #{result}
+				        )
+				order by sub_att_no desc
+				) 
+				where rownum <= #{end}
+				) 
+				where rnum >= #{start}
+		]]>
+
+	</select>
+	
+	<select id="selectMaxFileId" parameterType="int" resultType="int">
+	<![CDATA[
+		SELECT
+			NVL(MAX(U_file_id),0) AS "userFileId"
+		FROM U_FILE
+	]]>
+	</select>
+	
+	<insert id="insertUserFile"  parameterType="com.team01.myapp.admin.model.UserUploadFile">
+	<![CDATA[	
+		INSERT INTO
+		U_FILE
+			(U_FILE_ID, U_ID, U_FILE_NAME, U_FILE_SIZE, U_FILE_CONTENT_TYPE, U_FILE_DATA)
+		VALUES
+			(#{userFileId}, #{userId}, #{userFileName}, #{userFileSize}, #{userFileContentType}, #{userFileData})
+	]]>
+	</insert>
+	
+	
 </mapper>
