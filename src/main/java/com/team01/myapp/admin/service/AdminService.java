@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.team01.myapp.admin.dao.IAdminRepository;
 import com.team01.myapp.admin.model.ReasonList;
+import com.team01.myapp.admin.model.User;
 import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
 import com.team01.myapp.util.Pager;
@@ -46,10 +47,15 @@ public class AdminService implements IAdminService {
 
 	@Override
 	public void insertUserFile(UserUploadFile file) {
-		file.setUserId("201668001");
+		file.setUserId("201668016");
 		file.setUserFileId(adminRepository.selectMaxFileId()+1);
 		adminRepository.insertUserFile(file);
 		
+	}
+
+	@Override
+	public User getUser(String userId) {
+		return adminRepository.selectUser(userId);
 	}
 
 }

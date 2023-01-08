@@ -51,7 +51,7 @@
 											<tr>
 												
 												<td>
-													<h3 align="center" class="text-md font-weight-bold mb-0"><a style="text-decoration: none;" href="<c:url value='/admin/userdetail/${user.userId}'/>"> ${user.userId}</a> </h3>
+													<h3 align="center" class="text-md font-weight-bold mb-0"><a style="color: black" href="<c:url value='/admin/userdetail/${user.userId}'/>" > ${user.userId}</a> </h3>
 												</td>
 												<td>
 													<h3 align="center" class="text-md font-weight-bold mb-0">${user.userName}</h3>
@@ -66,9 +66,7 @@
 												<td>
 													<h3 align="center" class="text-md font-weight-bold mb-0">${user.subjectName}</h3>
 												</td>
-												<td class="align-middle">
-													<a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> Edit </a>
-												</td>
+											
 												
 											</tr>
 										</c:forEach>
