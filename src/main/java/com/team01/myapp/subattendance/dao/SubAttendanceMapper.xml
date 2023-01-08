@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team01.myapp.subattendance.dao.ISubAttendanceRepository">
 	
+	<!-- 휴가신청시 행이 있는지 체크 -->
+	<select id="selectCheckAttendance" parameterType="map" resultType="string">
+		<![CDATA[
+			SELECT att_no
+			FROM attendance
+			WHERE to_char(att_date, 'YYYY-MM-DD') = #{today}
+			AND u_id = #{userId}
+		]]>
+	</select>
+	
+	<!-- 휴가 신청시 행이 없다면 행을 추가해주는 insert 문 -->
+	<insert id="insertAttendance" parameterType="map">
+	<![CDATA[
+		INSERT INTO
+		attendance
+			(att_no, att_date, att_time, leave_time, status, u_id, subject_id)
+		VALUES
+			(seq_att_no.NEXTVAL, #{attDate}, null, null, '휴가', #{userId}, #{subjectId})
+	]]>
+	
+	</insert>
+	
 	<!-- attNo 값을 읽어오기 위한 select 문 -->
 	<select id="selectAttNo" parameterType="map" resultType="int">
 		<![CDATA[
@@ -11,9 +33,105 @@
 			AND u_id = #{userId}
 		]]>
 	</select>
-
-
-
-
+	
+	<!-- SubAttendance 휴가 신청 insert 문 -->
+	<insert id="insertSubAttendance" parameterType="com.team01.myapp.subattendance.model.SubAttendance">
+		<![CDATA[
+			INSERT INTO
+			sub_attendance
+				(sub_att_no, sub_att_time, sub_leave_time, u_id, att_no, content,  
+					sub_attendance_title, sub_att_date, sub_status)
+			VALUES
+				(sub_seq_att_no.NEXTVAL, #{subAttTime}, #{subleaveTime}, #{userId}, #{attNo}, 
+					#{content}, #{subAttendanceTitle}, sysdate, #{subStatus})
+		]]>
+	</insert>
+	
+	<!-- File Id를 넣기 위해 휴가 신청 subattNo를 받아오기 위한 select 문 -->
+	<select id="selectSubattNo" parameterType="map" resultType="int">
+		<![CDATA[
+			SELECT sub_att_no 
+			FROM sub_attendance 
+			WHERE att_no = #{attNo}
+			AND sub_attendance_title = #{subAttendanceTitle}
+		]]>
+	</select>
+	
+	<insert id="insertSubAttendanceFileData" 
+		parameterType="com.team01.myapp.subattendance.model.SubAttFile">
+		<![CDATA[
+			INSERT INTO
+			SUB_ATT_FILE
+				(SA_FILE_ID, SA_FILE_NAME, SA_FILE_SIZE, SA_FILE_CONTENT_TYPE, SA_FILE_DATA, SUB_ATT_NO)
+			VALUES
+				(SEQ_SA_FILE_ID.NEXTVAL, #{saFileId}, #{saFileSize}, #{saFileContentType}, #{saFileData}, #{subAttNo})
+		]]>
+	</insert>
+	
+	<!-- 페이징 처리 하기 위한 리스트 -->
+	<select id="selectTotalsubAttendanceCount" parameterType="string" resultType="int">
+		<![CDATA[
+			SELECT COUNT(sub_att_no) AS COUNT
+			FROM sub_attendance sub, attendance a, users u
+			WHERE sub.att_no = a.att_no
+			AND a.u_id = u.u_id
+			AND u.u_id = #{userId}
+		]]>
+	</select>
+	
+	<select id="selectAttendanceList" parameterType="map" resultType="com.team01.myapp.subattendance.model.SubAttendance">
+		<![CDATA[
+			SELECT
+			    rownum,
+			    SUB_ATT_NO as "subAttNo",
+			    SUB_ATTENDANCE_TITLE as "subAttendanceTitle",
+			    SUB_ATT_TIME as "subAttTime",
+			    SUB_ATT_DATE as "subAttDate",
+			    SUB_STATUS as "subStatus",
+			    RESULT as "result",
+			    U_ID as "userId",
+			    U_NAME as "userName"
+			    FROM(
+			    SELECT 
+			        rownum as rnum,
+			        SUB_ATT_NO ,
+			        SUB_ATTENDANCE_TITLE ,
+			        SUB_ATT_TIME ,
+			        SUB_ATT_DATE,
+			        SUB_STATUS ,
+			        RESULT ,
+			        U_ID,
+			        U_NAME
+			    FROM(
+			    SELECT
+			        SUB_ATT_NO ,
+			        SUB_ATTENDANCE_TITLE ,
+			        SUB_ATT_TIME ,
+			        SUB_ATT_DATE,
+			        SUB_STATUS ,
+			        RESULT ,
+			        U_ID,
+			        U_NAME
+			            FROM(
+			                SELECT
+			                    SUB_ATT_NO ,
+			                    SUB_ATTENDANCE_TITLE ,
+			                    SUB_ATT_TIME ,
+			                    SUB_ATT_DATE,
+			                    SUB_STATUS ,
+			                    RESULT ,
+			                    s.u_id as U_ID,
+			                    U_NAME
+			                FROM sub_attendance s, USERS u
+			                WHERE s.u_id = u.u_id
+			                AND s.u_id = #{userId}
+			            )
+			    order by sub_att_date desc
+			    ) 
+			    where rownum <= #{end}
+			    ) 
+			    where rnum >= #{start}
+		]]>
+	</select>
 
 </mapper>
