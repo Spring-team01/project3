@@ -21,4 +21,11 @@ public class SubAttendance {
 	private String subStatus;
 	
 	private MultipartFile file;
+	
+	private int fileId;
+	private String fileName;
+	private long fileSize;
+	private String fileContentType;
+	
+	private String userName;
 }

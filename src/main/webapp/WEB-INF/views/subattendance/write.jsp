@@ -80,7 +80,7 @@
 									<h6 class="text-white text-capitalize ps-3">휴가 신청</h6>
 								</div>
 							</div>
-						<form action="<c:url value='/subattendance/write/'/>" method="post">
+						<form action="<c:url value='/subattendance/write/'/>" method="post" enctype="multipart/form-data">
 							<div class="card-body px-0 pb-2">
 								<div class="m-5">
 									<select id="categoryList" class="custom-select custom-select" name="subStatus" onchange="changeCategory()">
@@ -109,15 +109,14 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="">Upload</span>
 										</div>
+										
 										<div class="container mt-3">
-										  
-										    <p>Custom file:</p>
-										    <div class="custom-file mb-3">
-										      <input type="file" class="custom-file-input" id="customFile" name="file">
-										      <label class="custom-file-label" for="customFile">Choose file</label>
-										    </div>
-										    
-										   
+											<p>Custom file:</p>
+											<div class="custom-file mb-3">
+												<input type="file" class="custom-file-input" id="customFile" name="file">
+												<label class="custom-file-label" for="customFile">Choose file</label>
+											</div>
+
 										    <div class="mt-3">
 											    <button type="submit" class="btn btn-primary">확정</button>
 										    </div>
