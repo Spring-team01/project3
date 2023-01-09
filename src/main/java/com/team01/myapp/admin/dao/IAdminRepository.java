@@ -10,18 +10,28 @@ import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
 
 public interface IAdminRepository {
-	int selectMaxListNo();
+	int selectTotalCategoryListNum(@Param("subjectId") int subjectId);
 
-	List<UserList> getUserListBySubject(@Param("start") int start, @Param("end") int end,
+	List<UserList> selectUserListBySubject(@Param("start") int start, @Param("end") int end,
 			@Param("subjectId") int subjectId);
 
+	User selectUser(@Param("userId") String userId);
+	
+	UserUploadFile selectFile(@Param("userFileId") String userFileId);
+	
 	List<ReasonList> getReasonListbyResult(@Param("start") int start, @Param("end") int end,
 			@Param("result") String result);
 
-	// 쓰기 기능
-	void insertUserFile(UserUploadFile file);
-
 	int selectMaxFileId();
 	
-	User selectUser(@Param("userId") String userId);
+	void insertUserFile(UserUploadFile file);
+
+	void updateUser(User user);
+
+	void updateFileData(UserUploadFile file);
+
+	void insertFileData(UserUploadFile file);
+	
+
+
 }
