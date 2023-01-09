@@ -15,6 +15,9 @@ public interface ICommunityRepository {
 	void writeCommunity(Community community);
 	void insertFileData(CommunityFile communityFile);
 	
+	void updateCommunity(Community community);
+	void updateFileData(CommunityFile communityFile);
+	
 	List<Community> getCommunityListByCategory(@Param("start") int start, @Param("end") int end);
 	List<CommunityComment> getCommunityCommentList(int communityBoardId);
 	
@@ -25,5 +28,12 @@ public interface ICommunityRepository {
 	void updateCommunityReplyNumber(@Param("communityBoardId") int communityBoardId);
 	void writeCommunityReply(CommunityComment comment);
 	
+	void deleteFileData(int communityBoardId);
+	void deleteCommunity(int communityBoardId);
+	String getPassword(int communityBoardId);
+	
+	int selectSearchCommunity(String keyword);
+	List<Community> selectSearchCommunityList(@Param("keyword") String keyword, 
+			@Param("start") int start, @Param("end") int end );
 	
 }

@@ -191,10 +191,112 @@
 			from community left outer join c_comment
 			on community.c_board_id = c_comment.C_BOARD_ID
 			where community.c_board_id = #{communityBoardId}
-			order by CC_REPLY_NUMBER asc
+			order by CC_COMMENT_NO asc
 		]]>
 	</select>
 	
+	<update id="updateCommunity" parameterType="com.team01.myapp.community.model.Community">
+	<![CDATA[
+		UPDATE 
+        		community
+		SET 
+		        U_ID= #{usersId},
+		        C_TITLE= #{communityTitle},
+		        C_CONTENT=#{communityContent}, C_WRITE_DATE=SYSDATE
+		WHERE 
+        		C_BOARD_ID=#{communityBoardId}
+	]]>
+	</update>
+	
+	<update id="updateFileData" parameterType="com.team01.myapp.community.model.CommunityFile">
+	<![CDATA[
+		UPDATE 
+			C_FILE
+		SET 
+			C_FILE_NAME=#{communityFileName}, C_FILE_SIZE=#{communityFileSize},
+			C_FILE_CONTENT_TYPE=#{communityFileContentType}, C_FILE_DATA=#{communityFileData}
+		WHERE 
+			C_FILE_ID=#{communityFileId}
+	]]>
+	</update>
+	
+	
+	
+	<delete id="deleteFileData" parameterType="int">
+	<![CDATA[
+		DELETE FROM C_FILE
+			WHERE EXISTS (SELECT C_BOARD_ID FROM community
+			WHERE community.C_BOARD_ID=#{communityBoardId} AND community.C_BOARD_ID = C_FILE.C_BOARD_ID )
+	]]>
+	</delete>
+	<delete id="deleteCommunity" parameterType="int">
+	<![CDATA[
+		DELETE FROM 
+			COMMUNITY
+		WHERE 
+			C_BOARD_ID=#{communityBoardId}
+	]]>
+	</delete>
+	
+	<select id="getPassword" parameterType="int" resultType="String">
+		<![CDATA[
+			select C_PASSWORD as "communityPassword"
+			from  community	   
+			where C_BOARD_ID = #{communityBoardId}
+		]]>
+	</select>
+	
+	<select id="selectSearchCommunity" parameterType="string" resultType="int">
+		<![CDATA[
+			SELECT COUNT(C_BOARD_ID) AS "count"
+			FROM community
+			WHERE 
+				C_TITLE LIKE #{keyword}
+			OR
+				C_CONTENT LIKE #{keyword}
+		]]>
+	</select>
+	<select id="selectSearchCommunityList"
+		parameterType="map"
+		resultType="com.team01.myapp.community.model.Community">
+		<![CDATA[
+		
+		SELECT
+            rownum,
+		     C_BOARD_ID as "communityBoardId", 
+		     C_CATEGORY_ID as "communityCategoryId",
+		     C_EMAIL as "communityEmail",
+		     C_PASSWORD as "communityPassword",
+		     C_TITLE as "communityTitle",
+		     C_WRITE_DATE as "communityWriteDate",
+		     C_READ_COUNT as "communityReadCount",
+		     U_ID as "usersId",
+		     C_CONTENT as "communityContent"
+				FROM (
+					SELECT
+						rownum as rnum,
+		            C_BOARD_ID ,
+				    C_CATEGORY_ID ,
+				    C_EMAIL ,
+				    C_PASSWORD ,
+				    C_TITLE ,
+				    C_WRITE_DATE , 
+				    C_READ_COUNT ,
+				    U_ID ,
+				    C_CONTENT 
+					FROM (
+						SELECT * FROM community
+						WHERE 
+							C_TITLE LIKE #{keyword}
+							OR
+							C_CONTENT LIKE #{keyword}
+						ORDER BY C_WRITE_DATE
+						)
+					)
+				WHERE RNUM BETWEEN 1 AND 10
+		]]>
+
+	</select>
 	
 
 </mapper>
