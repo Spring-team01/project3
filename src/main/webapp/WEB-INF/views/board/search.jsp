@@ -44,7 +44,7 @@
 						<!--템플릿  -->
 						<div class="container-fluid py-4">
 						<div class="board_content">
-						<form class="form-inline m-2 justify-content-end" action="<c:url value='/board/search/${pager.pageNo}'/>" method="get">
+						<form class="form-inline m-2 justify-content-end" action="<c:url value='/board/search/1'/>" method="get">
 							<input type="text" name="keyword" class="form-control" placeholder="Search" style="border: 1px solid gray; width:200px; height:35px; padding:0px 10px;">
 							<input type="submit" class="btn btn-warning m-1" value="<fmt:message key="SEARCH"/>">
 						</form>
@@ -102,26 +102,26 @@
 								<div class="flex-fulfill"></div>
 								<div class="pagingButtonSet d-flex justify-content-center">
 									<c:if test="${pager.pageNo > 1}">
-										<a href="1" type="button" class="btn btn-muted shadow">◀◀</a>
+										<a href="1?keyword=${keyword}" type="button" class="btn btn-muted shadow">◀◀</a>
 									</c:if>
 	
 									<c:if test="${pager.groupNo > 1}">
-										<a href="${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
+										<a href="${pager.startPageNo-1}?keyword=${keyword}" type="button" class="btn btn-muted shadow">◀</a>
 									</c:if>
 	
 									<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
 										<c:if test="${pager.pageNo != i}">
-											<a href="${i}" type="button" class="btn btn-white shadow">${i}</a>
+											<a href="${i}?keyword=${keyword}" type="button" class="btn btn-white shadow">${i}</a>
 										</c:if>
 										<c:if test="${pager.pageNo == i}">
-											<a href="${i}" type="button" class="btn btn-dark shadow">${i}</a>
+											<a href="${i}?keyword=${keyword}" type="button" class="btn btn-dark shadow">${i}</a>
 										</c:if>
 									</c:forEach>
 	
 									<c:if test="${pager.groupNo < pager.totalGroupNo }">
-										<a href="${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
+										<a href="${pager.endPageNo+1}?keyword=${keyword}" type="button" class="btn btn-muted shadow">▶</a>
 									</c:if>
-									<a href="${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+									<a href="${pager.totalPageNo}?keyword=${keyword}" type="button" class="btn btn-muted shadow">▶▶</a>
 								</div>
 								<div class="flex-fulfill"></div>
 								<div class="d-flex justify-content-end">  

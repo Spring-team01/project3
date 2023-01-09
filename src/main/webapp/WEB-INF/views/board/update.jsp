@@ -81,13 +81,12 @@
 								        <input type="text" name="email" id="email" class="form-control" value="${board.email}" required readonly>
 								      </div>
 								    </div>
-								    <%-- <div class="form-group">
+								    <div class="form-group">
 								      <label class="control-label col-sm-2" for="password"><fmt:message key="PASSWORD"/></label>
 								      <div class="col-sm-2">
-								        <input type="password" name="password" id="password" class="form-control" placeholder="게시글 비밀번호" required>
+								        <input type="password" name="password" id="password" class="form-control" value="${sessionScope.password}" placeholder="게시글 비밀번호" readonly required>
 								      </div>${passwordError}
-								    </div> --%>
-								    
+								    </div>
 									<div class="form-group">
 								      <label class="control-label col-sm-2" for="title"><fmt:message key="TITLE"/></label>
 								      <div class="col-sm-8">

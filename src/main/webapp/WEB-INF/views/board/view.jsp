@@ -19,7 +19,63 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 <!-- CSS Files -->
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
-
+<script>
+	function writeReReply(i){
+		$('#reCommentForm'+i).toggle()
+		
+	}
+	function writeReReplyFun(j){
+		let replyContent= $("#writeReReply"+j).val();
+		
+		$.ajax({
+	         type : 'POST',
+	         url : "/myapp/board/comment",
+	         data : {bcMasterId: j, replyContent: replyContent, bcReplystep: 1,},
+	         error : function() {
+	            alert('통신실패!');
+	         },
+	         success : function(data) {
+	            if(data==0) {
+	               alert("댓글 수정에 실패하였습니다");
+	            } else {
+	               alert("댓글 수정에 성공하였습니다!");
+	               location.relode();
+	            }
+	         }
+	      });
+	}
+	function writeReComment(){
+		let html = ' ';
+		html+='<input id ="boardComment" name="boardComment" value="">'
+		htm += '<button type="button" onclick="updateComment()" >'
+		$("#replydiv").after(html);
+		
+		
+	}
+	
+	function updateComment(){
+		let replyContent= $(boardComment).val();
+		
+		$.ajax({
+	         type : 'POST',
+	         url : "/myapp/board/comment/update",
+	         data : {replyId: i, bcContent: replyContent, },
+	         error : function() {
+	            alert('통신실패!');
+	         },
+	         success : function(data) {
+	            if(data==0) {
+	               alert("댓글 수정에 실패하였습니다");
+	            } else {
+	               alert("댓글 수정에 성공하였습니다!");
+	               location.relode();
+	            }
+	         }
+	      });
+		
+	}
+	
+</script>
 
 <body>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
@@ -92,6 +148,63 @@
 							</td>
 						</tr>
 						</c:if>
+						
+						<tr>
+						<td colspan=2 align="right">
+						<section class="mb-5">
+							<div class="card bg-light">
+								<div class="card-body">
+									<form class="mb-4" action="<c:url value='/board/comment'/>" method="post">
+										<textarea name="bcContent" class="form-control" rows="3" placeholder="댓글 작성"></textarea>
+										<br> 
+										<input type="submit" class="btn btn-dark shadow" value="작성"> 
+										<input type="hidden" name="boardId" value="${board.boardId}"> 
+									</form>
+
+								
+										<c:if test="${!empty commentList}">
+											<c:forEach var="commentOne" items="${commentList}">
+												<div class="d-flex flex-column mb-3" >
+													<div class="ms-3">
+														<div class="d-flex justify-content-around">
+															<div>
+																<div class="flex-shrink-0">
+																	<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+																</div>
+															</div>
+															<div class="ms-3">
+																<div class="fw-bold">${commentOne.userId}</div>
+																${commentOne.bcContent}
+															</div>
+															<div class="ms-auto">
+																<button type="button" onclick="writeReReply(${commentOne.bcReplyNo})" class="btn btn-sm btn-dark shadow">${commentOne.bcReplyNo}>답글</button>
+																<div id="reCommentForm${commentOne.bcReplyNo}" style="display:none">
+																	<form id="writeReReplyForm" name="writeReReplyForm" calss="d-flex">
+																		<label class="font-weight-bold" for="writeReReply${commentOne.bcReplyNo}"></label>
+																		<input id="writeReReply${commentOne.bcReplyNo}"type="text" class="form-control" name="bcContent" placeholder="답글을 입력해주세요">
+																		<input type="hidden" name="boardId" value="${board.boardId}"> 
+																		<input type="hidden" name="bcMasterId" value="${commentOne.bcReplyNo}">
+																		<input type="hidden" name="bcReplystep" value="1">
+																		<button type="button" onclick="writeReReplyFun(${commentOne.bcReplyNo})"></button>
+																	</form>
+																</div>
+																<!-- 답글리스트 -->
+																<div id="reReplyListDiv${commentOne.bcReplyNo}"></div>
+																<!-- 작성한 답글 추가 -->
+																<div id="reReplyWriteDiv${commentOne.bcReplyNo}">123123</div>
+															</div>
+														</div>
+
+													</div>
+												</div>
+											</c:forEach>
+										</c:if>
+									
+								</div>
+							</div>
+						</section>
+						</td>
+						</tr>
 						<tr>
 							<td colspan=2 align="right">
 							<c:if test="${board.userId==sessionScope.userId}">

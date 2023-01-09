@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.model.BoardUploadFile;
+import com.team01.myapp.board.model.BoardComment;
 import com.team01.myapp.util.Pager;
 
 public interface IBoardService { 
@@ -12,8 +13,13 @@ public interface IBoardService {
 	Pager returnPage(String pageNo, Pager pager);
 	List<Board> getTotalArticleList(Pager pager);
 	
+	//카테고리별 리스트 
 	Pager returnCategoryPage(int categoryId, String pageNo, Pager pager);
 	List<Board> getArticleListByCategory(int categoryId, Pager pager);
+	
+	//검색 리스트 
+	Pager returnSearchPage(String keyword, String pageNo, Pager pager);
+	List<Board> getSearchArticleList(String keyword, Pager pager);
 	
 	//읽기 
 	Board selectArticle(int boardId);
@@ -29,8 +35,13 @@ public interface IBoardService {
 	void updateArticle(Board board);
 	
 	//삭제
-	Board selectDeleteArticle(int boardId);
 	void deleteArticle(int categoryId);
+	
+	//리플 
+	List<BoardComment> getBoardComment(int boardId);
+	void writeBoardReply(BoardComment comment);
+	
+	
 	
 
 

@@ -84,13 +84,14 @@
 											class="form-control" required>
 										</div>
 									</div>
-									<!-- <div class="form-group">
+									 <div class="form-group">
 										<label class="control-label col-sm-2" for="password">게시글 비밀번호</label>
 										<div class="col-sm-2">
 											<input type="password" name="password" id="password" 
+											value="${sessionScope.password}" ${!empty sessionScope.password ? "readonly" : "" } 
 											class="form-control" placeholder="게시글 비밀번호" required>
 										</div>
-									</div>		 -->
+									</div>	
 									<div class="form-group">
 								      <label class="control-label col-sm-2" for="title"><fmt:message key="TITLE"/></label>
 								      <div class="col-sm-8">
@@ -106,7 +107,6 @@
 								    <div class="form-group"> 
 								      <label class="control-label col-sm-2" for="photo"><fmt:message key="FILE"/><fmt:message key="FILESIZE_ERROR"/></label>
 								      <div class="col-sm-8">
-								      	<input type="hidden" name="fileId" value="${board.boardFileId}">
 								        <input type="file" id="i_file" name="file">${board.boardFileName}
 								      </div>
 								    </div>
@@ -117,7 +117,7 @@
 											<%-- <input type="hidden" name="masterId" value="${board.masterId}">
 											<input type="hidden" name="replyNumber" value="${board.replyNumber}">
 											<input type="hidden" name="replyStep" value="${board.replyStep}"> --%>
-											<input type="submit" id="i_submit" class="btn btn-info" value="<fmt:message key="UPDATE"/>"> 
+											<input type="submit" id="i_submit" class="btn btn-info" value="<fmt:message key="SAVE"/>"> 
 											<input type="reset" class="btn btn-info" value="<fmt:message key="CANCEL"/>">
 										</div>
 									</div>
