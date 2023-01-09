@@ -30,4 +30,13 @@ public interface ISubAttendanceRepository {
 	int selectTotalsubAttendanceCount(String userId);
 	
 	List<SubAttendance> selectAttendanceList(@Param("start") int start, @Param("end") int end, @Param("userId") String userId);
+
+	SubAttendance selectSubAttendanceDetail(int subAttNo);
+
+	SubAttFile getFile(int fileId);
+	
+	// 수정
+	void updateSubAttendance(SubAttendance subAttendance);
+
+	void updateFileData(SubAttFile file);
 }

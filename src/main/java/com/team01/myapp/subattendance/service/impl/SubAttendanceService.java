@@ -44,7 +44,6 @@ public class SubAttendanceService implements ISubAttendanceService {
 		
 		if(file != null && file.getSaFileName() != null && !file.getSaFileName().equals("")) {
 			int SubAttNo = SubAttendanceRepository.selectSubattNo(subAttendance.getAttNo(), subAttendance.getSubAttendanceTitle());
-			System.out.println(SubAttNo);
 			file.setSubAttNo(SubAttNo);
 			SubAttendanceRepository.insertSubAttendanceFileData(file);
 		}
@@ -69,5 +68,33 @@ public class SubAttendanceService implements ISubAttendanceService {
 		int start = (pager.getPageNo()-1)* pager.getRowsPerPage()+1;
 		
 		return SubAttendanceRepository.selectAttendanceList(start, end, userId);
+	}
+
+	@Override
+	public SubAttendance selectSubAttendanceDetail(int subAttNo) {
+		return SubAttendanceRepository.selectSubAttendanceDetail(subAttNo);
+	}
+	
+	@Override
+	public SubAttFile getFile(int fileId) {
+		return SubAttendanceRepository.getFile(fileId);
+	}
+	
+	@Override
+	public void updateSubAttendance(SubAttendance subAttendance) {
+		SubAttendanceRepository.updateSubAttendance(subAttendance);
+	}
+	
+	@Transactional
+	public void updateSubAttendance(SubAttendance subAttendance, SubAttFile file) {
+		SubAttendanceRepository.updateSubAttendance(subAttendance);
+		if(file != null && file.getSaFileName() != null && !file.getSaFileName().equals("")) {
+			file.setSaFileId(subAttendance.getFileId());
+			if(file.getSaFileId()>0) {
+				SubAttendanceRepository.updateFileData(file);
+			} else {
+				SubAttendanceRepository.insertSubAttendanceFileData(file);
+			}
+		}
 	}
 }
