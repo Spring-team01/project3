@@ -21,15 +21,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team01.myapp.board.model.Board;
-import com.team01.myapp.board.model.BoardUploadFile;
 import com.team01.myapp.board.model.BoardComment;
+import com.team01.myapp.board.model.BoardUploadFile;
 import com.team01.myapp.board.service.IBoardService;
-import com.team01.myapp.community.model.Community;
-import com.team01.myapp.community.model.CommunityComment;
 import com.team01.myapp.util.Pager;
 
 @Controller
@@ -68,6 +67,7 @@ public class BoardController {
 	public String getBoardDetails(@PathVariable int boardId, @PathVariable int pageNo, Model model) {
 		Board board = boardService.selectArticle(boardId);
 		List<BoardComment> commentList = boardService.getBoardComment(boardId);
+		
 		
 		model.addAttribute("board", board);
 		model.addAttribute("page", pageNo);
@@ -209,7 +209,7 @@ public class BoardController {
 		return "board/search";
 	}
 	
-	//리플 기능 
+	//댓글 작성 기능 
 	@RequestMapping(value="/board/comment", method = RequestMethod.POST) 
 	public String writeBoardReply(Board board, BoardComment comment, BindingResult result, RedirectAttributes redirectAttrs,
 			HttpSession session) {
@@ -218,6 +218,26 @@ public class BoardController {
 			boardService.writeBoardReply(comment);
 			
 		return "redirect:/board/view/"+board.getBoardId()+"/"+board.getCategoryId();
+	}
+	
+	//대댓글 읽기 기능
+	@RequestMapping(value="/board/reply", method=RequestMethod.GET)
+	public String viewNestedReply(@RequestParam int bcReplyNo, Model model) {
+		logger.info("/board/reply/{bcReplyNo}:  " + bcReplyNo);
+		List<BoardComment> nestedCommentList = boardService.getNestedComment(bcReplyNo);
+		model.addAttribute("nestedCommentList", nestedCommentList);
+		logger.info("/board/reply/{bcReplyNo}:  " + nestedCommentList);
+		return "board/reply";                             
+	}
+	//대댓글 작성 기능 
+	@RequestMapping(value="/board/reply/write", method = RequestMethod.POST) 
+	public @ResponseBody String writeNestedReply(BoardComment comment, BindingResult result, HttpSession session) {
+		System.out.println(comment.getBoardId());
+		logger.info("/board/reply/write/{bcReplyNo} " + comment.toString());
+		comment.setUserId((String) session.getAttribute("userId"));	
+		boardService.writeNestedReply(comment);
+		System.out.println("서비스 성공ㅎ");
+	return "1";
 	}
 	
 	

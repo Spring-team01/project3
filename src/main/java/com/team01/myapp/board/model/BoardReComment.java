@@ -5,7 +5,7 @@ import java.sql.Date;
 import lombok.Data;
 
 @Data
-public class BoardComment {
+public class BoardReComment {
 	private int bcReplyNo;
 	private String bcContent;
 	private Date bcWriteDate;
@@ -13,6 +13,4 @@ public class BoardComment {
 	private int boardId;
 	private int bcMasterNo;
 	private int bcReplyStep;
-	
 }
-
