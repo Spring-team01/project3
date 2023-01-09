@@ -37,8 +37,8 @@ public class AttendanceController {
 		
 		String attDate = simpleDateFormat1.format(date);
 		
-		int choice = attendanceService.selectAtterdanceCheck(attDate, userId);
-		if(choice == 1) {
+		String choice = attendanceService.selectAtterdanceCheck(attDate, userId);
+		if(choice.equals("지각") || choice.equals("출근")) {
 			model.addAttribute("message", "이미 출근을 누르셨습니다.");
 			return "/home";
 		} else {
@@ -68,7 +68,26 @@ public class AttendanceController {
 			int subjectId = (Integer) session.getAttribute("subjectId");
 			attendance.setSubjectId(subjectId);
 			
-			attendanceService.insertAttendance(attendance);
+			// 비교하기 위한 날짜 생성
+			SimpleDateFormat updateDateFormat = new SimpleDateFormat("YY/MM/DD");
+			String updateDate = updateDateFormat.format(date);
+			
+			if(choice.equals("휴가")) {
+				String checkAttTime = attendanceService.selectAttTime(attDate, userId);
+				
+				if(checkAttTime == null) { 
+					
+					attendanceService.updateAttendance(userId, updateDate, choice);
+				} else {
+					model.addAttribute("message", "이미 출근을 누르셨습니다.");
+					return "/home";
+				}
+			} else if(choice.equals("미출석")) {
+				choice = "출근";
+				attendanceService.updateAttendance(userId, updateDate, choice);
+			} else {
+				attendanceService.insertAttendance(attendance);
+			}
 			
 			String attTime = attendanceService.selectAttTime(attDate, userId);
 			String leaveTime = attendanceService.selectLeaveTime(attDate, userId);
@@ -77,7 +96,6 @@ public class AttendanceController {
 			session.setAttribute("leaveTime", leaveTime);
 			
 			return "/home";
-			
 		}
 	}
 	
@@ -100,7 +118,7 @@ public class AttendanceController {
 		String userId = (String) session.getAttribute("userId");
 		
 		// 행이 있는지 체크 ( 출근을 했는지 안 했는지)
-		int choice = attendanceService.selectAtterdanceCheck(attDate2, userId);
+		String choice = attendanceService.selectAtterdanceCheck(attDate2, userId);
 		
 		// 퇴근을 눌렀는지 확인하기 위한 leaveTime 생성 (null 또는 값이 있음)
 		String leaveTime = attendanceService.selectLeaveTime(attDate2, userId);
@@ -110,7 +128,7 @@ public class AttendanceController {
 		SimpleDateFormat timeFormat = new SimpleDateFormat("HH");
 		int time = Integer.parseInt(timeFormat.format(date));
 		
-		if(choice == 1) {
+		if(choice != null) {
 			if(leaveTime == null) {
 				if(time < 18) {
 					model.addAttribute("message", "아직 퇴근 시간 전 입니다.");

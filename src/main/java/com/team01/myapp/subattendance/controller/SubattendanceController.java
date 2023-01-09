@@ -1,5 +1,6 @@
 package com.team01.myapp.subattendance.controller;
 
+import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,6 +11,10 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,6 +48,28 @@ public class SubattendanceController {
 		model.addAttribute("pager", pager);
 		
 		return "subattendance/list";
+	}
+	
+	// 휴가 상세 view
+	@RequestMapping("/subAttendance/view/{subAttNo}")
+	public String getSubAttendanceDetails(@PathVariable int subAttNo, Model model) {
+		SubAttendance subAttendance = subAttendanceService.selectSubAttendanceDetail(subAttNo);
+		
+		model.addAttribute("subAttendance", subAttendance);
+		
+		return "subattendance/view";
+	}
+	
+	@RequestMapping("/SubAttendanceFile/{fileId}")
+	public ResponseEntity<byte[]> getSubAttendanceFile(@PathVariable int fileId) {
+		SubAttFile file = subAttendanceService.getFile(fileId);
+		System.out.println("getFile"+file.toString());
+		final HttpHeaders headers =new HttpHeaders();
+		String[] subtypes = file.getSaFileContentType().split("/");
+		headers.setContentType(new MediaType(subtypes[0], subtypes[1]));
+		headers.setContentLength(file.getSaFileSize());
+		headers.setContentDispositionFormData("attachment", file.getSaFileName(),Charset.forName("UTF-8"));
+		return new ResponseEntity<byte[]>(file.getSaFileData(),headers,HttpStatus.OK);
 	}
 	
 	
@@ -121,6 +148,7 @@ public class SubattendanceController {
 			if(mfile!=null && !mfile.isEmpty()) {
 				SubAttFile file = new SubAttFile();
 				file.setSaFileName(mfile.getOriginalFilename());
+				System.out.println(file.getSaFileName());
 				file.setSaFileSize(mfile.getSize());
 				file.setSaFileContentType(mfile.getContentType());
 				file.setSaFileData(mfile.getBytes());
@@ -134,5 +162,65 @@ public class SubattendanceController {
 		}
 		
 		return "/attendance/userList";
+	}
+	
+	// 수정
+	@RequestMapping(value="/subattendance/update/{subAttNo}/{fileId}", method=RequestMethod.GET)
+	public String updateSubAttendance(@PathVariable int subAttNo, @PathVariable int fileId, Model model) {
+		SubAttendance subAttendance = subAttendanceService.selectSubAttendanceDetail(subAttNo);
+		model.addAttribute("subAttendance", subAttendance);
+		return "subattendance/update";
+	}
+	
+	@RequestMapping(value="/subattendance/update", method=RequestMethod.POST)
+	public String updateSubAttendance(SubAttendance subAttendance, BindingResult result, 
+			HttpSession session, String date, String subAttTime, String subLeaveTime) {
+		
+		// 신청 날짜
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date today = null;
+		try {
+			today = dateFormat.parse(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// 타임 스탬프에 들어갈 수 있는 형식으로 변경 
+		SimpleDateFormat subAttTimeLeaveTimeFormat = new SimpleDateFormat("YYYY-MM-DD");
+		String subAttTimeLeaveTime = subAttTimeLeaveTimeFormat.format(today);
+		
+		String subAttTime1 = subAttTimeLeaveTime + " " + subAttTime +":00";
+		String subLeaveTime1 = subAttTimeLeaveTime + " " + subLeaveTime +":00";
+		
+		// 타임 스탬프 형식으로 변경 String -> Timestamp
+		Timestamp subAttTimestamp = Timestamp.valueOf(subAttTime1);
+		Timestamp subLeaveTimestamp = Timestamp.valueOf(subLeaveTime1);
+		
+		subAttendance.setSubAttTime(subAttTimestamp);
+		subAttendance.setSubleaveTime(subLeaveTimestamp);
+		
+		System.out.println(subAttendance.toString());
+		
+		try {
+			MultipartFile mfile = subAttendance.getFile();
+			if(mfile!=null && !mfile.isEmpty()) {
+				logger.info("/board/update : " + mfile.getOriginalFilename());
+				SubAttFile file = new SubAttFile();
+				file.setSaFileName(mfile.getOriginalFilename());
+				file.setSaFileSize(mfile.getSize());
+				file.setSaFileId(subAttendance.getFileId());
+				file.setSaFileContentType(mfile.getContentType());
+				file.setSaFileData(mfile.getBytes());
+				file.setSubAttNo(subAttendance.getSubAttNo());
+				logger.info("/board/update : " + file.toString());
+				
+				subAttendanceService.updateSubAttendance(subAttendance, file);
+			} else {
+				subAttendanceService.updateSubAttendance(subAttendance);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/subAttendance/view/" + subAttendance.getSubAttNo();
 	}
 }

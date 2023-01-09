@@ -23,4 +23,11 @@ public interface ISubAttendanceService {
 	Pager returnPage(String pageNo, Pager pager, String userId);
 	
 	List<SubAttendance> getSubAttendanceList(Pager pager, String userId);
+
+	SubAttendance selectSubAttendanceDetail(int subAttNo);
+	
+	SubAttFile getFile(int fileId);
+
+	void updateSubAttendance(SubAttendance subAttendance);
+	void updateSubAttendance(SubAttendance subAttendance, SubAttFile file);
 }

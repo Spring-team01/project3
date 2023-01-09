@@ -26,7 +26,7 @@ public class AttendanceService implements IAttendanceService {
 	}
 	
 	@Override
-	public int selectAtterdanceCheck(String attDate, String userId) {
+	public String selectAtterdanceCheck(String attDate, String userId) {
 		return AttendanceRepository.selectAtterdanceCheck(attDate, userId);
 	}
 	
@@ -48,6 +48,11 @@ public class AttendanceService implements IAttendanceService {
 	@Override
 	public void updateLeaveCheck(String attDate, String userId) {
 		AttendanceRepository.updateLeaveCheck(attDate, userId);
+	}
+
+	@Override
+	public void updateAttendance(String userId, String attDate, String choice) {
+		AttendanceRepository.updateAttendance(userId, attDate, choice);
 	}
 	
 }

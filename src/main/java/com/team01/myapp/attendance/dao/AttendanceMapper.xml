@@ -20,10 +20,10 @@
 	</select>
 	
 	<!-- 출근 버튼 클릭시 출근이 있는지 확인 하는 select문 -->
-	<select id="selectAtterdanceCheck" parameterType="map" resultType="int">
+	<select id="selectAtterdanceCheck" parameterType="map" resultType="string">
 		<![CDATA[
 			SELECT
-				count(att_no)
+				status
 			FROM attendance
 			WHERE TO_CHAR(att_date, 'YYYYMMDD') = #{attDate}
 			AND u_id = #{userId}
@@ -40,6 +40,17 @@
 				(seq_att_no.NEXTVAL, sysdate, sysdate, null, #{status}, #{userId}, #{subjectId})
 		]]>
 	</insert>
+	
+	<!-- 출근 버튼 클릭시 휴가가 이미 있을 때 update 하기 위한 글 -->
+	<update id="updateAttendance" parameterType="map">
+		<![CDATA[
+			UPDATE attendance
+			SET att_time = sysdate,
+			SET status = #{choice}
+			WHERE u_id = #{userId}
+			AND TO_CHAR(att_date, 'YY/MM/DD') = #{attDate}
+		]]>
+	</update>
 	
 	<!-- 출근 시간을 띄워주기 위한 select 문 -->
 	<select id="selectAttTime" parameterType="map" resultType="string">

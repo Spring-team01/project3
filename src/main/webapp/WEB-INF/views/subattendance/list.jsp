@@ -70,26 +70,26 @@
 												</td>
 												<td class="pc text-center">
 													<h6 class="text-secondary text-xs font-weight-bold">
-														<a href='<c:url value="/board/view/${subAttendance.subAttNo}"/>'>${subAttendance.subAttendanceTitle}</a>
+														<a href='<c:url value="/subAttendance/view/${subAttendance.subAttNo}"/>'>${subAttendance.subAttendanceTitle}</a>
 													</h6>
 												</td>
 												<td class="pc text-center">
 													<h6 class="text-secondary text-xs font-weight-bold">
-														<a href='<c:url value="/board/view/${subAttendance.subAttNo}"/>'>
+														<a href='<c:url value="/subAttendance/view/${subAttendance.subAttNo}"/>'>
 															<fmt:formatDate pattern="yyyy-MM-dd" value="${subAttendance.subAttTime}"/>
 														</a>
 													</h6>
 												</td>
 												<td class="pc text-center">
 													<h6 class="text-secondary text-xs font-weight-bold">
-														<a href='<c:url value="/board/view/${subAttendance.subAttNo}"/>'>
+														<a href='<c:url value="/subAttendance/view/${subAttendance.subAttNo}"/>'>
 															<fmt:formatDate pattern="yyyy-MM-dd" value="${subAttendance.subAttDate}"/>
 														</a>
 													</h6>
 												</td>
 												<td class="pc text-center">
 													<h6 class="text-secondary text-xs font-weight-bold">
-														<a href='<c:url value="/board/view/${subAttendance.subAttNo}"/>'>${subAttendance.result}</a>
+														<a href='<c:url value="/subAttendance/view/${subAttendance.subAttNo}"/>'>${subAttendance.result}</a>
 													</h6>
 												</td>
 											</tr>
