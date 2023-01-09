@@ -20,41 +20,6 @@
 <!-- CSS Files -->
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
-<script>
-	function action1(){
-		let html = ' ';
-		html+='<input id ="CommunityComment" name="CommunityComment" value="">'
-		htm += '<button type="button" onclick="function1()" >'
-		$("#replydiv").after(html);
-		
-		
-	}
-
-	function function1(){
-		let replyContent= $(CommunityComment).val();
-		
-		$.ajax({
-	         type : 'POST',
-	         url : "/myapp/board/reply/update",
-	         data : {replyId: i, replyContent: rContent},
-	         error : function() {
-	            alert('통신실패!');
-	         },
-	         success : function(data) {
-	            if(data==0) {
-	               alert("댓글 수정에 실패하였습니다");
-	            } else {
-	               alert("댓글 수정에 성공하였습니다!");
-	               location.relode();
-	            }
-	         }
-	      });
-		
-	}
-	
-</script>
-
-
 <body>
 	<jsp:include page="/WEB-INF/views/include/header.jsp" />
 
@@ -109,7 +74,7 @@
 										<br> <input type="submit" class="btn btn-dark shadow" value="작성"> <a type="button" href="<c:url value='/community/communityList//1/1'/>" class="btn btn-dark shadow">글 목록</a> <input type="hidden" name="communityBoardId" value="${community.communityBoardId}"> <input type="hidden" name="communityCommentReplyNumber" value="${community.communityReplyNumber}">
 									</form>
 
-									<form >
+									<form>
 										<c:if test="${community.communityReplyNumber!=0}">
 											<c:forEach var="commentList" items="${commentList}">
 												<div class="d-flex flex-column mb-3">
@@ -125,11 +90,24 @@
 																${commentList.communityCommentContent}
 															</div>
 															<div class="ms-auto">
-																<input type="submit" onclick="action1()" class="btn btn-sm btn-dark shadow" value="답글">
-																<div id="replydiv">123123</div>
+																<input type="button" onclick="createInputTag()" class="btn btn-sm btn-dark shadow" value="답글">
+
 															</div>
 														</div>
-
+														<!-- 더보기를 눌렀을 때, 반복하는 영역 -->
+														<!--대댓글 위치 -->
+														
+														<div class="d-flex mt-4 ml-5">
+															<div class="flex-shrink-0">
+																<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+															</div>
+															<div class="ms-3">
+																<div class="fw-bold">아이디</div>
+																본문
+															</div>
+														</div>
+														
+														
 													</div>
 												</div>
 											</c:forEach>

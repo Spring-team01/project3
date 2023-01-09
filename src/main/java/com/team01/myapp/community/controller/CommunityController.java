@@ -88,7 +88,6 @@ public class CommunityController {
 		model.addAttribute("communityList", communityList);
 		model.addAttribute("pager", pager);
 		
-		System.out.println(model.toString());
 		return "community/communityList";
 	}
 	
