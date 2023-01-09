@@ -16,7 +16,7 @@
 		WHERE CATEGORY_ID = #{categoryId}
 		]]>
 	</select>
-	<select id="selectMaxArticleNo" parameterType="int" resultType="int">
+	<select id="selectMaxArticleNo" resultType="int">
 	<![CDATA[
 		SELECT
 			NVL(MAX(BOARD_ID),0) AS "articleNo"
@@ -24,11 +24,19 @@
 	]]>
 	</select>
 	
-	<select id="selectMaxFileId" parameterType="int" resultType="int">
+	<select id="selectMaxFileId" resultType="int">
 	<![CDATA[
 		SELECT
 			NVL(MAX(B_FILE_ID),0) AS "boardFileId"
 		FROM B_FILE
+	]]>
+	</select>
+	
+	<select id="selectMaxReplyNo" resultType="int">
+	<![CDATA[
+		SELECT
+			NVL(MAX(BC_REPLY_NO),0) AS "bcReplyNo"
+		FROM B_COMMENT
 	]]>
 	</select>
 	
@@ -303,19 +311,40 @@
 		    BC_WRITE_DATE AS "bcWriteDate"
 		FROM BOARD LEFT OUTER JOIN B_COMMENT
 		    ON BOARD.BOARD_ID=B_COMMENT.BOARD_ID
-		WHERE BOARD.BOARD_ID=#{boardId}
+		WHERE BOARD.BOARD_ID=#{boardId} AND BC_REPLY_STEP=0
 		ORDER BY BC_WRITE_DATE DESC
 	</select>
-	
 	
 	<insert id="insertComment" parameterType="com.team01.myapp.board.model.BoardComment">
 		INSERT INTO
 			B_COMMENT
 		B_COMMENT
-			(BC_REPLY_NO, BC_CONTENT, BC_WRITE_DATE, U_ID, BOARD_ID)
+			(BC_REPLY_NO, BC_CONTENT, BC_WRITE_DATE, U_ID, BOARD_ID, BC_MASTER_NO, BC_REPLY_STEP)
 		VALUES
-			(seq_bc_reply_no.nextval, #{bcContent}, SYSDATE, #{userId}, #{boardId})
+			(#{bcReplyNo}, #{bcContent}, SYSDATE, #{userId}, #{boardId},#{bcReplyNo},0)
 	</insert>
 	
+	<!-- 대댓글 기능  -->
+	<select id ="selectNestedComments" parameterType="int" resultType="com.team01.myapp.board.model.BoardComment">
+		SELECT
+		    BOARD.BOARD_ID			AS "boardId",
+            B_COMMENT.U_ID          AS "userId",
+		    BC_REPLY_NO	AS "bcReplyNo",
+		    BC_CONTENT	AS "bcContent",
+		    BC_WRITE_DATE AS "bcWriteDate"
+		FROM BOARD LEFT OUTER JOIN B_COMMENT
+		    ON BOARD.BOARD_ID=B_COMMENT.BOARD_ID
+		WHERE BC_MASTER_NO=#{bcReplyNo} AND BC_REPLY_STEP=1
+		ORDER BY BC_WRITE_DATE DESC
+	</select>
+	
+	<insert id="insertNestedComment" parameterType="com.team01.myapp.board.model.BoardComment">
+		INSERT INTO
+			B_COMMENT
+		B_COMMENT
+			(BC_REPLY_NO, BC_CONTENT, BC_WRITE_DATE, U_ID, BOARD_ID, BC_MASTER_NO, BC_REPLY_STEP)
+		VALUES
+			(#{bcReplyNo}, #{bcContent}, SYSDATE, #{userId}, #{boardId}, #{bcMasterNo},1)
+	</insert>
 
 </mapper>

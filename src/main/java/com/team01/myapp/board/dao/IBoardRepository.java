@@ -12,6 +12,7 @@ public interface IBoardRepository {
 	// 시퀀스 역할
 	int selectMaxArticleNo();
 	int selectMaxFileId();
+	int selectMaxReplyNo();
 	
 	//리스트 기능 
 	int selectTotalArticleCount();
@@ -45,6 +46,11 @@ public interface IBoardRepository {
 	//리플 기능 
 	List<BoardComment> selectBoardComment(int boardId);
 	void insertComment(BoardComment comment);
+	
+	//대댓글 기능 
+	List<BoardComment> selectNestedComments(int bcReplyNo);
+	void insertNestedComment(BoardComment comment);
+	
 	
 
 	

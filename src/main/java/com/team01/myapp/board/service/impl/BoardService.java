@@ -163,8 +163,21 @@ public class BoardService implements IBoardService {
 	//리플 작성 
 	@Override
 	public void writeBoardReply(BoardComment comment) {
+		comment.setBcReplyNo(boardRepository.selectMaxReplyNo()+1);
 		boardRepository.insertComment(comment);
-		
+	}
+	
+	//대댓글 리스트 불러오기
+	@Override
+	public List<BoardComment> getNestedComment(int bcReplyNo) {
+		return boardRepository.selectNestedComments(bcReplyNo);
+	}
+	
+	//대댓글 작성 
+	@Override
+	public void writeNestedReply(BoardComment comment) {
+		comment.setBcReplyNo(boardRepository.selectMaxReplyNo()+1);
+		boardRepository.insertNestedComment(comment);
 	}
 	
 	

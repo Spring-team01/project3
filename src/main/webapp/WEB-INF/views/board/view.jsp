@@ -24,27 +24,44 @@
 		$('#reCommentForm'+i).toggle()
 		
 	}
-	function writeReReplyFun(j){
-		let replyContent= $("#writeReReply"+j).val();
+	
+	function viewReReply(i){
+		$('#viewReReply'+i).toggle()
 		
 		$.ajax({
+			type : "GET",
+			url : "/myapp/board/reply/",
+			data : {bcReplyNo : i},
+			success : function(data) {
+				console.log(data);
+	            $("#viewReReply"+i).html(data);
+	         }
+			
+		});
+	}
+	function writeReReplyFun(i, j){
+		let replyContent= $("#writeReReply"+i).val();
+		console.log(replyContent);
+		console.log(j);
+		$.ajax({
 	         type : 'POST',
-	         url : "/myapp/board/comment",
-	         data : {bcMasterId: j, replyContent: replyContent, bcReplystep: 1,},
+	         url : "/myapp/board/reply/write",
+	         data : {bcMasterNo: i, bcContent: replyContent, bcReplystep: 1, boardId: j},
 	         error : function() {
 	            alert('통신실패!');
 	         },
 	         success : function(data) {
 	            if(data==0) {
-	               alert("댓글 수정에 실패하였습니다");
-	            } else {
-	               alert("댓글 수정에 성공하였습니다!");
-	               location.relode();
+	               alert("댓글 작성에 실패하였습니다");
+	            } else if(data==1) {
+	            	alert("댓글 작성 완료!");       	
+	            	location.reload();
 	            }
 	         }
 	      });
 	}
-	function writeReComment(){
+	
+	function updateReComment(){
 		let html = ' ';
 		html+='<input id ="boardComment" name="boardComment" value="">'
 		htm += '<button type="button" onclick="updateComment()" >'
@@ -62,15 +79,8 @@
 	         data : {replyId: i, bcContent: replyContent, },
 	         error : function() {
 	            alert('통신실패!');
-	         },
-	         success : function(data) {
-	            if(data==0) {
-	               alert("댓글 수정에 실패하였습니다");
-	            } else {
-	               alert("댓글 수정에 성공하였습니다!");
-	               location.relode();
-	            }
 	         }
+	         
 	      });
 		
 	}
@@ -177,21 +187,27 @@
 																${commentOne.bcContent}
 															</div>
 															<div class="ms-auto">
-																<button type="button" onclick="writeReReply(${commentOne.bcReplyNo})" class="btn btn-sm btn-dark shadow">${commentOne.bcReplyNo}>답글</button>
+															<!-- 대댓글 작성 -->
+																<button type="button" onclick="writeReReply(${commentOne.bcReplyNo})" class="btn btn-sm btn-dark shadow">${commentOne.bcReplyNo}>댓글 작성 </button>
 																<div id="reCommentForm${commentOne.bcReplyNo}" style="display:none">
-																	<form id="writeReReplyForm" name="writeReReplyForm" calss="d-flex">
+																	<form id="writeReReplyForm" name="writeReReplyForm" class="d-flex">
 																		<label class="font-weight-bold" for="writeReReply${commentOne.bcReplyNo}"></label>
-																		<input id="writeReReply${commentOne.bcReplyNo}"type="text" class="form-control" name="bcContent" placeholder="답글을 입력해주세요">
-																		<input type="hidden" name="boardId" value="${board.boardId}"> 
-																		<input type="hidden" name="bcMasterId" value="${commentOne.bcReplyNo}">
-																		<input type="hidden" name="bcReplystep" value="1">
-																		<button type="button" onclick="writeReReplyFun(${commentOne.bcReplyNo})"></button>
+																		<input id="writeReReply${commentOne.bcReplyNo}"type="text" class="form-control" name="bcContent" placeholder="댓글을 입력해주세요">
+<%-- 																		<input type="hidden" id="boardIdInput${commentOne.bcReplyNo}" name="boardId" value="${commentOne.boardId}">  --%>
+																		<button type="button" onclick="writeReReplyFun(${commentOne.bcReplyNo}, ${commentOne.boardId})"style="width:15px; height:15px;"></button>
 																	</form>
 																</div>
-																<!-- 답글리스트 -->
-																<div id="reReplyListDiv${commentOne.bcReplyNo}"></div>
+																<!-- 대댓글리스트 -->
+																<button type="button" onclick="viewReReply(${commentOne.bcReplyNo})" class="btn btn-sm btn-dark shadow">${commentOne.bcReplyNo}>댓글 보기 </button>
+																<div id="viewReReply${commentOne.bcReplyNo}" style="display:none">
+																
+																</div>
+																
+										                         
 																<!-- 작성한 답글 추가 -->
-																<div id="reReplyWriteDiv${commentOne.bcReplyNo}">123123</div>
+																<div id="addReply${commentOne.bcReplyNo}">
+																	
+																</div>
 															</div>
 														</div>
 

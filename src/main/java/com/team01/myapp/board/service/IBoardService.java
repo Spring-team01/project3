@@ -41,6 +41,10 @@ public interface IBoardService {
 	List<BoardComment> getBoardComment(int boardId);
 	void writeBoardReply(BoardComment comment);
 	
+	//대댓글 
+	List<BoardComment> getNestedComment(int bcReplyNo);
+	void writeNestedReply(BoardComment comment);
+	
 	
 	
 
