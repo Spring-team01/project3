@@ -20,12 +20,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.model.BoardUploadFile;
+import com.team01.myapp.board.model.BoardComment;
 import com.team01.myapp.board.service.IBoardService;
+import com.team01.myapp.community.model.Community;
+import com.team01.myapp.community.model.CommunityComment;
 import com.team01.myapp.util.Pager;
 
 @Controller
@@ -58,15 +62,19 @@ public class BoardController {
 		
 		return "board/list";
 	}
-	
+
 	//읽기
-	@RequestMapping("/board/view/{boardId}/{page}")
-	public String getBoardDetails(@PathVariable int boardId, @PathVariable int page, Model model) {
+	@RequestMapping("/board/view/{boardId}/{pageNo}")
+	public String getBoardDetails(@PathVariable int boardId, @PathVariable int pageNo, Model model) {
 		Board board = boardService.selectArticle(boardId);
+		List<BoardComment> commentList = boardService.getBoardComment(boardId);
+		
 		model.addAttribute("board", board);
-		model.addAttribute("page", page);
+		model.addAttribute("page", pageNo);
+		model.addAttribute("commentList", commentList);
 		model.addAttribute("categoryId", board.getCategoryId());
 		logger.info("getBoardDetails" +board.toString());
+		logger.info("getBoardDetails" +commentList.toString());
 		return "board/view";
 	}
 	
@@ -161,18 +169,19 @@ public class BoardController {
 	//삭제
 	@RequestMapping(value="/board/delete/{boardId}", method=RequestMethod.GET)
 	public String deleteArticle(@PathVariable int boardId, Model model) {
-		Board board =boardService.selectDeleteArticle(boardId);
+		Board board =boardService.selectArticle(boardId);
+		model.addAttribute("boardId",boardId);
 		model.addAttribute("categoryId",board.getCategoryId());
-		model.addAttribute("board",board);
 		return "board/delete";
 	}
 	@RequestMapping(value="/board/delete",method=RequestMethod.POST)
 	public String deleteArticle(Board board, BindingResult result, HttpSession session, Model model) {
 		try {
 			String dbpw = boardService.getPassword(board.getBoardId());
+			
 			if(dbpw.equals(board.getPassword())) {
-				boardService.deleteArticle(board.getCategoryId());
-				return "redirect:/board/"+board.getCategoryId()+"/"+(Integer)session.getAttribute("page");
+				boardService.deleteArticle(board.getBoardId());
+				return "redirect:/board/"+board.getCategoryId()+"/1";
 			}else {
 				model.addAttribute("message", "WRONG_PASSWORD_NOT_DELETED");
 				return "redirect:/board/"+board.getCategoryId()+"/"+(Integer)session.getAttribute("page");
@@ -180,9 +189,35 @@ public class BoardController {
 		}catch(Exception e) {
 			model.addAttribute("message", e.getMessage());
 			e.printStackTrace();
-			return "redirect:/board/"+board.getCategoryId()+"/"+(Integer)session.getAttribute("page");
+			return "redirect:/board/"+board.getCategoryId()+"/1";
 			
 		}
+	}
+	
+	//검색
+	@RequestMapping("/board/search/{pageNo}")
+	public String search(@RequestParam(required=false, defaultValue="") String keyword, @PathVariable String pageNo, HttpSession session, Model model, Pager pager) {
+		try {
+			pager = boardService.returnSearchPage(keyword, pageNo, pager);
+			List<Board> boardList = boardService.getSearchArticleList(keyword, pager);
+			model.addAttribute("boardList", boardList);
+			model.addAttribute("pager", pager);
+			model.addAttribute("keyword", keyword);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return "board/search";
+	}
+	
+	//리플 기능 
+	@RequestMapping(value="/board/comment", method = RequestMethod.POST) 
+	public String writeBoardReply(Board board, BoardComment comment, BindingResult result, RedirectAttributes redirectAttrs,
+			HttpSession session) {
+			logger.info("/board/comment " + comment.toString());
+			comment.setUserId((String) session.getAttribute("userId"));	
+			boardService.writeBoardReply(comment);
+			
+		return "redirect:/board/view/"+board.getBoardId()+"/"+board.getCategoryId();
 	}
 	
 	

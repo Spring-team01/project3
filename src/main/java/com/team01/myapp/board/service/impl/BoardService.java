@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.team01.myapp.board.dao.IBoardRepository;
 import com.team01.myapp.board.model.Board;
+import com.team01.myapp.board.model.BoardComment;
 import com.team01.myapp.board.model.BoardUploadFile;
 import com.team01.myapp.board.service.IBoardService;
 import com.team01.myapp.util.Pager;
@@ -45,6 +46,22 @@ public class BoardService implements IBoardService {
 				pager = new Pager(5, 5, totalBoardNum, pagerNo);
 		return pager;
 	}
+	
+	//검색별 페이징 처리
+	@Override
+	public Pager returnSearchPage(String keyword, String pageNo, Pager pager) {
+		//pager
+			String skeyword = "%"+keyword+"%";
+			int totalBoardNum = ((int)boardRepository.selectSearchArticleCount(skeyword));
+			
+			if (pageNo == null) {
+				pageNo = "1";
+			}
+			int pagerNo = Integer.parseInt(pageNo);
+			pager = new Pager(5, 5, totalBoardNum, pagerNo);
+		return pager;
+	} 
+	
 	//리스트 가져오기 
 	@Override
 	public List<Board> getTotalArticleList(Pager pager) {
@@ -62,6 +79,16 @@ public class BoardService implements IBoardService {
 		
 		return boardRepository.selectArticleListByCategory(categoryId, start, end);
 	}
+	@Override
+	public List<Board> getSearchArticleList(String keyword, Pager pager){
+		String skeyword = "%"+keyword+"%";
+		int end = pager.getPageNo() * pager.getRowsPerPage();
+		int start = (pager.getPageNo()-1)* pager.getRowsPerPage()+1;
+		
+		return boardRepository.selectSearchArticleList(skeyword, start, end);
+	}
+
+	
 	//읽기 
 	@Override
 	public Board selectArticle(int boardId) {
@@ -89,6 +116,7 @@ public class BoardService implements IBoardService {
 		if(file != null && file.getBoardFileName() != null && !file.getBoardFileName().equals("")) {
 			file.setBoardId(board.getBoardId());
 			file.setBoardFileId(boardRepository.selectMaxFileId()+1);
+			
 			boardRepository.insertFileData(file);
 		}
 		
@@ -119,15 +147,25 @@ public class BoardService implements IBoardService {
 	}
     
     // 삭제   
-	@Override
-	public Board selectDeleteArticle(int boardId) {
-		return boardRepository.selectDeleteArticle(boardId);
-	}
 	
 	@Transactional
 	public void deleteArticle(int boardId) {
 		boardRepository.deleteFileData(boardId);
 		boardRepository.deleteArticle(boardId);
 	}
+	
+	//리플 리스트 불러오기
+	@Override
+	public List<BoardComment> getBoardComment(int boardId) {
+		return boardRepository.selectBoardComment(boardId);
+	}
+	
+	//리플 작성 
+	@Override
+	public void writeBoardReply(BoardComment comment) {
+		boardRepository.insertComment(comment);
+		
+	}
+	
 	
 }
