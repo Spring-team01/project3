@@ -1,12 +1,19 @@
 package com.team01.myapp.admin.controller;
 
+import java.nio.charset.Charset;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,11 +30,12 @@ import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
 import com.team01.myapp.admin.service.IAdminService;
 import com.team01.myapp.board.controller.BoardController;
+import com.team01.myapp.board.model.BoardUploadFile;
 import com.team01.myapp.util.Pager;
 
 @Controller
 public class AdminController {
-	static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 	@Autowired
 	IAdminService adminService;
@@ -35,30 +43,90 @@ public class AdminController {
 	// 관리자 홈
 	@RequestMapping(value = "/admin/adminhome", method = RequestMethod.GET)
 	public String adminhome() {
-		return "admin/adminhome";
+		return "admin/adminHome";
 	}
-
-	// 게시글 조회 (pagind -> service 에서)
+	
+	//1. select
+	//과목별 학생 목록 조회
 	@RequestMapping(value = "/admin/userlist/{subjectId}/{pageNo}", method = RequestMethod.GET)
 	public String getUserListBySubject(@PathVariable int subjectId, @PathVariable String pageNo, Model model,
 			Pager pager) {
-		pager = adminService.returnPage(pageNo, pager);
+		pager = adminService.returnPage(pageNo, pager, subjectId);
 		List<UserList> userList = adminService.getUserListBySubject(subjectId, pager);
 		model.addAttribute("userList", userList);
 		model.addAttribute("pager", pager);
-		return "admin/userlist";
+		return "admin/userList";
 	}
-
-	@RequestMapping(value = "/admin/register", method = RequestMethod.GET)
-	public String register() {
-		return "admin/register";
+	
+	//학생 상세 조회
+	@RequestMapping("/admin/userdetail/{userId}")
+	public String getUser(@PathVariable String userId, Model model) {
+		User user  = adminService.getUser(userId);
+		model.addAttribute("user", user);
+		return "admin/userDetail";
 	}
+	
+	//사진 조회
+	@RequestMapping("/admin/userdetail/userfile/{userFileId}")
+	public ResponseEntity<byte[]> getuserFile(@PathVariable String userFileId){
+		UserUploadFile file = adminService.getFile(userFileId);
+		logger.info("getFile"+file.toString());
+		final HttpHeaders headers =new HttpHeaders();
+		String[] mtypes = file.getUserFileContentType().split("/");
+		headers.setContentType(new MediaType(mtypes[0], mtypes[1]));
+		headers.setContentLength(file.getUserFileSize());
+		headers.setContentDispositionFormData("attachment", file.getUserFileName(),Charset.forName("UTF-8"));
+		return new ResponseEntity<byte[]>(file.getUserFileData(),headers,HttpStatus.OK);
+	}
+	
+	//2. update
+	@RequestMapping(value = "/admin/update/{userId}", method = RequestMethod.GET)
+	public String updateUser(@PathVariable String userId, Model model) {
+		User user  = adminService.getUser(userId);
+		model.addAttribute("user", user);
+		return "admin/updateUser";
+	}
+	
+	@RequestMapping(value="/admin/update", method=RequestMethod.POST)
+	public String updateUser(User user, BindingResult result, RedirectAttributes redirectAttrs, HttpSession session) {
+		logger.info("/admin/update " + user.toString());
+		try {
+			user.setUserId(Jsoup.clean(user.getUserId(), Whitelist.basic()));
+			user.setUserName(Jsoup.clean(user.getUserName(), Whitelist.basic()));
+			user.setEmail(Jsoup.clean(user.getEmail(), Whitelist.basic()));
+			user.setPhone(Jsoup.clean(user.getPhone(), Whitelist.basic()));
+			user.setPassword(Jsoup.clean(user.getPassword(), Whitelist.basic()));
+			
+			MultipartFile mfile = user.getFile();
+			System.out.println(mfile.getOriginalFilename());
+			
+			if(mfile!=null&&!mfile.isEmpty()) {
+				logger.info("/admin/update: "+mfile.getOriginalFilename());
+				UserUploadFile file = new UserUploadFile();
+				file.setUserFileName(mfile.getOriginalFilename());
+				file.setUserFileSize(mfile.getSize());
+				file.setUserFileContentType(mfile.getContentType());
+				file.setUserFileData(mfile.getBytes());
+				logger.info("/admin/update : "+ file.toString());
+				
+				adminService.updateUser(user, file);
+			}else {
+				adminService.updateUser(user);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			redirectAttrs.addFlashAttribute("message", e.getMessage());
+		}
+		return "redirect:/admin/userdetail/"+user.getUserId();
+	}
+	
 
 	/// admin/reasonList
-
+	
+	//수정할 것
 	@RequestMapping(value = "/admin/reasonlist/{resultNum}/{pageNo}", method = RequestMethod.GET)
 	public String reasonList(@PathVariable int resultNum, @PathVariable String pageNo, Model model, Pager pager) {
-		pager = adminService.returnPage(pageNo, pager);
+		pager = adminService.returnPage(pageNo, pager , resultNum);
 		String result = null;
 		if (resultNum == 1) {
 			result = "미처리";
@@ -69,7 +137,7 @@ public class AdminController {
 		model.addAttribute("reasonList", reasonList);
 		model.addAttribute("pager", pager);
 
-		return "admin/reasonlist";
+		return "admin/reasonList";
 	}
 
 	@RequestMapping(value = "/admin/file", method = RequestMethod.POST)
@@ -89,16 +157,12 @@ public class AdminController {
 			e.printStackTrace();
 		}
 
-		return "admin/adminhome";
+		return "admin/adminHome";
 
 	}
-	@RequestMapping("/admin/userdetail/{userId}")
-	public String userDetail(@PathVariable String userId, Model model) {
-		User user  = adminService.getUser(userId);
-		model.addAttribute("user", user);
-		return "admin/userdetail";
-	}
-
+	
+	
+	
 	
 	
 
