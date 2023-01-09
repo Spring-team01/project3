@@ -33,10 +33,14 @@
 						<!--템플릿  -->
 						<div class="container-fluid py-4">
 						<div class="board_content">
-						<form class="form-inline m-2 justify-content-end" action="<c:url value='/admin/search'/>" method="get">
+						<div class="form-inline m-2 justify-content-start "> 
+						<button class="badge badge-sm bg-gradient-success">휴가신청</button>
+						<button class="badge badge-sm bg-gradient-danger">취소요청</button>
+						</div>
+						<%-- <form class="form-inline m-2 justify-content-end" action="<c:url value='/admin/search'/>" method="get">
 							<input type="text" name="keyword" class="form-control" placeholder="Search" style="border: 1px solid gray; width:200px; height:35px; padding:0px 10px;">
 							<input type="submit" class="btn btn-warning m-1" value="<fmt:message key="SEARCH"/>">
-						</form>
+						</form> --%>
 					      <div class="row">
 					        <div class="col-12">
 					          <div class="card my-4">
@@ -50,11 +54,11 @@
 					                <table class="table align-items-center justify-content-center mb-0">
 					                  <thead>
 					                    <tr>
-					                      <th class="text-center text-secondary text-xxs font-weight-bolder opacity-7 text-center">글번호</th>
-					                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">작성자</th>
-					                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">제목</th>
-					                      <th class="text-uppercase text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작성날짜</th>
-					                      <th class="text-uppercase text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">처리결과</th>
+					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">글번호</th>
+					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">작성자</th>
+					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">제목</th>
+					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작성날짜</th>
+					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">요청종류</th>
 					                     
 					                    </tr>
 					                  </thead>
@@ -62,21 +66,20 @@
 										<c:forEach var="reason" items="${reasonList}">
 											<tr>
 												<c:set var="seq" value="${seq+1}" scope="page"/>
-												<td><p class="text-xs font-weight-bold mb-0 text-center">${reason.subAttNo}</p></td>
+												<td class="text-center text-uppercase text-darked text-xs font-weight-bolder opacity-7">${reason.subAttNo}</td>
 												
 												<td class="pc">
-												<div class="d-flex flex-column justify-content-center">
-													<h6 class="mb-0 text-sm">${reason.userName}</h6>
-													<p class="text-xs text-secondary mb-0">${reason.userId}</p>
-												</div>
+													<p class="text-center text-uppercase text-darked text-xs font-weight-bolder opacity-7">${reason.userName}</p>
+													<p class="text-center text-uppercase text-darked text-xs font-weight-bolder opacity-7 ">${reason.userId}</p>
 												</td>
-												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold">${reason.title}</h6></td>
-												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold"></h6>${reason.writeDate}</td>
+												<td class="pc"><h6 class="text-center text-darked text-secondary text-xs font-weight-bolder opacity-7">${reason.title}</h6></td>
+												<td class="pc"><h6 class="text-center text-darked text-secondary text-xs font-weight-bolder opacity-7">${reason.writeDate}</h6></td>
 												<td>
-													<c:choose>
-													<c:when test="${reason.result eq '미처리'}"><span class="badge badge-sm bg-gradient-success">${reason.result}</span></c:when>
-													<c:when test="${reason.result eq '처리'}"><span class="badge badge-sm bg-gradient-info">${reason.result}</span></c:when>
-													</c:choose>
+												<%-- <p class="text-center text-uppercase text-darked text-xs font-weight-bolder opacity-7">${reason.result}</p> --%>
+													 <c:choose>
+													<c:when test="${reason.result eq '휴가신청'}"><span class="badge badge-sm bg-gradient-success">${reason.result}</span></c:when>
+													<c:when test="${reason.result eq '취소요청'}"><span class="badge badge-sm bg-gradient-info">${reason.result}</span></c:when>
+													</c:choose> 
 												</td>
 											</tr>
 										</c:forEach>

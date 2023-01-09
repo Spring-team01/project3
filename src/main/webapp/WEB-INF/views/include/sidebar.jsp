@@ -54,6 +54,12 @@
 					    <a href="community/write/3">Link 3</a>
                     </div>
                 </li>
+                <li>
+               		<a href="<c:url value='/user/logout'/>" type="button" class="dropdown-btn">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">로그아웃</span>
+                    </a>
+                </li>
                 
             </ul>
         </div>
