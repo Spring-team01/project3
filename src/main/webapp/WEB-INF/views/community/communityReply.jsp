@@ -20,9 +20,6 @@
 <!-- CSS Files -->
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
-
-
-
 <body>
 	<!-- Comments section-->
 	<section class="mb-5">
