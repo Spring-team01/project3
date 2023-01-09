@@ -239,7 +239,7 @@ public class CommunityController {
 		
 		
 	//댓글 수정
-		@RequestMapping(value="/community/reply/update", method=RequestMethod.POST)
+		@RequestMapping(value="/community/reply/update", method=RequestMethod.GET)
 		@ResponseBody
 		public String updateCommunityCommentReply(CommunityComment comment, Model model, Community community, 
 				HttpSession session) {
