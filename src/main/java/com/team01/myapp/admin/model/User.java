@@ -1,8 +1,12 @@
 package com.team01.myapp.admin.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString(exclude="file")
 public class User {
 	private String userId;
 	private String userName;
@@ -13,7 +17,14 @@ public class User {
 	private String password;
 	private String email;
 	private int subjectId;
+	private String subjectName;
 	
+	private MultipartFile file;
+
+	private int userFileId;
+	private String userFileName;
+	private long userFileSize;
+	private String userFileContentType;
 	
 	
 	

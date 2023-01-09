@@ -5,9 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.team01.myapp.admin.model.ReasonList;
+import com.team01.myapp.admin.model.User;
 import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
-import com.team01.myapp.board.model.BoardUploadFile;
 
 public interface IAdminRepository {
 	int selectMaxListNo();
@@ -22,4 +22,6 @@ public interface IAdminRepository {
 	void insertUserFile(UserUploadFile file);
 
 	int selectMaxFileId();
+	
+	User selectUser(@Param("userId") String userId);
 }

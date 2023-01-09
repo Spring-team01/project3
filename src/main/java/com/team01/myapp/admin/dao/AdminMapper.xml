@@ -120,5 +120,24 @@
 	]]>
 	</insert>
 	
+	<select id="selectUser" parameterType="string" resultType="com.team01.myapp.admin.model.User">
+	<![CDATA[
+		SELECT 
+			u_id as "userId",
+			u_name as "userName",
+			major,
+			grade,
+			phone,
+			u_type as "userType",
+			password,
+			email,
+			u.subject_id as "subjectId", 
+			s.subject_name as "subjectName"
+		FROM 
+			users u, subject s
+		WHERE u_id = #{userId} and u.subject_id = s.subject_id
+	]]>
+	</select>
+	
 	
 </mapper>

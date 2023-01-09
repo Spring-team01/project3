@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team01.myapp.admin.model.ReasonList;
+import com.team01.myapp.admin.model.User;
 import com.team01.myapp.admin.model.UserInsert;
 import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
@@ -45,13 +46,12 @@ public class AdminController {
 		List<UserList> userList = adminService.getUserListBySubject(subjectId, pager);
 		model.addAttribute("userList", userList);
 		model.addAttribute("pager", pager);
-		System.out.println("컨트롤러:" + userList);
 		return "admin/userlist";
 	}
 
 	@RequestMapping(value = "/admin/register", method = RequestMethod.GET)
 	public String register() {
-		return "admin/userdetail";
+		return "admin/register";
 	}
 
 	/// admin/reasonList
@@ -92,11 +92,14 @@ public class AdminController {
 		return "admin/adminhome";
 
 	}
-
-	@RequestMapping(value = "/admin/userdetail/{userId}", method = RequestMethod.POST)
+	@RequestMapping("/admin/userdetail/{userId}")
 	public String userDetail(@PathVariable String userId, Model model) {
-		return null;
-
+		User user  = adminService.getUser(userId);
+		model.addAttribute("user", user);
+		return "admin/userdetail";
 	}
+
+	
+	
 
 }
