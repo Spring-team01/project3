@@ -20,15 +20,50 @@
 <!-- CSS Files -->
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
+<script>
+	function moreContent(id, cnt){
+		var list_length =$("#"+id+" tr").length -1;
+		var aname = id+"_btn";
+		var callLength = list_length;
+		
+		$("#startCount").val(callLength);
+		$("#vieCount").val(cnt);
+		
+		$.ajax({
+			type : "post",
+			url : "/getMoreContents_ajax.do",
+			data : $("#searchTxtForm").serialize(),
+			dataType : "josn",
+			success : function(result){
+				if(result.resultCnt > 0) {
+					var list = result.resultList;
+					if(resultVO.title != '') {
+						$('#' + aname).attr('href',"javascript:moreContent('"+ id + "', "+cnt+");");
+						getMoreList(list);
+					} else {
+						$("#"+id+"_div").remove();
+					}
+				} else {
+					
+				}
+			} , 
+			error : function (request, status, error) {
+				alert("code = " + request.status + " messgae = " + request.responseText + "error = " + error);
+			}
+		});
+		
+		
+		
+	}
+</script>
+
+
 <body>
 	<!-- Comments section-->
 	<section class="mb-5">
 		<div class="card bg-light">
 			<div class="card-body">
-				<!-- Comment form-->
-				<form class="mb-4">
-					<textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
-				</form>
+				
 				<!-- Comment with nested comments-->
 				<div class="d-flex mb-4">
 					<!-- Parent comment-->
@@ -39,19 +74,19 @@
 						<div class="fw-bold">Commenter Name</div>
 						If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
 						<!-- Child comment 1-->
-						<div class="d-flex mt-4">
-							<div class="flex-shrink-0">
-								<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
-							</div>
-							<div class="ms-3">
-								<div class="fw-bold">Commenter Name</div>
-								And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-							</div>
-						</div>
-						
+						<div id="more_btn_div" align="center">
+						<br>
+						<a id="more_btn_a" href="javascript:moreContent('more_list', 10);">
+							더보기(More)
+						</a>		
+						<br>					
+						</div>			
 					</div>
 				</div>
-				
+				<!-- Comment form-->
+				<form class="mb-4">
+					<textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+				</form>
 			</div>
 		</div>
 	</section>

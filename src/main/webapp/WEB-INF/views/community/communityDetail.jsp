@@ -20,6 +20,21 @@
 <!-- CSS Files -->
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
+<script>
+	function vieReplyComment() {
+
+		$.ajax({
+			url : "/myapp/community/example",
+			type : "GET",
+			datatype : "html",
+			success : function(data) {
+				$('#load').html(data);
+			}
+		});
+	}
+</script>
+
+
 <body>
 	<jsp:include page="/WEB-INF/views/include/header.jsp" />
 
@@ -90,10 +105,15 @@
 																${commentList.communityCommentContent}
 															</div>
 															<div class="ms-auto">
+<<<<<<< HEAD
 																<input type="button" onclick="createInputTag()" class="btn btn-sm btn-dark shadow" value="답글">
 
+=======
+																<input type="button" onclick="vieReplyComment()" class="btn btn-sm btn-dark shadow" value="답글">
+>>>>>>> branch 'master' of https://github.com/InRedwave/Spring_team1.git
 															</div>
 														</div>
+<<<<<<< HEAD
 														<!-- 더보기를 눌렀을 때, 반복하는 영역 -->
 														<!--대댓글 위치 -->
 														
@@ -108,6 +128,9 @@
 														</div>
 														
 														
+=======
+														<div id="load"></div>
+>>>>>>> branch 'master' of https://github.com/InRedwave/Spring_team1.git
 													</div>
 												</div>
 											</c:forEach>
