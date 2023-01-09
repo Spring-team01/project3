@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -85,7 +86,6 @@ public class CommunityController {
 	public String getCommunityListByCategory(@PathVariable int categoryId, @PathVariable String pageNo, Model model,
 			Pager pager, HttpSession session, Community community) {
 		pager = communityService.returnPage(pageNo, pager);
-		community.setUsersId((String) session.getAttribute("userId"));
 		community.setUserName((String) session.getAttribute("userName"));
 		List<Community> communityList = communityService.getCommunityListByCategory(categoryId, pager);
 		model.addAttribute("sessionUserId", (String) session.getAttribute("userId"));
@@ -99,7 +99,6 @@ public class CommunityController {
 	@RequestMapping(value = "/community/communityDetail/{communityBoardId}", method = RequestMethod.GET)
 	public String readCommunity(@PathVariable int communityBoardId, Model model, HttpSession session) {
 		Community community = communityService.readCommunityDetail(communityBoardId);
-		community.setUsersId((String) session.getAttribute("userId"));
 		community.setUserName((String) session.getAttribute("userName"));
 		List<CommunityComment> commentList = communityService.getCommunityComment(communityBoardId);
 
@@ -119,17 +118,6 @@ public class CommunityController {
 		header.setContentDispositionFormData("attachment", communityFile.getCommunityFileName(),
 				Charset.forName("UTF-8"));
 		return new ResponseEntity<byte[]>(communityFile.getCommunityFileData(), header, HttpStatus.OK);
-	}
-
-	// 댓글 달기
-	@RequestMapping(value = "/community/reply/comment", method = RequestMethod.POST)
-	public String writeCommunityReply(CommunityComment comment, BindingResult result, RedirectAttributes redirectAttrs,
-			HttpSession session) {
-
-		comment.setUserId((String) session.getAttribute("userId"));
-		communityService.writeCommunityReply(comment);
-
-		return "redirect:/community/communityDetail/" + (comment.getCommunityBoardId());
 	}
 
 	// 글 수정
@@ -239,11 +227,31 @@ public class CommunityController {
 	}
 	
 	
+	// 댓글 달기
+		@RequestMapping(value = "/community/reply/comment", method = RequestMethod.POST)
+		public String writeCommunityReply(CommunityComment comment, BindingResult result, RedirectAttributes redirectAttrs,
+				HttpSession session, Community community) {
+			comment.setUserId((String) session.getAttribute("userId"));
+			communityService.writeCommunityReply(comment);
 	
-	
+			return "redirect:/community/communityDetail/" + (community.getCommunityBoardId());
+		}
+		
+		
+	//댓글 수정
+		@RequestMapping(value="/community/reply/update", method=RequestMethod.POST)
+		@ResponseBody
+		public String updateCommunityCommentReply(CommunityComment comment, Model model, Community community, 
+				HttpSession session) {
+			
+		
+			return "community/communityDetailUpdate";
+		}
+		
+	//댓글 삭제
 	@RequestMapping(value = "/community/example")
 	public String example() {
-
+		
 		return "community/communityReply";
 	}
 

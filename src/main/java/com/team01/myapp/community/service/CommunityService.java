@@ -52,7 +52,6 @@ public class CommunityService implements ICommunityService {
 		
 		if(file != null && file.getCommunityFileName() != null && !file.getCommunityFileName().equals("")) {
 			file.setCommunityCBoardId(community.getCommunityBoardId());
-			System.out.println(community.toString());
 			communityRepository.deleteFileData(community.getCommunityBoardId());
 			
 			if(file.getCommunityFileId()>0) {
@@ -149,7 +148,13 @@ public class CommunityService implements ICommunityService {
 		
 		return communityRepository.selectSearchCommunityList(searchKeyword, start, end);
 	}
+	//댓글 수정
+	@Override
+	public void updateCommunityComment(CommunityComment comment) {
+		
+	}
 
+	
 	
 
 	

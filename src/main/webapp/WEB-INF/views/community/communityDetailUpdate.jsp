@@ -116,8 +116,8 @@
 																${commentList.communityCommentContent}
 															</div>
 															<div class="ms-auto">
-																<input type="button" onclick="viewReplyComment()" class="btn btn-sm btn-dark shadow" value="댓글">
-																<a type="button" href="<c:url value='/community/reply/update' />" class="btn btn-sm btn-dark shadow" >댓글 수정</a>
+																<input type="button" onclick="viewReplyComment()" class="btn btn-sm btn-dark shadow" value="답글">
+																<input type="button" href="" class="btn btn-sm btn-dark shadow" value="답글 수정">
 															</div>
 														</div>
 														<div id="${status.current}"></div>

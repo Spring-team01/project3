@@ -191,7 +191,7 @@
 			from community left outer join c_comment
 			on community.c_board_id = c_comment.C_BOARD_ID
 			where community.c_board_id = #{communityBoardId}
-			order by CC_REPLY_NUMBER asc
+			order by CC_COMMENT_NO asc
 		]]>
 	</select>
 	
