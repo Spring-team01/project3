@@ -21,7 +21,7 @@
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
 <script>
-	function vieReplyComment() {
+	function viewReplyComment() {
 
 		$.ajax({
 			url : "/myapp/community/example",
@@ -83,15 +83,25 @@
 						</article>
 						<section class="mb-5">
 							<div class="card bg-light">
+								<c:set var="userId" value="${sessionUserId}" />
+
+
+
 								<div class="card-body">
+									<c:if test="${userId eq community.usersId}">
+										<a type="button" href="<c:url value='/community/communityUpdate/${community.communityBoardId}'/>" class="btn btn-dark shadow"> 글 수정 </a>
+										<a type="button" href="<c:url value='/community/delete/${community.communityBoardId}'/>" class="btn btn-dark shadow">글 삭제</a>
+										<a type="button" href="<c:url value='/community/communityList/1/1'/>" class="btn btn-dark shadow">글 목록</a>
+										<input type="hidden" name="communityBoardId" value="${community.communityBoardId}">
+									</c:if>
 									<form class="mb-4" action="<c:url value='/community/reply/comment'/>" method="post">
 										<textarea name="communityCommentContent" class="form-control" rows="3" placeholder="댓글 작성"></textarea>
-										<br> <input type="submit" class="btn btn-dark shadow" value="작성"> <a type="button" href="<c:url value='/community/communityList//1/1'/>" class="btn btn-dark shadow">글 목록</a> <input type="hidden" name="communityBoardId" value="${community.communityBoardId}"> <input type="hidden" name="communityCommentReplyNumber" value="${community.communityReplyNumber}">
+										<a type="submit" class="btn btn-dark shadow"> 댓글 작성 </a>
 									</form>
 
 									<form>
 										<c:if test="${community.communityReplyNumber!=0}">
-											<c:forEach var="commentList" items="${commentList}">
+											<c:forEach var="commentList" items="${commentList}" varStatus="status">
 												<div class="d-flex flex-column mb-3">
 													<div class="ms-3">
 														<div class="d-flex justify-content-around">
@@ -105,32 +115,10 @@
 																${commentList.communityCommentContent}
 															</div>
 															<div class="ms-auto">
-<<<<<<< HEAD
-																<input type="button" onclick="createInputTag()" class="btn btn-sm btn-dark shadow" value="답글">
-
-=======
-																<input type="button" onclick="vieReplyComment()" class="btn btn-sm btn-dark shadow" value="답글">
->>>>>>> branch 'master' of https://github.com/InRedwave/Spring_team1.git
+																<input type="button" onclick="viewReplyComment()" class="btn btn-sm btn-dark shadow" value="답글">
 															</div>
 														</div>
-<<<<<<< HEAD
-														<!-- 더보기를 눌렀을 때, 반복하는 영역 -->
-														<!--대댓글 위치 -->
-														
-														<div class="d-flex mt-4 ml-5">
-															<div class="flex-shrink-0">
-																<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
-															</div>
-															<div class="ms-3">
-																<div class="fw-bold">아이디</div>
-																본문
-															</div>
-														</div>
-														
-														
-=======
 														<div id="load"></div>
->>>>>>> branch 'master' of https://github.com/InRedwave/Spring_team1.git
 													</div>
 												</div>
 											</c:forEach>

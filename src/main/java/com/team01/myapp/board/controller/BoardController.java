@@ -103,6 +103,7 @@ public class BoardController {
 		try {
 			board.setTitle(Jsoup.clean(board.getTitle(), Whitelist.basic()));
 			board.setContent(Jsoup.clean(board.getContent(), Whitelist.basic()));
+			
 			board.setContent(board.getContent().replace("\r\n", "<br>"));
 			board.setUserId((String) session.getAttribute("userId"));
 			board.setEmail((String) session.getAttribute("email"));

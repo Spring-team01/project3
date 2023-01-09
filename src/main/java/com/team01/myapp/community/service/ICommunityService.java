@@ -11,8 +11,13 @@ public interface ICommunityService {
 	
 	void writeCommunity(Community community);
 	void writeCommunity(Community community, CommunityFile file);
+	void updateCommunity(Community community);
+	void updateCommunity(Community community, CommunityFile file);
+	void deleteCommunity(int communityBoardId);
+	String getPassword(int communityBoardId);
 	
 	Pager returnPage(String pageNo, Pager pager);
+	Pager returnKeywordPager(String pageNo, String keyword, Pager pager);
 	List<Community> getCommunityListByCategory(int categoryId, Pager pager);
 	List<CommunityComment> getCommunityComment(int communityBoardId);
 	
@@ -22,4 +27,5 @@ public interface ICommunityService {
 	
 	void writeCommunityReply(CommunityComment comment);
 	
+	List<Community> searchListByContentKeyword(String keyword, Pager pager);
 }
