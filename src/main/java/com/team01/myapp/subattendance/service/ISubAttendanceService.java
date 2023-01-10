@@ -27,7 +27,12 @@ public interface ISubAttendanceService {
 	SubAttendance selectSubAttendanceDetail(int subAttNo);
 	
 	SubAttFile getFile(int fileId);
-
+	
+	// 수정
 	void updateSubAttendance(SubAttendance subAttendance);
 	void updateSubAttendance(SubAttendance subAttendance, SubAttFile file);
+	
+	// 삭제
+	void deleteSubAttendance(int subAttNo);
+	void deleteSubAttendance(int subAttNo, int saFileId);
 }

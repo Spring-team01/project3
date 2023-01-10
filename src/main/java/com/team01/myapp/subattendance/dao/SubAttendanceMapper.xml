@@ -197,5 +197,18 @@
 			WHERE SA_FILE_ID = #{saFileId}
 		]]>
 	</update>
-
+	
+	<delete id="deleteSubAttendance" parameterType="int">
+		<![CDATA[
+			DELETE FROM SUB_ATTENDANCE
+			WHERE SUB_ATT_NO = #{subAttNo}
+		]]>
+	</delete>
+	
+	<delete id="deleteSubAttFile" parameterType="int">
+		<![CDATA[
+			DELETE FROM SUB_ATT_FILE
+			WHERE SA_FILE_ID = #{saFileId}
+		]]>
+	</delete>
 </mapper>

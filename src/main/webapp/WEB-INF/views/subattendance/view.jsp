@@ -118,8 +118,8 @@
 								<a href='<c:url value="/subattendance/1"/>'><button type="button" class="btn btn-info">목록</button></a>
 								<c:if test="${subAttendance.result == '미처리'}">
 									<a href='<c:url value="/subattendance/update/${subAttendance.subAttNo}/${subAttendance.fileId}"/>'><button type="button" class="btn btn-info">수정</button></a>
+									<a href='<c:url value="/subattendance/delete/${subAttendance.subAttNo}/${subAttendance.fileId}"/>'><button type="button" class="btn btn-info">삭제</button></a>
 								</c:if>
-								<a href='<c:url value=""/>'><button type="button" class="btn btn-info">삭제</button></a>
 							</td>
 						</tr>
 						</table>
