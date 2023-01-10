@@ -39,4 +39,9 @@ public interface ISubAttendanceRepository {
 	void updateSubAttendance(SubAttendance subAttendance);
 
 	void updateFileData(SubAttFile file);
+	
+	// 삭제
+	void deleteSubAttendance(int subAttNo);
+	
+	void deleteSubAttFile(int saFileId);
 }

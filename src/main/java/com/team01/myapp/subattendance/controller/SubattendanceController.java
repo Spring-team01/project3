@@ -161,7 +161,7 @@ public class SubattendanceController {
 			e.printStackTrace();
 		}
 		
-		return "/attendance/userList";
+		return "redirect:/subattendance/1";
 	}
 	
 	// 수정
@@ -222,5 +222,17 @@ public class SubattendanceController {
 			e.printStackTrace();
 		}
 		return "redirect:/subAttendance/view/" + subAttendance.getSubAttNo();
+	}
+	
+	// 삭제
+	@RequestMapping(value="/subattendance/delete/{subAttNo}/{fileId}")
+	public String deleteSubAttendance(@PathVariable int subAttNo, @PathVariable int fileId) {
+		
+		if(fileId == 0) {
+			subAttendanceService.deleteSubAttendance(subAttNo);
+		} else {
+			subAttendanceService.deleteSubAttendance(subAttNo, fileId);
+		}
+		return "redirect:/subattendance/1";
 	}
 }

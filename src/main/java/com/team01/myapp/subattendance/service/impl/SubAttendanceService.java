@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.team01.myapp.subattendance.controller.SubattendanceController;
 import com.team01.myapp.subattendance.dao.ISubAttendanceRepository;
 import com.team01.myapp.subattendance.model.SubAttFile;
 import com.team01.myapp.subattendance.model.SubAttendance;
@@ -96,5 +97,16 @@ public class SubAttendanceService implements ISubAttendanceService {
 				SubAttendanceRepository.insertSubAttendanceFileData(file);
 			}
 		}
+	}
+	
+	@Override
+	public void deleteSubAttendance(int subAttNo) {
+		SubAttendanceRepository.deleteSubAttendance(subAttNo);
+	}
+	
+	@Transactional
+	public void deleteSubAttendance(int subAttNo, int saFileId) {
+		SubAttendanceRepository.deleteSubAttendance(subAttNo);
+		SubAttendanceRepository.deleteSubAttFile(saFileId);
 	}
 }
