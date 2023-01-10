@@ -38,6 +38,11 @@ public class AttendanceController {
 		String attDate = simpleDateFormat1.format(date);
 		
 		String choice = attendanceService.selectAtterdanceCheck(attDate, userId);
+		
+		if(choice == null) {
+			choice = "미출근";
+		}
+		
 		if(choice.equals("지각") || choice.equals("출근")) {
 			model.addAttribute("message", "이미 출근을 누르셨습니다.");
 			return "/home";
