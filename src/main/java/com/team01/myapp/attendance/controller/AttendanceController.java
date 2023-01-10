@@ -40,7 +40,7 @@ public class AttendanceController {
 		String choice = attendanceService.selectAtterdanceCheck(attDate, userId);
 		
 		if(choice == null) {
-			choice = "미출근";
+			choice = "미출석";
 		}
 		
 		if(choice.equals("지각") || choice.equals("출근")) {
@@ -61,7 +61,7 @@ public class AttendanceController {
 				model.addAttribute("message", "아직 출근 시간 전입니다. 8시 이후에 눌러주세요.");
 				return "/home";
 			} else if(8 < time && time < 18) {
-				// 18시 이후에 출근을 눌렀을 때
+				// 9시 이후에 출근을 눌렀을 때
 				attendance.setStatus("지각");
 			} else {
 				// 18시 24시까지 시간을 눌렀을 때
@@ -88,7 +88,11 @@ public class AttendanceController {
 					return "/home";
 				}
 			} else if(choice.equals("미출석")) {
-				choice = "출근";
+				if((8 < time && time < 18)) {
+					choice = "지각";
+				} else {
+					choice = "출근";
+				}
 				attendanceService.updateAttendance(userId, updateDate, choice);
 			} else {
 				attendanceService.insertAttendance(attendance);

@@ -46,7 +46,7 @@
 		<![CDATA[
 			UPDATE attendance
 			SET att_time = sysdate,
-			SET status = #{choice}
+				status = #{choice}
 			WHERE u_id = #{userId}
 			AND TO_CHAR(att_date, 'YY/MM/DD') = #{attDate}
 		]]>
