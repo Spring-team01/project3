@@ -25538,10 +25538,10 @@ body:not(.dark-version) .sidenav.bg-transparent .collapse .nav-item .nav-link.ac
   height: 3px;
 }
 
-.table td,
+./* table td,
 .table th {
   white-space: nowrap;
-}
+} */
 
 .table.align-items-center td,
 .table.align-items-center th {
