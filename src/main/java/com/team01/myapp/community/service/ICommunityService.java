@@ -27,8 +27,11 @@ public interface ICommunityService {
 	
 	void writeCommunityReply(CommunityComment comment);
 	
+	
 	List<Community> searchListByContentKeyword(String keyword, Pager pager);
 	
 	void updateCommunityComment(CommunityComment comment);
+	
+	List<Community> readCountListByCategory(int categoryId);
 	
 }

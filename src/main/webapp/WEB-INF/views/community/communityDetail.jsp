@@ -93,16 +93,15 @@
 										<a type="button" href="<c:url value='/community/delete/${community.communityBoardId}'/>" class="btn btn-dark shadow">글 삭제</a>
 										<input type="hidden" name="communityBoardId" value="${community.communityBoardId}">
 									</c:if>
-										<a type="button" href="<c:url value='/community/communityList/1/1'/>" class="btn btn-dark shadow">글 목록</a>
+									<a type="button" href="<c:url value='/community/communityList/1/1'/>" class="btn btn-dark shadow">글 목록</a>
 									<form class="mb-4" action="<c:url value='/community/reply/comment'/>" method="post">
 										<textarea name="communityCommentContent" class="form-control" rows="3" placeholder="댓글 작성"></textarea>
-										<input type="submit" class="btn btn-dark shadow" value="댓글 작성" required>
-										<input type="hidden" name="communityBoardId" value="${community.communityBoardId}">
+										<input type="submit" class="btn btn-dark shadow" value="댓글 작성" required> <input type="hidden" name="communityBoardId" value="${community.communityBoardId}">
 									</form>
 
 									<form>
 										<c:if test="${community.communityReplyNumber!=0}">
-											<c:forEach var="commentList" items="${commentList}" varStatus="status">
+											<c:forEach var="commentList" items="${commentList}">
 												<div class="d-flex flex-column mb-3">
 													<div class="ms-3">
 														<div class="d-flex justify-content-around">
@@ -116,11 +115,27 @@
 																${commentList.communityCommentContent}
 															</div>
 															<div class="ms-auto">
-																<input type="button" onclick="viewReplyComment()" class="btn btn-sm btn-dark shadow" value="댓글">
-																<a type="button" href="<c:url value='/community/reply/update' />" class="btn btn-sm btn-dark shadow" >댓글 수정</a>
+																<input type="button" onclick="viewReplyComment()" class="btn btn-sm btn-dark shadow" value="댓글"> <a type="button" href="<c:url value='/community/reply/update' />" class="btn btn-sm btn-dark shadow">댓글 수정</a>
 															</div>
 														</div>
-														<div id="${status.current}"></div>
+														<%-- 
+														<!-- 대댓글 반복 -->
+														<c:if test="${community.communityReplyNumber!=0}">
+															<c:forEach var="commentList" items="${commentList}">
+
+																<div class="d-flex mb-5 ml-5">
+																	<!-- Parent comment-->
+																	<div class="flex-shrink-0 fix-comment-hidden" style="display: none;">
+																		<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+																	</div>
+																	<div class="ms-3 fix-comment-hidden" style="display: none;">
+																		<div class="fw-bold">Commenter Name</div>
+																		If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+																	</div>
+																</div>
+															</c:forEach>
+														</c:if>
+														 --%>
 													</div>
 												</div>
 											</c:forEach>

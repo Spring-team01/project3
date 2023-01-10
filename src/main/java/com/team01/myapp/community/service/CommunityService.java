@@ -109,7 +109,7 @@ public class CommunityService implements ICommunityService {
 	public void writeCommunityReply(CommunityComment comment) {
 		
 		communityRepository.updateCommunityReplyNumber(comment.getCommunityBoardId());
-		comment.setCommunityCommentNo(comment.getCommunityCommentReplyNumber()+1);
+		/*comment.setCommunityCommentNo(comment.getCommunityCommentReplyNumber()+1);*/
 		communityRepository.writeCommunityReply(comment);
 	}
 	
@@ -152,6 +152,11 @@ public class CommunityService implements ICommunityService {
 	@Override
 	public void updateCommunityComment(CommunityComment comment) {
 		
+	}
+
+	@Override
+	public List<Community> readCountListByCategory(int categoryId) {
+		return communityRepository.readCountListByCategory(categoryId);
 	}
 
 	

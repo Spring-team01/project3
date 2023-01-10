@@ -298,5 +298,37 @@
 
 	</select>
 	
+	<select id="readCountListByCategory" parameterType="int" resultType="com.team01.myapp.community.model.Community">
+		<![CDATA[
+			select
+				C_BOARD_ID as "communityBoardId", 
+				C_CATEGORY_ID as "communityCategoryId",
+				C_EMAIL as "communityEmail",
+				C_PASSWORD as "communityPassword",
+				C_TITLE as "communityTitle",
+				C_WRITE_DATE as "communityWriteDate",
+				C_READ_COUNT as "communityReadCount",
+				U_ID as "usersId",
+				C_CONTENT as "communityContent",
+				C_REPLY_NUMBER as "communityReplyNumber"
+			from (select
+                    rownum as rnum,
+                    C_BOARD_ID,
+                    C_CATEGORY_ID,
+                    C_EMAIL ,
+                    C_PASSWORD ,
+                    C_TITLE ,
+                    C_WRITE_DATE ,
+                	C_READ_COUNT ,
+                	U_ID ,
+                	C_CONTENT ,
+                	C_REPLY_NUMBER 
+               from community
+               order by C_READ_COUNT desc )
+             where rownum <6
+		]]>
+	</select>
+	
+	
 
 </mapper>
