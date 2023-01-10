@@ -45,7 +45,8 @@
 						<div class="pg-opt">
 							<div class="row">
 								<div class="col-md-6 pc">
-									<h2>${subAttendance.subAttendanceTitle}</h2>
+									<h2>${subAttendance.subAttendanceTitle}
+									</h2>
 								</div>
 					            <div class="col-md-6">
 					                <ol class="breadcrumb">
@@ -120,9 +121,9 @@
 							<td colspan=2 align="center">
 								
 								<c:if test="${subAttendance.result == '미처리'}">
-									<a href='<c:url value="/subattendance/update/${subAttendance.subAttNo}/${subAttendance.fileId}"/>'><button type="button" class="btn btn-info">승인</button></a>
+									<a href='<c:url value="/admin/updatestatus/${subAttendance.subAttNo}/1"/>'><button type="button" class="btn btn-info">승인</button></a>
+									<a href='<c:url value="/admin/updatestatus/${subAttendance.subAttNo}/2"/>'><button type="button" class="btn btn-danger">반려</button></a>
 								</c:if>
-								<a href='<c:url value=""/>'><button type="button" class="btn btn-danger">반려</button></a>
 							</td>
 						</tr>
 						</table>

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team01.myapp.admin.dao.IAdminRepository">
-	
-	<!-- 유저 리스트  -->
-	<select id="selectTotalCategoryListNum" resultType="int" parameterType="int">
+
+	<!-- 유저 리스트 -->
+	<select id="selectTotalCategoryListNum" resultType="int"
+		parameterType="int">
 		<![CDATA[
 			select count(*) from users where subject_id=#{subjectId}
 		]]>
 	</select>
-	
+
 	<select id="selectUserListBySubject" parameterType="map"
 		resultType="com.team01.myapp.admin.model.UserList">
 		<![CDATA[
@@ -53,9 +54,10 @@
 		]]>
 
 	</select>
-	
+
 	<!-- 유저 상세 조회 -->
-	<select id="selectUser" parameterType="string" resultType="com.team01.myapp.admin.model.User">
+	<select id="selectUser" parameterType="string"
+		resultType="com.team01.myapp.admin.model.User">
 	<![CDATA[
 		SELECT 
 		     u.u_id as "userId",
@@ -80,8 +82,9 @@
 		  WHERE u.u_id = #{userId} and u.subject_id = s.subject_id 
 	]]>
 	</select>
-	
-	<select id="selectFile" parameterType="String" resultType="com.team01.myapp.admin.model.UserUploadFile">
+
+	<select id="selectFile" parameterType="String"
+		resultType="com.team01.myapp.admin.model.UserUploadFile">
 	<![CDATA[
 		SELECT 
 			u_file_id as "userFileId",
@@ -92,11 +95,25 @@
 			u_file_data	AS	"userFileData"
 		FROM U_FILE
 		WHERE U_FILE_ID=#{userFileId}			
-	]]>		
+	]]>
+	</select>
+
+	<select id="selectTotalSubAttListByPNum" resultType="int"
+		parameterType="int">
+		<![CDATA[
+			select count(*) from sub_attendance 
+		]]>
+			<if test="resultNum ==1">
+			where result != '미처리'
+			</if>
+			<if test="resultNum ==2">
+			where result = '미처리'
+			</if>
+			
 	</select>
 	
-	<select id="getReasonListbyResult" parameterType="map"
-		resultType="com.team01.myapp.admin.model.ReasonList">
+	<select id="selectSubAttListbyRNum" parameterType="map"
+		resultType="com.team01.myapp.admin.model.SubAttList">
 		<![CDATA[
 		
 		select 
@@ -106,7 +123,8 @@
 			u_name as "userName",
 			sub_attendance_title as "title",
 			sub_att_date as "writeDate",
-			result 
+			result, 
+			sub_status as "subStatus"
 			from(
 				select 
 					rownum as rnum,
@@ -115,7 +133,8 @@
 					u_name,
 					sub_attendance_title,
 					sub_att_date,
-					result 
+					result,
+					sub_status 
 				from(
 				select       
 					sub_att_no ,
@@ -123,7 +142,8 @@
 					u_name,
 					sub_attendance_title,
 					sub_att_date,
-					result 
+					result,
+					sub_status 
 						from(
 						    select 
 						       	sub_att_no,
@@ -131,28 +151,41 @@
 								u.u_name,
 								sub_attendance_title,
 								sub_att_date,
-								result 						
+								result,
+								sub_status 						
 				            from users u, sub_attendance s 
-				            where u.u_id = s.u_id  and result = #{result}
+				            where u.u_id = s.u_id
+				            ]]>
+				            <if test="resultNum == 1">
+				            and result != '미처리'
+				            </if>
+				            
+				            <if test="resultNum == 2">
+				            and result ='미처리'
+				            </if>
+				            
+				<![CDATA[        
 				        )
 				order by sub_att_no desc
 				) 
 				where rownum <= #{end}
 				) 
 				where rnum >= #{start}
-		]]>
+			]]>
 
 	</select>
-	
-	<select id="selectMaxFileId" parameterType="int" resultType="int">
+
+	<select id="selectMaxFileId" parameterType="int"
+		resultType="int">
 	<![CDATA[
 		SELECT
 			NVL(MAX(U_file_id),0) AS "userFileId"
 		FROM U_FILE
 	]]>
 	</select>
-	
-	<insert id="insertUserFile"  parameterType="com.team01.myapp.admin.model.UserUploadFile">
+
+	<insert id="insertUserFile"
+		parameterType="com.team01.myapp.admin.model.UserUploadFile">
 	<![CDATA[	
 		INSERT INTO
 		U_FILE
@@ -161,9 +194,10 @@
 			(#{userFileId}, #{userId}, #{userFileName}, #{userFileSize}, #{userFileContentType}, #{userFileData})
 	]]>
 	</insert>
-	
+
 	<!-- 수정하기 -->
-	<update id="updateUser" parameterType="com.team01.myapp.admin.model.User">
+	<update id="updateUser"
+		parameterType="com.team01.myapp.admin.model.User">
 	<![CDATA[
 		UPDATE 
 			users
@@ -174,8 +208,9 @@
 			u_id=#{userId}
 	]]>
 	</update>
-	
-	<update id="updateFileData" parameterType="com.team01.myapp.admin.model.UserUploadFile">
+
+	<update id="updateFileData"
+		parameterType="com.team01.myapp.admin.model.UserUploadFile">
 	<![CDATA[
 		UPDATE 
 			u_file
@@ -186,8 +221,9 @@
 			u_id=#{userId}
 	]]>
 	</update>
-	
-	<insert id="insertFileData"  parameterType="com.team01.myapp.admin.model.UserUploadFile">
+
+	<insert id="insertFileData"
+		parameterType="com.team01.myapp.admin.model.UserUploadFile">
 	<![CDATA[	
 		INSERT INTO
 		u_file
@@ -196,12 +232,13 @@
 			(SEQ_U_FILE_ID.nextval, #{userId}, #{userFileName}, #{userFileSize}, #{userFileContentType}, #{userFileData})
 	]]>
 	</insert>
-	
-	<select id="selectSubAttendanceDetail" parameterType="int" 
+
+	<select id="selectSubAttendanceDetail" parameterType="int"
 		resultType="com.team01.myapp.admin.model.SubAttendance">
 		<![CDATA[
 			SELECT
 			    SUB_ATTENDANCE.SUB_ATT_NO as subAttNo,
+			    att_no as "attNo",
 			    SUB_ATT_TIME as subAttTime,
 			    SUB_LEAVE_TIME as subLeaveTime,
 			    CONTENT as content,
@@ -220,7 +257,37 @@
 		]]>
 	</select>
 	
+	<update id="updateSubatt" parameterType="map">
 	
+		UPDATE 
+			sub_attendance
+		SET 
+			<if test="result==1">
+			result='승인'	
+			</if>
+			<if test="result==2">
+			result='거절'	
+			</if>
+			<if test="status=='외출'">
+			result='승인'	
+			</if>
+					
+		WHERE 
+			sub_att_no=#{subAttNo}
 	
+	</update>
 	
+	<update id="updateAtt" parameterType="map">
+	<![CDATA[
+		UPDATE 
+			attendance
+		SET 
+			status='휴가'			
+		WHERE 
+			att_no=#{attNo}
+	]]>
+	</update>
+
+
+
 </mapper>
