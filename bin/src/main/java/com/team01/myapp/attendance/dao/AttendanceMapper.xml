@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team01.myapp.attendance.dao.IAttendanceRepository">
+	
+	<!-- 전체 학생 수 조회 -->
+	<select id="selectAttendanceList"
+		resultType="com.team01.myapp.attendance.model.Attendance">
+		<![CDATA[
+			SELECT
+				att_no AS "attNo",
+				att_date AS "attDate",
+				att_time AS "attTime",
+				leave_time AS "leaveTime",
+				status AS "status",
+				u_id AS "userId",
+				subject_id AS "subjectId"
+			FROM attendance
+		]]>
+	</select>
+	
+	<!-- 출근 버튼 클릭시 출근이 있는지 확인 하는 select문 -->
+	<select id="selectAtterdanceCheck" parameterType="map" resultType="string">
+		<![CDATA[
+			SELECT
+				status
+			FROM attendance
+			WHERE TO_CHAR(att_date, 'YYYYMMDD') = #{attDate}
+			AND u_id = #{userId}
+		]]>
+	</select>
+	
+	<!-- 출근 버튼 클릭시 insert문 -->
+	<insert id="insertAttendance" parameterType="com.team01.myapp.attendance.model.Attendance">
+		<![CDATA[
+			INSERT INTO
+			attendance
+				(att_no, att_date, att_time, leave_time, status, u_id, subject_id)
+			VALUES
+				(seq_att_no.NEXTVAL, sysdate, sysdate, null, #{status}, #{userId}, #{subjectId})
+		]]>
+	</insert>
+	
+	<!-- 출근 버튼 클릭시 휴가가 이미 있을 때 update 하기 위한 글 -->
+	<update id="updateAttendance" parameterType="map">
+		<![CDATA[
+			UPDATE attendance
+			SET att_time = sysdate,
+			SET status = #{choice}
+			WHERE u_id = #{userId}
+			AND TO_CHAR(att_date, 'YY/MM/DD') = #{attDate}
+		]]>
+	</update>
+	
+	<!-- 출근 시간을 띄워주기 위한 select 문 -->
+	<select id="selectAttTime" parameterType="map" resultType="string">
+		<![CDATA[
+			SELECT TO_CHAR(att_time, 'HH:MI:SS') AS att_time
+			FROM ATTENDANCE
+			WHERE to_char(att_date, 'YYYYMMDD') = #{today}
+			AND u_id = #{userId}
+		]]>
+	</select>
+	
+	<!-- 퇴근 시간을 띄워주기 위한 select 문 -->
+	<select id="selectLeaveTime" parameterType="map" resultType="string">
+		<![CDATA[
+			SELECT TO_CHAR(leave_time, 'HH24:MI:SS') AS leave_time
+			FROM ATTENDANCE
+			WHERE to_char(att_date, 'YYYYMMDD') = #{today}
+			AND u_id = #{userId}
+		]]>
+	</select>
+	
+	<!-- 학생 개인의 일정을 불러오기 위한 select 문 -->
+	<select id="selectOneUserAttendanceList" parameterType="string" resultType="com.team01.myapp.attendance.model.AttendanceList">
+		<![CDATA[
+			SELECT 
+				ATT_DATE AS "attDate", 
+				STATUS AS "status",
+				TO_CHAR(ATT_TIME, 'HH24:MI') AS "attTime",
+				TO_CHAR(LEAVE_TIME, 'HH24:MI') AS "leaveTime"
+			FROM ATTENDANCE
+			WHERE u_id = #{userId}
+		]]>
+	</select>
+	
+	<!-- 퇴근 시 attendance 테이블에 leave_time을 추가하기 위한 update문 -->
+	<update id="updateLeaveCheck" parameterType="map">
+		<![CDATA[
+			UPDATE attendance
+			SET leave_time = sysdate
+			WHERE u_id = ${userId}
+			AND TO_CHAR(att_date, 'YY/MM/DD') = #{attDate}
+		]]>
+	</update>
+	
+</mapper>

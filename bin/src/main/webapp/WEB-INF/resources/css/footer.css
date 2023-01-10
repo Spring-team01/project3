@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+.footer_container{
+	background-color: #0f3443;
+	border-top:4px solid black;
+	width:100%;
+	color:white;
+}

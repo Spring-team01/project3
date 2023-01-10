@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+#header-bar {
+	width : 100%;
+	height : 115px;
+	background-color: white;
+	position: fixed;
+	top:0px;
+	z-index:10;
+}
+
+#image-box {
+	width : 120px;
+	overflow: hidden;
+}
+
+#image-content {
+	width : 100%;
+	height : 100%;
+}
+
+#name-box{
+	width: 300px;
+}
+#name-content{
+	margin-top:5px;
+	width:300px;
+}
+#button-box {
+	display: flex;
+	justify-content : right;
+}
+
+.button-sub-box {
+	width : 100px;
+	height : 80px;
+	text-align : center;
+}
+
+.time-sub-box {
+	width : 150px;
+	height : 70px;
+	text-align : center;
+	margin-top : 25px;
+}
+
+#black-bar {
+	width : 100%;
+	height : 25px;
+	background-color : black;
+}
+
+.time-text {
+	font-size : 30px;
+}

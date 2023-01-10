@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team01.myapp.admin.dao.IAdminRepository">
+	
+	<!-- 유저 리스트  -->
+	<select id="selectTotalCategoryListNum" resultType="int" parameterType="int">
+		<![CDATA[
+			select count(*) from users where subject_id=#{subjectId}
+		]]>
+	</select>
+	
+	<select id="selectUserListBySubject" parameterType="map"
+		resultType="com.team01.myapp.admin.model.UserList">
+		<![CDATA[
+		
+		select 
+			 rownum,
+		    u_id as "userId",
+			u_name as "userName",
+			major ,
+			grade,
+			subject_name as "subjectName" 
+			from(
+				select 
+					rownum as rnum,
+		            u_id ,
+					u_name,
+					major,
+					grade,
+					subject_name 
+				from(
+				select       
+					u_id ,
+					u_name,
+					major,
+					grade,
+					subject_name  
+						from(
+						    select 
+						        u_id ,
+								u_name,
+								major,
+								grade,
+								s.subject_name
+				            from users u, subject s 
+				            where #{subjectId} = s.subject_id and u.subject_id = #{subjectId} and major != '관리자'
+				        )
+				order by grade desc, u_id asc
+				) 
+				where rownum <= #{end}
+				) 
+				where rnum >= #{start}
+		]]>
+
+	</select>
+	
+	<!-- 유저 상세 조회 -->
+	<select id="selectUser" parameterType="string" resultType="com.team01.myapp.admin.model.User">
+	<![CDATA[
+		SELECT 
+		     u.u_id as "userId",
+		     u_name as "userName",
+		     major,
+		     grade,
+		     phone,
+		     u_type as "userType",
+		     password,
+		     email,
+		     u.subject_id as "subjectId", 
+		     s.subject_name as "subjectName",
+		     f.u_file_id as "userFileId",
+		     f.u_file_name as "userFileName",
+		     f.u_file_size as "userFileSize",
+		     f.u_file_content_type as "userFileContentType" 
+		     
+		  FROM 
+		    subject s
+		     , users u LEFT OUTER JOIN u_file f
+				    ON u.u_id =f.u_id
+		  WHERE u.u_id = #{userId} and u.subject_id = s.subject_id 
+	]]>
+	</select>
+	
+	<select id="selectFile" parameterType="String" resultType="com.team01.myapp.admin.model.UserUploadFile">
+	<![CDATA[
+		SELECT 
+			u_file_id as "userFileId",
+			u_id as "userId",
+			u_file_name as "userFileName",
+			u_file_size as "userFileSize",
+			u_file_content_type as "userFileContentType",
+			u_file_data	AS	"userFileData"
+		FROM U_FILE
+		WHERE U_FILE_ID=#{userFileId}			
+	]]>		
+	</select>
+	
+	<select id="getReasonListbyResult" parameterType="map"
+		resultType="com.team01.myapp.admin.model.ReasonList">
+		<![CDATA[
+		
+		select 
+			rownum,
+			sub_att_no as "subAttNo",
+		    u_id as "userId",
+			u_name as "userName",
+			sub_attendance_title as "title",
+			sub_att_date as "writeDate",
+			result 
+			from(
+				select 
+					rownum as rnum,
+		            sub_att_no ,
+					u_id,
+					u_name,
+					sub_attendance_title,
+					sub_att_date,
+					result 
+				from(
+				select       
+					sub_att_no ,
+					u_id,
+					u_name,
+					sub_attendance_title,
+					sub_att_date,
+					result 
+						from(
+						    select 
+						       	sub_att_no,
+								u.u_id,
+								u.u_name,
+								sub_attendance_title,
+								sub_att_date,
+								result 						
+				            from users u, sub_attendance s 
+				            where u.u_id = s.u_id  and result = #{result}
+				        )
+				order by sub_att_no desc
+				) 
+				where rownum <= #{end}
+				) 
+				where rnum >= #{start}
+		]]>
+
+	</select>
+	
+	<select id="selectMaxFileId" parameterType="int" resultType="int">
+	<![CDATA[
+		SELECT
+			NVL(MAX(U_file_id),0) AS "userFileId"
+		FROM U_FILE
+	]]>
+	</select>
+	
+	<insert id="insertUserFile"  parameterType="com.team01.myapp.admin.model.UserUploadFile">
+	<![CDATA[	
+		INSERT INTO
+		U_FILE
+			(U_FILE_ID, U_ID, U_FILE_NAME, U_FILE_SIZE, U_FILE_CONTENT_TYPE, U_FILE_DATA)
+		VALUES
+			(#{userFileId}, #{userId}, #{userFileName}, #{userFileSize}, #{userFileContentType}, #{userFileData})
+	]]>
+	</insert>
+	
+	<!-- 수정하기 -->
+	<update id="updateUser" parameterType="com.team01.myapp.admin.model.User">
+	<![CDATA[
+		UPDATE 
+			users
+		SET 
+			u_name=#{userName}, grade=#{grade}, password=#{password},
+			EMAIL=#{email}, phone=#{phone}
+		WHERE 
+			u_id=#{userId}
+	]]>
+	</update>
+	
+	<update id="updateFileData" parameterType="com.team01.myapp.admin.model.UserUploadFile">
+	<![CDATA[
+		UPDATE 
+			u_file
+		SET 
+			u_file_name=#{userFileName}, u_file_size=#{userFileSize},
+			u_file_content_type=#{userFileContentType},u_file_data=#{userFileData}			
+		WHERE 
+			u_id=#{userId}
+	]]>
+	</update>
+	
+	<insert id="insertFileData"  parameterType="com.team01.myapp.admin.model.UserUploadFile">
+	<![CDATA[	
+		INSERT INTO
+		u_file
+			(u_file_id, u_id, u_file_name, u_file_size, u_file_content_type, u_file_data)
+		VALUES
+			(SEQ_U_FILE_ID.nextval, #{userId}, #{userFileName}, #{userFileSize}, #{userFileContentType}, #{userFileData})
+	]]>
+	</insert>
+	
+	
+	
+	
+</mapper>

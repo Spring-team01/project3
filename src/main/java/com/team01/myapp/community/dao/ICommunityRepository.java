@@ -35,5 +35,6 @@ public interface ICommunityRepository {
 	int selectSearchCommunity(String keyword);
 	List<Community> selectSearchCommunityList(@Param("keyword") String keyword, 
 			@Param("start") int start, @Param("end") int end );
+	List<Community>readCountListByCategory(int categoryId);
 	
 }

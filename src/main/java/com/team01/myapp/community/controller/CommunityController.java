@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
@@ -84,7 +85,7 @@ public class CommunityController {
 
 	@RequestMapping(value = "/community/communityList/{categoryId}/{pageNo}", method = RequestMethod.GET)
 	public String getCommunityListByCategory(@PathVariable int categoryId, @PathVariable String pageNo, Model model,
-			Pager pager, HttpSession session, Community community) {
+		Pager pager, HttpSession session, Community community) {
 		pager = communityService.returnPage(pageNo, pager);
 		community.setUserName((String) session.getAttribute("userName"));
 		List<Community> communityList = communityService.getCommunityListByCategory(categoryId, pager);
@@ -180,13 +181,11 @@ public class CommunityController {
 	}
 
 	@RequestMapping(value = "/community/delete", method = RequestMethod.POST)
-	public String deleteArticle(Community community, BindingResult result, HttpSession session, 
-					Model model) {
+	public String deleteArticle(Community community, BindingResult result, HttpSession session, Model model) {
 		try {
 			community.setUsersId((String) session.getAttribute("userId"));
 			community.setUserName((String) session.getAttribute("userName"));
-			
-			
+
 			String dbpw = communityService.getPassword(community.getCommunityBoardId());
 			if (dbpw.equals(community.getCommunityPassword())) {
 				communityService.deleteCommunity(community.getCommunityBoardId());
@@ -194,7 +193,7 @@ public class CommunityController {
 			} else {
 				model.addAttribute("message", "WRONG_PASSWORD_NOT_DELETED");
 			}
-			
+
 			return "redirect:/community/communityDetail/" + community.getCommunityBoardId();
 		} catch (Exception e) {
 			model.addAttribute("message", e.getMessage());
@@ -204,55 +203,58 @@ public class CommunityController {
 	}
 
 	@RequestMapping("/community/search/{pageNo}")
-	public String search(@RequestParam(required=false, defaultValue="") String keyword, @PathVariable String pageNo,
+	public String search(@RequestParam(required = false, defaultValue = "") String keyword, @PathVariable String pageNo,
 			Pager pager, HttpSession session, Model model, Community community) {
-		
+
 		System.out.println(keyword);
 		try {
 			community.setUsersId((String) session.getAttribute("userId"));
 			community.setUserName((String) session.getAttribute("userName"));
-			
+
 			pager = communityService.returnKeywordPager(pageNo, keyword, pager);
 			List<Community> communityList = communityService.searchListByContentKeyword(keyword, pager);
-			
+
 			model.addAttribute("communityList", communityList);
 			model.addAttribute("sessionUserId", (String) session.getAttribute("userId"));
 			model.addAttribute("pager", pager);
 			model.addAttribute("keyword", keyword);
 			return "community/communityList";
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "community/communitySearch";
 	}
-	
-	
+
 	// 댓글 달기
-		@RequestMapping(value = "/community/reply/comment", method = RequestMethod.POST)
-		public String writeCommunityReply(CommunityComment comment, BindingResult result, RedirectAttributes redirectAttrs,
-				HttpSession session, Community community) {
-			comment.setUserId((String) session.getAttribute("userId"));
-			communityService.writeCommunityReply(comment);
+	@RequestMapping(value = "/community/reply/comment", method = RequestMethod.POST)
+	public String writeCommunityReply(CommunityComment comment, BindingResult result, RedirectAttributes redirectAttrs,
+			HttpSession session, Community community) {
+		comment.setUserId((String) session.getAttribute("userId"));
+		communityService.writeCommunityReply(comment);
+
+		return "redirect:/community/communityDetail/" + (community.getCommunityBoardId());
+	}
 	
-			return "redirect:/community/communityDetail/" + (community.getCommunityBoardId());
-		}
+	//대댓글 조회하기
+	@RequestMapping(value="/community/getreplycomment/{communityBoardId}")
+	@ResponseBody
+	public List<CommunityComment> getReplyCommnet(@RequestParam int communityBoardId) {
 		
 		
-	//댓글 수정
-		@RequestMapping(value="/community/reply/update", method=RequestMethod.GET)
-		@ResponseBody
-		public String updateCommunityCommentReply(CommunityComment comment, Model model, Community community, 
-				HttpSession session) {
-			
+		return communityService.getCommunityComment(communityBoardId);
+	}
+	
+	
+	// Home View
+	@RequestMapping(value = "/community/communityMiniView")
+	public String example(HttpSession session, Community community, Model model) {
 		
-			return "community/communityDetailUpdate";
-		}
+		community.setUserName((String) session.getAttribute("userName"));
+		List<Community> communityList = communityService.readCountListByCategory(1);
+		model.addAttribute("sessionUserId", (String) session.getAttribute("userId"));
+		model.addAttribute("communityList", communityList);
 		
-	//댓글 삭제
-	@RequestMapping(value = "/community/example")
-	public String example() {
-		
-		return "community/communityReply";
+		return "community/communityMiniView";
 	}
 
 }

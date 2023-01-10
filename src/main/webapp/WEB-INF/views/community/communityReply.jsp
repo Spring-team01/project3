@@ -74,13 +74,6 @@
 						<div class="fw-bold">Commenter Name</div>
 						If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
 						<!-- Child comment 1-->
-						<div id="more_btn_div" align="center">
-						<br>
-						<a id="more_btn_a" href="javascript:moreContent('more_list', 10);">
-							더보기(More)
-						</a>		
-						<br>					
-						</div>			
 					</div>
 				</div>
 				<!-- Comment form-->
