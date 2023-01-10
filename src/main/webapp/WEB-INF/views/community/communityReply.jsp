@@ -21,40 +21,7 @@
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
 <script>
-	function moreContent(id, cnt){
-		var list_length =$("#"+id+" tr").length -1;
-		var aname = id+"_btn";
-		var callLength = list_length;
-		
-		$("#startCount").val(callLength);
-		$("#vieCount").val(cnt);
-		
-		$.ajax({
-			type : "post",
-			url : "/getMoreContents_ajax.do",
-			data : $("#searchTxtForm").serialize(),
-			dataType : "josn",
-			success : function(result){
-				if(result.resultCnt > 0) {
-					var list = result.resultList;
-					if(resultVO.title != '') {
-						$('#' + aname).attr('href',"javascript:moreContent('"+ id + "', "+cnt+");");
-						getMoreList(list);
-					} else {
-						$("#"+id+"_div").remove();
-					}
-				} else {
-					
-				}
-			} , 
-			error : function (request, status, error) {
-				alert("code = " + request.status + " messgae = " + request.responseText + "error = " + error);
-			}
-		});
-		
-		
-		
-	}
+
 </script>
 
 

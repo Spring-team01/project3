@@ -236,12 +236,12 @@ public class CommunityController {
 	}
 	
 	//대댓글 조회하기
-	@RequestMapping(value="/community/getreplycomment/{communityBoardId}")
+	@RequestMapping(value="/community/getreplycomment", method=RequestMethod.GET)
 	@ResponseBody
-	public List<CommunityComment> getReplyCommnet(@RequestParam int communityBoardId) {
+	public String getReplyCommnet(@RequestParam int communityBoardId) {
 		
 		
-		return communityService.getCommunityComment(communityBoardId);
+		return "community/communityReply";
 	}
 	
 	

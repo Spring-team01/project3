@@ -22,13 +22,13 @@
 
 <script>
 	function viewReplyComment() {
-
+		
 		$.ajax({
-			url : "/myapp/community/example",
+			url : "/myapp/community/getreplycomment",
 			type : "GET",
 			datatype : "html",
 			success : function(data) {
-				$('#"${status.current}"').html(data);
+				$('#viewReplyComment').html(data);
 			}
 		});
 	}
@@ -117,6 +117,8 @@
 															<div class="ms-auto">
 																<input type="button" onclick="viewReplyComment()" class="btn btn-sm btn-dark shadow" value="댓글"> <a type="button" href="<c:url value='/community/reply/update' />" class="btn btn-sm btn-dark shadow">댓글 수정</a>
 															</div>
+														</div>
+														<div id="viewReplyComment">
 														</div>
 														<%-- 
 														<!-- 대댓글 반복 -->
