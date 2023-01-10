@@ -62,7 +62,6 @@
 									<div class="form-group">
 									<label for="categoryId"><fmt:message key="CATEGORY"/></label>	
 								 	<select class="custom-select" name="categoryId" style="width:50%; justify-content:left;" required>
-										<option selected >카테고리</option>
 										<option value="1">공지사항</option>
 										<option value="2">강의게시판</option>
 										<option value="3">과제제출</option>

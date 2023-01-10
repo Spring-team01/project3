@@ -10,11 +10,31 @@
 	<div id="noReplyDiv${commentOne.bcReplyNo}" style="display:block;  ">작성된 댓글이 없습니다!</div>
 </c:if> --%>
 
-<c:forEach var="reply" items="${nestedCommentList}">
-	<div class="md-3 d-flex" >
-	<div>${reply.bcContent}</div>
-		 <span class="small text-success font-weight-bold">${reply.userId}&nbsp;&nbsp;</span>
-         <span class="small text-muted"><fmt:formatDate value="${reply.bcWriteDate}" pattern="yyyy.MM.dd"/></span> 
+
+	
+<!-- Comments section-->
+<section class="mb-5" style="width:100%">
+	<div class="card bg-light">
+		<div class="card-body" style="word-wrap: wordwrap;">
+			<c:forEach var="reply" items="${nestedCommentList}">
+			<!-- Comment with nested comments-->
+			<div class="d-flex mb-4">
+				<!-- Parent comment-->
+				<div class="flex-shrink-0">
+					<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+				</div>
+				<div class="ms-3">
+					<div class="fw-bold">${reply.userId}&nbsp;&nbsp;</div>
+					 <span class="small text-muted"><fmt:formatDate value="${reply.bcWriteDate}" pattern="yyyy.MM.dd"/></span> 
+					${reply.bcContent}
+							
+				</div>
+			</div>
+			</c:forEach>
+			<!-- Comment form-->
+			
+		</div>
 	</div>
-</c:forEach>
+</section>
+
 
