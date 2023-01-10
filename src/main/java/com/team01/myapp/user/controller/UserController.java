@@ -3,6 +3,7 @@ package com.team01.myapp.user.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -88,6 +89,12 @@ public class UserController {
 	
 	@RequestMapping(value="/user/update", method=RequestMethod.GET)
 	public String userUpdate() {
+		return "user/login";
+	}
+	
+	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
+	public String logout(HttpSession session, HttpServletRequest request) {
+		session.invalidate(); //로그아웃
 		return "user/login";
 	}
 	

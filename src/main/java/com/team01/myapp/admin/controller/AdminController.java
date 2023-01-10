@@ -3,6 +3,7 @@ package com.team01.myapp.admin.controller;
 import java.nio.charset.Charset;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
@@ -161,8 +162,17 @@ public class AdminController {
 
 	}
 	
+	@RequestMapping(value = "/admin/attendancestatus/month", method = RequestMethod.GET)
+	public String statusMonthlyList(Model model) {
+		return "admin/attendanceStatus";
+		
+	}
 	
-	
+	@RequestMapping(value="/admin/logout", method=RequestMethod.GET)
+	public String logout(HttpSession session, HttpServletRequest request) {
+		session.invalidate(); //로그아웃
+		return "user/login";
+	}
 	
 	
 

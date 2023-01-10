@@ -41,26 +41,18 @@
                         <i class="fa fa-caret-down"></i>
                     </a>    
                         <div class="dropdown-container">
-                    	<a href="<c:url value='/admin/reasonlist/1/1'/>">월별</a>
-					    <a href="<c:url value='/admin/reasonlist/2/1'/>">일별</a>					   
+                    	<a href="<c:url value='/admin/attendancestatus/month'/>">월별</a>
+					    <a href="<c:url value='/admin/attendancestatus/daily'/>">일별</a>					   
                     </div>
                     
                   
                  
                 </li>
-                 
                 <li>
-                	<a href="#" type="button" class="dropdown-btn">
-                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">게시판 관리</span>
-                        <i class="fa fa-caret-down"></i>
+               		<a href="<c:url value='/admin/logout'/>" type="button" class="dropdown-btn">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">로그아웃</span>
                     </a>
-                    <div class="dropdown-container">
-                    	<a href="#">공지사항</a>
-					    <a href="#">자유게시판</a>
-					    <a href="#">자료실</a>
-                    </div>
                 </li>
-                
             </ul>
         </div>
