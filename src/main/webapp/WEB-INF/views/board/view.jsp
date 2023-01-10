@@ -20,12 +20,10 @@
 <!-- CSS Files -->
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 <script>
-	function writeReReply(i){
-		$('#reCommentForm'+i).toggle()
-		
-	}
+
 	
 	function viewReReply(i){
+		$('#reCommentForm'+i).toggle()
 		$('#viewReReply'+i).toggle()
 		
 		$.ajax({
@@ -174,41 +172,57 @@
 								
 										<c:if test="${!empty commentList}">
 											<c:forEach var="commentOne" items="${commentList}">
-												<div class="d-flex flex-column mb-3" >
+												<div class="d-flex flex-column mb-3 " >
 													<div class="ms-3">
-														<div class="d-flex justify-content-around">
+														<div class="d-flex align-items-center">
 															<div>
 																<div class="flex-shrink-0">
 																	<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
 																</div>
 															</div>
-															<div class="ms-3">
+															<div class="flex-fill mx-3 text-left">
 																<div class="fw-bold">${commentOne.userId}</div>
 																${commentOne.bcContent}
 															</div>
 															<div class="ms-auto">
-															<!-- 대댓글 작성 -->
-																<button type="button" onclick="writeReReply(${commentOne.bcReplyNo})" class="btn btn-sm btn-dark shadow">${commentOne.bcReplyNo}>댓글 작성 </button>
-																<div id="reCommentForm${commentOne.bcReplyNo}" style="display:none">
-																	<form id="writeReReplyForm" name="writeReReplyForm" class="d-flex">
-																		<label class="font-weight-bold" for="writeReReply${commentOne.bcReplyNo}"></label>
-																		<input id="writeReReply${commentOne.bcReplyNo}"type="text" class="form-control" name="bcContent" placeholder="댓글을 입력해주세요">
-<%-- 																		<input type="hidden" id="boardIdInput${commentOne.bcReplyNo}" name="boardId" value="${commentOne.boardId}">  --%>
-																		<button type="button" onclick="writeReReplyFun(${commentOne.bcReplyNo}, ${commentOne.boardId})"style="width:15px; height:15px;"></button>
-																	</form>
-																</div>
-																<!-- 대댓글리스트 -->
-																<button type="button" onclick="viewReReply(${commentOne.bcReplyNo})" class="btn btn-sm btn-dark shadow">${commentOne.bcReplyNo}>댓글 보기 </button>
-																<div id="viewReReply${commentOne.bcReplyNo}" style="display:none">
+																<div class="d-flex flex-column">
+																<div class="dropdown">
+											                    
+																<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
+																	<img class="ml-5 my-3" src='<c:url value="/images/threedots.svg"/>' width="16" height="16">
+																</a>
+															
+																<c:if test="${commentOne.userId eq sessionScope.userId}">
+																<ul id="dropdown">
+																	<li><a class="dropdown-item" href="#">삭제하기</a></li>
+																</ul>
+																</c:if>
+																<c:if test="${commentOne.userId ne sessionScope.userId}">
+																<ul>
+																	<li><a class="dropdown-item" href="#">신고하기</a></li>
+																</ul>
+																</c:if>
 																
-																</div>
 																
-										                         
-																<!-- 작성한 답글 추가 -->
-																<div id="addReply${commentOne.bcReplyNo}">
-																	
+																	<button type="button" onclick="viewReReply(${commentOne.bcReplyNo})" class="btn btn-sm btn-dark shadow">답글</button>
 																</div>
 															</div>
+														</div>
+														<!-- 대댓글 작성 -->
+																
+														<div id="reCommentForm${commentOne.bcReplyNo}"style="display:none">
+															<form class="mb-4" id="writeReReplyForm" name="writeReReplyForm" class="d-flex">
+																<label class="font-weight-bold" for="writeReReply${commentOne.bcReplyNo}"></label>
+																<textarea id="writeReReply${commentOne.bcReplyNo}"type="text" class="form-control" name="bcContent" placeholder="댓글을 입력해주세요"></textarea>
+																<input type="submit" onclick="writeReReplyFun(${commentOne.bcReplyNo}, ${commentOne.boardId})" class="btn btn-dark shadow" value="작성"> 
+															</form>
+														</div>
+														<!-- 대댓글리스트 -->
+														<div id="viewReReply${commentOne.bcReplyNo}" style="display:none">
+														</div>
+														<!-- 작성한 답글 추가 -->
+														<div id="addReply${commentOne.bcReplyNo}">
+															
 														</div>
 
 													</div>
