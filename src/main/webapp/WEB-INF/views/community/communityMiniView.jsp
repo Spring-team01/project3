@@ -40,7 +40,8 @@
 								<h3 align="center" class="text-xs font-weight-bold mb-0">${community.communityBoardId}</h3>
 							</td>
 							<td>
-								<a href="<c:url value='/community/communityDetail/${community.communityBoardId}'/>" class="mb-0 text-sm">${community.communityTitle}</a>
+								<a href="<c:url value='/community/communityDetail/${community.communityBoardId}'/>" 
+								class="mb-0 text-sm">${community.communityTitle}  [${community.communityReplyNumber}]</a>
 							</td>
 							<td class="align-middle text-center text-sm">
 								<span class="text-secondary text-xs font-weight-bold">${community.communityReadCount}</span>

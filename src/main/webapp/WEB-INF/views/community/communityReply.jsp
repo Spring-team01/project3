@@ -7,30 +7,38 @@
 
 <!DOCTYPE html>
 <html>
-<jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
-<!--     Fonts and icons     -->
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-<!-- Nucleo Icons -->
-<link href="<c:url value="/static/css/nucleo-icons.css"/>" rel="stylesheet" />
-<link href="<c:url value="/static/css/nucleo-svg.css"/>" rel="stylesheet" />
-<!-- Font Awesome Icons -->
-<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-<!-- Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-<!-- CSS Files -->
-<link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
 <script>
-
+	
 </script>
 
 
 <body>
+<%-- 
+	<!-- 대댓글 반복 -->
+	<c:if test="${community.communityReplyNumber!=0}">
+		<c:forEach var="commentList" items="${commentList}">
+
+			<div class="d-flex mb-5 ml-5">
+				<!-- Parent comment-->
+				<div class="flex-shrink-0 fix-comment-hidden" >
+					<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+				</div>
+				<div class="ms-3 fix-comment-hidden" >
+					<div class="fw-bold">Commenter Name</div>
+					If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+				</div>
+			</div>
+		</c:forEach>
+	</c:if>
+
+ --%>
+
 	<!-- Comments section-->
 	<section class="mb-5">
 		<div class="card bg-light">
 			<div class="card-body">
-				
+
 				<!-- Comment with nested comments-->
 				<div class="d-flex mb-4">
 					<!-- Parent comment-->

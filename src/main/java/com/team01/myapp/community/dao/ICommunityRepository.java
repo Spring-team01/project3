@@ -37,4 +37,7 @@ public interface ICommunityRepository {
 			@Param("start") int start, @Param("end") int end );
 	List<Community>readCountListByCategory(int categoryId);
 	
+	void updateCommentMasterNumber(int communityBoardId);
+	
+	
 }

@@ -21,17 +21,20 @@
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
 <script>
-	function viewReplyComment() {
-		
+	function viewReplyComment(i) {
 		$.ajax({
-			url : "/myapp/community/getreplycomment",
+			url : "/myapp/community/getreplycomment/",
 			type : "GET",
 			datatype : "html",
+			data : {communityCommentMasterNumber : i},
 			success : function(data) {
-				$('#viewReplyComment').html(data);
+				$('#replyComment'+i).toggle()
+				$('#replyComment'+i).html(data);
+				/* 토글show hide 확인*/
 			}
 		});
 	}
+	
 </script>
 
 
@@ -111,33 +114,15 @@
 																</div>
 															</div>
 															<div class="ms-3">
-																<div class="fw-bold">${commentList.userId}</div>
+																<div class="fw-bold">${commentList.userName}</div>
 																${commentList.communityCommentContent}
 															</div>
 															<div class="ms-auto">
-																<input type="button" onclick="viewReplyComment()" class="btn btn-sm btn-dark shadow" value="댓글"> <a type="button" href="<c:url value='/community/reply/update' />" class="btn btn-sm btn-dark shadow">댓글 수정</a>
+																<input id="replyButton${commentList.communityCommentMasterNumber}" type="button" onclick="viewReplyComment(${commentList.communityCommentMasterNumber})" class="btn btn-sm btn-dark shadow" value="댓글 보기"> <a type="button" href="<c:url value='/community/reply/update' />" class="btn btn-sm btn-dark shadow">댓글 수정</a>
 															</div>
 														</div>
-														<div id="viewReplyComment">
-														</div>
-														<%-- 
-														<!-- 대댓글 반복 -->
-														<c:if test="${community.communityReplyNumber!=0}">
-															<c:forEach var="commentList" items="${commentList}">
+														<div id="replyComment${commentList.communityCommentMasterNumber}"></div>
 
-																<div class="d-flex mb-5 ml-5">
-																	<!-- Parent comment-->
-																	<div class="flex-shrink-0 fix-comment-hidden" style="display: none;">
-																		<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
-																	</div>
-																	<div class="ms-3 fix-comment-hidden" style="display: none;">
-																		<div class="fw-bold">Commenter Name</div>
-																		If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-																	</div>
-																</div>
-															</c:forEach>
-														</c:if>
-														 --%>
 													</div>
 												</div>
 											</c:forEach>
