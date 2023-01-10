@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.team01.myapp.attendance.model.Attendance;
+import com.team01.myapp.attendance.model.AttendanceList;
 import com.team01.myapp.attendance.service.IAttendanceService;
 
 @Controller
@@ -60,12 +61,12 @@ public class AttendanceController {
 				// 8시 전에 출근을 눌렀을 때
 				model.addAttribute("message", "아직 출근 시간 전입니다. 8시 이후에 눌러주세요.");
 				return "/home";
-			} else if(8 < time && time < 18) {
+			} else if(8 < time && time < 14) {
 				// 9시 이후에 출근을 눌렀을 때
 				attendance.setStatus("지각");
 			} else {
 				// 18시 24시까지 시간을 눌렀을 때
-				model.addAttribute("message", "너무 늦은 시간에 누르셨습니다. ㅠㅠ");
+				model.addAttribute("message", "너무 늦은 시간에 누르셨습니다. 휴가 신청만 가능합니다.");
 				return "/home";
 			}
 			
@@ -164,11 +165,19 @@ public class AttendanceController {
 		
 		String userId = (String) session.getAttribute("userId");
 		
-		List<Attendance> attendanceList = attendanceService.selectOneUserAttendanceList(userId);
+		List<AttendanceList> attendanceList = attendanceService.selectOneUserAttendanceList(userId);
 		
 		model.addAttribute("attendanceList", attendanceList);
 		
 		return "attendance/userList";
+	}
+	
+	// Home View
+	@RequestMapping(value="/attendance/attendanceMiniView")
+	public String attendanceMini(Attendance attendance, Model model) {
+		
+		
+		return "attendance/attendanceMiniView";
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.team01.myapp.attendance.model.Attendance;
+import com.team01.myapp.attendance.model.AttendanceList;
 
 public interface IAttendanceRepository {
 	List<Attendance> selectAttendanceList();
@@ -19,5 +20,5 @@ public interface IAttendanceRepository {
 	String selectAttTime(@Param("today") String today, @Param("userId") String userId);
 	String selectLeaveTime(@Param("today") String today, @Param("userId") String userId);
 
-	List<Attendance> selectOneUserAttendanceList(String userId);
+	List<AttendanceList> selectOneUserAttendanceList(String userId);
 }
