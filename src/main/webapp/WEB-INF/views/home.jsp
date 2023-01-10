@@ -28,6 +28,17 @@ html, body {
 				}
 			});
 		});
+		
+		$(document).ready(function() {
+			$.ajax({
+				url : "/myapp/attendance/attendanceMiniView",
+				type : "GET",
+				datatype : "html",
+				success : function(data) {
+					$('#attendanceMiniView').html(data);
+				}
+			});
+		});
 	</script>
 
 
@@ -54,7 +65,11 @@ html, body {
 					</div>
 				</div>
 				<div class="container row" style="width: 100%; height: 100%">
-					<div class="col-6">출결자리</div>
+					<div class="col-6">
+						<div id="attendanceMiniView" style="width:100%; height:100%">
+						
+						</div>
+					</div>
 					<div class="col-6 col-md">
 						게시판 추가
 						<div class="column" >
