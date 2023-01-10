@@ -3,6 +3,7 @@ package com.team01.myapp.admin.service;
 import java.util.List;
 
 import com.team01.myapp.admin.model.ReasonList;
+import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.admin.model.User;
 import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
@@ -17,4 +18,5 @@ public interface IAdminService {
 	UserUploadFile getFile(String userFileId);
 	void updateUser(User user, UserUploadFile file);
 	void updateUser(User user);
+	SubAttendance selectSubAttendanceDetail(int subAttNo);
 }
