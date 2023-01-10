@@ -1,6 +1,6 @@
 package com.team01.myapp.admin.dao;
 
-import java.util.List;
+import java.util.List; 
 
 import org.apache.ibatis.annotations.Param;
 
@@ -8,6 +8,7 @@ import com.team01.myapp.admin.model.ReasonList;
 import com.team01.myapp.admin.model.User;
 import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
+import com.team01.myapp.admin.model.SubAttendance;
 
 public interface IAdminRepository {
 	int selectTotalCategoryListNum(@Param("subjectId") int subjectId);
@@ -31,6 +32,8 @@ public interface IAdminRepository {
 	void updateFileData(UserUploadFile file);
 
 	void insertFileData(UserUploadFile file);
+
+	SubAttendance selectSubAttendanceDetail(int subAttNo);
 	
 
 

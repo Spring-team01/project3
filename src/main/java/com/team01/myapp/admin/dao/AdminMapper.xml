@@ -197,6 +197,29 @@
 	]]>
 	</insert>
 	
+	<select id="selectSubAttendanceDetail" parameterType="int" 
+		resultType="com.team01.myapp.admin.model.SubAttendance">
+		<![CDATA[
+			SELECT
+			    SUB_ATTENDANCE.SUB_ATT_NO as subAttNo,
+			    SUB_ATT_TIME as subAttTime,
+			    SUB_LEAVE_TIME as subLeaveTime,
+			    CONTENT as content,
+			    RESULT as result,
+			    SUB_ATTENDANCE_TITLE as subAttendanceTitle,
+			    SUB_ATT_DATE as subAttDate,
+			    SUB_STATUS as subStatus,
+			    U_ID as userId,
+			    SA_FILE_ID as fileId,
+			    SA_FILE_NAME as fileName,
+			    SA_FILE_SIZE as fileSize,
+			    SA_FILE_CONTENT_TYPE as fileContentType
+			FROM SUB_ATTENDANCE LEFT OUTER JOIN SUB_ATT_FILE
+			ON SUB_ATTENDANCE.SUB_ATT_NO = SUB_ATT_FILE.SUB_ATT_NO
+			WHERE SUB_ATTENDANCE.SUB_ATT_NO = #{subAttNo}
+		]]>
+	</select>
+	
 	
 	
 	

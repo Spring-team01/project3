@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.team01.myapp.admin.dao.IAdminRepository;
 import com.team01.myapp.admin.model.ReasonList;
+import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.admin.model.User;
 import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
@@ -82,6 +83,11 @@ public class AdminService implements IAdminService {
 				adminRepository.insertFileData(file);
 			}
 		}
+	}
+
+	@Override
+	public SubAttendance selectSubAttendanceDetail(int subAttNo) {
+		return adminRepository.selectSubAttendanceDetail(subAttNo);
 	}
 
 	

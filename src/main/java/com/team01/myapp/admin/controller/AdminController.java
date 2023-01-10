@@ -30,8 +30,7 @@ import com.team01.myapp.admin.model.UserInsert;
 import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
 import com.team01.myapp.admin.service.IAdminService;
-import com.team01.myapp.board.controller.BoardController;
-import com.team01.myapp.board.model.BoardUploadFile;
+import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.util.Pager;
 
 @Controller
@@ -170,10 +169,17 @@ public class AdminController {
 	
 	@RequestMapping(value="/admin/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session, HttpServletRequest request) {
-		session.invalidate(); //로그아웃
+		session.invalidate(); 
 		return "user/login";
 	}
 	
 	
+	
+	@RequestMapping(value="/admin/reasondetail/{subAttNo}", method=RequestMethod.GET)
+	public String getReason(@PathVariable int subAttNo, Model model) {
+		SubAttendance subAttendance = adminService.selectSubAttendanceDetail(subAttNo);
+		model.addAttribute("subAttendance", subAttendance);
+		return "admin/reasonDetail";
+	}
 
 }
