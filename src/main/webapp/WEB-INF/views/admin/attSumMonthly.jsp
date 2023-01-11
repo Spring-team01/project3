@@ -33,9 +33,9 @@
                   <div class="container-fluid py-4">
                      <div class="row">
                         <div class="form-inline m-2 justify-content-start "> 
-                           <button class="badge badge-sm bg-gradient-success">c언어</button>
-                           <button class="badge badge-sm bg-gradient-danger">python</button>
-                           <button class="badge badge-sm bg-gradient-info">java</button>
+                           <button onclick = "location.href = '<c:url value='/admin/attsummary/1'/>'" class="badge badge-sm bg-gradient-success">c언어</button>
+                           <button onclick = "location.href = '<c:url value='/admin/attsummary/2'/>'" class="badge badge-sm bg-gradient-danger">python</button>
+                           <button onclick = "location.href = '<c:url value='/admin/attsummary/3'/>'" class="badge badge-sm bg-gradient-info">java</button>
                            </div>
                         <div class="col-12">
 
@@ -53,7 +53,7 @@
                                        class="table align-items-center justify-content-center mb-0">
                                        <thead>
                                           <tr>
-                                             <td>과목</td>
+                                             <td>출근</td>
                                              <td>지각</td>
                                              <td>결근</td>
                                              <td>휴가</td>
@@ -61,10 +61,10 @@
                                        </thead>
                                        <tbody>
                                           <tr>
-                                             <td>c언어</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>4</td>
+                                             <td>${attSummaryVo.attendanceSum}</td>
+                                             <td>${attSummaryVo.lateSum}</td>
+                                             <td>${attSummaryVo.absenceSum}</td>
+                                             <td>${attSummaryVo.leaveSum}</td>
                                           </tr>
                                        </tbody>
                                     </table>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.team01.myapp.admin.model.AttSummaryVo;
 import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.User;
 import com.team01.myapp.admin.model.UserList;
@@ -42,4 +43,10 @@ public interface IAdminRepository {
 
 	void updateAtt(@Param("attNo")int attNo,@Param("subStatus")String subStatus, @Param("subAttTime")Timestamp subAttTime,  
 			@Param("subLeaveTime")Timestamp subLeaveTime);
+
+	AttSummaryVo selectAttSumMonthly(@Param("subjectId")int subjectId);
+
+	AttSummaryVo selectAttSumDaily(@Param("subjectId")int subjectId);
+
+	int selectTotalCountBySubject(int subjectId);
 }

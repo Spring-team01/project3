@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.team01.myapp.admin.dao.IAdminRepository;
+import com.team01.myapp.admin.model.AttSummaryVo;
 import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.admin.model.User;
@@ -54,8 +55,6 @@ public class AdminService implements IAdminService {
 		return adminRepository.selectFile(userFileId);
 	}
 
-	
-
 	@Override
 	public void insertUserFile(UserUploadFile file) {
 		file.setUserId("000000001");
@@ -93,37 +92,48 @@ public class AdminService implements IAdminService {
 	public Pager SubAttendanceListPage(String pageNo, Pager pager, int resultNum) {
 		// 전체 행수
 		int totalSubNum = adminRepository.selectTotalSubAttListByPNum(resultNum);
-		/*if (pageNo == null) {
-			pageNo = "1";
-		}*/
+		/*
+		 * if (pageNo == null) { pageNo = "1"; }
+		 */
 		int pagerNo = Integer.parseInt(pageNo);
 		pager = new Pager(5, 5, totalSubNum, pagerNo);
 		return pager;
 	}
-	
+
 	@Override
 	public List<SubAttList> getSubAttListbyRNum(int resultNum, Pager pager) {
 		int end = pager.getPageNo() * pager.getRowsPerPage();
 		int start = (pager.getPageNo() - 1) * pager.getRowsPerPage() + 1;
 		return adminRepository.selectSubAttListbyRNum(start, end, resultNum);
 	}
-			
-	
+
 	@Transactional
 	@Override
 	public void updateStatus(SubAttendance subAttendance, int result) {
 		int subAttNo = subAttendance.getSubAttNo();
-		//승인 
-		if(result == 1) {
+		// 승인
+		if (result == 1) {
 			String subStatus = subAttendance.getSubStatus();
 			Timestamp subAttTime = subAttendance.getSubAttTime();
 			Timestamp subLeaveTime = subAttendance.getSubleaveTime();
 			int attNo = subAttendance.getAttNo();
-			adminRepository.updateAtt(attNo,subStatus,subAttTime,subLeaveTime);
+			adminRepository.updateAtt(attNo, subStatus, subAttTime, subLeaveTime);
 		}
-		//승인 거절 상관없이 업데이트
+		// 승인 거절 상관없이 업데이트
 		adminRepository.updateSubatt(result, subAttNo);
-		
+
+	}
+
+	@Override
+	public AttSummaryVo attsumMonthly(int subjectId) {
+		return adminRepository.selectAttSumMonthly(subjectId);
+	}
+
+	@Override
+	public AttSummaryVo attSumDaily(int subjectId) {
+		AttSummaryVo attSummaryVo = adminRepository.selectAttSumDaily(subjectId);
+		int totalCount = adminRepository.selectTotalCountBySubject(subjectId);
+		return null;
 	}
 
 }

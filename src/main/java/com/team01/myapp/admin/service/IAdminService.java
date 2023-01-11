@@ -2,6 +2,7 @@ package com.team01.myapp.admin.service;
 
 import java.util.List;
 
+import com.team01.myapp.admin.model.AttSummaryVo;
 import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.admin.model.User;
@@ -21,4 +22,6 @@ public interface IAdminService {
 	SubAttendance selectSubAttendanceDetail(int subAttNo);
 	Pager SubAttendanceListPage(String pageNo, Pager pager, int resultNum);
 	void updateStatus(SubAttendance subAttendance, int result);
+	AttSummaryVo attsumMonthly(int subjectId);
+	AttSummaryVo attSumDaily(int subjectId);
 }

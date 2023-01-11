@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team01.myapp.admin.model.AttSummaryVo;
 import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.User;
 import com.team01.myapp.admin.model.UserInsert;
@@ -193,5 +194,19 @@ public class AdminController {
 		return "redirect:/admin/subattendancelist/1";
 		
 	}
-
+	//월별 조회
+	@RequestMapping(value="/admin/attsummonthly/{subjectId}", method=RequestMethod.GET)
+	public String attSumMonthly (@PathVariable int subjectId, Model model) {
+		AttSummaryVo attSummaryVo = adminService.attsumMonthly(subjectId);
+		model.addAttribute("attSummaryVo", attSummaryVo);
+		return "admin/attSumMonthly";
+	}
+	
+	//일별 조회
+		@RequestMapping(value="/admin/attsumdaily/{subjectId}", method=RequestMethod.GET)
+		public String attSumDaily (@PathVariable int subjectId, Model model) {
+			AttSummaryVo attSummaryVo = adminService.attSumDaily(subjectId);
+			model.addAttribute("attSummaryVo", attSummaryVo);
+			return "admin/attSumDaily";
+		}
 }

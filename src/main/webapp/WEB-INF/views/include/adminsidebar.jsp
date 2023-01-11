@@ -34,8 +34,8 @@
                         <i class="fa fa-caret-down"></i>
                     </a>    
                         <div class="dropdown-container">
-                    	<a href="<c:url value='/admin/attendancestatus/month'/>">월별</a>
-					    <a href="<c:url value='/admin/attendancestatus/daily'/>">일별</a>					   
+                    	<a href="<c:url value='/admin/attsummonthly/1'/>">월별</a>
+					    <a href="<c:url value='/admin/attsumdaily/1'/>">일별</a>					   
                     </div>
                     
                   
