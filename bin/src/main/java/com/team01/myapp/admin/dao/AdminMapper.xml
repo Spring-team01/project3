@@ -95,8 +95,8 @@
 	]]>		
 	</select>
 	
-	<select id="getReasonListbyResult" parameterType="map"
-		resultType="com.team01.myapp.admin.model.ReasonList">
+	<select id="getSubAttListbyRNum" parameterType="map"
+		resultType="com.team01.myapp.admin.model.SubAttList">
 		<![CDATA[
 		
 		select 

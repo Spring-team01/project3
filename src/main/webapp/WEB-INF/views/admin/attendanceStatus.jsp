@@ -9,7 +9,7 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/views/include/adminstaticFiles.jsp" />
-
+<link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />	
 </head>
 
 <body>
@@ -55,7 +55,7 @@
                                           <tr>
                                              <td>과목</td>
                                              <td>지각</td>
-                                             <td>결석</td>
+                                             <td>결근</td>
                                              <td>휴가</td>
                                           </tr>
                                        </thead>

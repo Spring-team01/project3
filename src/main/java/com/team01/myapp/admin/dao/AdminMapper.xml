@@ -268,25 +268,31 @@
 			<if test="result==2">
 			result='거절'	
 			</if>
-			<if test="status=='외출'">
-			result='승인'	
-			</if>
-					
 		WHERE 
 			sub_att_no=#{subAttNo}
 	
 	</update>
 	
 	<update id="updateAtt" parameterType="map">
-	<![CDATA[
 		UPDATE 
 			attendance
 		SET 
-			status='휴가'			
+			status='휴가'	
+			<if test='subStatus == "조퇴"'>
+			,
+			leave_time = #{subLeaveTime}
+			</if>
+			<if test='subStatus == "경조사" or subStatus == "공가"'>
+			,
+			att_time = #{subAttTime},
+			leave_time = #{subLeaveTime}
+			</if>
+				
 		WHERE 
 			att_no=#{attNo}
-	]]>
 	</update>
+	
+	
 
 
 

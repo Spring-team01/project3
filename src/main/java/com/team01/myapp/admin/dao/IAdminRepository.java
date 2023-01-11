@@ -1,5 +1,6 @@
 package com.team01.myapp.admin.dao;
 
+import java.sql.Timestamp;
 import java.util.List; 
 
 import org.apache.ibatis.annotations.Param;
@@ -37,10 +38,8 @@ public interface IAdminRepository {
 
 	int selectTotalSubAttListByPNum(int resultNum);
 
-	void updateSubatt(@Param("subAttendance")SubAttendance subAttendance, @Param("result") int result);
+	void updateSubatt(@Param("result") int result, @Param("subAttNo")int subAttNo);
 
-	void updateAtt(@Param("status")String status, @Param("result") int result);
-	
-
-
+	void updateAtt(@Param("attNo")int attNo,@Param("subStatus")String subStatus, @Param("subAttTime")Timestamp subAttTime,  
+			@Param("subLeaveTime")Timestamp subLeaveTime);
 }
