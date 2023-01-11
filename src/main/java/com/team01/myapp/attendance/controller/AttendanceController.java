@@ -172,8 +172,38 @@ public class AttendanceController {
 	
 	// Home View
 	@RequestMapping(value="/attendance/attendanceMiniView")
-	public String attendanceMini(Attendance attendance, Model model) {
+	public String attendanceMini(Attendance attendance, HttpSession session, Model model) {
 		
+		String userId = (String) session.getAttribute("userId");
+		int subjectId = (Integer) session.getAttribute("subjectId");
+		
+		List<Attendance> list = attendanceService.selectCheck(userId);
+		
+		String subjectName = attendanceService.selectSubjectName(subjectId);
+		
+		int attendanceCount = 0;
+		int lateCount = 0;
+		int vacationCount = 0;
+		int AbsenteeismCount = 0;
+		
+		for(int i=0; i<list.size(); i++) {
+			String status = list.get(i).getStatus();
+			
+			if(status.equals("출근")) {
+				attendanceCount ++;
+			} else if(status.equals("지각")) {
+				lateCount ++;
+			} else if(status.equals("휴가")) {
+				vacationCount ++;
+			} else if(status.equals("결근")) {
+				AbsenteeismCount ++;
+			}
+		}
+		model.addAttribute("subjectName", subjectName);
+		model.addAttribute("attendanceCount", attendanceCount);
+		model.addAttribute("lateCount", lateCount);
+		model.addAttribute("vacationCount", vacationCount);
+		model.addAttribute("AbsenteeismCount", AbsenteeismCount);
 		
 		return "attendance/attendanceMiniView";
 	}
