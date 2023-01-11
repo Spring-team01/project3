@@ -57,4 +57,7 @@ public interface IBoardRepository {
 	int selectNestedCommentCount(int bcReplyNo);
 	void deleteNestedCommentAlso(int bcReplyNo);
 	
+	//메인 미니뷰 기능 
+	List<Board> selectBoardMiniList();
+	
 }

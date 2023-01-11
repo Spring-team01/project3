@@ -100,7 +100,7 @@
 								    <div class="form-group">
 								      <label class="control-label col-sm-2" for="content"><fmt:message key="CONTENT"/></label>
 								      <div class="col-sm-8">
-								        <textarea name="content" rows="15" cols="100" class="form-control" placeholder="게시글 입력"></textarea>
+								        <textarea name="content" rows="15" cols="100" class="form-control" placeholder="게시글 입력" wrap="hard"></textarea>
 								      </div>
 								    </div>
 								    <div class="form-group"> 

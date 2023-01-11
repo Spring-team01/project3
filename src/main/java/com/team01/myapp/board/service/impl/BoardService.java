@@ -126,7 +126,7 @@ public class BoardService implements IBoardService {
 	public String getPassword(int boardId) {
 		return boardRepository.getPassword(boardId);
 	}
-
+	//수정 
 	@Override
 	public void updateArticle(Board board) {
 		boardRepository.updateArticle(board);
@@ -134,6 +134,7 @@ public class BoardService implements IBoardService {
 
     @Transactional
 	public void updateArticle(Board board, BoardUploadFile file) {
+    	System.out.println(board.getContent());
 		boardRepository.updateArticle(board);
 		if(file !=null && file.getBoardFileName() !=null && !file.getBoardFileName().equals("")){
 			file.setBoardId(board.getBoardId());
@@ -195,6 +196,11 @@ public class BoardService implements IBoardService {
 	@Override
 	public void deleteNestedComment(int bcReplyNo) {
 		boardRepository.deleteNestedComment(bcReplyNo);
+	}
+
+	@Override
+	public List<Board> getBoardMiniList() {
+		return boardRepository.selectBoardMiniList();
 	}
 	
 	 
