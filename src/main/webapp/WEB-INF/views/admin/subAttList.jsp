@@ -9,7 +9,7 @@
 <html>
 <head>
 	<jsp:include page="/WEB-INF/views/include/adminstaticFiles.jsp" />
-	<link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
+	
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/include/adminheader.jsp" />

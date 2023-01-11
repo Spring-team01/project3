@@ -1,5 +1,6 @@
 package com.team01.myapp.admin.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,16 +107,22 @@ public class AdminService implements IAdminService {
 		int start = (pager.getPageNo() - 1) * pager.getRowsPerPage() + 1;
 		return adminRepository.selectSubAttListbyRNum(start, end, resultNum);
 	}
-
+			
+	
+	@Transactional
 	@Override
-	public void updateSubatt(SubAttendance subAttendance, int result) {
-		adminRepository.updateSubatt(subAttendance,result);
-	}
-
-	@Override
-	public void updateAtt(SubAttendance subAttendance, int result) {
-		String status = subAttendance.getSubStatus();
-		adminRepository.updateAtt(status,result);
+	public void updateStatus(SubAttendance subAttendance, int result) {
+		int subAttNo = subAttendance.getSubAttNo();
+		//승인 
+		if(result == 1) {
+			String subStatus = subAttendance.getSubStatus();
+			Timestamp subAttTime = subAttendance.getSubAttTime();
+			Timestamp subLeaveTime = subAttendance.getSubleaveTime();
+			int attNo = subAttendance.getAttNo();
+			adminRepository.updateAtt(attNo,subStatus,subAttTime,subLeaveTime);
+		}
+		//승인 거절 상관없이 업데이트
+		adminRepository.updateSubatt(result, subAttNo);
 		
 	}
 

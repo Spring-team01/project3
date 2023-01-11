@@ -89,7 +89,6 @@ public class AdminController {
 		return "admin/updateUser";
 	}
 	
-	@Transactional
 	@RequestMapping(value="/admin/update", method=RequestMethod.POST)
 	public String updateUser(User user, BindingResult result, RedirectAttributes redirectAttrs, HttpSession session) {
 		logger.info("/admin/update " + user.toString());
@@ -182,19 +181,16 @@ public class AdminController {
 	public String getReason(@PathVariable int subAttNo, Model model) {
 		SubAttendance subAttendance = adminService.selectSubAttendanceDetail(subAttNo);
 		model.addAttribute("subAttendance", subAttendance);
-		System.out.println(subAttendance.toString());
 		return "admin/reasonDetail";
 	}
 	
 	//result = 1 -> 승인
 	//result = 2 -> 반려
-	@Transactional
 	@RequestMapping(value="/admin/updatestatus/{subAttNo}/{result}", method=RequestMethod.GET)
 	public String updateStatus(@PathVariable int subAttNo, @PathVariable int result, Model model) {
 		SubAttendance subAttendance = adminService.selectSubAttendanceDetail(subAttNo);
-		adminService.updateSubatt(subAttendance,result);
-		adminService.updateAtt(subAttendance,result);
-		return "admin/adminHome";
+		adminService.updateStatus(subAttendance,result);
+		return "redirect:/admin/subattendancelist/1";
 		
 	}
 

@@ -20,6 +20,5 @@ public interface IAdminService {
 	void updateUser(User user);
 	SubAttendance selectSubAttendanceDetail(int subAttNo);
 	Pager SubAttendanceListPage(String pageNo, Pager pager, int resultNum);
-	void updateSubatt(SubAttendance subAttendance, int result);
-	void updateAtt(SubAttendance subAttendance, int result);
+	void updateStatus(SubAttendance subAttendance, int result);
 }
