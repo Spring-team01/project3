@@ -2,7 +2,7 @@
 
 .date {
 	font-size : 25px;
-	color : green;
+	color : #444C38;
 	text-align : center;
 	margin-right:20px;
 }
@@ -11,18 +11,19 @@
 	
 	font-size : 25px;
 	font-weight : bold;
-	color : green;
+	color : #444C38;
 	text-align : center;
 }
 .clock-sub-box{
 	width: 370px;
-	height : 65px;
+	height : 55px;
 	text-align : center;
 	justify-content: center;
 	margin-top:20px;
-	margin-left:100px;
-	padding:10px;
-	border: 2px solid gray;
-	border-radius:30px;
+	margin-left:80px;
+	padding: 5px;
+	border-radius:10px;
 	box-shadow:0 2px 4px 0 rgba(0,0,0,0.1), 0 3px 10px 0 rgba(0,0,0,0.08);
+	border:2px solid gray;
+
 }

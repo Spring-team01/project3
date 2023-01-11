@@ -308,14 +308,15 @@
 	<!-- 리플기능  -->
 	<select id ="selectBoardComment" parameterType="int" resultType="com.team01.myapp.board.model.BoardComment">
 		SELECT
-		    BOARD.BOARD_ID			AS "boardId",
-            B_COMMENT.U_ID          AS "userId",
+		    b.BOARD_ID			AS "boardId",
+		    c.U_ID          AS "userId",
 		    BC_REPLY_NO	AS "bcReplyNo",
 		    BC_CONTENT	AS "bcContent",
-		    BC_WRITE_DATE AS "bcWriteDate"
-		FROM BOARD LEFT OUTER JOIN B_COMMENT
-		    ON BOARD.BOARD_ID=B_COMMENT.BOARD_ID
-		WHERE BOARD.BOARD_ID=#{boardId} AND BC_REPLY_STEP=0
+		    BC_WRITE_DATE AS "bcWriteDate",
+		    u.U_FILE_ID AS "userFileId"
+		FROM u_file u, BOARD b LEFT OUTER JOIN B_COMMENT c 
+		    ON b.BOARD_ID=c.BOARD_ID 
+		WHERE b.BOARD_ID=#{boardId} AND BC_REPLY_STEP=0 and u.u_Id = b.u_id
 		ORDER BY BC_WRITE_DATE DESC
 	</select>
 	
@@ -331,14 +332,15 @@
 	<!-- 대댓글 기능  -->
 	<select id ="selectNestedComments" parameterType="int" resultType="com.team01.myapp.board.model.BoardComment">
 		SELECT
-		    BOARD.BOARD_ID			AS "boardId",
-            B_COMMENT.U_ID          AS "userId",
+		    b.BOARD_ID			AS "boardId",
+		    c.U_ID          AS "userId",
 		    BC_REPLY_NO	AS "bcReplyNo",
 		    BC_CONTENT	AS "bcContent",
-		    BC_WRITE_DATE AS "bcWriteDate"
-		FROM BOARD LEFT OUTER JOIN B_COMMENT
-		    ON BOARD.BOARD_ID=B_COMMENT.BOARD_ID
-		WHERE BC_MASTER_NO=#{bcReplyNo} AND BC_REPLY_STEP=1
+		    BC_WRITE_DATE AS "bcWriteDate",
+		    u.U_FILE_ID AS "userFileId"
+		FROM u_file u, BOARD b LEFT OUTER JOIN B_COMMENT c 
+		    ON b.BOARD_ID=c.BOARD_ID 
+		WHERE c.BC_MASTER_NO=#{bcReplyNo} AND BC_REPLY_STEP=1 and u.u_Id = b.u_id
 		ORDER BY BC_WRITE_DATE DESC
 	</select>
 	

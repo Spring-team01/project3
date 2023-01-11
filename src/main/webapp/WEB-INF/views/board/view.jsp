@@ -284,7 +284,9 @@
 														<div class="d-flex align-items-center">
 															<div>
 																<div class="flex-shrink-0">
-																	<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+																	<img class="rounded-circle" 
+																	src='<c:url value="/admin/userdetail/userfile/${commentOne.userFileId}"/>' 
+																	alt="..."  style="width: 50px; height: 50px;"/>
 																</div>
 															</div>
 															<div class="flex-fill mx-3 text-left">

@@ -21,7 +21,9 @@
 			<div class="d-flex mb-4">
 				<!-- Parent comment-->
 				<div class="flex-shrink-0">
-					<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+					<img class="rounded-circle" 
+					src='<c:url value="/admin/userdetail/userfile/${reply.userFileId}"/>' 
+					alt="..."  style="width: 50px; height: 50px;"/>
 				</div>
 				<div class="ms-3  flex-fill">
 					<div class="d-flex "> 
