@@ -102,7 +102,6 @@ public class CommunityController {
 		Community community = communityService.readCommunityDetail(communityBoardId);
 		community.setUserName((String) session.getAttribute("userName"));
 		List<CommunityComment> commentList = communityService.getCommunityComment(communityBoardId);
-		
 		model.addAttribute("community", community);
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("sessionUserId", (String) session.getAttribute("userId"));
@@ -251,6 +250,7 @@ public class CommunityController {
 	@ResponseBody
 	public String writeReplyComment(CommunityComment comment, HttpSession session) {
 		comment.setUserId((String) session.getAttribute("userId"));	
+		System.out.println(comment.toString());
 		communityService.insertReplyCommunityComment(comment);
 		
 		return "1";
