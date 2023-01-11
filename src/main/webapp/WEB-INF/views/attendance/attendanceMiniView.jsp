@@ -21,8 +21,8 @@
 						<tr>
 							<td>출석</td>
 							<td>지각</td>
-							<td>결석</td>
-							<td>미처리</td>
+							<td>휴가</td>
+							<td>결근</td>
 						</tr>
 					</thead>
 					<tbody>
