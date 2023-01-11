@@ -107,10 +107,10 @@ public class CommunityService implements ICommunityService {
 	@Override
 	@Transactional
 	public void writeCommunityReply(CommunityComment comment) {
-		
-		communityRepository.updateCommunityReplyNumber(comment.getCommunityBoardId());
-		/*comment.setCommunityCommentNo(comment.getCommunityCommentReplyNumber()+1);*/
 		communityRepository.writeCommunityReply(comment);
+		communityRepository.updateCommunityReplyNumber(comment.getCommunityBoardId());
+		communityRepository.updateCommentMasterNumber(comment.getCommunityBoardId());
+		
 	}
 	
 	// 글 삭제

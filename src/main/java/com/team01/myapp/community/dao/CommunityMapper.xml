@@ -2,63 +2,64 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.team01.myapp.community.dao.ICommunityRepository">
-	<select id="getCommunityListByCategory"
-		parameterType="map"
+	<select id="getCommunityListByCategory" parameterType="map"
 		resultType="com.team01.myapp.community.model.Community">
 		<![CDATA[
-		
-		select 
-			 rownum,
-		     C_BOARD_ID as "communityBoardId", 
-		     C_CATEGORY_ID as "communityCategoryId",
-		     C_EMAIL as "communityEmail",
-		     C_PASSWORD as "communityPassword",
-		     C_TITLE as "communityTitle",
-		     C_WRITE_DATE as "communityWriteDate",
-		     C_READ_COUNT as "communityReadCount",
-		     U_ID as "usersId",
-		     C_CONTENT as "communityContent"
-			from(
-				select 
+		select
+			rownum,
+			m.C_BOARD_ID "communityBoardId",
+			m.C_CATEGORY_ID as "communityCategoryId",
+			m.C_EMAIL as "communityEmail",
+			m.C_PASSWORD as "communityPassword",
+			m.C_TITLE as "communityTitle",
+			m.C_WRITE_DATE as "communityWriteDate", 
+			m.C_READ_COUNT as "communityReadCount",
+			m.u_id as "usersId",
+			m.C_CONTENT as "communityContent",
+			m.C_REPLY_NUMBER as "communityReplyNumber",
+			m.U_NAME as "userUserName",
+			m.EMAIL as "userUserEmail"
+					from(
+					select
 					rownum as rnum,
-		            C_BOARD_ID ,
-				    C_CATEGORY_ID ,
-				    C_EMAIL ,
-				    C_PASSWORD ,
-				    C_TITLE ,
-				    C_WRITE_DATE , 
-				    C_READ_COUNT ,
-				    U_ID ,
-				    C_CONTENT 
-				from(
-				select      C_BOARD_ID ,
-						    C_CATEGORY_ID ,
-						    C_EMAIL ,
-						    C_PASSWORD ,
-						    C_TITLE ,
-						    C_WRITE_DATE , 
-						    C_READ_COUNT ,
-						    U_ID ,
-						    C_CONTENT 
+					t.C_BOARD_ID,
+					t.C_CATEGORY_ID ,
+					t.C_EMAIL ,
+					t.C_PASSWORD ,
+					t.C_TITLE ,
+					t.C_WRITE_DATE , 
+					t.C_READ_COUNT ,
+					t.u_id,
+					t.C_CONTENT,
+					t.C_REPLY_NUMBER,
+					t.U_NAME,
+					t.EMAIL
 						from(
-						    select 
-						        C_BOARD_ID ,
-						        C_CATEGORY_ID ,
-						        C_EMAIL  ,
-						        C_PASSWORD ,
-						        C_TITLE ,
-						        C_WRITE_DATE ,
-						        C_READ_COUNT ,
-						        U_ID ,
-						        C_CONTENT
-		                
-				            from community
-				        )
-				order by C_BOARD_ID desc
-				) 
-				where rownum <= #{end}
-				) 
-				where rnum >= #{start}
+						select
+						c.C_BOARD_ID,
+						c.C_CATEGORY_ID ,
+						c.C_EMAIL ,
+						c.C_PASSWORD ,
+						c.C_TITLE ,
+						c.C_WRITE_DATE , 
+						c.C_READ_COUNT ,
+						c.U_ID as "userId",
+						c.C_CONTENT,
+						c.C_REPLY_NUMBER,
+						u.U_ID,
+						u.U_NAME,
+						u.EMAIL
+						from community c
+						inner join (select 
+						u_id, u_name, email
+						from users
+						) u
+							on c.u_id = u.u_id
+							order by c.C_BOARD_ID desc
+							) t
+								where rownum <= #{end}
+								) m
+									where rnum >= #{start}
 		]]>
 
 	</select>
@@ -97,8 +98,9 @@
 			where c_board_id = #{communityBoardId}
 		]]>
 	</update>
-	
-	<select id="readCommunityDetail" parameterType="int" resultType="com.team01.myapp.community.model.Community">
+
+	<select id="readCommunityDetail" parameterType="int"
+		resultType="com.team01.myapp.community.model.Community">
 		<![CDATA[
 			select
 				COMMUNITY.C_BOARD_ID as "communityBoardId", 
@@ -121,15 +123,17 @@
 			where COMMUNITY.c_board_id = #{communityBoardId}
 		]]>
 	</select>
-	<select id="selectMaxFileId" parameterType="int" resultType="int">
+	<select id="selectMaxFileId" parameterType="int"
+		resultType="int">
 		<![CDATA[
 			select 
 			    nvl(max(c_file_id), 0) as "communityFileId"
 			 from c_file
 		]]>
 	</select>
-	
-	<insert id="insertFileData" parameterType="com.team01.myapp.community.model.CommunityFile">
+
+	<insert id="insertFileData"
+		parameterType="com.team01.myapp.community.model.CommunityFile">
 		<![CDATA[
 			insert into C_FILE
 				(C_FILE_ID, C_FILE_NAME, C_FILE_SIZE, C_FILE_CONTENT_TYPE, C_FILE_DATA, C_BOARD_ID)
@@ -138,8 +142,9 @@
 			
 		]]>
 	</insert>
-	
-	<select id="getFile" parameterType="int" resultType="com.team01.myapp.community.model.CommunityFile">
+
+	<select id="getFile" parameterType="int"
+		resultType="com.team01.myapp.community.model.CommunityFile">
 		<![CDATA[
 			select
 			    C_FILE_ID as "communityFileId",
@@ -152,11 +157,11 @@
 			where C_BOARD_ID = #{communityCBoardId}
 		]]>
 	</select>
-	
-	
-	
-	
-	
+
+
+
+
+
 	<update id="updateCommunityReplyNumber" parameterType="int">
 		<![CDATA[
 		update community
@@ -164,8 +169,10 @@
    	 	where C_BOARD_ID = #{communityBoardId}
 		]]>
 	</update>
-	
-	<insert id="writeCommunityReply" parameterType="com.team01.myapp.community.model.CommunityComment">
+
+
+	<insert id="writeCommunityReply"
+		parameterType="com.team01.myapp.community.model.CommunityComment">
 		<![CDATA[
 		insert into C_COMMENT
    			( CC_COMMENT_NO,
@@ -173,29 +180,66 @@
   			 U_ID,
     		CC_CONTENT,
     		C_BOARD_ID,
-    		CC_REPLY_NUMBER )
-		values (SEQ_CC_COMMENT_NO.nextval, sysdate, #{userId}, #{communityCommentContent}, #{communityBoardId}, #{communityCommentReplyNumber})
+    		CC_REPLY_NUMBER,
+            CC_MASTER_NUMBER )
+		values (SEQ_CC_COMMENT_NO.nextval, sysdate, #{userId}, #{communityCommentContent}, 
+		#{communityBoardId}, #{communityCommentReplyNumber}, #{communityCommentMasterNumber} )
 		]]>
 	</insert>
-	
-	
-	<select id="getCommunityCommentList" parameterType="int" resultType="com.team01.myapp.community.model.CommunityComment">
+
+
+	<select id="getCommunityCommentList" parameterType="int"
+		resultType="com.team01.myapp.community.model.CommunityComment">
 		<![CDATA[
-			select 
-			    c_comment.CC_COMMENT_NO as "communityCommentNo",
-			    c_comment.CC_WRITE_DATE as "communityCommentWriteDate",
-			    c_comment.U_ID as "userId",
-			    c_comment.CC_CONTENT as "communityCommentContent",
-			    c_comment.CC_REPLY_NUMBER as "communityCommentReplyNumber",
-			    c_comment.CC_MASTER_NUMBER as "communityCommentMasterNumber"
-			from community left outer join c_comment
-			on community.c_board_id = c_comment.C_BOARD_ID
-			where community.c_board_id = #{communityBoardId}
-			order by CC_COMMENT_NO asc
+				select
+	                m.CC_COMMENT_NO as "communityCommentNo",
+				    m.CC_WRITE_DATE as "communityCommentWriteDate",
+				    m.U_ID as "userId",
+				    m.CC_CONTENT as "communityCommentContent",
+				    m.CC_REPLY_NUMBER as "communityCommentReplyNumber",
+				    m.CC_MASTER_NUMBER as "communityCommentMasterNumber",
+	                m.U_FILE_ID as "userFileId",
+	                m.U_FILE_NAME as "userFileName",
+	                m.U_FILE_SIZE as "userFileSize",
+	                m.U_FILE_CONTENT_TYPE as "userFileContentType",
+	                m.U_FILE_DATA as "userFileData",
+	                u.U_NAME as "userName",
+	                u.EMAIL as "userEmail"
+				from(
+				select 
+				                t.CC_COMMENT_NO,
+							    t.CC_WRITE_DATE,
+							    t.U_ID,
+							    t.CC_CONTENT,
+							    t.CC_REPLY_NUMBER,
+							    t.CC_MASTER_NUMBER,
+				                f.U_FILE_ID,
+				                f.U_FILE_NAME,
+				                f.U_FILE_SIZE,
+				                f.U_FILE_CONTENT_TYPE,
+				                f.U_FILE_DATA
+	                
+				from(select 
+							    c_comment.CC_COMMENT_NO ,
+							    c_comment.CC_WRITE_DATE ,
+							    c_comment.U_ID ,
+							    c_comment.CC_CONTENT ,
+							    c_comment.CC_REPLY_NUMBER ,
+							    c_comment.CC_MASTER_NUMBER
+				                
+				        from community left outer join c_comment
+				        on community.c_board_id = c_comment.C_BOARD_ID
+				        where community.c_board_id = #{communityBoardId}
+				        order by CC_MASTER_NUMBER asc ) t
+				        join u_file f
+				        on t.U_ID = f.U_ID)m
+				        join users u
+				        on m.U_ID = u.U_ID
 		]]>
 	</select>
-	
-	<update id="updateCommunity" parameterType="com.team01.myapp.community.model.Community">
+
+	<update id="updateCommunity"
+		parameterType="com.team01.myapp.community.model.Community">
 	<![CDATA[
 		UPDATE 
         		community
@@ -207,8 +251,9 @@
         		C_BOARD_ID=#{communityBoardId}
 	]]>
 	</update>
-	
-	<update id="updateFileData" parameterType="com.team01.myapp.community.model.CommunityFile">
+
+	<update id="updateFileData"
+		parameterType="com.team01.myapp.community.model.CommunityFile">
 	<![CDATA[
 		UPDATE 
 			C_FILE
@@ -219,9 +264,9 @@
 			C_FILE_ID=#{communityFileId}
 	]]>
 	</update>
-	
-	
-	
+
+
+
 	<delete id="deleteFileData" parameterType="int">
 	<![CDATA[
 		DELETE FROM C_FILE
@@ -237,7 +282,7 @@
 			C_BOARD_ID=#{communityBoardId}
 	]]>
 	</delete>
-	
+
 	<select id="getPassword" parameterType="int" resultType="String">
 		<![CDATA[
 			select C_PASSWORD as "communityPassword"
@@ -245,8 +290,9 @@
 			where C_BOARD_ID = #{communityBoardId}
 		]]>
 	</select>
-	
-	<select id="selectSearchCommunity" parameterType="string" resultType="int">
+
+	<select id="selectSearchCommunity" parameterType="string"
+		resultType="int">
 		<![CDATA[
 			SELECT COUNT(C_BOARD_ID) AS "count"
 			FROM community
@@ -256,8 +302,7 @@
 				C_CONTENT LIKE #{keyword}
 		]]>
 	</select>
-	<select id="selectSearchCommunityList"
-		parameterType="map"
+	<select id="selectSearchCommunityList" parameterType="map"
 		resultType="com.team01.myapp.community.model.Community">
 		<![CDATA[
 		
@@ -297,8 +342,9 @@
 		]]>
 
 	</select>
-	
-	<select id="readCountListByCategory" parameterType="int" resultType="com.team01.myapp.community.model.Community">
+
+	<select id="readCountListByCategory" parameterType="int"
+		resultType="com.team01.myapp.community.model.Community">
 		<![CDATA[
 			select
 				C_BOARD_ID as "communityBoardId", 
@@ -328,7 +374,15 @@
              where rownum <6
 		]]>
 	</select>
-	
-	
+
+	<update id="updateCommentMasterNumber" parameterType="int">
+		<![CDATA[
+			update c_comment
+    		set CC_MASTER_NUMBER = CC_MASTER_NUMBER+1
+			where C_BOARD_ID = #{communityBoardId}
+		]]>
+	</update>
+
+
 
 </mapper>

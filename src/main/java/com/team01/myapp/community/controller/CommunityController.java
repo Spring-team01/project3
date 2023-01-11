@@ -102,7 +102,7 @@ public class CommunityController {
 		Community community = communityService.readCommunityDetail(communityBoardId);
 		community.setUserName((String) session.getAttribute("userName"));
 		List<CommunityComment> commentList = communityService.getCommunityComment(communityBoardId);
-
+		
 		model.addAttribute("community", community);
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("sessionUserId", (String) session.getAttribute("userId"));
@@ -236,12 +236,11 @@ public class CommunityController {
 	}
 	
 	//대댓글 조회하기
-	@RequestMapping(value="/community/getreplycomment/{communityBoardId}")
-	@ResponseBody
-	public List<CommunityComment> getReplyCommnet(@RequestParam int communityBoardId) {
+	@RequestMapping(value="/community/getreplycomment", method=RequestMethod.GET)
+	public String getReplyCommnet(@RequestParam int communityCommentMasterNumber, Model model) {
+		System.out.println(communityCommentMasterNumber);
 		
-		
-		return communityService.getCommunityComment(communityBoardId);
+		return "community/communityReply";
 	}
 	
 	
@@ -256,5 +255,8 @@ public class CommunityController {
 		
 		return "community/communityMiniView";
 	}
+	
+	
+	
 
 }

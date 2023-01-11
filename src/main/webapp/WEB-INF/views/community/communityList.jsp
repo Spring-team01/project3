@@ -71,13 +71,15 @@
 															<!-- <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1"> -->
 														</div>
 														<div class="d-flex flex-column justify-content-center">
-															<h6 class="mb-0 text-sm">${community.usersId}</h6>
-															<p class="text-xs text-secondary mb-0">${community.communityEmail}</p>
+															<h6 class="mb-0 text-sm">${community.userUserName}</h6>
+															<p class="text-xs text-secondary mb-0">${community.usersId}</p>
 														</div>
 													</div>
 												</td>
 												<td>
-													<a href="<c:url value='/community/communityDetail/${community.communityBoardId}'/>" class="mb-0 text-sm">${community.communityTitle}</a>
+													<a href="<c:url value='/community/communityDetail/${community.communityBoardId}'/>" 
+													class="mb-0 text-sm">${community.communityTitle}  [${community.communityReplyNumber}]
+													</a>
 												</td>
 												<td class="align-middle text-center text-sm">
 													<span class="text-secondary text-xs font-weight-bold">${community.communityReadCount}</span>

@@ -9,9 +9,17 @@ public class CommunityComment {
 	private DATE communityCommentWriteDate;
 	private String userId;
 	private String userName;
+	private String userEmail;
 	private String communityCommentContent;
 	private int communityBoardId;
 	private int communityCommentReplyNumber;
 	private int communityCommentMasterNumber;
+	
+	private int userFileId;
+	private String userFileName;
+	private long userFileSize;
+	private String userFileContentType;
+	private byte[] userFileData;
+	
 	
 }

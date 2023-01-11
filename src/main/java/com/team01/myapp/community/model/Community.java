@@ -27,4 +27,7 @@ public class Community {
 	
 	private String communityContent;
 	private int communityReplyNumber;
+	
+	private String userUserName;
+	private String userUserEmail;
 }
