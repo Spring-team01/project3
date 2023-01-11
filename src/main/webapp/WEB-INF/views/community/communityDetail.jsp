@@ -101,7 +101,7 @@
 									</c:if>
 									<a type="button" href="<c:url value='/community/communityList/1/1'/>" class="btn btn-dark shadow">글 목록</a>
 									<form class="mb-4" action="<c:url value='/community/reply/comment'/>" method="post">
-										<textarea name="communityCommentContent" class="form-control" rows="3" placeholder="댓글 작성"></textarea>
+										<textarea name="communityCommentContent" class="form-control" rows="3" placeholder="댓글 작성" required></textarea>
 										<input type="submit" class="btn btn-dark shadow" value="댓글 작성" required>
 										<input type="hidden" name="communityBoardId" value="${community.communityBoardId}">
 									</form>
