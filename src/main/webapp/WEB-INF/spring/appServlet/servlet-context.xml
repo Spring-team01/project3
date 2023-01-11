@@ -59,16 +59,12 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path = "/community/write/**" />
-			<mapping path = "/community/reply/comment/**" />
-			<mapping path = "/community/update/**" />
-			<mapping path = "/community/communityUpdate/**" />
-			<mapping path = "/community/delete/**" />
-			<mapping path = "/board/write/**" />
-			<mapping path = "/board/comment/**" />
-			<mapping path = "/board/reply/**" />
-			<mapping path = "/admin/**"/>
-			<mapping path = "/home/**"/>
+			<mapping path = "/home" />
+			<mapping path = "/community/**" />
+			<mapping path = "/board/**" />
+			<mapping path = "/attendance/**" />
+			<mapping path = "/subattendance/**" />
+			<mapping path = "/admin/**" />
 			<beans:bean class= "com.team01.myapp.filter.LoginInterceptor" /> 
 		</interceptor>	
 	</interceptors>

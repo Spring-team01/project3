@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		events: [
 			<c:forEach items = "${attendanceList}" var="list">
 				<c:if test="${list.status ne '미출석'}">
-					<c:if test="${list.status eq '휴가' || ((fn:substring(list.leaveTime,0,2) - fn:substring(list.attTime,0,2)) * 60) + (fn:substring(list.leaveTime,3,5) - fn:substring(list.attTime,3,5)) > 240}">	
+					<c:if test="${list.status eq '결근' || list.status eq '휴가' || ((fn:substring(list.leaveTime,0,2) - fn:substring(list.attTime,0,2)) * 60) + (fn:substring(list.leaveTime,3,5) - fn:substring(list.attTime,3,5)) > 240}">	
 						{
 							title : '${list.attTime} [${list.status}]',
 							start : '${list.attDate}',
@@ -40,6 +40,10 @@ document.addEventListener('DOMContentLoaded', function() {
 							<c:if test="${list.status eq '휴가'}">
 								backgroundColor : '#66BB6A',
 								borderColor : '#66BB6A'
+							</c:if>
+							<c:if test="${list.status eq '결근'}">
+							backgroundColor : '#808080',
+							borderColor : '#808080'
 							</c:if>
 						},
 						<c:if test="${list.leaveTime != null}">
@@ -57,6 +61,10 @@ document.addEventListener('DOMContentLoaded', function() {
 								<c:if test="${list.status eq '휴가'}">
 									backgroundColor : '#66BB6A',
 									borderColor : '#66BB6A'
+								</c:if>
+								<c:if test="${list.status eq '결근'}">
+								backgroundColor : '#808080',
+								borderColor : '#808080'
 								</c:if>
 						},
 						</c:if>

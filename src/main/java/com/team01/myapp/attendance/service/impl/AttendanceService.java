@@ -63,7 +63,7 @@ public class AttendanceService implements IAttendanceService {
 		List<Attendance> list = AttendanceRepository.selectCheckOutAttNo(today);
 		
 		for(int i=0; i<list.size(); i++) {
-			System.out.println("update userId : " + list.get(i).getAttNo());
+			System.out.println("update attNo : " + list.get(i).getAttNo());
 			AttendanceRepository.updateCheckOut(list.get(i).getAttNo());
 		}
 		
@@ -73,6 +73,16 @@ public class AttendanceService implements IAttendanceService {
 			System.out.println("insert userId : " + list.get(i).getUserId());
 			System.out.println("insert subjectId : " + list.get(i).getSubjectId());
 			AttendanceRepository.insertCheckOut(list.get(i).getUserId(), list.get(i).getSubjectId());
+		}
+	}
+	
+	@Override
+	public void checkOut2(String today) {
+		List<Attendance> list = AttendanceRepository.selectCheckOutAttNo2(today);
+		
+		for(int i=0; i<list.size(); i++) {
+			System.out.println("update attNo : " + list.get(i).getAttNo());
+			AttendanceRepository.updateCheckOut(list.get(i).getAttNo());
 		}
 	}
 

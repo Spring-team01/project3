@@ -22,6 +22,8 @@ public interface IAttendanceService {
 	
 	void checkOut(String today);
 	
+	void checkOut2(String today);
+	
 	List<Attendance> selectCheck(String userId);
 	
 	String selectSubjectName(int subjectId);

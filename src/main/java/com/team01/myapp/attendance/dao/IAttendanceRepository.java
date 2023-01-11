@@ -24,6 +24,8 @@ public interface IAttendanceRepository {
 	
 	List<Attendance> selectCheckOutAttNo(String today);
 	
+	List<Attendance> selectCheckOutAttNo2(String today);
+	
 	void updateCheckOut(int attNo);
 	
 	List<Attendance> selectCheckOutAttNoSubjectId(String today);

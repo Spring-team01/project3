@@ -90,7 +90,7 @@
 										<option value="경조사">경조사</option>
 									</select>
 									<div class="input-group-prepend">
-										<input name="date" type="date" id="Date" autocomplete="off">
+										<input name="date" type="date" id="Date" autocomplete="off" required>
 									</div>
 									<div class="input-group-prepend">
 										<div class="input-group-prepend" style="margin:auto">
@@ -101,10 +101,10 @@
 										</div>
 									</div>
 									<div class="input-group-prepend">
-										<input class="form-control" name="subAttendanceTitle" placeholder="휴가신청 제목"></input>
+										<input class="form-control" name="subAttendanceTitle" placeholder="휴가신청 제목" required></input>
 									</div>
 									
-									<textarea class="form-control" rows="15" id="boardContent" name="content" placeholder="휴가신청글 입력"></textarea>
+									<textarea class="form-control" rows="15" id="boardContent" name="content" placeholder="휴가신청글 입력" required></textarea>
 									<div class="input-group mb-3">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="">Upload</span>

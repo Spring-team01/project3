@@ -155,5 +155,16 @@
 			WHERE SUBJECT_ID = #{subjectId}
 		]]>
 	</select>
+	
+	<select id="selectCheckOutAttNo2" parameterType="string" resultType="com.team01.myapp.attendance.model.Attendance">
+		<![CDATA[
+			SELECT ATT_NO AS "attNo"
+			FROM ATTENDANCE
+			WHERE STATUS != '휴가'
+			AND STATUS != '결근'
+			AND LEAVE_TIME IS NULL
+			AND TO_CHAR(att_date, 'YYYYMMDD') = #{today}
+		]]>
+	</select>
 		
 </mapper>
