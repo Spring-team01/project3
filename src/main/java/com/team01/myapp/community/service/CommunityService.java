@@ -159,6 +159,20 @@ public class CommunityService implements ICommunityService {
 		return communityRepository.readCountListByCategory(categoryId);
 	}
 
+	@Override
+	public List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber) {
+		return communityRepository.getReplyCommentList(communityCommentMasterNumber);
+	}
+
+	@Override
+	public void insertReplyCommunityComment(CommunityComment comment) {
+		int maxReplyNum = communityRepository.selectMaxReplyNum(comment.getCommunityCommentMasterNumber());
+		comment.setCommunityCommentReplyNumber(maxReplyNum+1);
+		/*
+		communityRepository.insertReplyCommunityComment(comment);
+		*/
+	}
+
 	
 	
 

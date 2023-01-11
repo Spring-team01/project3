@@ -36,7 +36,7 @@
 				<div class="mainview d-flex"></div>
 
 				<div class="container-fluid" style="background-color: white; margin: 50px; width: 92%; min-height: 600px;">
-					<form class="form-inline m-2 justify-content-end" action="<c:url value='/community/search/1'/>" method="get">
+					<form class="form-inline m-2 justify-content-end" action="<c:url value='/community/search/1'/>" method="post">
 						<input type="text" name="keyword" class="form-control" placeholder="Search" style="border: 1px solid gray; width: 200px; height: 35px; padding: 0px 10px;"> 
 						<input type="submit" class="btn btn-dark m-1" value="<fmt:message key="SEARCH"/>">
 					</form>

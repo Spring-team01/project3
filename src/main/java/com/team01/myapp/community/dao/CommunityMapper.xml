@@ -198,6 +198,7 @@
 				    m.CC_CONTENT as "communityCommentContent",
 				    m.CC_REPLY_NUMBER as "communityCommentReplyNumber",
 				    m.CC_MASTER_NUMBER as "communityCommentMasterNumber",
+                    m.C_BOARD_ID as "communityBoardId",
 	                m.U_FILE_ID as "userFileId",
 	                m.U_FILE_NAME as "userFileName",
 	                m.U_FILE_SIZE as "userFileSize",
@@ -213,6 +214,7 @@
 							    t.CC_CONTENT,
 							    t.CC_REPLY_NUMBER,
 							    t.CC_MASTER_NUMBER,
+                                t.C_BOARD_ID,
 				                f.U_FILE_ID,
 				                f.U_FILE_NAME,
 				                f.U_FILE_SIZE,
@@ -225,12 +227,13 @@
 							    c_comment.U_ID ,
 							    c_comment.CC_CONTENT ,
 							    c_comment.CC_REPLY_NUMBER ,
-							    c_comment.CC_MASTER_NUMBER
-				                
+							    c_comment.CC_MASTER_NUMBER,
+				                c_comment.C_BOARD_ID
 				        from community left outer join c_comment
 				        on community.c_board_id = c_comment.C_BOARD_ID
-				        where community.c_board_id = #{communityBoardId}
-				        order by CC_MASTER_NUMBER asc ) t
+				        where community.c_board_id = #{communityBoardId} and
+				        	c_comment.CC_REPLY_NUMBER = 0
+				        order by CC_COMMENT_NO asc ) t
 				        join u_file f
 				        on t.U_ID = f.U_ID)m
 				        join users u
@@ -338,7 +341,7 @@
 						ORDER BY C_WRITE_DATE
 						)
 					)
-				WHERE RNUM BETWEEN 1 AND 10
+				WHERE RNUM BETWEEN #{start} AND #{end}
 		]]>
 
 	</select>
@@ -383,6 +386,84 @@
 		]]>
 	</update>
 
-
-
+	<select id="getReplyCommentList" parameterType= "int" resultType="com.team01.myapp.community.model.CommunityComment">
+		<![CDATA[
+			select
+					rownum as "rnum",
+	                m.CC_COMMENT_NO as "communityCommentNo",
+				    m.CC_WRITE_DATE as "communityCommentWriteDate",
+				    m.U_ID as "userId",
+				    m.CC_CONTENT as "communityCommentContent",
+				    m.CC_REPLY_NUMBER as "communityCommentReplyNumber",
+				    m.CC_MASTER_NUMBER as "communityCommentMasterNumber",
+                    m.C_BOARD_ID as "communityBoardId",
+	                m.U_FILE_ID as "userFileId",
+	                m.U_FILE_NAME as "userFileName",
+	                m.U_FILE_SIZE as "userFileSize",
+	                m.U_FILE_CONTENT_TYPE as "userFileContentType",
+	                m.U_FILE_DATA as "userFileData",
+	                u.U_NAME as "userName",
+	                u.EMAIL as "userEmail"
+				from(
+				select 
+				                t.CC_COMMENT_NO,
+							    t.CC_WRITE_DATE,
+							    t.U_ID,
+							    t.CC_CONTENT,
+							    t.CC_REPLY_NUMBER,
+							    t.CC_MASTER_NUMBER,
+                                t.C_BOARD_ID,
+				                f.U_FILE_ID,
+				                f.U_FILE_NAME,
+				                f.U_FILE_SIZE,
+				                f.U_FILE_CONTENT_TYPE,
+				                f.U_FILE_DATA
+	                
+				from(select 
+							    c_comment.CC_COMMENT_NO ,
+							    c_comment.CC_WRITE_DATE ,
+							    c_comment.U_ID ,
+                                c_comment.C_BOARD_ID,
+							    c_comment.CC_CONTENT ,
+							    c_comment.CC_REPLY_NUMBER ,
+							    c_comment.CC_MASTER_NUMBER
+				                
+				        from community left outer join c_comment
+				        on community.c_board_id = c_comment.C_BOARD_ID
+				        where c_comment.CC_MASTER_NUMBER = #{communityCommentMasterNumber} and
+                                c_comment.CC_REPLY_NUMBER >= 1
+				        order by CC_MASTER_NUMBER asc ) t
+				        join u_file f
+				        on t.U_ID = f.U_ID)m
+				        join users u
+				        on m.U_ID = u.U_ID
+		
+		]]>
+	</select>
+	
+	<select id="selectMaxReplyNum" parameterType="int" resultType="int">
+		<![CDATA[
+			SELECT
+			    NVL(MAX(CC_REPLY_NUMBER),0)
+			    FROM C_COMMENT
+			    where CC_MASTER_NUMBER = #{communityCommentMasterNumber}
+		]]>
+	</select>
+	
+	<insert id="insertReplyCommunityComment" parameterType="com.team01.myapp.community.model.CommunityComment">
+		<![CDATA[
+			insert into c_comment
+				( CC_COMMENT_NO,
+				CC_WRITE_DATE,
+				U_ID,
+				CC_CONTENT,
+				C_BOARD_ID,
+				CC_REPLY_NUMBER,
+				CC_MASTER_NUMBER )
+				values (SEQ_CC_COMMENT_NO.nextval, sysdate, #{userId}, #{communityCommentContent}, 
+						#{communityBoardId}, #{communityCommentReplyNumber}, #{communityCommentMasterNumber})
+		]]>
+	</insert>
+	
+		
 </mapper>

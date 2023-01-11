@@ -20,6 +20,6 @@ public class CommunityComment {
 	private long userFileSize;
 	private String userFileContentType;
 	private byte[] userFileData;
-	
+	private int rnum;
 	
 }

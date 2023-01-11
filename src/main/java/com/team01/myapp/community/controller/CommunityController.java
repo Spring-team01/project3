@@ -201,12 +201,13 @@ public class CommunityController {
 			return "redirect:/community/communityList/1/1";
 		}
 	}
-
-	@RequestMapping("/community/search/{pageNo}")
+	
+	
+	
+	
+	@RequestMapping(value="/community/search/{pageNo}")
 	public String search(@RequestParam(required = false, defaultValue = "") String keyword, @PathVariable String pageNo,
 			Pager pager, HttpSession session, Model model, Community community) {
-
-		System.out.println(keyword);
 		try {
 			community.setUsersId((String) session.getAttribute("userId"));
 			community.setUserName((String) session.getAttribute("userName"));
@@ -231,17 +232,42 @@ public class CommunityController {
 			HttpSession session, Community community) {
 		comment.setUserId((String) session.getAttribute("userId"));
 		communityService.writeCommunityReply(comment);
-
+		
 		return "redirect:/community/communityDetail/" + (community.getCommunityBoardId());
 	}
 	
 	//대댓글 조회하기
 	@RequestMapping(value="/community/getreplycomment", method=RequestMethod.GET)
 	public String getReplyCommnet(@RequestParam int communityCommentMasterNumber, Model model) {
-		System.out.println(communityCommentMasterNumber);
 		
+		List<CommunityComment> replyCommentList= communityService.getReplyCommentList(communityCommentMasterNumber);
+		model.addAttribute("replyCommentList", replyCommentList);
+		model.addAttribute("communityCommentMasterNumber", communityCommentMasterNumber);
 		return "community/communityReply";
 	}
+	
+	//대댓글 작성하기
+	@RequestMapping(value="/community/writereplycomment", method=RequestMethod.POST)
+	@ResponseBody
+	public String writeReplyComment(CommunityComment comment, HttpSession session) {
+		comment.setUserId((String) session.getAttribute("userId"));	
+		System.out.println(comment.toString());
+		communityService.insertReplyCommunityComment(comment);
+		
+		return "1";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	// Home View
