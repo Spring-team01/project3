@@ -102,7 +102,8 @@
 									<a type="button" href="<c:url value='/community/communityList/1/1'/>" class="btn btn-dark shadow">글 목록</a>
 									<form class="mb-4" action="<c:url value='/community/reply/comment'/>" method="post">
 										<textarea name="communityCommentContent" class="form-control" rows="3" placeholder="댓글 작성"></textarea>
-										<input type="submit" class="btn btn-dark shadow" value="댓글 작성" required> <input type="hidden" name="communityBoardId" value="${community.communityBoardId}">
+										<input type="submit" class="btn btn-dark shadow" value="댓글 작성" required>
+										<input type="hidden" name="communityBoardId" value="${community.communityBoardId}">
 									</form>
 
 									<form>
@@ -123,7 +124,10 @@
 																${commentList.communityCommentContent}
 															</div>
 															<div class="ms-auto">
-																<input id="replyButton${commentList.communityCommentMasterNumber}" type="button" onclick="viewReplyComment(${commentList.communityCommentMasterNumber})" class="btn btn-sm btn-dark shadow" value="댓글 보기"> <a type="button" href="<c:url value='/community/reply/update' />" class="btn btn-sm btn-dark shadow">댓글 수정</a>
+																<input id="replyButton${commentList.communityCommentMasterNumber}" type="button" 
+																onclick="viewReplyComment(${commentList.communityCommentMasterNumber})" 
+																class="btn btn-sm btn-dark shadow" value="댓글 보기"> 
+																<a type="button" href="<c:url value='/community/reply/update' />" class="btn btn-sm btn-dark shadow">댓글 수정</a>
 															</div>
 														</div>
 														<div id="replyComment${commentList.communityCommentMasterNumber}"></div>

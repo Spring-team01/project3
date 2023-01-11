@@ -161,7 +161,16 @@ public class CommunityService implements ICommunityService {
 
 	@Override
 	public List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber) {
-		return null;
+		return communityRepository.getReplyCommentList(communityCommentMasterNumber);
+	}
+
+	@Override
+	public void insertReplyCommunityComment(CommunityComment comment) {
+		int maxReplyNum = communityRepository.selectMaxReplyNum(comment.getCommunityCommentMasterNumber());
+		comment.setCommunityCommentReplyNumber(maxReplyNum+1);
+		/*
+		communityRepository.insertReplyCommunityComment(comment);
+		*/
 	}
 
 	

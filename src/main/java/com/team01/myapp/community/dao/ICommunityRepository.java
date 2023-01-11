@@ -12,6 +12,7 @@ public interface ICommunityRepository {
 	
 	int selectMaxListNo();
 	int selectMaxFileId();
+	int selectMaxReplyNum(int communityCommentMasterNumber);
 	void writeCommunity(Community community);
 	void insertFileData(CommunityFile communityFile);
 	
@@ -39,5 +40,8 @@ public interface ICommunityRepository {
 	
 	void updateCommentMasterNumber(int communityBoardId);
 	
+	List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber);
+	
+	void insertReplyCommunityComment(CommunityComment comment);
 	
 }

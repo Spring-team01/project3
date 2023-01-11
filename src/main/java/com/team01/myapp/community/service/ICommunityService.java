@@ -35,4 +35,7 @@ public interface ICommunityService {
 	List<Community> readCountListByCategory(int categoryId);
 	
 	List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber);
+	
+	void insertReplyCommunityComment(CommunityComment comment);
+	
 }

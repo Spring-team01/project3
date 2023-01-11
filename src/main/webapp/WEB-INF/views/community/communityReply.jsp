@@ -9,51 +9,58 @@
 <html>
 
 <script>
+	function writeReplyComment(i) {
+		let replyContent= $("#writeReReply").val();
+		let communityBoardId= $("#communityBoardId").val();
+		
+		$.ajax({
+			url : "/myapp/community/writereplycomment/",
+			type : "POST",
+			datatype : "html",
+			data : {communityCommentMasterNumber : i, communityCommentContent : replyContent, communityBoardId : communityBoardId},
+			success : function(data) {
+				if(data==0) {
+		           alert("댓글 작성에 실패하였습니다");
+		         } else if(data==1) {
+		          alert("댓글 작성 완료!");       	
+		          location.reload();
+		       }
+				
+			}
+		});
+	}
 	
 </script>
 
 
 <body>
-<%-- 
-	<!-- 대댓글 반복 -->
-	<c:if test="${community.communityReplyNumber!=0}">
-		<c:forEach var="commentList" items="${commentList}">
-
-			<div class="d-flex mb-5 ml-5">
-				<!-- Parent comment-->
-				<div class="flex-shrink-0 fix-comment-hidden" >
-					<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
-				</div>
-				<div class="ms-3 fix-comment-hidden" >
-					<div class="fw-bold">Commenter Name</div>
-					If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-				</div>
-			</div>
-		</c:forEach>
-	</c:if>
-
- --%>
-
 	<!-- Comments section-->
 	<section class="mb-5">
 		<div class="card bg-light">
 			<div class="card-body">
+				<c:forEach var="replyCommentList" items="${replyCommentList}">
 
-				<!-- Comment with nested comments-->
-				<div class="d-flex mb-4">
-					<!-- Parent comment-->
-					<div class="flex-shrink-0">
-						<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+					<div class="d-flex mb-3 ml-5">
+						<!-- Parent comment-->
+						<div class="flex-shrink-0 fix-comment-hidden">
+							<img class="rounded-circle" src='<c:url value="/admin/userdetail/userfile/${replyCommentList.userFileId}"/>' alt="..." style="width: 50px; height: 50px;" />
+						</div>
+						<div class="ms-3 fix-comment-hidden">
+							<div class="fw-bold">${replyCommentList.userName}</div>
+							${replyCommentList.communityCommentContent}
+						</div>
 					</div>
-					<div class="ms-3">
-						<div class="fw-bold">Commenter Name</div>
-						If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-						<!-- Child comment 1-->
-					</div>
-				</div>
+				</c:forEach>
+
+
+
 				<!-- Comment form-->
 				<form class="mb-4">
-					<textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+					<textarea id="writeReReply" class="form-control" rows="3" placeholder="답글 작성하기"></textarea>
+					<input id="replyButton${commentList.communityCommentMasterNumber}" type="button" onclick="writeReplyComment(${communityCommentMasterNumber})" class="btn btn-sm btn-dark shadow" value="댓글 보기"> 
+					<input type="hidden" name="communityCommentMasterNumber" value="${communityCommentMasterNumber}">
+					<input type="hidden" name="communityBoardId" value="${commentList.communityBoardId}">
+					
 				</form>
 			</div>
 		</div>
