@@ -94,7 +94,7 @@
 
 
 								<div class="card-body">
-									<c:if test="${userId eq community.usersId}">
+									<c:if test="${sessionScope.userType eq 'ADMIN' || userId eq community.usersId}">
 										<a type="button" href="<c:url value='/community/communityUpdate/${community.communityBoardId}'/>" class="btn btn-dark shadow"> 글 수정 </a>
 										<a type="button" href="<c:url value='/community/delete/${community.communityBoardId}'/>" class="btn btn-dark shadow">글 삭제</a>
 										<input type="hidden" name="communityBoardId" value="${community.communityBoardId}">

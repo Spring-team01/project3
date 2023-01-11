@@ -341,17 +341,20 @@
 						</tr>
 						<tr>
 							<td colspan=2 align="right">
-							<c:if test="${board.userId==sessionScope.userId}">
+							<c:if test="${sessionScope.userType!='ADMIN' && board.userId==sessionScope.userId}">
 								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
-								<a href='<c:url value="/board/reply/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="REPLY"/></button></a>
 								<a href='<c:url value="/board/update/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="UPDATE"/></button></a>
 								<a href='<c:url value="/board/delete/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="DELETE"/></button></a>
 							</c:if>
-							<c:if test="${board.userId!=sessionScope.userId}">
+							<c:if test="${sessionScope.userType!='ADMIN' && board.userId!=sessionScope.userId}">
 								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
-								<a href='<c:url value="/board/reply/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="REPLY"/></button></a>
+							</c:if>
+							<c:if test="${sessionScope.userType=='ADMIN'}">
+								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
+								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
+								<a href='<c:url value="/board/admin/delete/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="DELETE"/></button></a>
 							</c:if>
 							</td>
 						</tr>

@@ -212,6 +212,22 @@ public class BoardController {
 		}
 	}
 	
+	//관리자 삭제
+	@RequestMapping(value="/board/admin/delete/{boardId}", method=RequestMethod.GET)
+	public String deleteAdminArticle(@PathVariable int boardId, Model model) {
+		Board board =boardService.selectArticle(boardId);
+		try {
+			boardService.deleteArticle(board.getBoardId());
+			return "redirect:/board/"+board.getCategoryId()+"/1";
+		}catch(Exception e) {
+			model.addAttribute("message", e.getMessage());
+			e.printStackTrace();
+			return "redirect:/board/"+board.getCategoryId()+"/1";
+			
+		}
+	}
+	
+	
 	//검색
 	@RequestMapping("/board/search/{pageNo}")
 	public String search(@RequestParam(required=false, defaultValue="") String keyword, @PathVariable String pageNo, HttpSession session, Model model, Pager pager) {

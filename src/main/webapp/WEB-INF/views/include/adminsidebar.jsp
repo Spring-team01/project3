@@ -7,7 +7,13 @@
 <!DOCTYPE html>
 
 <div class="sidebar">
-            <ul>          
+            <ul>    
+                <li>
+                   <a href="<c:url value='/home'/>" type="button" class="homebtn">
+                       <span class="icon"><i class="fas fa-home"></i></span>
+                       <span class="item">게시판관리</span>
+                   </a>
+                </li> 
                 <li>
                		<a href="#" type="button" class="dropdown-btn">
                         <span class="icon"><i class="fas fa-desktop"></i></span>

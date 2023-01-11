@@ -121,7 +121,9 @@
 									<c:if test="${pager.groupNo < pager.totalGroupNo }">
 										<a href="${pager.endPageNo+1}?keyword=${keyword}" type="button" class="btn btn-muted shadow">▶</a>
 									</c:if>
-									<a href="${pager.totalPageNo}?keyword=${keyword}" type="button" class="btn btn-muted shadow">▶▶</a>
+									<c:if test="${pager.pageNo < pager.totalPageNo}">
+                                 		<a href="${pager.totalPageNo}?keyword=${keyword}" type="button" class="btn btn-muted shadow">▶▶</a>
+                              		</c:if>
 								</div>
 								<div class="flex-fulfill"></div>
 								<div class="d-flex justify-content-end">  
