@@ -213,7 +213,7 @@
 				${message}
 				<div class="container-fluid py-4">
 					<div class="board_content">
-						<form class="form-inline m-2 justify-content-end" action="<c:url value='/board/search'/>" method="get">
+						<form class="form-inline m-2 justify-content-end" action="<c:url value='/board/search/1'/>" method="get">
 							<input type="text" name="keyword" class="form-control" placeholder="Search" style="border: 1px solid gray; width:200px; height:35px; padding:0px 10px;">
 							<input type="submit" class="btn btn-warning m-1" value="<fmt:message key="SEARCH"/>">
 						</form>
@@ -270,7 +270,7 @@
 							<div class="card bg-light">
 								<div class="card-body">
 									<form class="mb-4" action="<c:url value='/board/comment'/>" method="post">
-										<textarea name="bcContent" class="form-control" rows="3" placeholder="댓글 작성"></textarea>
+										<textarea name="bcContent" class="form-control" rows="3" placeholder="댓글 작성" required></textarea>
 										<br> 
 										<input type="submit" class="btn btn-dark shadow" value="작성"> 
 										<input type="hidden" name="boardId" value="${board.boardId}"> 
@@ -318,7 +318,7 @@
 														<div id="reCommentForm${commentOne.bcReplyNo}"style="display:none">
 															<form class="mb-4" id="writeReReplyForm" name="writeReReplyForm" class="d-flex">
 																<label class="font-weight-bold" for="writeReReply${commentOne.bcReplyNo}"></label>
-																<textarea id="writeReReply${commentOne.bcReplyNo}"type="text" class="form-control" name="bcContent" placeholder="댓글을 입력해주세요"></textarea>
+																<textarea id="writeReReply${commentOne.bcReplyNo}" class="form-control" name="bcContent" placeholder="댓글을 입력해주세요" required></textarea>
 																<input type="submit" onclick="writeReReplyFun(${commentOne.bcReplyNo}, ${commentOne.boardId})" class="btn btn-dark shadow" value="작성"> 
 															</form>
 														</div>
@@ -341,17 +341,20 @@
 						</tr>
 						<tr>
 							<td colspan=2 align="right">
-							<c:if test="${board.userId==sessionScope.userId}">
+							<c:if test="${sessionScope.userType!='ADMIN' && board.userId==sessionScope.userId}">
 								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
-								<a href='<c:url value="/board/reply/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="REPLY"/></button></a>
 								<a href='<c:url value="/board/update/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="UPDATE"/></button></a>
 								<a href='<c:url value="/board/delete/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="DELETE"/></button></a>
 							</c:if>
-							<c:if test="${board.userId!=sessionScope.userId}">
+							<c:if test="${sessionScope.userType!='ADMIN' && board.userId!=sessionScope.userId}">
 								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
-								<a href='<c:url value="/board/reply/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="REPLY"/></button></a>
+							</c:if>
+							<c:if test="${sessionScope.userType=='ADMIN'}">
+								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
+								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
+								<a href='<c:url value="/board/admin/delete/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="DELETE"/></button></a>
 							</c:if>
 							</td>
 						</tr>

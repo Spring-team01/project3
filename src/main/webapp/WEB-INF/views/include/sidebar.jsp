@@ -5,18 +5,25 @@
 
 <div class="sidebar">
             <ul>
+            <c:if test="${sessionScope.userType eq 'ADMIN'}">
+            	<li>
+                    <a href="<c:url value='/admin/adminhome'/>" type="button" class="homebtn">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">관리자페이지</span>
+                    </a>
+                    
+                </li>
+            </c:if>
+            <c:if test="${sessionScope.userType eq 'USER'}">
                 <li>
-                    <a href="#" type="button" class="dropdown-btn">
+                    <a href="<c:url value='/home'/>" type="button" class="homebtn">
                         <span class="icon"><i class="fas fa-home"></i></span>
                         <span class="item">Home</span>
-                        <i class="fa fa-caret-down"></i>
                     </a>
-                    <div class="dropdown-container">
-                    	<a href="#">Link 1</a>
-					    <a href="#">Link 2</a>
-					    <a href="#">Link 3</a>
-                    </div>
+                    
                 </li>
+             </c:if>
+             <c:if test="${sessionScope.userType eq 'USER'}">
                 <li>
                		<a href="#" type="button" class="dropdown-btn">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
@@ -28,6 +35,7 @@
 					    <a href="<c:url value='/subattendance/1'/>">공결 관리</a>
                     </div>
                 </li>
+                 </c:if>
                 <li>
                 	<a href="#" type="button" class="dropdown-btn" >
                         <span class="icon"><i class="fas fa-user-friends"></i></span>

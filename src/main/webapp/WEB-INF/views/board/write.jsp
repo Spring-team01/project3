@@ -46,7 +46,7 @@
 						<!--템플릿  -->
 						<div class="container-fluid p-5">
 						<div class="board_content">
-						<form class="form-inline m-2 justify-content-end" action="<c:url value='/board/search'/>" method="get">
+						<form class="form-inline m-2 justify-content-end" action="<c:url value='/board/search/1'/>" method="get">
 							<input type="text" name="keyword" class="form-control" placeholder="Search" style="border: 1px solid gray; width:200px; height:35px; padding:0px 10px;">
 							<input type="submit" class="btn btn-warning m-1" value="<fmt:message key="SEARCH"/>">
 						</form>
@@ -100,7 +100,7 @@
 								    <div class="form-group">
 								      <label class="control-label col-sm-2" for="content"><fmt:message key="CONTENT"/></label>
 								      <div class="col-sm-8">
-								        <textarea name="content" rows="15" cols="100" class="form-control" placeholder="게시글 입력" wrap="hard"></textarea>
+								        <textarea name="content" rows="15" cols="100" class="form-control" placeholder="게시글 입력" wrap="hard" required></textarea>
 								      </div>
 								    </div>
 								    <div class="form-group"> 

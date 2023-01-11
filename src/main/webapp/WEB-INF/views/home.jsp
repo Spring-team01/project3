@@ -94,7 +94,7 @@ html, body {
 				</div>
 			</div>
 			<!-- 메인 컨테이너 (메인에 넣을 것은 이 안에 작성) -->
-			<div class="container-fluid" style="background-color:white; margin:20px; width:95%; min-height: 800px;">
+			<div class="container-fluid" style="background-color:white; margin:25px; width:95%; min-height: 800px;">
 				
 				<!-- 공지사항 4개 -->
 				<div class="container-fluid py-4">

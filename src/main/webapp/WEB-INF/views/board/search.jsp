@@ -89,8 +89,8 @@
 													<p class="text-xs text-secondary mb-0">${board.email}</p>
 												</div>
 												</td>
-												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold"><a href='<c:url value="/board/view/${board.boardId}/${seq}"/>'>${board.title}</a></h6></td>
-												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold"><a href='<c:url value="/board/view/${board.boardId}/${seq}"/>'>${board.content}</a></h6></td>
+												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold" style="width: 100px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a href='<c:url value="/board/view/${board.boardId}/${seq}"/>'>${board.title}</a></h6></td>
+												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold" style="width: 300px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a href='<c:url value="/board/view/${board.boardId}/${seq}"/>'>${board.content}</a></h6></td>
 												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold"><fmt:formatDate value="${board.writeDate}" pattern="YYYY-MM-dd"/></h6></td>
 												<td class="pc text-center"><span class="text-secondary text-xs font-weight-bold">${board.readCount}</span></td>
 											</tr>
@@ -121,7 +121,9 @@
 									<c:if test="${pager.groupNo < pager.totalGroupNo }">
 										<a href="${pager.endPageNo+1}?keyword=${keyword}" type="button" class="btn btn-muted shadow">▶</a>
 									</c:if>
-									<a href="${pager.totalPageNo}?keyword=${keyword}" type="button" class="btn btn-muted shadow">▶▶</a>
+									<c:if test="${pager.pageNo < pager.totalPageNo}">
+                                 		<a href="${pager.totalPageNo}?keyword=${keyword}" type="button" class="btn btn-muted shadow">▶▶</a>
+                              		</c:if>
 								</div>
 								<div class="flex-fulfill"></div>
 								<div class="d-flex justify-content-end">  

@@ -24,7 +24,7 @@
 	}
   </script>
 <!-- FOOTER -->
-<footer class="footer" style="width:100%;">
+<footer class="footer" style="width:100%; position : relative;">
     <div class="footer_container d-flex">
             <div class="p-2">
                 <div class="col">
