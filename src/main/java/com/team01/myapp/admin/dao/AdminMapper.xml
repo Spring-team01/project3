@@ -292,8 +292,69 @@
 			att_no=#{attNo}
 	</update>
 	
+	<select id="selectAttSumMonthly" parameterType="int"
+		resultType="com.team01.myapp.admin.model.AttSummaryVo">
+		
+		select
+		    (SELECT
+		    count(*)
+		    FROM attendance
+		    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='출근' and subject_id=#{subjectId}) as "attendanceSum",
+		    
+		    (SELECT
+		    count(*)
+		    FROM attendance
+		    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='휴가' and subject_id=#{subjectId}) as "leaveSum",
+		    
+		    (SELECT
+		    count(*)
+		    FROM attendance
+		    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='지각' and subject_id=#{subjectId}) as "lateSum",
+		    
+		    (SELECT
+		    count(*)
+		    FROM attendance
+		    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='결근' and subject_id=#{subjectId}) as "absenceSum"
+	    
+	    from dual
+		
+	</select>
 	
-
-
+	<select id="selectAttSumDaily" parameterType="int"
+		resultType="com.team01.myapp.admin.model.AttSummaryVo">
+		
+		select
+		    (SELECT
+		    count(*)
+		    FROM attendance
+		    WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and status ='출근' and subject_id=#{subjectId}) as "attendanceSum",
+		    
+		    (SELECT
+		    count(*)
+		    FROM attendance
+		    WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and status ='휴가' and subject_id=#{subjectId}) as "leaveSum",
+		    
+		    (SELECT
+		    count(*)
+		    FROM attendance
+		    WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and status ='지각' and subject_id=#{subjectId}) as "lateSum",
+		    
+		    (SELECT
+		    count(*)
+		    FROM attendance
+		    WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and status ='결근' and subject_id=#{subjectId}) as "absenceSum",
+		    
+		    (SELECT
+		    count(*)
+		    FROM attendance
+		    WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and status ='미출석' and subject_id=#{subjectId}) as "yetSum"
+	    
+	    from dual
+		
+	</select>
+	
+	<select id="selectTotalCountBySubject" parameterType="int" resultType="int">
+		
+	</select>	
 
 </mapper>
