@@ -27,6 +27,8 @@ public interface ICommunityRepository {
 	CommunityFile getFile(int communityBoardId);
 	
 	void updateCommunityReplyNumber(@Param("communityBoardId") int communityBoardId);
+	void minusCommunityReplyNumber(@Param("communityBoardId") int communityBoardId);
+	
 	void writeCommunityReply(CommunityComment comment);
 	
 	void deleteFileData(int communityBoardId);
@@ -43,5 +45,6 @@ public interface ICommunityRepository {
 	List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber);
 	
 	void insertReplyCommunityComment(CommunityComment comment);
+	void deleteCommunityReply(CommunityComment comment);
 	
 }

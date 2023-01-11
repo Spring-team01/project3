@@ -37,5 +37,5 @@ public interface ICommunityService {
 	List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber);
 	
 	void insertReplyCommunityComment(CommunityComment comment);
-	
+	void deleteCommunityReply(CommunityComment comment);
 }

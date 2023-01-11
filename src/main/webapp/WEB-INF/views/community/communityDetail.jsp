@@ -30,13 +30,32 @@
 			datatype : "html",
 			data : {communityCommentMasterNumber : i},
 			success : function(data) {
-				console.log(data);
 				$('#replyComment'+i).toggle()
 				$('#replyComment'+i).html(data);
 				/* 토글show hide 확인*/
 			}
 		});
 	}
+	
+	function deleteReplyComment(i){
+		let communityBoardId= $("#communityBoardId").val();
+		let communityCommentMasterNumber = i;
+		$.ajax({
+			url : "/myapp/community/rereply/delete/",
+			type : "POST",
+			data : {communityCommentMasterNumber : i , communityBoardId : communityBoardId},
+			success : function(data){
+				if(data==0) {
+			           alert("댓글 삭제 실패");
+			         } else if(data==1) {
+			          alert("댓글 삭제 완료!");       	
+			          location.reload();
+			       }
+			}
+		});
+	}
+	
+	
 	
 </script>
 
@@ -102,8 +121,7 @@
 									<a type="button" href="<c:url value='/community/communityList/1/1'/>" class="btn btn-dark shadow">글 목록</a>
 									<form class="mb-4" action="<c:url value='/community/reply/comment'/>" method="post">
 										<textarea name="communityCommentContent" class="form-control" rows="3" placeholder="댓글 작성" required></textarea>
-										<input type="submit" class="btn btn-dark shadow" value="댓글 작성" required>
-										<input type="hidden" name="communityBoardId" value="${community.communityBoardId}">
+										<input type="submit" class="btn btn-dark shadow" value="댓글 작성" required> <input type="hidden" name="communityBoardId" value="${community.communityBoardId}">
 									</form>
 
 									<form>
@@ -115,9 +133,7 @@
 														<div class="d-flex justify-content-around">
 															<div>
 																<div class="flex-shrink-0">
-																	<img class="rounded-circle" 
-																	src='<c:url value="/admin/userdetail/userfile/${commentList.userFileId}"/>' 
-																	alt="..."  style="width: 50px; height: 50px;"/>
+																	<img class="rounded-circle" src='<c:url value="/admin/userdetail/userfile/${commentList.userFileId}"/>' alt="..." style="width: 50px; height: 50px;" />
 																</div>
 															</div>
 															<div class="ms-3">
@@ -127,8 +143,15 @@
 															<div class="ms-auto">
 																<input id="replyButton${commentList.communityCommentMasterNumber}" type="button" 
 																onclick="viewReplyComment(${commentList.communityCommentMasterNumber})" 
-																class="btn btn-sm btn-dark shadow" value="댓글 보기"> 
-																<a type="button" href="<c:url value='/community/reply/update' />" class="btn btn-sm btn-dark shadow">댓글 수정</a>
+																class="btn btn-sm btn-dark shadow" value="댓글 보기">
+
+																<c:set var="userId" value="${sessionUserId}" />
+																<c:if test="${userId eq commentList.userId}">
+																	<input id="deleteReplyButton${commentList.communityCommentMasterNumber}" type="submit" 
+																	onclick="deleteReplyComment(${commentList.communityCommentMasterNumber})" 
+																	class="btn btn-sm btn-dark shadow" value="댓글 삭제">
+																</c:if>
+
 															</div>
 														</div>
 														<div id="replyComment${commentList.communityCommentMasterNumber}"></div>

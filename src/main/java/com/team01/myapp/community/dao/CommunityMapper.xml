@@ -432,7 +432,7 @@
 				        on community.c_board_id = c_comment.C_BOARD_ID
 				        where c_comment.CC_MASTER_NUMBER = #{communityCommentMasterNumber} and
                                 c_comment.CC_REPLY_NUMBER >= 1
-				        order by CC_MASTER_NUMBER asc ) t
+				        order by CC_REPLY_NUMBER asc ) t
 				        join u_file f
 				        on t.U_ID = f.U_ID)m
 				        join users u
@@ -465,5 +465,20 @@
 		]]>
 	</insert>
 	
+	<delete id ="deleteCommunityReply" parameterType="com.team01.myapp.community.model.CommunityComment">
+		<![CDATA[
+			delete from c_comment
+			where C_BOARD_ID = #{communityBoardId}
+			and CC_MASTER_NUMBER = #{communityCommentMasterNumber}
+		]]>
+	</delete>
+	
+	<update id="minusCommunityReplyNumber" parameterType="int">
+		<![CDATA[
+		update community
+   	 	set C_REPLY_NUMBER = C_REPLY_NUMBER -1
+   	 	where C_BOARD_ID = #{communityBoardId}
+		]]>
+	</update>
 		
 </mapper>
