@@ -46,13 +46,13 @@
 							<div class="card-body px-0 pb-2">
 
 								<div class="input-group-prepend">
-									<textarea class="form-control bg-gray-100 border-0 border-radius-lg" rows="2" id="communityTitle" name="communityTitle" style="align-content: flex-start;">${community.communityTitle}</textarea>
+									<textarea class="form-control bg-gray-100 border-0 border-radius-lg" rows="2" id="communityTitle" name="communityTitle" style="align-content: flex-start;" required>${community.communityTitle}</textarea>
 
 								</div>
 								<div class="input-group-prepend">
-									<textarea class="form-control" rows="3" id="communityPassword" name="communityPassword" style="align-content: flex-start;">${community.communityPassword}</textarea>
+									<textarea class="form-control" rows="3" id="communityPassword" name="communityPassword" style="align-content: flex-start;" required>${community.communityPassword}</textarea>
 								</div>
-								<textarea class="form-control" rows="15" id="communityContent" name="communityContent" style="align-content: flex-start;">${community.communityContent}</textarea>
+								<textarea class="form-control" rows="15" id="communityContent" name="communityContent" style="align-content: flex-start;" required>${community.communityContent}</textarea>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="">Upload</span>
@@ -66,7 +66,7 @@
 							<div align="center">
 								<c:set var="userId" value="${sessionUserId}" />
 								<c:if test="${userId eq community.usersId}">
-									<input type="button" onclick="submit()" class="btn btn-dark shadow" value="수정"> 
+									<input type="submit" class="btn btn-dark shadow" value="수정"> 
 									<a type="button" href="<c:url value='/community/delete/${communityBoardId}'/>" class="btn btn-dark shadow">글 삭제</a>
 									<a type="button" href="<c:url value='/community/communityList//1/1'/>" class="btn btn-dark shadow">글 목록</a>
 									<input type="hidden" name="communityBoardId" value="${communityBoardId}">

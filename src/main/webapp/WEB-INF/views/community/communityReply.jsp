@@ -25,7 +25,6 @@
 		          alert("댓글 작성 완료!");       	
 		          location.reload();
 		       }
-				
 			}
 		});
 	}
@@ -49,6 +48,7 @@
 							<div class="fw-bold">${replyCommentList.userName}</div>
 							${replyCommentList.communityCommentContent}
 						</div>
+						<input type="hidden" id="communityBoardId" value="${replyCommentList.communityBoardId}">
 					</div>
 				</c:forEach>
 
@@ -56,11 +56,9 @@
 
 				<!-- Comment form-->
 				<form class="mb-4">
-					<textarea id="writeReReply" class="form-control" rows="3" placeholder="답글 작성하기"></textarea>
-					<input id="replyButton${commentList.communityCommentMasterNumber}" type="button" onclick="writeReplyComment(${communityCommentMasterNumber})" class="btn btn-sm btn-dark shadow" value="댓글 보기"> 
+					<textarea id="writeReReply" class="form-control" rows="3" placeholder="답글 작성하기" required></textarea>
+					<input id="replyButton${commentList.communityCommentMasterNumber}" type="submit" onclick="writeReplyComment(${communityCommentMasterNumber})" class="btn btn-sm btn-dark shadow" value="댓글 작성"> 
 					<input type="hidden" name="communityCommentMasterNumber" value="${communityCommentMasterNumber}">
-					<input type="hidden" name="communityBoardId" value="${commentList.communityBoardId}">
-					
 				</form>
 			</div>
 		</div>
