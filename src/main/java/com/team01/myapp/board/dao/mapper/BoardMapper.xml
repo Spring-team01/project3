@@ -136,7 +136,7 @@
 					FROM (
 						SELECT * FROM BOARD
 						WHERE CATEGORY_ID=#{categoryId}
-						ORDER BY WRITE_DATE
+						ORDER BY WRITE_DATE DESC
 						)
 					)
 				WHERE RNUM BETWEEN #{start} AND #{end}
@@ -172,7 +172,7 @@
 							TITLE LIKE #{keyword}
 							OR
 							CONTENT LIKE #{keyword}
-						ORDER BY WRITE_DATE
+						ORDER BY WRITE_DATE DESC
 						)
 					)
 				WHERE RNUM BETWEEN #{start} AND #{end}
@@ -367,4 +367,29 @@
 		DELETE FROM B_COMMENT
 		WHERE BC_REPLY_NO = #{bcReplyNo} AND BC_REPLY_STEP=1
 	</delete>
+	
+	<!-- 미니뷰 기능 -->
+	<select id="selectBoardMiniList" resultType="com.team01.myapp.board.model.Board">
+	<![CDATA[
+		SELECT
+	    BOARD_ID		AS "boardId",
+	    TITLE			AS "title",
+	   	CONTENT			AS "content",
+	    WRITE_DATE		AS "writeDate"
+		FROM (
+		    SELECT
+		        BOARD_ID,
+		        TITLE,
+		        CONTENT,
+		        WRITE_DATE,
+		        ROWNUM AS RNUM
+		    FROM (
+		        SELECT * FROM BOARD
+		        WHERE CATEGORY_ID=1
+		        ORDER BY WRITE_DATE DESC
+		        )
+		    )
+		WHERE RNUM <= 4
+		]]>
+	</select>
 </mapper>

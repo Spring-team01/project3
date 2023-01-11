@@ -49,6 +49,9 @@ public interface IBoardService {
 	void deleteComment(int bcReplyNo);
 	void deleteNestedComment(int bcReplyNo);
 	
+	//메인 미니뷰 가져오기 
+	List<Board> getBoardMiniList();
+	
 	
 	
 

@@ -250,7 +250,7 @@
 						</tr>
 						<tr>
 							<td><fmt:message key="CONTENT"/></td>
-							<td class="board_content">${board.content}</td>
+							<td class="board_content"><p style="white-space: pre-line;"><c:out value="${board.content}"/></p></td>
 						</tr>
 						<c:if test="${!empty board.boardFileName}">
 						<tr>

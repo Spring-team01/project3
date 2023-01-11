@@ -67,7 +67,9 @@ public class BoardController {
 	public String getBoardDetails(@PathVariable int boardId, @PathVariable int pageNo, Model model) {
 		Board board = boardService.selectArticle(boardId);
 		List<BoardComment> commentList = boardService.getBoardComment(boardId);
-		
+		board.setContent(board.getContent().replace("<br/>","\r"));
+		board.setContent(board.getContent().replace("<br/>","\n"));
+		board.setContent(board.getContent().replace("<br/>","\r\n"));
 		
 		model.addAttribute("board", board);
 		model.addAttribute("page", pageNo);
@@ -90,6 +92,14 @@ public class BoardController {
 		return new ResponseEntity<byte[]>(file.getBoardFileData(),headers,HttpStatus.OK);
 	}
 	
+	//메인 미니 뷰(4개짜리)
+	@RequestMapping("/board/boardminiview")
+	public String getBoardMiniView(HttpSession session, Model model) {
+		List<Board> boardMiniList = boardService.getBoardMiniList();
+		model.addAttribute("boardMiniList", boardMiniList);
+		return "board/boardMiniView";
+	}
+
 	//쓰기 
 	@RequestMapping(value="/board/write/{categoryId}", method=RequestMethod.GET)
 	public String writeArticle(@PathVariable int categoryId, Model model) {
@@ -104,7 +114,9 @@ public class BoardController {
 			board.setTitle(Jsoup.clean(board.getTitle(), Whitelist.basic()));
 			board.setContent(Jsoup.clean(board.getContent(), Whitelist.basic()));
 			
-			board.setContent(board.getContent().replace("\r\n", "<br>"));
+			board.setContent(board.getContent().replace("\r", "<br/>"));
+			board.setContent(board.getContent().replace("\n", "<br/>"));
+			board.setContent(board.getContent().replace("\r\n", "<br/>"));
 			board.setUserId((String) session.getAttribute("userId"));
 			board.setEmail((String) session.getAttribute("email"));
 			MultipartFile mfile = board.getFile();
@@ -144,7 +156,11 @@ public class BoardController {
 		logger.info("/board/update " + board.toString());
 		try {
 			board.setTitle(Jsoup.clean(board.getTitle(), Whitelist.basic()));
-			board.setContent(Jsoup.clean(board.getTitle(), Whitelist.basic()));
+			board.setContent(Jsoup.clean(board.getContent(), Whitelist.basic()));
+			
+			board.setContent(board.getContent().replace("\r", "<br/>"));
+			board.setContent(board.getContent().replace("\n", "<br/>"));
+			board.setContent(board.getContent().replace("\r\n", "<br/>"));
 			MultipartFile mfile = board.getFile();
 			if(mfile!=null&&!mfile.isEmpty()) {
 				logger.info("/board/update: "+mfile.getOriginalFilename());
@@ -159,6 +175,7 @@ public class BoardController {
 				boardService.updateArticle(board, file);
 			}else {
 				boardService.updateArticle(board);
+				logger.info("/board/update " + board.toString());
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
