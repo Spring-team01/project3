@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.team01.myapp.attendance.dao.IAttendanceRepository;
 import com.team01.myapp.attendance.model.Attendance;
+import com.team01.myapp.attendance.model.AttendanceList;
 import com.team01.myapp.attendance.service.IAttendanceService;
 
 @Service
@@ -41,7 +42,7 @@ public class AttendanceService implements IAttendanceService {
 	}
 	
 	@Override
-	public List<Attendance> selectOneUserAttendanceList(String userId) {
+	public List<AttendanceList> selectOneUserAttendanceList(String userId) {
 		return AttendanceRepository.selectOneUserAttendanceList(userId);
 	}
 

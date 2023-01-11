@@ -94,5 +94,5 @@
 			AND TO_CHAR(att_date, 'YY/MM/DD') = #{attDate}
 		]]>
 	</update>
-	
+		
 </mapper>

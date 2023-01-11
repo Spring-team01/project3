@@ -3,6 +3,7 @@ package com.team01.myapp.attendance.service;
 import java.util.List;
 
 import com.team01.myapp.attendance.model.Attendance;
+import com.team01.myapp.attendance.model.AttendanceList;
 
 public interface IAttendanceService {
 	List<Attendance> selectAttendanceList();
@@ -17,5 +18,6 @@ public interface IAttendanceService {
 	String selectAttTime(String today, String userId);
 	String selectLeaveTime(String today, String userId);
 	
-	List<Attendance> selectOneUserAttendanceList(String userId);
+	List<AttendanceList> selectOneUserAttendanceList(String userId);
+
 }
