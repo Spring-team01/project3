@@ -118,6 +118,7 @@
 					BOARD_ID		AS "boardId",
 					CATEGORY_ID		AS "categoryId",
 					WRITER			AS "writer",
+					CONTENT    		AS "content"
 					EMAIL			AS "email",
 					TITLE			AS "title",
 					WRITE_DATE		AS "writeDate",
@@ -128,6 +129,7 @@
 						BOARD_ID,
 						CATEGORY_ID,
 						WRITER,
+						CONTENT,
 						EMAIL,
 						TITLE,
 						WRITE_DATE,
@@ -151,6 +153,7 @@
 					BOARD_ID		AS "boardId",
 					CATEGORY_ID		AS "categoryId",
 					WRITER			AS "writer",
+					CONTENT    		AS "content"
 					EMAIL			AS "email",
 					TITLE			AS "title",
 					WRITE_DATE		AS "writeDate",
@@ -162,6 +165,7 @@
 						CATEGORY_ID,
 						WRITER,
 						EMAIL,
+						CONTENT,
 						TITLE,
 						WRITE_DATE,
 						READ_COUNT,
