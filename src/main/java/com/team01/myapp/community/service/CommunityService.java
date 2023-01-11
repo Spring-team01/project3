@@ -123,6 +123,7 @@ public class CommunityService implements ICommunityService {
 	@Transactional
 	public void deleteCommunity(int communityBoardId) {
 		communityRepository.deleteCommunity(communityBoardId);
+		
 		communityRepository.deleteFileData(communityBoardId);
 	}
 	
@@ -168,9 +169,8 @@ public class CommunityService implements ICommunityService {
 	public void insertReplyCommunityComment(CommunityComment comment) {
 		int maxReplyNum = communityRepository.selectMaxReplyNum(comment.getCommunityCommentMasterNumber());
 		comment.setCommunityCommentReplyNumber(maxReplyNum+1);
-		/*
 		communityRepository.insertReplyCommunityComment(comment);
-		*/
+		
 	}
 
 	

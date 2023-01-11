@@ -185,8 +185,8 @@ public class CommunityController {
 		try {
 			community.setUsersId((String) session.getAttribute("userId"));
 			community.setUserName((String) session.getAttribute("userName"));
-
 			String dbpw = communityService.getPassword(community.getCommunityBoardId());
+			
 			if (dbpw.equals(community.getCommunityPassword())) {
 				communityService.deleteCommunity(community.getCommunityBoardId());
 				return "redirect:/community/communityList/1/1";
@@ -251,7 +251,6 @@ public class CommunityController {
 	@ResponseBody
 	public String writeReplyComment(CommunityComment comment, HttpSession session) {
 		comment.setUserId((String) session.getAttribute("userId"));	
-		System.out.println(comment.toString());
 		communityService.insertReplyCommunityComment(comment);
 		
 		return "1";

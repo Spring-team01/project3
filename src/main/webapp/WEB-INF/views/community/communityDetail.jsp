@@ -131,7 +131,6 @@
 															</div>
 														</div>
 														<div id="replyComment${commentList.communityCommentMasterNumber}"></div>
-
 													</div>
 												</div>
 											</c:forEach>

@@ -11,7 +11,7 @@
 <script>
 	function writeReplyComment(i) {
 		let replyContent= $("#writeReReply").val();
-		let communityBoardId= $("#communityBoardId").val();
+		let communityBoardId= $("#masterNumber").val();
 		
 		$.ajax({
 			url : "/myapp/community/writereplycomment/",
@@ -24,6 +24,7 @@
 		         } else if(data==1) {
 		          alert("댓글 작성 완료!");       	
 		          location.reload();
+		          
 		       }
 				
 			}
@@ -49,6 +50,7 @@
 							<div class="fw-bold">${replyCommentList.userName}</div>
 							${replyCommentList.communityCommentContent}
 						</div>
+						<input type="hidden" id="masterNumber" name="communityBoardId" value="${replyCommentList.communityBoardId}">
 					</div>
 				</c:forEach>
 
@@ -57,9 +59,8 @@
 				<!-- Comment form-->
 				<form class="mb-4">
 					<textarea id="writeReReply" class="form-control" rows="3" placeholder="답글 작성하기"></textarea>
-					<input id="replyButton${commentList.communityCommentMasterNumber}" type="button" onclick="writeReplyComment(${communityCommentMasterNumber})" class="btn btn-sm btn-dark shadow" value="댓글 보기"> 
+					<input id="replyButton${commentList.communityCommentMasterNumber}" type="button" onclick="writeReplyComment(${communityCommentMasterNumber})" class="btn btn-sm btn-dark shadow" value="댓글 작성"> 
 					<input type="hidden" name="communityCommentMasterNumber" value="${communityCommentMasterNumber}">
-					<input type="hidden" name="communityBoardId" value="${commentList.communityBoardId}">
 					
 				</form>
 			</div>
