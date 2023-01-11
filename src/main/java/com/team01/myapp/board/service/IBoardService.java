@@ -45,6 +45,10 @@ public interface IBoardService {
 	List<BoardComment> getNestedComment(int bcReplyNo);
 	void writeNestedReply(BoardComment comment);
 	
+	//댓글삭제 
+	void deleteComment(int bcReplyNo);
+	void deleteNestedComment(int bcReplyNo);
+	
 	
 	
 

@@ -88,7 +88,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="black-bar">
+	<div class="shadow"id="black-bar">
 		
 	</div>
 </div>

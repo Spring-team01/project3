@@ -19,6 +19,58 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 <!-- CSS Files -->
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
+<style>
+.btn-left {
+     left: 0.4em;
+ }
+
+ .btn-right {
+     right: 0.4em;
+ }
+
+ .btn-left, .btn-right {
+/*      position: absolute; */
+     top: 0.24em;
+ }
+
+ .dropbtn {
+     color: white;
+     font-size: 16px;
+     border: none;
+     cursor: pointer;
+ }
+
+
+ .dropdown {
+	 position: absolute; 
+     display: inline-block;
+     right: 0.4em;
+ }
+
+ .dropdown-content {
+     display: none;
+     position: relative;
+     margin-top: 27px;
+     background-color: #f9f9f9;
+     min-width: 108px;
+     overflow: auto;
+     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+     z-index: 1;
+ }
+
+ .dropdown-content a {
+     color: black;
+     padding: 12px 16px;
+     text-decoration: none;
+     display: block;
+ }
+
+ .dropdown a:hover {background-color: #f1f1f1}
+
+ .show {display:block;}
+
+</style>
+
 <script>
 
 	
@@ -82,7 +134,62 @@
 	      });
 		
 	}
+	/* 3dots menu */
+	function showDropdown(i) {
+	  document.getElementById("myDropdown"+i).classList.toggle("show");
+	}
 	
+	// Close the dropdown if the user clicks outside of it
+	window.onclick = function(event) {
+	  if (!event.target.matches(".dropbtn")) {
+	    var dropdowns = document.getElementsByClassName("dropdown-content");
+	    var i;
+	    for (i = 0; i < dropdowns.length; i++) {
+	      var openDropdown = dropdowns[i];
+	      if (openDropdown.classList.contains("show")) {
+	        openDropdown.classList.remove("show");
+	      }
+	    }
+	  }
+	};
+	
+	/* delete Comment */
+	function deleteComment(i) {
+		console.log(i);
+		$.ajax({
+			type:'GET',
+			url: "/myapp/board/comment/delete/"+i,
+			error: function(){
+				alert('통신 실패 ');
+			},
+			success: function(data){
+				if(data==1){
+					alert("게시글이 삭제되었습니다 ")
+					location.reload();
+				}
+			}
+			
+		})
+	}
+	
+	/* delete NestedComment */
+	function deleteNestedComment(i) {
+		console.log(i);
+		$.ajax({
+			type:'GET',
+			url: "/myapp/board/nestedcomment/delete/"+i,
+			error: function(){
+				alert('통신 실패 ');
+			},
+			success: function(data){
+				if(data==1){
+					alert("게시글이 삭제되었습니다 ")
+					location.reload();
+				}
+			}
+			
+		})
+	}
 </script>
 
 <body>
@@ -186,29 +293,27 @@
 															</div>
 															<div class="ms-auto">
 																<div class="d-flex flex-column">
-																<div class="dropdown">
-											                    
-																<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
-																	<img class="ml-5 my-3" src='<c:url value="/images/threedots.svg"/>' width="16" height="16">
-																</a>
-															
-																<c:if test="${commentOne.userId eq sessionScope.userId}">
-																<ul id="dropdown">
-																	<li><a class="dropdown-item" href="#">삭제하기</a></li>
-																</ul>
-																</c:if>
-																<c:if test="${commentOne.userId ne sessionScope.userId}">
-																<ul>
-																	<li><a class="dropdown-item" href="#">신고하기</a></li>
-																</ul>
-																</c:if>
-																
-																
+												                    <!-- three dots -->
+												                    	<div>
+																	    	<img src='<c:url value="/images/threedots.svg"/>' class="dropbtn icons btn-right showLeft m-2" onclick="showDropdown(${commentOne.bcReplyNo})">
+																	    </div>
+												                 	<div class="dropdown">
+																	    <!-- menu -->
+																	    <div id="myDropdown${commentOne.bcReplyNo}" class="dropdown-content">
+																	    <c:if test="${commentOne.userId eq sessionScope.userId}">
+																	    	<a onclick="deleteComment(${commentOne.bcReplyNo})">삭제하기</a>
+																	    </c:if>
+																	    <c:if test="${commentOne.userId ne sessionScope.userId}">
+																	    	<a href="#report ">신고하기</a>
+																	    </c:if> 
+																	    </div>
+																	 </div>
 																	<button type="button" onclick="viewReReply(${commentOne.bcReplyNo})" class="btn btn-sm btn-dark shadow">답글</button>
-																</div>
+													             </div>
 															</div>
 														</div>
-														<!-- 대댓글 작성 -->
+													
+													<!-- 대댓글 작성 -->
 																
 														<div id="reCommentForm${commentOne.bcReplyNo}"style="display:none">
 															<form class="mb-4" id="writeReReplyForm" name="writeReReplyForm" class="d-flex">
@@ -224,8 +329,7 @@
 														<div id="addReply${commentOne.bcReplyNo}">
 															
 														</div>
-
-													</div>
+												</div>
 												</div>
 											</c:forEach>
 										</c:if>

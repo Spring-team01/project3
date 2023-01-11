@@ -294,7 +294,7 @@
 	</delete>
 	
 	
-	<delete id="deleteArticle" parameterType="map">
+	<delete id="deleteArticle" parameterType="int">
 		DELETE FROM 
 			BOARD
 		WHERE 
@@ -346,5 +346,25 @@
 		VALUES
 			(#{bcReplyNo}, #{bcContent}, SYSDATE, #{userId}, #{boardId}, #{bcMasterNo},1)
 	</insert>
-
+	
+	<!-- 댓글과 대댓글 삭제  -->
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM B_COMMENT
+		WHERE BC_REPLY_NO = #{bcReplyNo}
+	</delete>
+	
+	<delete id="deleteNestedCommentAlso" parameterType="int">
+		DELETE FROM B_COMMENT
+		WHERE BC_MASTER_NO = #{bcReplyNo} AND BC_REPLY_STEP=1
+	</delete>
+	
+	<select id="selectNestedCommentCount" parameterType="int" resultType="int">
+		SELECT COUNT(BC_REPLY_NO) FROM B_COMMENT
+		WHERE BC_MASTER_NO=#{bcReplyNo} AND BC_REPLY_STEP=1
+	</select>
+	
+	<delete id="deleteNestedComment" parameterType="int">
+		DELETE FROM B_COMMENT
+		WHERE BC_REPLY_NO = #{bcReplyNo} AND BC_REPLY_STEP=1
+	</delete>
 </mapper>

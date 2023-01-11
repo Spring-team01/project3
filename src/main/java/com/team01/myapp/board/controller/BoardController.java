@@ -217,19 +217,27 @@ public class BoardController {
 			logger.info("/board/comment " + comment.toString());
 			comment.setUserId((String) session.getAttribute("userId"));	
 			boardService.writeBoardReply(comment);
-			
+			System.out.println(comment);
 		return "redirect:/board/view/"+board.getBoardId()+"/"+board.getCategoryId();
+	}
+	
+	//댓글 삭제 기능
+	@RequestMapping(value="/board/comment/delete/{bcReplyNo}", method=RequestMethod.GET)
+	public @ResponseBody String deleteComment(@PathVariable int bcReplyNo, Model model) {
+		boardService.deleteComment(bcReplyNo);
+		return "1";
 	}
 	
 	//대댓글 읽기 기능
 	@RequestMapping(value="/board/reply", method=RequestMethod.GET)
 	public String viewNestedReply(@RequestParam int bcReplyNo, Model model) {
-		logger.info("/board/reply/{bcReplyNo}:  " + bcReplyNo);
+		logger.info("/board/reply:  " + bcReplyNo);
 		List<BoardComment> nestedCommentList = boardService.getNestedComment(bcReplyNo);
 		model.addAttribute("nestedCommentList", nestedCommentList);
-		logger.info("/board/reply/{bcReplyNo}:  " + nestedCommentList);
+		logger.info("/board/reply}:  " + nestedCommentList);
 		return "board/reply";                             
 	}
+	
 	//대댓글 작성 기능 
 	@RequestMapping(value="/board/reply/write", method = RequestMethod.POST) 
 	public @ResponseBody String writeNestedReply(BoardComment comment, BindingResult result, HttpSession session) {
@@ -239,6 +247,13 @@ public class BoardController {
 		boardService.writeNestedReply(comment);
 		System.out.println("서비스 성공ㅎ");
 	return "1";
+	}
+	
+	//대댓글 삭제 기능
+	@RequestMapping(value="/board/nestedcomment/delete/{bcReplyNo}", method=RequestMethod.GET)
+	public @ResponseBody String deleteNestedComment(@PathVariable int bcReplyNo, Model model) {
+		boardService.deleteNestedComment(bcReplyNo);
+		return "1";
 	}
 	
 	

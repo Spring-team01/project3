@@ -51,7 +51,10 @@ public interface IBoardRepository {
 	List<BoardComment> selectNestedComments(int bcReplyNo);
 	void insertNestedComment(BoardComment comment);
 	
-	
-
+	//댓글 삭제 기능 
+	void deleteComment(int bcReplyNo);
+	void deleteNestedComment(int bcReplyNo);
+	int selectNestedCommentCount(int bcReplyNo);
+	void deleteNestedCommentAlso(int bcReplyNo);
 	
 }
