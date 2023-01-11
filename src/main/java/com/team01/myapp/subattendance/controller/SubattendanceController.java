@@ -51,7 +51,7 @@ public class SubattendanceController {
 	}
 	
 	// 휴가 상세 view
-	@RequestMapping("/subAttendance/view/{subAttNo}")
+	@RequestMapping("/subattendance/view/{subAttNo}")
 	public String getSubAttendanceDetails(@PathVariable int subAttNo, Model model) {
 		SubAttendance subAttendance = subAttendanceService.selectSubAttendanceDetail(subAttNo);
 		
