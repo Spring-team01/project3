@@ -90,6 +90,7 @@
 		  border-bottom-right-radius:10px;
 		  align-items: center;
 		  padding: 0 20px;
+		  z-index:10;
 		
 		 
 		}
@@ -97,6 +98,7 @@
 		.wrapper .section .top_navbar .hamburger a{
 		  font-size: 28px;
 		  color: #f4fbff;
+		  z-index:10;
 		}
 		
 		.wrapper .section .top_navbar .hamburger a:hover{

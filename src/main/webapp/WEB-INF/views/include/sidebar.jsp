@@ -6,16 +6,11 @@
 <div class="sidebar">
             <ul>
                 <li>
-                    <a href="#" type="button" class="dropdown-btn">
+                    <a href="<c:url value='/home'/>" type="button" class="homebtn">
                         <span class="icon"><i class="fas fa-home"></i></span>
                         <span class="item">Home</span>
-                        <i class="fa fa-caret-down"></i>
                     </a>
-                    <div class="dropdown-container">
-                    	<a href="#">Link 1</a>
-					    <a href="#">Link 2</a>
-					    <a href="#">Link 3</a>
-                    </div>
+                    
                 </li>
                 <li>
                		<a href="#" type="button" class="dropdown-btn">

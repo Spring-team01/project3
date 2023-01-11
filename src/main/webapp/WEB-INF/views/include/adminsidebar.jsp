@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 
 <div class="sidebar">
-            <ul>                
+            <ul>          
                 <li>
                		<a href="#" type="button" class="dropdown-btn">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
