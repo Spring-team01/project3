@@ -231,7 +231,7 @@ public class CommunityController {
 			HttpSession session, Community community) {
 		comment.setUserId((String) session.getAttribute("userId"));
 		communityService.writeCommunityReply(comment);
-
+		
 		return "redirect:/community/communityDetail/" + (community.getCommunityBoardId());
 	}
 	
@@ -239,7 +239,6 @@ public class CommunityController {
 	@RequestMapping(value="/community/getreplycomment", method=RequestMethod.GET)
 	public String getReplyCommnet(@RequestParam int communityCommentMasterNumber, Model model) {
 		System.out.println(communityCommentMasterNumber);
-		
 		return "community/communityReply";
 	}
 	

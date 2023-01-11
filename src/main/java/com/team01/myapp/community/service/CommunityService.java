@@ -159,6 +159,11 @@ public class CommunityService implements ICommunityService {
 		return communityRepository.readCountListByCategory(categoryId);
 	}
 
+	@Override
+	public List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber) {
+		return null;
+	}
+
 	
 	
 

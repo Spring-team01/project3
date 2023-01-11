@@ -21,13 +21,16 @@
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
 <script>
+	
 	function viewReplyComment(i) {
+		
 		$.ajax({
 			url : "/myapp/community/getreplycomment/",
 			type : "GET",
 			datatype : "html",
 			data : {communityCommentMasterNumber : i},
 			success : function(data) {
+				console.log(data);
 				$('#replyComment'+i).toggle()
 				$('#replyComment'+i).html(data);
 				/* 토글show hide 확인*/
@@ -110,7 +113,9 @@
 														<div class="d-flex justify-content-around">
 															<div>
 																<div class="flex-shrink-0">
-																	<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+																	<img class="rounded-circle" 
+																	src='<c:url value="/admin/userdetail/userfile/${commentList.userFileId}"/>' 
+																	alt="..."  style="width: 50px; height: 50px;"/>
 																</div>
 															</div>
 															<div class="ms-3">
