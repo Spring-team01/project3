@@ -94,5 +94,66 @@
 			AND TO_CHAR(att_date, 'YY/MM/DD') = #{attDate}
 		]]>
 	</update>
+	
+	<!-- 23시 59분에 행을 그 당일에 맞는 미출석인 행을 불러오기위한 select 문 -->
+	<select id="selectCheckOutAttNo" parameterType="string" resultType="com.team01.myapp.attendance.model.Attendance">
+		<![CDATA[
+			SELECT ATT_NO AS "attNo"
+			FROM ATTENDANCE
+			WHERE STATUS = '미출석'
+			AND TO_CHAR(att_date, 'YYYYMMDD') = #{today}
+		]]>
+	</select>
+	
+	<update id="updateCheckOut" parameterType="int">
+		<![CDATA[
+			UPDATE ATTENDANCE
+			SET STATUS = '결근'
+			WHERE att_no = #{attNo}
+		]]>
+	</update>
+	
+	<select id="selectCheckOutAttNoSubjectId" parameterType="string" resultType="com.team01.myapp.attendance.model.Attendance">
+		<![CDATA[
+			SELECT 
+			    U.U_ID AS "userId", 
+			    U.SUBJECT_ID AS "subjectId"
+			FROM USERS U
+			    LEFT JOIN (
+			        SELECT U_ID, SUBJECT_ID
+			        FROM ATTENDANCE
+			        WHERE TO_CHAR(att_date, 'YYYYMMDD') = #{today}
+			    ) A
+			    ON U.U_ID = A.U_ID
+			WHERE A.U_ID IS NULL
+			AND U.SUBJECT_ID != 0
+		]]>
+	</select>
+	
+	<insert id="insertCheckOut" parameterType="map">
+		<![CDATA[
+			INSERT INTO
+			    attendance
+			        (att_no, att_date, att_time, leave_time, status, u_id, subject_id)
+			    VALUES
+			        (seq_att_no.NEXTVAL, sysdate, null, null, '결근', #{userId}, #{subjectId})
+		]]>
+	</insert>
+	
+	<select id="selectCheck" parameterType="string" resultType="com.team01.myapp.attendance.model.Attendance">
+		<![CDATA[
+			SELECT STATUS
+			FROM ATTENDANCE
+			WHERE U_ID = #{userId}
+		]]>
+	</select>
+	
+	<select id="selectSubjectName" parameterType="int" resultType="string">
+		<![CDATA[
+			SELECT SUBJECT_NAME
+			FROM SUBJECT
+			WHERE SUBJECT_ID = #{subjectId}
+		]]>
+	</select>
 		
 </mapper>
