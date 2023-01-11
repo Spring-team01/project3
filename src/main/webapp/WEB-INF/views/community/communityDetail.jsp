@@ -109,6 +109,7 @@
 									<form>
 										<c:if test="${community.communityReplyNumber!=0}">
 											<c:forEach var="commentList" items="${commentList}">
+												<input type="hidden" id="communityBoardId" name="communityBoardId" value="${commentList.communityBoardId}">
 												<div class="d-flex flex-column mb-3">
 													<div class="ms-3">
 														<div class="d-flex justify-content-around">
