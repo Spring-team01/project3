@@ -21,18 +21,11 @@
                     </div>
                 </li>
                 <li>
-                	<a href="#" type="button" class="dropdown-btn" >
+                	<a href="<c:url value='/admin/subattendancelist/1'/>" type="button" class="dropdown-btn" >
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">휴가신청목록</span>
-                        <i class="fa fa-caret-down"></i>
                     </a>    
-                        <div class="dropdown-container">
-                    	<a href="<c:url value='/admin/reasonlist/1/1'/>">미처리 목록</a>
-					    <a href="<c:url value='/admin/reasonlist/2/1'/>">처리 목록</a>					   
-                    </div>
-                    
-                  
-                 
+                
                 </li>
                 <li>
                 	<a href="#" type="button" class="dropdown-btn" >

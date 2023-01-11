@@ -1,6 +1,6 @@
 package com.team01.myapp.admin.controller;
 
-import java.nio.charset.Charset;
+import java.nio.charset.Charset; 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,15 +16,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.team01.myapp.admin.model.ReasonList;
+import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.User;
 import com.team01.myapp.admin.model.UserInsert;
 import com.team01.myapp.admin.model.UserList;
@@ -87,6 +89,7 @@ public class AdminController {
 		return "admin/updateUser";
 	}
 	
+	@Transactional
 	@RequestMapping(value="/admin/update", method=RequestMethod.POST)
 	public String updateUser(User user, BindingResult result, RedirectAttributes redirectAttrs, HttpSession session) {
 		logger.info("/admin/update " + user.toString());
@@ -121,23 +124,23 @@ public class AdminController {
 	}
 	
 
-	/// admin/reasonList
-	
-	//수정할 것
-	@RequestMapping(value = "/admin/reasonlist/{resultNum}/{pageNo}", method = RequestMethod.GET)
-	public String reasonList(@PathVariable int resultNum, @PathVariable String pageNo, Model model, Pager pager) {
-		pager = adminService.returnPage(pageNo, pager , resultNum);
-		String result = null;
-		if (resultNum == 1) {
-			result = "미처리";
-		} else {
-			result = "처리";
-		}
-		List<ReasonList> reasonList = adminService.getReasonListbyResult(result, pager);
-		model.addAttribute("reasonList", reasonList);
-		model.addAttribute("pager", pager);
+	//휴가 목록 조회
+	//resultNum = 0 -> 전체 목록 출력 
+	//resultNum = 1 -> 처리 목록 출력
+	//resultNum = 2 -> 미처리 목록 출력
+	@RequestMapping(value = "/admin/subattendancelist/{pageNo}", method = RequestMethod.GET)
+	public String getSubAttendanceList(@PathVariable String pageNo, @RequestParam(value = "resultNumber", required=false, defaultValue="0") String resultNumber, Model model, Pager pager) {
+		
+		int resultNum = Integer.parseInt(resultNumber);
+		//페이징 객체
+		pager = adminService.SubAttendanceListPage(pageNo, pager, resultNum);
 
-		return "admin/reasonList";
+		List<SubAttList> subAttList = adminService.getSubAttListbyRNum(resultNum, pager);
+		model.addAttribute("subAttList", subAttList);
+		model.addAttribute("pager", pager);
+		model.addAttribute("resultNumber", resultNumber);
+
+		return "admin/subAttList";
 	}
 
 	@RequestMapping(value = "/admin/file", method = RequestMethod.POST)
@@ -179,7 +182,20 @@ public class AdminController {
 	public String getReason(@PathVariable int subAttNo, Model model) {
 		SubAttendance subAttendance = adminService.selectSubAttendanceDetail(subAttNo);
 		model.addAttribute("subAttendance", subAttendance);
+		System.out.println(subAttendance.toString());
 		return "admin/reasonDetail";
+	}
+	
+	//result = 1 -> 승인
+	//result = 2 -> 반려
+	@Transactional
+	@RequestMapping(value="/admin/updatestatus/{subAttNo}/{result}", method=RequestMethod.GET)
+	public String updateStatus(@PathVariable int subAttNo, @PathVariable int result, Model model) {
+		SubAttendance subAttendance = adminService.selectSubAttendanceDetail(subAttNo);
+		adminService.updateSubatt(subAttendance,result);
+		adminService.updateAtt(subAttendance,result);
+		return "admin/adminHome";
+		
 	}
 
 }

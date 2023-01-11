@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.team01.myapp.admin.model.ReasonList;
+import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.User;
 import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
@@ -20,8 +20,8 @@ public interface IAdminRepository {
 	
 	UserUploadFile selectFile(@Param("userFileId") String userFileId);
 	
-	List<ReasonList> getReasonListbyResult(@Param("start") int start, @Param("end") int end,
-			@Param("result") String result);
+	List<SubAttList> selectSubAttListbyRNum(@Param("start") int start, @Param("end") int end,
+			@Param("resultNum") int resultNum);
 
 	int selectMaxFileId();
 	
@@ -34,6 +34,12 @@ public interface IAdminRepository {
 	void insertFileData(UserUploadFile file);
 
 	SubAttendance selectSubAttendanceDetail(int subAttNo);
+
+	int selectTotalSubAttListByPNum(int resultNum);
+
+	void updateSubatt(@Param("subAttendance")SubAttendance subAttendance, @Param("result") int result);
+
+	void updateAtt(@Param("status")String status, @Param("result") int result);
 	
 
 
