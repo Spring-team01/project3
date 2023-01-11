@@ -164,7 +164,9 @@ public class BoardService implements IBoardService {
 	@Override
 	public void writeBoardReply(BoardComment comment) {
 		comment.setBcReplyNo(boardRepository.selectMaxReplyNo()+1);
+		System.out.println(boardRepository.selectMaxReplyNo());
 		boardRepository.insertComment(comment);
+		System.out.println("서비스 완료 ");
 	}
 	
 	//대댓글 리스트 불러오기
@@ -180,5 +182,20 @@ public class BoardService implements IBoardService {
 		boardRepository.insertNestedComment(comment);
 	}
 	
+	//댓글 삭제 
+	 @Transactional
+	public void deleteComment(int bcReplyNo) {
+		boardRepository.deleteComment(bcReplyNo);
+		int count = boardRepository.selectNestedCommentCount(bcReplyNo);
+		if(count>0) {
+			boardRepository.deleteNestedCommentAlso(bcReplyNo);
+		}
+	}
+	//대댓글 삭제 
+	@Override
+	public void deleteNestedComment(int bcReplyNo) {
+		boardRepository.deleteNestedComment(bcReplyNo);
+	}
 	
+	 
 }

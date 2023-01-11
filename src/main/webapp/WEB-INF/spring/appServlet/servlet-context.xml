@@ -45,9 +45,14 @@
       </beans:property>
    	</beans:bean>
    
+    <!-- 트랜젝션 처리를 위해서 컨트롤러 단위로 컴포넌트 스캔해야합니다 -->
+   <context:component-scan base-package="com.team01.myapp.admin.controller"></context:component-scan>
    <context:component-scan base-package="com.team01.myapp.attendance.controller"></context:component-scan>
+   <context:component-scan base-package="com.team01.myapp.board.controller"></context:component-scan>
+   <context:component-scan base-package="com.team01.myapp.community.controller"></context:component-scan>
+   <context:component-scan base-package="com.team01.myapp.subattendance.controller"></context:component-scan>
+   <context:component-scan base-package="com.team01.myapp.user.controller"></context:component-scan>
    
-   <context:component-scan base-package="com.team01.myapp.community"></context:component-scan>
 	
 	<interceptors>
 		<interceptor>
@@ -57,7 +62,10 @@
 			<mapping path = "/community/communityUpdate/**" />
 			<mapping path = "/community/delete/**" />
 			<mapping path = "/board/write/**" />
+			<mapping path = "/board/comment/**" />
+			<mapping path = "/board/reply/**" />
 			<mapping path = "/admin/**"/>
+			<mapping path = "/home/**"/>
 			<beans:bean class= "com.team01.myapp.filter.LoginInterceptor" /> 
 		</interceptor>	
 	</interceptors>

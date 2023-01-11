@@ -10,6 +10,21 @@
 html, body {
 	width: 100%; height: 100%;
 }
+#cardNewsHead {
+	width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;  /* 말줄임 적용 */
+}
+#cardNewsbody{
+	width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
 </style>
 
 
@@ -64,7 +79,83 @@ html, body {
 						</p>
 					</div>
 				</div>
-				<div class="container row" style="width: 100%; height: 100%">
+				<div class="container-fluid" style="background-color:white; margin:20px; width:95%; min-height: 800px;">
+				<div class="container-fluid py-4">
+			      <div class="row">
+			        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ">
+			          <div class="card ">
+			            <div class="card-header bg-gradient-info p-1">
+			              <div class="text-end d-flex">
+			              	<h6 class="text-sm m-1" style="color:#f0f0f0">학과 공지</h6>
+			              	<p class="text-sm m-1 ms-auto" style="color:#f0f0f0">2023.01.10</p>
+			              </div>
+			            </div>
+			            <div class="card-footer p-2 mx-1">
+			            <div>
+				            <h5 id="cardNewsHead" class="mb-0">2023.01.10일자 점검 완료 </h5>
+			            </div>
+			            	<h6 id="cardNewsbody">오늘의 공지사항입니다. 점검이 이르게 종료되었습니다. 그래서 반차를 씁니다. 감사합니다.</h6>
+			            	<hr class="dark horizontal my-0">
+			              	<p class="mb-0 mx-1 text-right"><span class="text-success text-sm font-weight-bolder"> >더보기 </span></p>
+			            </div>
+			          </div>
+			        </div>
+			        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ">
+			          <div class="card ">
+			            <div class="card-header bg-gradient-info p-1">
+			              <div class="text-end d-flex">
+			              	<h6 class="text-sm m-1" style="color:#f0f0f0">학과 공지</h6>
+			              	<p class="text-sm m-1 ms-auto" style="color:#f0f0f0">2023.01.10</p>
+			              </div>
+			            </div>
+			            <div class="card-footer p-2 mx-1">
+			            <div>
+				            <h5 id="cardNewsHead" class="mb-0">2023.01.10일자 점검 완료 </h5>
+			            </div>
+			            	<h6 id="cardNewsbody">오늘의 공지사항입니다. 점검이 이르게 종료되었습니다. 그래서 반차를 씁니다. 감사합니다.</h6>
+			            	<hr class="dark horizontal my-0">
+			              	<p class="mb-0 mx-1 text-right"><span class="text-success text-sm font-weight-bolder"> >더보기 </span></p>
+			            </div>
+			          </div>
+			        </div>
+			        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ">
+			          <div class="card ">
+			            <div class="card-header bg-gradient-info p-1">
+			              <div class="text-end d-flex">
+			              	<h6 class="text-sm m-1" style="color:#f0f0f0">학과 공지</h6>
+			              	<p class="text-sm m-1 ms-auto" style="color:#f0f0f0">2023.01.10</p>
+			              </div>
+			            </div>
+			            <div class="card-footer p-2 mx-1">
+			            <div>
+				            <h5 id="cardNewsHead" class="mb-0">2023.01.10일자 점검 완료 </h5>
+			            </div>
+			            	<h6 id="cardNewsbody">오늘의 공지사항입니다. 점검이 이르게 종료되었습니다. 그래서 반차를 씁니다. 감사합니다.</h6>
+			            	<hr class="dark horizontal my-0">
+			              	<p class="mb-0 mx-1 text-right"><span class="text-success text-sm font-weight-bolder"> >더보기 </span></p>
+			            </div>
+			          </div>
+			        </div>
+			        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ">
+			          <div class="card ">
+			            <div class="card-header bg-gradient-info p-1">
+			              <div class="text-end d-flex">
+			              	<h6 class="text-sm m-1" style="color:#f0f0f0">학과 공지</h6>
+			              	<p class="text-sm m-1 ms-auto" style="color:#f0f0f0">2023.01.10</p>
+			              </div>
+			            </div>
+			            <div class="card-footer p-2 mx-1">
+			            <div>
+				            <h5 id="cardNewsHead" class="mb-0">2023.01.10일자 점검 완료 </h5>
+			            </div>
+			            	<h6 id="cardNewsbody">오늘의 공지사항입니다. 점검이 이르게 종료되었습니다. 그래서 반차를 씁니다. 감사합니다.</h6>
+			            	<hr class="dark horizontal my-0">
+			              	<p class="mb-0 mx-1 text-right"><span class="text-success text-sm font-weight-bolder"> >더보기 </span></p>
+			            </div>
+			          </div>
+			        </div>
+			        </div>
+			        </div>
 					<div class="col-6">
 						<div id="attendanceMiniView" style="width:100%; height:100%">
 						

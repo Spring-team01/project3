@@ -47,7 +47,8 @@
 #black-bar {
 	width : 100%;
 	height : 25px;
-	background-color : black;
+	background: #0f3443;  /* fallback for old browsers */
+	
 }
 
 .time-text {
