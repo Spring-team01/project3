@@ -57,7 +57,7 @@ public class AttendanceController {
 			attendance.setStatus("지각");
 		} else {
 			// 18시 24시까지 시간을 눌렀을 때
-			model.addAttribute("message", "너무 늦은 시간에 누르셨습니다. 휴가 신청만 가능합니다.");
+			model.addAttribute("message", "너무 늦은 시간에 누르셨습니다. ");
 			return "/home";
 		}
 		
