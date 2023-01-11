@@ -19,5 +19,10 @@ public interface IAttendanceService {
 	String selectLeaveTime(String today, String userId);
 	
 	List<AttendanceList> selectOneUserAttendanceList(String userId);
-
+	
+	void checkOut(String today);
+	
+	List<Attendance> selectCheck(String userId);
+	
+	String selectSubjectName(int subjectId);
 }

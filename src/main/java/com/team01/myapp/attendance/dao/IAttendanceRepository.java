@@ -21,4 +21,16 @@ public interface IAttendanceRepository {
 	String selectLeaveTime(@Param("today") String today, @Param("userId") String userId);
 
 	List<AttendanceList> selectOneUserAttendanceList(String userId);
+	
+	List<Attendance> selectCheckOutAttNo(String today);
+	
+	void updateCheckOut(int attNo);
+	
+	List<Attendance> selectCheckOutAttNoSubjectId(String today);
+	
+	void insertCheckOut(@Param("userId") String userId, @Param("subjectId") int subjcetId);
+	
+	List<Attendance> selectCheck(String userId);
+	
+	String selectSubjectName(int subjectId);
 }
