@@ -58,7 +58,7 @@
 
 				<!-- Comment form-->
 				<form class="mb-4">
-					<textarea id="writeReReply" class="form-control" rows="3" placeholder="답글 작성하기"></textarea>
+					<textarea id="writeReReply" class="form-control" rows="3" placeholder="답글 작성하기" required></textarea>
 					<input id="replyButton${commentList.communityCommentMasterNumber}" type="button" onclick="writeReplyComment(${communityCommentMasterNumber})" class="btn btn-sm btn-dark shadow" value="댓글 작성"> 
 					<input type="hidden" name="communityCommentMasterNumber" value="${communityCommentMasterNumber}">
 					

@@ -45,12 +45,12 @@
 							<div class="card-body px-0 pb-2">
 
 								<div class="input-group-prepend">
-									<textarea  class="form-control bg-gray-100 border-0 border-radius-lg" rows="2" id="communityTitle" name="communityTitle" placeholder="게시글 제목"></textarea>
+									<textarea  class="form-control bg-gray-100 border-0 border-radius-lg" rows="2" id="communityTitle" name="communityTitle" placeholder="게시글 제목" required></textarea>
 								</div>
 								<div class="input-group-prepend">
-									<textarea class="form-control" rows="3" id="communityPassword" name="communityPassword" placeholder="게시글 비밀번호"></textarea>
+									<textarea class="form-control" rows="3" id="communityPassword" name="communityPassword" placeholder="게시글 비밀번호" required></textarea>
 								</div>
-								<textarea class="form-control" rows="15" id="communityContent" name="communityContent" placeholder="게시글 입력"></textarea>
+								<textarea class="form-control" rows="15" id="communityContent" name="communityContent" placeholder="게시글 입력" required></textarea>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="">Upload</span>
@@ -62,7 +62,7 @@
 								</div>
 							</div>
 							<div align="center">
-							<input type="button" onclick="submit()" class="btn btn-dark shadow" value="작성"> 
+							<input type="submit" class="btn btn-dark shadow" value="작성"> 
 							<a type="button" href="<c:url value='/community/communityList//1/1'/>" class="btn btn-dark shadow">글 목록</a>
 							</div>
 						</form>
