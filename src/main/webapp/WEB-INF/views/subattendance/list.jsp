@@ -121,7 +121,9 @@
 											<a href="${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
 
 										</c:if>
-										<a href="${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+										<c:if test="${pager.pageNo < pager.totalPageNo }">
+											<a href="${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+										</c:if>
 									</div>
 									<div class="flex-fulfill"></div>
 									<a type="button" href="<c:url value='/subattendance/write'/>" class="btn btn-muted shadow">글 작성</a>
