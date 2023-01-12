@@ -60,8 +60,8 @@
 							<div class="card-body px-0 pb-2">
 								<div class="m-5">
 									<div class="form-group">
-									<label for="categoryId"><fmt:message key="CATEGORY"/></label>	
-								 	<select class="custom-select" name="categoryId" style="width:50%; justify-content:left;">
+									<label class="control-label col-sm-1" for="categoryId"><fmt:message key="CATEGORY"/></label>	
+								 	<select class="custom-select" name="categoryId" style="width:15%;">
 										<option value="1">공지사항</option>
 										<option value="2">강의게시판</option>
 										<option value="3">과제제출</option>
@@ -69,43 +69,36 @@
 									</select>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="name"><fmt:message key="WRITER"/></label>
-										<div class="col-sm-2" >
-											<input type="text" name="writer" id="name" 
-											value="${sessionScope.userName}" ${!empty sessionScope.userName ? "readonly" : "" } >
-										</div>
+										<label class="control-label col-sm-1" for="name"><fmt:message key="WRITER"/></label>
+										<input type="text" name="writer" id="name" 
+										style="color:gray; background-color:#f0f0f0; border:1px solid gray;"
+										value="${sessionScope.userName}" ${!empty sessionScope.userName ? "readonly" : "" } required>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2" for="email"><fmt:message key="EMAIL"/></label>
-										<div class="col-sm-4">
-											<input type="text" name="email" id="email" 
-											value="${sessionScope.email}" ${!empty sessionScope.email ? "readonly" : "" } 
-											class="form-control" required>
-										</div>
+										<label class="control-label col-sm-1" for="email"><fmt:message key="EMAIL"/></label>
+										<input type="text" name="email" id="email"
+										style="color:gray; background-color:#f0f0f0; border:1px solid gray;" 
+										value="${sessionScope.email}" ${!empty sessionScope.email ? "readonly" : "" } required>
 									</div>
-									 <div class="form-group">
-										<label class="control-label col-sm-2" for="password">게시글 비밀번호</label>
-										<div class="col-sm-2">
-											<input type="password" name="password" id="password" 
-											value="${sessionScope.password}" ${!empty sessionScope.password ? "readonly" : "" } 
-											class="form-control" placeholder="게시글 비밀번호" required>
-										</div>
+									 <div class="form-group" style="display:none;">
+										<label class="control-label col-sm-1" for="password">게시글 비밀번호</label>
+										<input type="password" name="password" id="password" 
+										value="${sessionScope.password}" ${!empty sessionScope.password ? "readonly" : "" } 
+										class="form-control" placeholder="게시글 비밀번호" required>
 									</div>	
 									<div class="form-group">
-								      <label class="control-label col-sm-2" for="title"><fmt:message key="TITLE"/></label>
-								      <div class="col-sm-8">
-								        <input type="text" name="title" id="title" class="form-control" placeholder="게시글 제목" required>
+								      <label class="control-label  col-sm-1" for="title"><b><fmt:message key="TITLE"/></b></label>
+								       <input type="text" name="title" id="title" style="width:85%; border:1px solid gray;"placeholder="게시글 제목" required>
+								    </div>
+								    <div class="form-group px-3">
+								     <label class="control-label" for="content"><b><fmt:message key="CONTENT"/></b></label>
+								      <div class="m-1 p-0">
+								        <textarea name="content" rows="15" cols="200" class="form-control" placeholder="게시글 입력"></textarea>
 								      </div>
 								    </div>
-								    <div class="form-group">
-								      <label class="control-label col-sm-2" for="content"><fmt:message key="CONTENT"/></label>
-								      <div class="col-sm-8">
-								        <textarea name="content" rows="15" cols="100" class="form-control" placeholder="게시글 입력" wrap="hard" required></textarea>
-								      </div>
-								    </div>
-								    <div class="form-group"> 
-								      <label class="control-label col-sm-2" for="photo"><fmt:message key="FILE"/><fmt:message key="FILESIZE_ERROR"/></label>
-								      <div class="col-sm-8">
+								    <div class="form-group p-3"> 
+								      <label class="control-label" for="photo"><fmt:message key="FILE"/> : <fmt:message key="FILESIZE_ERROR"/></label>
+								      <div >
 								        <input type="file" id="i_file" name="file">${board.boardFileName}
 								      </div>
 								    </div>
@@ -113,11 +106,8 @@
 									<div class="form-group">
 								    	<div class="col-sm-offset-2 col-sm-8">
 											<input type="hidden" name="boardId" value="${board.boardId}">
-											<%-- <input type="hidden" name="masterId" value="${board.masterId}">
-											<input type="hidden" name="replyNumber" value="${board.replyNumber}">
-											<input type="hidden" name="replyStep" value="${board.replyStep}"> --%>
 											<input type="submit" id="i_submit" class="btn btn-info" value="<fmt:message key="SAVE"/>"> 
-											<input type="reset" class="btn btn-info" value="<fmt:message key="CANCEL"/>">
+											<input type="reset" class="btn btn-info" onClick="history.go(-1)" value="<fmt:message key="CANCEL"/>">
 										</div>
 									</div>
 								</div>

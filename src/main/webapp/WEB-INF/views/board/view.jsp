@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:setBundle basename="i18n/board"/>
 <%@ taglib prefix="jk" tagdir="/WEB-INF/tags" %>
+<% pageContext.setAttribute("replaceChar", "\n"); %>
 
 <!DOCTYPE html>
 <html>
@@ -206,143 +207,141 @@
                     </a>
                 </div>
             </div>
-     		<div class="mainview d-flex">
-           
-            </div>
-              <div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
-				${message}
-				<div class="container-fluid py-4">
-					<div class="board_content">
-						<form class="form-inline m-2 justify-content-end" action="<c:url value='/board/search/1'/>" method="get">
-							<input type="text" name="keyword" class="form-control" placeholder="Search" style="border: 1px solid gray; width:200px; height:35px; padding:0px 10px;">
-							<input type="submit" class="btn btn-warning m-1" value="<fmt:message key="SEARCH"/>">
-						</form>
-					    <div class="pg-opt">
-					        <div class="row">
-					            <div class="col-md-6 pc">
-					                <h2><fmt:message key="CONTENT"/></h2>
-					            </div>
-					            <div class="col-md-6">
-					                <ol class="breadcrumb">
-					                    <li><fmt:message key="BOARD"/></li>
-					                    <li class="active"><fmt:message key="CONTENT"/></li>
-					                </ol>
-					            </div>
-					        </div>
-					    </div>
-				<div class="content">
-					<table class="table table-bordered">
-						<tr>
-							<td width="20%"><fmt:message key="BOARD_ID"/></td>
-							<td>${board.boardId}</td>
-						</tr>
-						<tr>
-							<td width="20%"><fmt:message key="WRITER"/></td>
-							<td>${board.writer}</td>
-						</tr>
-						<tr>
-							<td width="20%"><fmt:message key="WRITE_DATE"/></td>
-							<td><fmt:formatDate value="${board.writeDate}" pattern="YYYY-MM-dd HH:mm:ss"/></td>
-						</tr>
-						<tr>
-							<td><fmt:message key="SUBJECT"/> </td>
-							<td>${board.title}</td>
-						</tr>
-						<tr>
-							<td><fmt:message key="CONTENT"/></td>
-							<td class="board_content"><p style="white-space: pre-line;"><c:out value="${board.content}"/></p></td>
-						</tr>
-						<c:if test="${!empty board.boardFileName}">
-						<tr>
-							<td><fmt:message key="FILE"/></td>
-							<td>
-							<c:set var="len" value="${fn:length(board.boardFileName)}"/>
-							<c:set var="filetype" value="${fn:toUpperCase(fn:substring(board.boardFileName, len-4, len))}"/>
-							<c:if test="${(filetype eq '.JPG') or (filetype eq 'JPEG') or (filetype eq '.PNG') or (filetype eq '.GIF')}"><img src='<c:url value="/boardfile/${board.boardFileId}"/>' class="img-thumbnail"><br></c:if>
-							<a href='<c:url value="/boardfile/${board.boardFileId}"/>'>${board.boardFileName} (<fmt:formatNumber>${board.boardFileSize}</fmt:formatNumber>byte)</a>
-							</td>
-						</tr>
-						</c:if>
-						
-						<tr>
-						<td colspan=2 align="right">
-						<section class="mb-5">
-							<div class="card bg-light">
-								<div class="card-body">
-									<form class="mb-4" action="<c:url value='/board/comment'/>" method="post">
-										<textarea name="bcContent" class="form-control" rows="3" placeholder="댓글 작성" required></textarea>
-										<br> 
-										<input type="submit" class="btn btn-dark shadow" value="작성"> 
-										<input type="hidden" name="boardId" value="${board.boardId}"> 
-									</form>
-
-								
-										<c:if test="${!empty commentList}">
-											<c:forEach var="commentOne" items="${commentList}">
-												<div class="d-flex flex-column mb-3 " >
-													<div class="ms-3">
-														<div class="d-flex align-items-center">
-															<div>
-																<div class="flex-shrink-0">
-																	<img class="rounded-circle" 
-																	src='<c:url value="/admin/userdetail/userfile/${commentOne.userFileId}"/>' 
-																	alt="..."  style="width: 50px; height: 50px;"/>
-																</div>
-															</div>
-															<div class="flex-fill mx-3 text-left">
-																<div class="fw-bold">${commentOne.userId}</div>
-																${commentOne.bcContent}
-															</div>
-															<div class="ms-auto">
-																<div class="d-flex flex-column">
-												                    <!-- three dots -->
-												                    	<div>
-																	    	<img src='<c:url value="/images/threedots.svg"/>' class="dropbtn icons btn-right showLeft m-2" onclick="showDropdown(${commentOne.bcReplyNo})">
-																	    </div>
-												                 	<div class="dropdown">
-																	    <!-- menu -->
-																	    <div id="myDropdown${commentOne.bcReplyNo}" class="dropdown-content">
-																	    <c:if test="${commentOne.userId eq sessionScope.userId}">
-																	    	<a onclick="deleteComment(${commentOne.bcReplyNo})">삭제하기</a>
-																	    </c:if>
-																	    <c:if test="${commentOne.userId ne sessionScope.userId}">
-																	    	<a href="#report ">신고하기</a>
-																	    </c:if> 
-																	    </div>
-																	 </div>
-																	<button type="button" onclick="viewReReply(${commentOne.bcReplyNo})" class="btn btn-sm btn-dark shadow">답글</button>
-													             </div>
-															</div>
-														</div>
-													
-													<!-- 대댓글 작성 -->
-																
-														<div id="reCommentForm${commentOne.bcReplyNo}"style="display:none">
-															<form class="mb-4" id="writeReReplyForm" name="writeReReplyForm" class="d-flex">
-																<label class="font-weight-bold" for="writeReReply${commentOne.bcReplyNo}"></label>
-																<textarea id="writeReReply${commentOne.bcReplyNo}" class="form-control" name="bcContent" placeholder="댓글을 입력해주세요" required></textarea>
-																<input type="submit" onclick="writeReReplyFun(${commentOne.bcReplyNo}, ${commentOne.boardId})" class="btn btn-dark shadow" value="작성"> 
-															</form>
-														</div>
-														<!-- 대댓글리스트 -->
-														<div id="viewReReply${commentOne.bcReplyNo}" style="display:none">
-														</div>
-														<!-- 작성한 답글 추가 -->
-														<div id="addReply${commentOne.bcReplyNo}">
-															
-														</div>
-												</div>
-												</div>
-											</c:forEach>
-										</c:if>
-									
-								</div>
-							</div>
-						</section>
+<div class="mainview d-flex">
+    
+</div>
+<div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 800px;">
+${message}
+<!--템플릿  -->
+	<div class="container-fluid p-4">
+		<div class="board_content p-4">
+			<form class="form-inline m-2 justify-content-end" action="<c:url value='/board/search/1'/>" method="get">
+				<input type="text" name="keyword" class="form-control" placeholder="Search" style="border: 1px solid gray; width:200px; height:35px; padding:0px 10px;">
+				<input type="submit" class="btn btn-warning m-1" value="<fmt:message key="SEARCH"/>">
+			</form>
+	      <div class="row">
+	        <div class="col-12">
+	        
+	        
+	          <div class="card my-4">
+	            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+	              <div class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3">
+	                <c:if test="${board.categoryId == '1'}"><h6 class="text-white text-capitalize ps-3"> 강의 게시판 > 공지사항 > ${board.boardId}</h6></c:if>
+	                <c:if test="${board.categoryId == '2'}"><h6 class="text-white text-capitalize ps-3"> 강의 게시판 > 강의게시판 > ${board.boardId}</h6></c:if>
+	                <c:if test="${board.categoryId == '3'}"><h6 class="text-white text-capitalize ps-3"> 강의 게시판 > 과제제출 > ${board.boardId}</h6></c:if>
+	                <c:if test="${board.categoryId == '4'}"><h6 class="text-white text-capitalize ps-3"> 강의 게시판 > 질문게시판 > ${board.boardId}</h6></c:if>
+	              </div>
+	            </div>
+	        	<div class="card-body pb-2">
+			<div class="content">
+				<table class="table table-bordered">
+					<tr>
+						<td width="20%"><fmt:message key="BOARD_ID"/></td>
+						<td>${board.boardId}</td>
+					</tr>
+					<tr>
+						<td width="20%"><fmt:message key="WRITER"/></td>
+						<td>${board.writer}</td>
+					</tr>
+					<tr>
+						<td width="20%"><fmt:message key="WRITE_DATE"/></td>
+						<td><fmt:formatDate value="${board.writeDate}" pattern="YYYY-MM-dd HH:mm:ss"/></td>
+					</tr>
+					<tr>
+						<td><fmt:message key="SUBJECT"/> </td>
+						<td>${board.title}</td>
+					</tr>
+					<tr>
+						<td><fmt:message key="CONTENT"/></td>
+						<td class="board_content" >${fn: replace(board.content, replaceChar, "") }</td>
+					</tr>
+					<c:if test="${!empty board.boardFileName}">
+					<tr>
+						<td><fmt:message key="FILE"/></td>
+						<td>
+						<c:set var="len" value="${fn:length(board.boardFileName)}"/>
+						<c:set var="filetype" value="${fn:toUpperCase(fn:substring(board.boardFileName, len-4, len))}"/>
+						<c:if test="${(filetype eq '.JPG') or (filetype eq 'JPEG') or (filetype eq '.PNG') or (filetype eq '.GIF')}"><img src='<c:url value="/boardfile/${board.boardFileId}"/>' class="img-thumbnail"><br></c:if>
+						<a href='<c:url value="/boardfile/${board.boardFileId}"/>'>${board.boardFileName} (<fmt:formatNumber>${board.boardFileSize}</fmt:formatNumber>byte)</a>
 						</td>
-						</tr>
-						<tr>
-							<td colspan=2 align="right">
+					</tr>
+					</c:if>
+					
+					<tr>
+					<td colspan=2 align="right">
+					
+					</td>
+					</tr>
+					
+					</table>
+					</div>
+					<section class="mb-5">
+						<div class="card bg-light">
+							<div class="card-body">
+								<form class="d-flex mb-4" action="<c:url value='/board/comment'/>" method="post">
+									<textarea name="bcContent" class="form-control mx-2" rows="3" placeholder="댓글 작성" required></textarea>
+									<input type="submit" class="btn btn-dark shadow" value="작성"> 
+									<input type="hidden" name="boardId" value="${board.boardId}"> 
+								</form>
+									<c:if test="${!empty commentList}">
+										<c:forEach var="commentOne" items="${commentList}">
+											<div class="d-flex flex-column mb-5" >
+												<div class="ms-3">
+													<div class="d-flex align-items-center mb-3">
+														<div>
+															<div class="flex-shrink-0">
+																<img class="rounded-circle" 
+																src='<c:url value="/admin/userdetail/userfile/${commentOne.userFileId}"/>' 
+																alt="..."  style="width: 50px; height: 50px;"/>
+															</div>
+														</div>
+														<div class="flex-fill mx-3 text-left">
+															<div class="fw-bold">${commentOne.userId}</div>
+															${commentOne.bcContent}
+														</div>
+														<div class="ms-auto">
+															<div class="d-flex flex-column text-right">
+											                    <!-- three dots -->
+											                    	<div>
+																    	<img src='<c:url value="/images/threedots.svg"/>' class="dropbtn icons btn-right showLeft m-2" onclick="showDropdown(${commentOne.bcReplyNo})">
+																    </div>
+											                 	<div class="dropdown">
+																    <!-- menu -->
+																    <div id="myDropdown${commentOne.bcReplyNo}" class="dropdown-content">
+																    <c:if test="${commentOne.userId eq sessionScope.userId}">
+																    	<a onclick="deleteComment(${commentOne.bcReplyNo})">삭제하기</a>
+																    </c:if>
+																    <c:if test="${commentOne.userId ne sessionScope.userId}">
+																    	<a href="#report ">신고하기</a>
+																    </c:if> 
+																    </div>
+																 </div>
+																<button type="button" onclick="viewReReply(${commentOne.bcReplyNo})" class="btn btn-sm btn-dark shadow">답글</button>
+												             </div>
+														</div>
+													</div>
+												
+												<!-- 대댓글 작성 -->
+													<div id="reCommentForm${commentOne.bcReplyNo}"style="display:none;">
+														<form class="mb-4 d-flex" id="writeReReplyForm" name="writeReReplyForm" >
+															<label class="font-weight-bold" for="writeReReply${commentOne.bcReplyNo}"></label>
+															<textarea id="writeReReply${commentOne.bcReplyNo}" class="form-control m-1" name="bcContent" placeholder="댓글을 입력해주세요" required></textarea>
+															<input type="submit" onclick="writeReReplyFun(${commentOne.bcReplyNo}, ${commentOne.boardId})" class="btn btn-dark shadow m-1" value="작성"> 
+														</form>
+													</div>
+													<!-- 대댓글리스트 -->
+													<div id="viewReReply${commentOne.bcReplyNo}" style="display:none">
+													</div>
+											</div>
+											</div>
+										</c:forEach>
+									</c:if>
+								
+							</div>
+						</div>
+					</section>
+					</div>
+						<div id="buttons" class="m-5 text-right">
 							<c:if test="${sessionScope.userType!='ADMIN' && board.userId==sessionScope.userId}">
 								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
@@ -356,19 +355,39 @@
 							<c:if test="${sessionScope.userType=='ADMIN'}">
 								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
-								<a href='<c:url value="/board/admin/delete/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="DELETE"/></button></a>
+								<a href='<c:url value="/board/admin/delete/${board.boardId}"/>'><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#adminDeleteModal"><fmt:message key="DELETE"/></button></a>
 							</c:if>
-							</td>
-						</tr>
-						</table>
+							
+							<!-- Modal -->
+							<div class="modal fade" id="adminDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							      </div>
+							      <div class="modal-body">
+							        ...
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							        <button type="button" class="btn btn-primary">Save changes</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+						</div>
 					</div>  
-					</div>
-	    		</div>
-	        </div>
-        </div>
+					<!-- Card end -->
+				</div>
+    		</div>
+   		</div>
+	</div>
+</div>
+</div>
  <jsp:include page="/WEB-INF/views/include/sidebar.jsp" />       
-    </div>
-    </div>
+</div>
+</div>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>

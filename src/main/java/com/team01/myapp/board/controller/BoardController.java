@@ -67,10 +67,7 @@ public class BoardController {
 	public String getBoardDetails(@PathVariable int boardId, @PathVariable int pageNo, Model model) {
 		Board board = boardService.selectArticle(boardId);
 		List<BoardComment> commentList = boardService.getBoardComment(boardId);
-		board.setContent(board.getContent().replace("<br/>","\r"));
-		board.setContent(board.getContent().replace("<br/>","\n"));
-		board.setContent(board.getContent().replace("<br/>","\r\n"));
-		
+	
 		model.addAttribute("board", board);
 		model.addAttribute("page", pageNo);
 		model.addAttribute("commentList", commentList);
@@ -112,11 +109,12 @@ public class BoardController {
 		logger.info("/board/write: " +board.toString());
 		try {
 			board.setTitle(Jsoup.clean(board.getTitle(), Whitelist.basic()));
-			board.setContent(Jsoup.clean(board.getContent(), Whitelist.basic()));
+			String content = board.getContent();
+			content = content.replace("\r\n", "<br>");
+			content = content.replace("\r", "<br>");
+			content = content.replace("\n", "<br>");
+			board.setContent(Jsoup.clean(content, Whitelist.basic()));
 			
-			board.setContent(board.getContent().replace("\r", "<br/>"));
-			board.setContent(board.getContent().replace("\n", "<br/>"));
-			board.setContent(board.getContent().replace("\r\n", "<br/>"));
 			board.setUserId((String) session.getAttribute("userId"));
 			board.setEmail((String) session.getAttribute("email"));
 			MultipartFile mfile = board.getFile();
@@ -156,11 +154,12 @@ public class BoardController {
 		logger.info("/board/update " + board.toString());
 		try {
 			board.setTitle(Jsoup.clean(board.getTitle(), Whitelist.basic()));
-			board.setContent(Jsoup.clean(board.getContent(), Whitelist.basic()));
 			
-			board.setContent(board.getContent().replace("\r", "<br/>"));
-			board.setContent(board.getContent().replace("\n", "<br/>"));
-			board.setContent(board.getContent().replace("\r\n", "<br/>"));
+			String content = board.getContent();
+			content = content.replace("\r\n", "<br>");
+			content = content.replace("\r", "<br>");
+			content = content.replace("\n", "<br>");
+			board.setContent(Jsoup.clean(content, Whitelist.basic()));
 			MultipartFile mfile = board.getFile();
 			if(mfile!=null&&!mfile.isEmpty()) {
 				logger.info("/board/update: "+mfile.getOriginalFilename());
