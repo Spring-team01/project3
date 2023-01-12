@@ -15,7 +15,7 @@ public class AttendanceScheduler {
 	IAttendanceService attendanceService;
 	
 	// 23시 59분에 결근으로 학생 추가
-	//@Scheduled(cron = "0 00 18 * * 1-7")
+	//@Scheduled(cron = "0 00 18 * * 1-5")
 	public void getStudentStatus() {
 		Date date = new Date();
 

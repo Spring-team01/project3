@@ -102,26 +102,29 @@ html, body {
 			      <!-- 공지사항 forEach  -->
 			      </div>
 			    </div>
-			    
-			    <!-- 출석 미니뷰 -->
-				<div class="col-6">
-					<div id="attendanceMiniView" style="width:100%; height:100%">
+			    <div class="row">
+				    <!-- 출석 미니뷰 -->
+					<div class="col-6 col-md">
+						<div id="attendanceMiniView" style="width:100%; height:100%">
+						
+						</div>
+					</div>
 					
+					<!-- 커뮤니티 미니뷰 -->
+					<div class="col-6 col-md">
+						게시판 추가
+						<div class="column" >
+							<div class="col-6">공지사항 게시판 view</div>
+							<div id="communityMiniViewDiv" class="col-6 col-md" style="width: 100%; height: 100%">
+								커뮤니티 게시판 조회수 순위
+								<div id="communityMiniView"></div>
+							</div>
+	
+						</div>
 					</div>
 				</div>
 				
-				<!-- 커뮤니티 미니뷰 -->
-				<div class="col-6 col-md">
-					게시판 추가
-					<div class="column" >
-						<div class="col-6">공지사항 게시판 view</div>
-						<div id="communityMiniViewDiv" class="col-6 col-md" style="width: 100%; height: 100%">
-							커뮤니티 게시판 조회수 순위
-							<div id="communityMiniView"></div>
-						</div>
-
-					</div>
-				</div>
+				
 			</div>
 			</div>
 			<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
