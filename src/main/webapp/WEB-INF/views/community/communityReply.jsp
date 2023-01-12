@@ -7,6 +7,48 @@
 <!DOCTYPE html>
 <html>
 
+<style>
+ .dropbtn {
+  background-color: #f9f9f9;
+  color: white;
+  padding: 0px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 0px 0px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+</style>
+
 <script>
 	function writeReplyComment(i) {
 		let replyContent= $("#writeReReply").val();
@@ -87,9 +129,14 @@
 								value="${replyCommentList.communityCommentMasterNumber}">
 							</c:if>
 						</div>
-							<div>
-								<img src='<c:url value="/images/threedots.svg"/>' class="dropbtn icons btn-right showLeft m-2" onclick="showDropdown(${replyCommentList.communityCommentReplyNumber})">
-							 </div>
+							<c:if test="${sessionScope.userId ne commentList.userId}">	
+								<div class="dropdown"> 
+									<img src='<c:url value="/images/threedots.svg"/>' class="dropbtn">
+									<div class="dropdown-content">
+									<a href="">신고하기</a>
+									</div>
+								</div>
+							</c:if>
 						 </div>
 				</c:forEach>
 

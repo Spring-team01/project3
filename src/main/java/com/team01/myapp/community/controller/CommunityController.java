@@ -144,10 +144,10 @@ public class CommunityController {
 			HttpSession session) {
 		try {
 			// XSSS 대응
+			community.setCommunityContent(community.getCommunityContent().replace("\r\n", "<br>"));
 			community.setCommunityTitle(Jsoup.clean(community.getCommunityTitle(), Whitelist.basic()));
 			community.setCommunityContent(Jsoup.clean(community.getCommunityContent(), Whitelist.basic()));
 
-			community.setCommunityContent(community.getCommunityContent().replace("\r\n", "<br>"));
 			community.setUsersId((String) session.getAttribute("userId"));
 			community.setUserName((String) session.getAttribute("userName"));
 			community.setCommunityEmail((String) session.getAttribute("email"));
