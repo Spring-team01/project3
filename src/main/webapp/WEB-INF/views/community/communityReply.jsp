@@ -12,12 +12,14 @@
 	function writeReplyComment(i) {
 		let replyContent= $("#writeReReply").val();
 		let communityBoardId= $("#communityBoardId").val();
+		let userId = $("#userId").val();
 		
 		$.ajax({
 			url : "/myapp/community/writereplycomment/",
 			type : "POST",
 			datatype : "html",
-			data : {communityCommentMasterNumber : i, communityCommentContent : replyContent, communityBoardId : communityBoardId},
+			data : {communityCommentMasterNumber : i, communityCommentContent : replyContent, 
+				communityBoardId : communityBoardId, userId : userId},
 			success : function(data) {
 				if(data==0) {
 		           alert("댓글 작성에 실패하였습니다");

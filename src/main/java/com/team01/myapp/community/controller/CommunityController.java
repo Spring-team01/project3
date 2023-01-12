@@ -260,7 +260,7 @@ public class CommunityController {
 	@RequestMapping(value="/community/writereplycomment", method=RequestMethod.POST)
 	@ResponseBody
 	public String writeReplyComment(CommunityComment comment, HttpSession session) {
-		comment.setUserId((String) session.getAttribute("userId"));	
+		
 		communityService.insertReplyCommunityComment(comment);
 		
 		return "1";

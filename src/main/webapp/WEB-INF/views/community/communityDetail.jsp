@@ -155,6 +155,8 @@
 																	onclick="deleteReplyComment(${commentList.communityCommentMasterNumber})" 
 																	class="btn btn-sm btn-dark shadow" value="댓글 삭제">
 																</c:if>
+																<input type="hidden" id="userId" name="userId" 
+																value="${sessionUserId}">
 
 															</div>
 														</div>
