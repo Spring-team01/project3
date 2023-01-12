@@ -42,9 +42,10 @@ public interface ICommunityRepository {
 	
 	void updateCommentMasterNumber(int communityBoardId);
 	
-	List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber);
+	List<CommunityComment> getReplyCommentList(@Param("communityCommentMasterNumber")int communityCommentMasterNumber
+												,@Param("communityBoardId") int communityBoardId);
 	
 	void insertReplyCommunityComment(CommunityComment comment);
 	void deleteCommunityReply(CommunityComment comment);
-	
+	void deleteCommunityReReplyComment(CommunityComment comment);
 }

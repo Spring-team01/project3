@@ -5,6 +5,7 @@
 <fmt:setBundle basename="i18n/board" />
 <%@ taglib prefix="jk" tagdir="/WEB-INF/tags"%>
 
+
 <!DOCTYPE html>
 <html>
 <jsp:include page="/WEB-INF/views/include/staticFiles.jsp" />
@@ -52,7 +53,7 @@
 								<div class="input-group-prepend">
 									<textarea class="form-control" rows="3" id="communityPassword" name="communityPassword" style="align-content: flex-start;" required>${community.communityPassword}</textarea>
 								</div>
-								<textarea class="form-control" rows="15" id="communityContent" name="communityContent" style="align-content: flex-start;" required>${community.communityContent}</textarea>
+								<textarea class="form-control" rows="15" id="communityContent" name="communityContent" style="align-content: flex-start;" required>${fn: replace(community.communityContent, "<br>","") }</textarea>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="">Upload</span>
