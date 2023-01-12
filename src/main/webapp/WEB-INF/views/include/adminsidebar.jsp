@@ -34,17 +34,10 @@
                 
                 </li>
                 <li>
-                	<a href="#" type="button" class="dropdown-btn" >
+                	<a href="<c:url value='/admin/attsum/1'/>" type="button" class="dropdown-btn" >
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">출석현황</span>
-                        <i class="fa fa-caret-down"></i>
                     </a>    
-                        <div class="dropdown-container">
-                    	<a href="<c:url value='/admin/attsummonthly/1'/>">월별</a>
-					    <a href="<c:url value='/admin/attsumdaily/1'/>">일별</a>					   
-                    </div>
-                    
-                  
                  
                 </li>
                 <li>

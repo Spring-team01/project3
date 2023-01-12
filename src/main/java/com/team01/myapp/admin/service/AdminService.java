@@ -1,6 +1,7 @@
 package com.team01.myapp.admin.service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.team01.myapp.admin.dao.IAdminRepository;
+import com.team01.myapp.admin.model.AttSumDailyVo;
 import com.team01.myapp.admin.model.AttSummaryVo;
 import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.SubAttendance;
@@ -69,7 +71,7 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
-
+	@Transactional
 	public void updateUser(User user, UserUploadFile file) {
 		adminRepository.updateUser(user);
 		if (file != null && file.getUserFileName() != null && !file.getUserFileName().equals("")) {
@@ -122,6 +124,7 @@ public class AdminService implements IAdminService {
 
 	}
 
+	// 전체 출결용
 	@Override
 	public AttSummaryVo attsumMonthly(int subjectId) {
 		return adminRepository.selectAttSumMonthly(subjectId);
@@ -133,6 +136,45 @@ public class AdminService implements IAdminService {
 		int totalCount = adminRepository.selectTotalCountBySubject(subjectId);
 		attSummaryVo.setTotalCountBySubject(totalCount);
 		return attSummaryVo;
+	}
+
+	// 개인 출결용
+	@Transactional
+	@Override
+	public List<AttSummaryVo> attsumMonthlyByuser(int subjectId) {
+		List<Integer> userIds = adminRepository.selectUserIdsBySub(subjectId);
+		List<AttSummaryVo> attSummaryList = new ArrayList<AttSummaryVo>();
+
+		for (int userId : userIds) {
+			AttSummaryVo attSummaryVo = adminRepository.selectSumByuser(userId, subjectId);
+			attSummaryList.add(attSummaryVo);
+
+		}
+		return attSummaryList;
+	}
+	@Transactional
+	@Override
+	public List<AttSumDailyVo> attSumDailyByuser(int subjectId) {
+		List<Integer> userIds = adminRepository.selectUserIdsBySub(subjectId);
+		List<AttSumDailyVo> attSummaryList = new ArrayList<AttSumDailyVo>();
+		for (int userId : userIds) {
+			AttSumDailyVo attSumDailyVo = adminRepository.selectSumDailyByuser(userId);
+			if(attSumDailyVo!=null) {
+				attSummaryList.add(attSumDailyVo);
+			}else {
+				String userName = adminRepository.selectUserName(userId);
+				AttSumDailyVo attSumDailyVo1 = new AttSumDailyVo();
+				
+				attSumDailyVo1.setUserName(userName);
+				attSumDailyVo1.setAttTime("-");
+				attSumDailyVo1.setLeaveTime("-");
+				attSumDailyVo1.setStatus("미출근");
+				
+				attSummaryList.add(attSumDailyVo1);
+			}
+
+		}
+		return attSummaryList;
 	}
 
 }

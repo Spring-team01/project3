@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,14 +25,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team01.myapp.admin.model.AttSumDailyVo;
 import com.team01.myapp.admin.model.AttSummaryVo;
 import com.team01.myapp.admin.model.SubAttList;
+import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.admin.model.User;
 import com.team01.myapp.admin.model.UserInsert;
 import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
 import com.team01.myapp.admin.service.IAdminService;
-import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.util.Pager;
 
 @Controller
@@ -110,7 +110,7 @@ public class AdminController {
 				file.setUserFileSize(mfile.getSize());
 				file.setUserFileContentType(mfile.getContentType());
 				file.setUserFileData(mfile.getBytes());
-				System.out.println("으악"+file.getUserId());
+				System.out.println("으악" + file.getUserId());
 				logger.info("/admin/update : " + file.toString());
 
 				adminService.updateUser(user, file);
@@ -195,19 +195,32 @@ public class AdminController {
 
 	}
 
-	// 월별 조회
+	// 전체 출결 조회
+	@RequestMapping(value = "/admin/attsum/{subjectId}", method = RequestMethod.GET)
+	public String attSum(@PathVariable int subjectId, Model model) {
+		AttSummaryVo attSumDaily = adminService.attSumDaily(subjectId);
+		AttSummaryVo attSumMonthly = adminService.attsumMonthly(subjectId);
+		model.addAttribute("attSumDaily", attSumDaily);
+		model.addAttribute("attSumMonthly", attSumMonthly);
+		return "admin/attSum";
+	}
+
+	//학생 월별 조회
 	@RequestMapping(value = "/admin/attsummonthly/{subjectId}", method = RequestMethod.GET)
 	public String attSumMonthly(@PathVariable int subjectId, Model model) {
-		AttSummaryVo attSummaryVo = adminService.attsumMonthly(subjectId);
-		model.addAttribute("attSummaryVo", attSummaryVo);
+		List<AttSummaryVo> sumMonthlyVo = adminService.attsumMonthlyByuser(subjectId);
+		model.addAttribute("subjectName", sumMonthlyVo.get(1).getSubjectName());
+		model.addAttribute("sumMonthlyVo", sumMonthlyVo);
 		return "admin/attSumMonthly";
 	}
 
-	// 일별 조회
+	//학생 일별 조회
 	@RequestMapping(value = "/admin/attsumdaily/{subjectId}", method = RequestMethod.GET)
 	public String attSumDaily(@PathVariable int subjectId, Model model) {
-		AttSummaryVo attSummaryVo = adminService.attSumDaily(subjectId);
-		model.addAttribute("attSummaryVo", attSummaryVo);
+		List<AttSumDailyVo> sumDatilyVo = adminService.attSumDailyByuser(subjectId);
+		model.addAttribute("subjectName", sumDatilyVo.get(1).getSubjectName());
+		model.addAttribute("sumDatilyVo", sumDatilyVo);
 		return "admin/attSumDaily";
 	}
+
 }

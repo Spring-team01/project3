@@ -368,5 +368,65 @@
 		FROM users
 		WHERE subject_id = #{subjectId}
 	</select>	
-
+	
+	<select id="selectUserIdsBySub" parameterType="int" resultType="int">
+		select u_id
+		from  users
+		where subject_id = #{subjectId}
+	</select>
+	
+	<select id="selectSumByuser" parameterType="int" resultType="com.team01.myapp.admin.model.AttSummaryVo" >
+			select
+				(SELECT
+			    u_name
+			    FROM users
+			    WHERE u_id =#{userId})as "userName",
+			    
+			    (SELECT
+			    subject_name
+			    FROM subject
+			    WHERE subject_id =#{subjectId})as "subjectName",
+			    							
+			    (SELECT
+			    count(*)
+			    FROM attendance
+			    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='출근' and subject_id=1 AND u_id =#{userId}) as "attendanceSum",
+			    
+			    (SELECT
+			    count(*)
+			    FROM attendance
+			    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='휴가' and subject_id=1 AND u_id =#{userId}) as "leaveSum",
+			    
+			    (SELECT
+			    count(*)
+			    FROM attendance
+			    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='지각' and subject_id=1 AND u_id =#{userId}) as "lateSum",
+			    
+			    (SELECT
+			    count(*)
+			    FROM attendance
+			    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='결근' and subject_id=1 AND u_id =#{userId}) as "absenceSum"
+    
+   		from dual
+	</select>
+	
+	<select id="selectSumDailyByuser" parameterType="int" resultType="com.team01.myapp.admin.model.AttSumDailyVo" >
+		select 
+		TO_CHAR(att_time, 'hh24:mi:ss') as "attTime",
+		TO_CHAR(leave_time, 'hh24:mi:ss') as "leaveTime",
+		status,
+		u_name as "userName",
+		subject_name as "subjectName"
+		from attendance a, users u, subject s
+		where a.u_id =#{userId} 
+		    and  TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD')
+		    and u.u_id=a.u_id
+		    and u.subject_id=s.subject_id
+	</select>
+	
+	<select id="selectUserName" parameterType="int" resultType="string">
+		select u_name
+		from users
+		where u_id=#{userId}
+	</select>	
 </mapper>

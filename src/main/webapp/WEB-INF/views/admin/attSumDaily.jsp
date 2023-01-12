@@ -32,55 +32,14 @@
                <div class="row-lg-9">
                   <div class="container-fluid py-4">
                      <div class="row">
-                        <div class="form-inline m-2 justify-content-start "> 
-                           <button onclick = "location.href = '<c:url value='/admin/attsumdaily/1'/>'" class="badge badge-sm bg-gradient-success">c언어</button>
-                           <button onclick = "location.href = '<c:url value='/admin/attsumdaily/2'/>'" class="badge badge-sm bg-gradient-danger">python</button>
-                           <button onclick = "location.href = '<c:url value='/admin/attsumdaily/3'/>'" class="badge badge-sm bg-gradient-info">java</button>
-                           </div>
+                       
                         <div class="col-12">
-
                            <div class="card my-4">
                               <div
                                  class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                  <div
                                     class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">${attSummaryVo.subjectName} 일별 요약</h6>
-                                 </div>
-                              </div>
-                              <div class="card-body px-0 pb-2">
-                                 <div class="table-responsive p-0">
-                                    <table
-                                       class="table align-items-center justify-content-center mb-0">
-                                       <thead>
-                                           <tr>
-                                             <td>출근</td>
-                                             <td>지각</td>
-                                             <td>결근</td>
-                                             <td>휴가</td>
-                                             <td>미출근</td>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr>
-                                             <td>${attSummaryVo.attendanceSum}</td>
-                                             <td>${attSummaryVo.lateSum}</td>
-                                             <td>${attSummaryVo.absenceSum}</td>
-                                             <td>${attSummaryVo.leaveSum}</td>
-                                             <td>${attSummaryVo.totalCountBySubject - attSummaryVo.attendanceSum - attSummaryVo.lateSum - attSummaryVo.absenceSum -attSummaryVo.leaveSum}</td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-
-                           </div>
-                           <div class="m-2" style="height: 50px"></div>
-                           <div class="card my-4">
-                              <div
-                                 class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                 <div
-                                    class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">학생 근태 조회</h6>
+                                    <h6 class="text-white text-capitalize ps-3">${subjectName} 학생 일별 근태 조회</h6>
                                  </div>
                               </div>
                               <div class="card-body px-0 pb-2">
@@ -93,44 +52,22 @@
                                              <td>IN</td>
                                              <td>OUT</td>
                                              <td>상태</td>
-                                             <td>과목</td>
 
                                           </tr>
                                        </thead>
                                        <tbody>
+                                       <c:forEach var="sumDatilyVo" items="${sumDatilyVo}">
                                           <tr>
-                                             <td>이연희</td>
-                                             <td>09:00</td>
-                                             <td>18:00</td>
-                                             <td></td>
-                                             <td>c언어</td>
+                                             <td>${sumDatilyVo.userName}</td>
+                                             <td>${sumDatilyVo.attTime}</td>
+                                             <td>
+                                             	<c:if test="${empty sumDatilyVo.leaveTime}">-</c:if>
+                                             	${sumDatilyVo.leaveTime}
+                                             </td>
+                                             <td>${sumDatilyVo.status}</td>
 
                                           </tr>
-                                          <tr>
-                                             <td>김태희</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>c언어</td>
-
-                                          </tr>
-                                          <tr>
-                                             <td>이예승</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>c언어</td>
-
-                                          </tr>
-                                          <tr>
-                                             <td>강지성</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>c언어</td>
-
-                                          </tr>
-
+                                          </c:forEach>
                                        </tbody>
                                     </table>
                                  </div>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.team01.myapp.admin.model.AttSumDailyVo;
 import com.team01.myapp.admin.model.AttSummaryVo;
 import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.User;
@@ -49,4 +50,14 @@ public interface IAdminRepository {
 	AttSummaryVo selectAttSumDaily(@Param("subjectId")int subjectId);
 
 	int selectTotalCountBySubject(int subjectId);
+
+	List<Integer> selectUserIdsBySub(int subjectId);
+
+	AttSummaryVo selectSumByuser(int userId);
+
+	AttSumDailyVo selectSumDailyByuser(int userId);
+
+	String selectUserName(int userId);
+
+	AttSummaryVo selectSumByuser(@Param("userId")int userId, @Param("subjectId")int subjectId);
 }
