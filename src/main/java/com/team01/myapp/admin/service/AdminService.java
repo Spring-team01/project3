@@ -72,14 +72,13 @@ public class AdminService implements IAdminService {
 	@Transactional
 	public void updateUser(User user, UserUploadFile file) {
 		adminRepository.updateUser(user);
+		System.out.println("확인!" + file.getUserFileName().equals(""));
 		if (file != null && file.getUserFileName() != null && !file.getUserFileName().equals("")) {
 			file.setUserId(user.getUserId());
-			System.out.println("서비스" + file.getUserFileId());
-			if (file.getUserFileSize() > 0) {
-				adminRepository.updateFileData(file);
-			} else {
-				adminRepository.insertFileData(file);
-			}
+			adminRepository.updateFileData(file);
+		} else {
+			file.setUserId(user.getUserId());
+			adminRepository.insertFileData(file);
 		}
 	}
 
