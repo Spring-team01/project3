@@ -1,6 +1,6 @@
 package com.team01.myapp.admin.controller;
 
-import java.nio.charset.Charset; 
+import java.nio.charset.Charset;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,9 +48,9 @@ public class AdminController {
 	public String adminhome() {
 		return "admin/adminHome";
 	}
-	
-	//1. select
-	//과목별 학생 목록 조회
+
+	// 1. select
+	// 과목별 학생 목록 조회
 	@RequestMapping(value = "/admin/userlist/{subjectId}/{pageNo}", method = RequestMethod.GET)
 	public String getUserListBySubject(@PathVariable int subjectId, @PathVariable String pageNo, Model model,
 			Pager pager) {
@@ -60,37 +60,37 @@ public class AdminController {
 		model.addAttribute("pager", pager);
 		return "admin/userList";
 	}
-	
-	//학생 상세 조회
+
+	// 학생 상세 조회
 	@RequestMapping("/admin/userdetail/{userId}")
 	public String getUser(@PathVariable String userId, Model model) {
-		User user  = adminService.getUser(userId);
+		User user = adminService.getUser(userId);
 		model.addAttribute("user", user);
 		return "admin/userDetail";
 	}
-	
-	//사진 조회
+
+	// 사진 조회
 	@RequestMapping("/admin/userdetail/userfile/{userFileId}")
-	public ResponseEntity<byte[]> getuserFile(@PathVariable String userFileId){
+	public ResponseEntity<byte[]> getuserFile(@PathVariable String userFileId) {
 		UserUploadFile file = adminService.getFile(userFileId);
-		logger.info("getFile"+file.toString());
-		final HttpHeaders headers =new HttpHeaders();
+		logger.info("getFile" + file.toString());
+		final HttpHeaders headers = new HttpHeaders();
 		String[] mtypes = file.getUserFileContentType().split("/");
 		headers.setContentType(new MediaType(mtypes[0], mtypes[1]));
 		headers.setContentLength(file.getUserFileSize());
-		headers.setContentDispositionFormData("attachment", file.getUserFileName(),Charset.forName("UTF-8"));
-		return new ResponseEntity<byte[]>(file.getUserFileData(),headers,HttpStatus.OK);
+		headers.setContentDispositionFormData("attachment", file.getUserFileName(), Charset.forName("UTF-8"));
+		return new ResponseEntity<byte[]>(file.getUserFileData(), headers, HttpStatus.OK);
 	}
-	
-	//2. update
+
+	// 2. update
 	@RequestMapping(value = "/admin/update/{userId}", method = RequestMethod.GET)
 	public String updateUser(@PathVariable String userId, Model model) {
-		User user  = adminService.getUser(userId);
+		User user = adminService.getUser(userId);
 		model.addAttribute("user", user);
 		return "admin/updateUser";
 	}
-	
-	@RequestMapping(value="/admin/update", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/admin/update", method = RequestMethod.POST)
 	public String updateUser(User user, BindingResult result, RedirectAttributes redirectAttrs, HttpSession session) {
 		logger.info("/admin/update " + user.toString());
 		try {
@@ -99,40 +99,42 @@ public class AdminController {
 			user.setEmail(Jsoup.clean(user.getEmail(), Whitelist.basic()));
 			user.setPhone(Jsoup.clean(user.getPhone(), Whitelist.basic()));
 			user.setPassword(Jsoup.clean(user.getPassword(), Whitelist.basic()));
-			
+
 			MultipartFile mfile = user.getFile();
 			System.out.println(mfile.getOriginalFilename());
-			
-			if(mfile!=null&&!mfile.isEmpty()) {
-				logger.info("/admin/update: "+mfile.getOriginalFilename());
+
+			if (mfile != null && !mfile.isEmpty()) {
+				logger.info("/admin/update: " + mfile.getOriginalFilename());
 				UserUploadFile file = new UserUploadFile();
 				file.setUserFileName(mfile.getOriginalFilename());
 				file.setUserFileSize(mfile.getSize());
 				file.setUserFileContentType(mfile.getContentType());
 				file.setUserFileData(mfile.getBytes());
-				logger.info("/admin/update : "+ file.toString());
-				
+				System.out.println("으악"+file.getUserId());
+				logger.info("/admin/update : " + file.toString());
+
 				adminService.updateUser(user, file);
-			}else {
+			} else {
 				adminService.updateUser(user);
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			redirectAttrs.addFlashAttribute("message", e.getMessage());
 		}
-		return "redirect:/admin/userdetail/"+user.getUserId();
+		return "redirect:/admin/userdetail/" + user.getUserId();
 	}
-	
 
-	//휴가 목록 조회
-	//resultNum = 0 -> 전체 목록 출력 
-	//resultNum = 1 -> 처리 목록 출력
-	//resultNum = 2 -> 미처리 목록 출력
+	// 휴가 목록 조회
+	// resultNum = 0 -> 전체 목록 출력
+	// resultNum = 1 -> 처리 목록 출력
+	// resultNum = 2 -> 미처리 목록 출력
 	@RequestMapping(value = "/admin/subattendancelist/{pageNo}", method = RequestMethod.GET)
-	public String getSubAttendanceList(@PathVariable String pageNo, @RequestParam(value = "resultNumber", required=false, defaultValue="0") String resultNumber, Model model, Pager pager) {
-		
+	public String getSubAttendanceList(@PathVariable String pageNo,
+			@RequestParam(value = "resultNumber", required = false, defaultValue = "0") String resultNumber,
+			Model model, Pager pager) {
+
 		int resultNum = Integer.parseInt(resultNumber);
-		//페이징 객체
+		// 페이징 객체
 		pager = adminService.SubAttendanceListPage(pageNo, pager, resultNum);
 
 		List<SubAttList> subAttList = adminService.getSubAttListbyRNum(resultNum, pager);
@@ -163,50 +165,49 @@ public class AdminController {
 		return "admin/adminHome";
 
 	}
-	
+
 	@RequestMapping(value = "/admin/attendancestatus/month", method = RequestMethod.GET)
 	public String statusMonthlyList(Model model) {
 		return "admin/attendanceStatus";
-		
+
 	}
-	
-	@RequestMapping(value="/admin/logout", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/admin/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session, HttpServletRequest request) {
-		session.invalidate(); 
+		session.invalidate();
 		return "user/login";
 	}
-	
-	
-	
-	@RequestMapping(value="/admin/reasondetail/{subAttNo}", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/admin/reasondetail/{subAttNo}", method = RequestMethod.GET)
 	public String getReason(@PathVariable int subAttNo, Model model) {
 		SubAttendance subAttendance = adminService.selectSubAttendanceDetail(subAttNo);
 		model.addAttribute("subAttendance", subAttendance);
 		return "admin/reasonDetail";
 	}
-	
-	//result = 1 -> 승인
-	//result = 2 -> 반려
-	@RequestMapping(value="/admin/updatestatus/{subAttNo}/{result}", method=RequestMethod.GET)
+
+	// result = 1 -> 승인
+	// result = 2 -> 반려
+	@RequestMapping(value = "/admin/updatestatus/{subAttNo}/{result}", method = RequestMethod.GET)
 	public String updateStatus(@PathVariable int subAttNo, @PathVariable int result, Model model) {
 		SubAttendance subAttendance = adminService.selectSubAttendanceDetail(subAttNo);
-		adminService.updateStatus(subAttendance,result);
+		adminService.updateStatus(subAttendance, result);
 		return "redirect:/admin/subattendancelist/1";
-		
+
 	}
-	//월별 조회
-	@RequestMapping(value="/admin/attsummonthly/{subjectId}", method=RequestMethod.GET)
-	public String attSumMonthly (@PathVariable int subjectId, Model model) {
+
+	// 월별 조회
+	@RequestMapping(value = "/admin/attsummonthly/{subjectId}", method = RequestMethod.GET)
+	public String attSumMonthly(@PathVariable int subjectId, Model model) {
 		AttSummaryVo attSummaryVo = adminService.attsumMonthly(subjectId);
 		model.addAttribute("attSummaryVo", attSummaryVo);
 		return "admin/attSumMonthly";
 	}
-	
-	//일별 조회
-		@RequestMapping(value="/admin/attsumdaily/{subjectId}", method=RequestMethod.GET)
-		public String attSumDaily (@PathVariable int subjectId, Model model) {
-			AttSummaryVo attSummaryVo = adminService.attSumDaily(subjectId);
-			model.addAttribute("attSummaryVo", attSummaryVo);
-			return "admin/attSumDaily";
-		}
+
+	// 일별 조회
+	@RequestMapping(value = "/admin/attsumdaily/{subjectId}", method = RequestMethod.GET)
+	public String attSumDaily(@PathVariable int subjectId, Model model) {
+		AttSummaryVo attSummaryVo = adminService.attSumDaily(subjectId);
+		model.addAttribute("attSummaryVo", attSummaryVo);
+		return "admin/attSumDaily";
+	}
 }

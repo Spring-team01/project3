@@ -69,18 +69,16 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
-	@Transactional
+
 	public void updateUser(User user, UserUploadFile file) {
 		adminRepository.updateUser(user);
 		if (file != null && file.getUserFileName() != null && !file.getUserFileName().equals("")) {
 			file.setUserId(user.getUserId());
-			System.out.println("서비스" + file.getUserFileId());
-			if (file.getUserFileSize() > 0) {
-				adminRepository.updateFileData(file);
-			} else {
-				adminRepository.insertFileData(file);
-			}
+			adminRepository.updateFileData(file);
+		} else {
+			adminRepository.insertFileData(file);
 		}
+
 	}
 
 	@Override
@@ -133,7 +131,8 @@ public class AdminService implements IAdminService {
 	public AttSummaryVo attSumDaily(int subjectId) {
 		AttSummaryVo attSummaryVo = adminRepository.selectAttSumDaily(subjectId);
 		int totalCount = adminRepository.selectTotalCountBySubject(subjectId);
-		return null;
+		attSummaryVo.setTotalCountBySubject(totalCount);
+		return attSummaryVo;
 	}
 
 }

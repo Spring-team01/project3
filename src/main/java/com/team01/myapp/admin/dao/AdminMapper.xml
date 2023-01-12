@@ -314,7 +314,12 @@
 		    (SELECT
 		    count(*)
 		    FROM attendance
-		    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='결근' and subject_id=#{subjectId}) as "absenceSum"
+		    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='결근' and subject_id=#{subjectId}) as "absenceSum",
+	    
+	    	(SELECT
+	        subject_name	   
+		    FROM subject
+		    WHERE subject_id=#{subjectId})  as "subjectName"
 	    
 	    from dual
 		
@@ -347,14 +352,21 @@
 		    (SELECT
 		    count(*)
 		    FROM attendance
-		    WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and status ='미출석' and subject_id=#{subjectId}) as "yetSum"
+		    WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and status ='미출석' and subject_id=#{subjectId}) as "yetSum",
 	    
+	    	(SELECT
+	        subject_name	   
+		    FROM subject
+		    WHERE subject_id=#{subjectId})  as "subjectName"
 	    from dual
 		
 	</select>
 	
 	<select id="selectTotalCountBySubject" parameterType="int" resultType="int">
-		
+		SELECT
+		    count(*)
+		FROM users
+		WHERE subject_id = #{subjectId}
 	</select>	
 
 </mapper>
