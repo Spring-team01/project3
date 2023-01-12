@@ -13,15 +13,22 @@
 
 	
 <!-- Comments section-->
-<section class="mb-5" style="width:100%">
-	<div class="card bg-light">
+<section class="mb-1" style="width:100%">
+	<div class="bg-light">
+	<c:if test="${empty nestedCommentList}">
+		<div class="card-body" style="word-wrap: wordwrap; display:none;">
+	</c:if>
+	<c:if test="${!empty nestedCommentList}">
 		<div class="card-body" style="word-wrap: wordwrap;">
+	</c:if>
 			<c:forEach var="reply" items="${nestedCommentList}">
 			<!-- Comment with nested comments-->
 			<div class="d-flex mb-4">
 				<!-- Parent comment-->
 				<div class="flex-shrink-0">
-					<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+					<img class="rounded-circle" 
+					src='<c:url value="/admin/userdetail/userfile/${reply.userFileId}"/>' 
+					alt="..."  style="width: 50px; height: 50px;"/>
 				</div>
 				<div class="ms-3  flex-fill">
 					<div class="d-flex "> 
