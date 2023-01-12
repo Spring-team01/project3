@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.team01.myapp.admin.dao.IAdminRepository;
 import com.team01.myapp.admin.model.AttSumDailyVo;
 import com.team01.myapp.admin.model.AttSummaryVo;
+import com.team01.myapp.admin.model.Names;
 import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.admin.model.User;
@@ -162,10 +163,10 @@ public class AdminService implements IAdminService {
 			if(attSumDailyVo!=null) {
 				attSummaryList.add(attSumDailyVo);
 			}else {
-				String userName = adminRepository.selectUserName(userId);
+				Names names = adminRepository.selectNames(userId);
 				AttSumDailyVo attSumDailyVo1 = new AttSumDailyVo();
-				
-				attSumDailyVo1.setUserName(userName);
+				attSumDailyVo1.setUserName(names.getUserName());
+				attSumDailyVo1.setSubjectName(names.getSubjectName());
 				attSumDailyVo1.setAttTime("-");
 				attSumDailyVo1.setLeaveTime("-");
 				attSumDailyVo1.setStatus("미출근");

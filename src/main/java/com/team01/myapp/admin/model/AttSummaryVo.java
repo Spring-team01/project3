@@ -1,7 +1,5 @@
 package com.team01.myapp.admin.model;
 
-import java.sql.Timestamp;
-
 import lombok.Data;
 
 @Data

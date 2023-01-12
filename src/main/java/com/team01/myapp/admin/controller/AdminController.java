@@ -1,6 +1,7 @@
 package com.team01.myapp.admin.controller;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,13 +43,6 @@ public class AdminController {
 
 	@Autowired
 	IAdminService adminService;
-
-	// 관리자 홈
-	@RequestMapping(value = "/admin/adminhome", method = RequestMethod.GET)
-	public String adminhome() {
-		return "admin/adminHome";
-	}
-
 	// 1. select
 	// 과목별 학생 목록 조회
 	@RequestMapping(value = "/admin/userlist/{subjectId}/{pageNo}", method = RequestMethod.GET)
@@ -144,6 +138,26 @@ public class AdminController {
 
 		return "admin/subAttList";
 	}
+	// 관리자 홈
+		@RequestMapping(value = "/admin/adminhome", method = RequestMethod.GET)
+		public String adminhome(Model model, Pager pager) {
+			List<AttSummaryVo> attSumDailyTotal = new ArrayList<AttSummaryVo>();
+			AttSummaryVo attSumDaily1 = adminService.attSumDaily(1);
+			AttSummaryVo attSumDaily2 = adminService.attSumDaily(2);
+			AttSummaryVo attSumDaily3 = adminService.attSumDaily(3);
+			
+			attSumDailyTotal.add(attSumDaily1);
+			attSumDailyTotal.add(attSumDaily2);
+			attSumDailyTotal.add(attSumDaily3);
+			
+			model.addAttribute("attSumDailyTotal", attSumDailyTotal);
+			
+			pager = adminService.SubAttendanceListPage("1", pager, 1);
+			List<SubAttList> subAttList = adminService.getSubAttListbyRNum(1, pager);
+			model.addAttribute("subAttList", subAttList);
+			
+			return "admin/adminHome";
+		}
 
 	@RequestMapping(value = "/admin/file", method = RequestMethod.POST)
 	public String insertFile(UserInsert userInsert, BindingResult result, RedirectAttributes redirectAttrs,
@@ -202,6 +216,7 @@ public class AdminController {
 		AttSummaryVo attSumMonthly = adminService.attsumMonthly(subjectId);
 		model.addAttribute("attSumDaily", attSumDaily);
 		model.addAttribute("attSumMonthly", attSumMonthly);
+		model.addAttribute("subjectId", subjectId);
 		return "admin/attSum";
 	}
 
@@ -217,10 +232,13 @@ public class AdminController {
 	//학생 일별 조회
 	@RequestMapping(value = "/admin/attsumdaily/{subjectId}", method = RequestMethod.GET)
 	public String attSumDaily(@PathVariable int subjectId, Model model) {
-		List<AttSumDailyVo> sumDatilyVo = adminService.attSumDailyByuser(subjectId);
-		model.addAttribute("subjectName", sumDatilyVo.get(1).getSubjectName());
-		model.addAttribute("sumDatilyVo", sumDatilyVo);
+		List<AttSumDailyVo> sumDailyVo = adminService.attSumDailyByuser(subjectId);
+		model.addAttribute("subjectName", sumDailyVo.get(1).getSubjectName());
+		model.addAttribute("sumDailyVo", sumDailyVo);
 		return "admin/attSumDaily";
 	}
+	
+
+	
 
 }

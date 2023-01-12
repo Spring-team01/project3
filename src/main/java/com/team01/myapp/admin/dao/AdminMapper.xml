@@ -424,9 +424,10 @@
 		    and u.subject_id=s.subject_id
 	</select>
 	
-	<select id="selectUserName" parameterType="int" resultType="string">
-		select u_name
-		from users
-		where u_id=#{userId}
+	<select id="selectNames" parameterType="int" resultType="com.team01.myapp.admin.model.Names">
+		select u_name as "userName",
+		subject_name as "subjectName"
+		from users u, subject s
+		where u_id=#{userId} and u.subject_id = s.subject_id 
 	</select>	
 </mapper>

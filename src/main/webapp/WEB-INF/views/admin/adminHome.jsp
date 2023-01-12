@@ -61,31 +61,21 @@
 															<td>출석</td>
 															<td>지각</td>
 															<td>결석</td>
-															<td>미처리</td>
+															<td>휴가</td>
+															<td>미출근</td>
 														</tr>
 													</thead>
 													<tbody>
+													 <c:forEach var="attSumDailyTotal" items="${attSumDailyTotal}">
 														<tr>
-															<td>c언어</td>
-															<td>20</td>
-															<td>0</td>
-															<td>0</td>
-															<td>4</td>
+															<td>${attSumDailyTotal.subjectName}</td>
+															<td>${attSumDailyTotal.attendanceSum}</td>
+															<td>${attSumDailyTotal.lateSum}</td>
+															<td>${attSumDailyTotal.absenceSum}</td>
+															<td>${attSumDailyTotal.leaveSum}</td>
+															<td>${attSumDailyTotal.totalCountBySubject-attSumDailyTotal.leaveSum-attSumDailyTotal.attendanceSum-attSumDailyTotal.lateSum-attSumDailyTotal.absenceSum}</td>
 														</tr>
-														<tr>
-															<td>python</td>
-															<td>20</td>
-															<td>0</td>
-															<td>0</td>
-															<td>4</td>
-														</tr>
-														<tr>
-															<td>java</td>
-															<td>20</td>
-															<td>0</td>
-															<td>0</td>
-															<td>4</td>
-														</tr>
+														</c:forEach>
 
 													</tbody>
 												</table>
@@ -99,52 +89,47 @@
 											class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
 											<div
 												class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
-												<h6 class="text-white text-capitalize ps-3">휴가 신청 목록</h6>
+												<h6 class="text-white text-capitalize ps-3">new 휴가 신청 목록</h6>
 											</div>
 										</div>
 										<div class="card-body px-0 pb-2">
 											<div class="table-responsive p-0">
 												<table
 													class="table align-items-center justify-content-center mb-0">
-													<thead>
-														<tr>
-															<td>이름</td>
-															<td>학번</td>
-															<td>학년</td>
-															<td>과목</td>
-
-														</tr>
-													</thead>
+													  <thead>
+					                    <tr>
+					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">처리결과</th>
+					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">글번호</th>
+					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">작성자</th>
+					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">제목</th>
+					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작성날짜</th>
+					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">휴가종류</th>
+					                     
+					                    </tr>
+					                  </thead>
 													<tbody>
-														<tr>
-															<td>이연희</td>
-															<td>2016680001</td>
-															<td>4</td>
-															<td>c언어</td>
-
-														</tr>
-														<tr>
-															<td>김태희</td>
-															<td>2016680003</td>
-															<td>4</td>
-															<td>java</td>
-
-														</tr>
-														<tr>
-															<td>김희률</td>
-															<td>2016680004</td>
-															<td>4</td>
-															<td>c언어</td>
-
-														</tr>
-														<tr>
-															<td>강지성</td>
-															<td>2016680007</td>
-															<td>4</td>
-															<td>java</td>
-
-														</tr>
-
+														<c:forEach var="reason" items="${subAttList}">
+											<tr>
+												<td class="text-xs font-weight-bold mb-0 text-center">${reason.result}</td>
+												<td class="text-xs font-weight-bold mb-0 text-center">${reason.subAttNo}</td>
+												
+												<td class="pc">
+													<p class="text-xs font-weight-bold mb-0 text-center">${reason.userName}</p>
+													<p class="text-xs font-weight-bold mb-0 text-center">${reason.userId}</p>
+												</td>
+												<td class="pc"><h6 class="text-xs font-weight-bold mb-0 text-center">
+												<a href='<c:url value="/admin/reasondetail/${reason.subAttNo}"/>'>${reason.title}</a></h6></td>
+												<td class="pc"><h6 class="text-xs font-weight-bold mb-0 text-center">${reason.writeDate}</h6></td>
+												<td class="text-center">
+													<c:choose>
+													<c:when test="${reason.subStatus eq '조퇴'}"><span class="badge badge-sm bg-gradient-success">조퇴</span></c:when>
+													<c:when test="${reason.subStatus eq '공가'}"><span class="badge badge-sm bg-gradient-info">공가</span></c:when>
+													<c:when test="${reason.subStatus eq '외출'}"><span class="badge badge-sm bg-gradient-warning">외출</span></c:when>
+													<c:when test="${reason.subStatus eq '경조사'}"><span class="badge badge-sm bg-gradient-secondary">경조사</span></c:when>
+													</c:choose>
+												</td>
+											</tr>
+										</c:forEach>
 													</tbody>
 												</table>
 											</div>

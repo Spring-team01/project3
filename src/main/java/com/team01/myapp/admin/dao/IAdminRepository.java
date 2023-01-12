@@ -1,17 +1,18 @@
 package com.team01.myapp.admin.dao;
 
 import java.sql.Timestamp;
-import java.util.List; 
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.team01.myapp.admin.model.AttSumDailyVo;
 import com.team01.myapp.admin.model.AttSummaryVo;
+import com.team01.myapp.admin.model.Names;
 import com.team01.myapp.admin.model.SubAttList;
+import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.admin.model.User;
 import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
-import com.team01.myapp.admin.model.SubAttendance;
 
 public interface IAdminRepository {
 	int selectTotalCategoryListNum(@Param("subjectId") int subjectId);
@@ -57,7 +58,7 @@ public interface IAdminRepository {
 
 	AttSumDailyVo selectSumDailyByuser(int userId);
 
-	String selectUserName(int userId);
+	Names selectNames(int userId);
 
 	AttSummaryVo selectSumByuser(@Param("userId")int userId, @Param("subjectId")int subjectId);
 }
