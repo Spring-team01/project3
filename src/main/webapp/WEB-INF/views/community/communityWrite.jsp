@@ -50,7 +50,7 @@
 								<div class="input-group-prepend">
 									<textarea class="form-control" rows="3" id="communityPassword" name="communityPassword" placeholder="게시글 비밀번호" required></textarea>
 								</div>
-								<textarea class="form-control" rows="15" id="communityContent" name="communityContent" placeholder="게시글 입력" required></textarea>
+								<textarea class="form-control" rows="15" id="communityContent" name="communityContent" placeholder="게시글 입력" wrap="hard" required></textarea>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="">Upload</span>

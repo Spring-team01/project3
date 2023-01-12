@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:setBundle basename="i18n/board" />
 <%@ taglib prefix="jk" tagdir="/WEB-INF/tags"%>
+<% pageContext.setAttribute("replaceChar", "\n"); %>
 
 <!DOCTYPE html>
 <html>
@@ -104,7 +105,7 @@
 										</td>
 									</tr>
 								</c:if>
-								<div class="fs-5 mb-4" style="white-space: pre;">${community.communityContent}</div>
+								<div class="fs-5 mb-4" style="white-space: pre;">${fn: replace(community.communityContent, replaceChar, "") }</div>
 							</figure>
 						</article>
 						<section class="mb-5">

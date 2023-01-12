@@ -38,9 +38,9 @@
 		
 		console.log(communityBoardId);
 		console.log(communityCommentReplyNumber);
-		/* 
+		
 		$.ajax({
-			url : "/myapp/community/reply/delete/",
+			url : "/myapp/community/rereply/delete",
 			type : "POST",
 			data : {communityCommentMasterNumber : i , communityBoardId : communityBoardId, communityCommentReplyNumber : communityCommentReplyNumber},
 			success : function(data){
@@ -52,7 +52,6 @@
 			       }
 			}
 		});
-		 */
 		
 	}
 	
@@ -84,10 +83,11 @@
 						<c:set var="userId" value="${sessionUserId}" />
 						<c:if test="${userId eq commentList.userId}">
 							<input id="deleteReReplyButton${commentList.communityCommentMasterNumber}" 
-							type="button" onclick="deleteReplyComment(${commentList.communityCommentMasterNumber}, ${communityCommentReplyNumber})" 
+							type="button" onclick="deleteReplyComment(${commentList.communityCommentMasterNumber})" 
 							class="btn btn-sm btn-dark shadow" value="대댓글 삭제">
 							<input type="hidden" id="communityCommentReplyNumber" name="communityCommentReplyNumber" 
 							value="${commentList.communityBoardId}">
+							
 						</c:if>
 						</div>
 					</div>

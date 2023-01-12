@@ -52,13 +52,14 @@ public class CommunityController {
 
 		try {
 			// XSSS 대응
+			String content = community.getCommunityContent().replaceAll("\r\n", "<br>");
+			community.setCommunityContent(Jsoup.clean(content, Whitelist.basic()));
 			community.setCommunityTitle(Jsoup.clean(community.getCommunityTitle(), Whitelist.basic()));
-			community.setCommunityContent(Jsoup.clean(community.getCommunityContent(), Whitelist.basic()));
-
-			community.setCommunityContent(community.getCommunityContent().replaceAll("\r\n","<br>"));
 			community.setUsersId((String) session.getAttribute("userId"));
 			community.setUserName((String) session.getAttribute("userName"));
 			community.setCommunityEmail((String) session.getAttribute("email"));
+			
+			System.out.println(community.toString());
 			// 카테고리 아이디 임시로 1
 			community.setCommunityCategoryId(1);
 
@@ -102,6 +103,11 @@ public class CommunityController {
 		Community community = communityService.readCommunityDetail(communityBoardId);
 		community.setUserName((String) session.getAttribute("userName"));
 		List<CommunityComment> commentList = communityService.getCommunityComment(communityBoardId);
+		
+		String content = community.getCommunityContent().replace("<br>", "\r\n");
+		community.setCommunityContent(content);
+		
+		
 		model.addAttribute("community", community);
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("sessionUserId", (String) session.getAttribute("userId"));
