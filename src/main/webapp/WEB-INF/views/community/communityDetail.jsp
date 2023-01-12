@@ -25,7 +25,6 @@
 	
 	function viewReplyComment(i) {
 		let communityBoardId= $("#communityBoardId").val();
-		console.log(communityBoardId);
 		
 		$.ajax({
 			url : "/myapp/community/getreplycomment/",
@@ -57,7 +56,6 @@
 			}
 		});
 	}
-	
 	
 	
 </script>
@@ -146,7 +144,7 @@
 																<input id="replyButton${commentList.communityCommentMasterNumber}" type="button" 
 																onclick="viewReplyComment(${commentList.communityCommentMasterNumber})" 
 																class="btn btn-sm btn-dark shadow" value="댓글 보기">
-
+																
 																<c:if test="${sessionScope.userId eq commentList.userId}">
 																	<input id="deleteReplyButton${commentList.communityCommentMasterNumber}" type="submit" 
 																	onclick="deleteReplyComment(${commentList.communityCommentMasterNumber})" 
@@ -154,8 +152,10 @@
 																</c:if>
 																<input type="hidden" id="userId" name="userId" 
 																value="${sessionScope.userId}">
-
 															</div>
+																<div>
+																	<img src='<c:url value="/images/threedots.svg"/>' class="dropbtn icons btn-right showLeft m-2" onclick="showDropdown(${commentList.communityCommentNo})">
+																 </div>
 														</div>
 														<div id="replyComment${commentList.communityCommentMasterNumber}"></div>
 													</div>

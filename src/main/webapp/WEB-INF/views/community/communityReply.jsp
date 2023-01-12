@@ -35,10 +35,6 @@
 		let communityBoardId= $("#communityBoardId").val();
 		let communityCommentReplyNumber = $("#communityCommentReplyNumber").val();
 		let communityCommentMasterNumber =$("#communityCommentMasterNumber").val();
-		console.log(communityBoardId);
-		console.log(communityCommentReplyNumber);
-		console.log(communityCommentMasterNumber);
-		
 		
 		$.ajax({
 			url : "/myapp/community/replycomment/delete/",
@@ -55,7 +51,6 @@
 		});
 		
 	}
-	
 	
 	
 	
@@ -81,19 +76,21 @@
 							${replyCommentList.communityCommentContent}
 						</div>
 						<div class="ms-auto">
-						<c:set var="id" value="${sessionUserId}" />
-						<c:if test="${id eq commentList.userId}">
-							<input id="deleteReReplyButton${commentList.communityCommentMasterNumber}" 
-							type="button" onclick="deleteReReplyComment(${commentList.communityCommentMasterNumber})" 
-							class="btn btn-sm btn-dark shadow" value="대댓글 삭제">
-							<input type="hidden" id="communityCommentReplyNumber" name="communityCommentReplyNumber" 
-							value="${replyCommentList.communityCommentReplyNumber}">
-							<input type="hidden" id="communityCommentMasterNumber" name="communityCommentMasterNumber" 
-							value="${replyCommentList.communityCommentMasterNumber}">
-							
-						</c:if>
+							<c:set var="id" value="${sessionUserId}" />
+							<c:if test="${id eq commentList.userId}">
+								<input id="deleteReReplyButton${commentList.communityCommentMasterNumber}" 
+								type="button" onclick="deleteReReplyComment(${commentList.communityCommentMasterNumber})" 
+								class="btn btn-sm btn-dark shadow" value="대댓글 삭제">
+								<input type="hidden" id="communityCommentReplyNumber" name="communityCommentReplyNumber" 
+								value="${replyCommentList.communityCommentReplyNumber}">
+								<input type="hidden" id="communityCommentMasterNumber" name="communityCommentMasterNumber" 
+								value="${replyCommentList.communityCommentMasterNumber}">
+							</c:if>
 						</div>
-					</div>
+							<div>
+								<img src='<c:url value="/images/threedots.svg"/>' class="dropbtn icons btn-right showLeft m-2" onclick="showDropdown(${replyCommentList.communityCommentReplyNumber})">
+							 </div>
+						 </div>
 				</c:forEach>
 
 
