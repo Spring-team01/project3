@@ -57,6 +57,11 @@ public class SubattendanceController {
 		
 		model.addAttribute("subAttendance", subAttendance);
 		
+		// 줄 바꿈 설정
+		String contents = subAttendance.getContent();
+		contents = contents.replace("\r\n","<br>");
+		subAttendance.setContent(contents);
+		
 		return "subattendance/view";
 	}
 	
@@ -221,7 +226,7 @@ public class SubattendanceController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/subAttendance/view/" + subAttendance.getSubAttNo();
+		return "redirect:/subattendance/view/" + subAttendance.getSubAttNo();
 	}
 	
 	// 삭제
