@@ -9,4 +9,8 @@ public class AttSummaryVo {
 	private int leaveSum;//휴가
 	private int attendanceSum;//출근
 	private int yetSum;//미출근
+	private int totalCountBySubject;//전체 인원 수
+	private String subjectName;
+	
+	
 }

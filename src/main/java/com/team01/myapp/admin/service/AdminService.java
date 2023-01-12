@@ -69,7 +69,7 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
-	@Transactional
+
 	public void updateUser(User user, UserUploadFile file) {
 		adminRepository.updateUser(user);
 		System.out.println("확인!" + file.getUserFileName().equals(""));
@@ -80,6 +80,7 @@ public class AdminService implements IAdminService {
 			file.setUserId(user.getUserId());
 			adminRepository.insertFileData(file);
 		}
+
 	}
 
 	@Override
@@ -132,7 +133,8 @@ public class AdminService implements IAdminService {
 	public AttSummaryVo attSumDaily(int subjectId) {
 		AttSummaryVo attSummaryVo = adminRepository.selectAttSumDaily(subjectId);
 		int totalCount = adminRepository.selectTotalCountBySubject(subjectId);
-		return null;
+		attSummaryVo.setTotalCountBySubject(totalCount);
+		return attSummaryVo;
 	}
 
 }
