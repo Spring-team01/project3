@@ -45,7 +45,7 @@ public class CommunityService implements ICommunityService {
 		communityRepository.updateCommunity(community);
 	}
 	
-	@Override
+	
 	@Transactional
 	public void updateCommunity(Community community, CommunityFile file) {
 		communityRepository.updateCommunity(community);
@@ -154,15 +154,16 @@ public class CommunityService implements ICommunityService {
 	public void updateCommunityComment(CommunityComment comment) {
 		
 	}
-
+	
 	@Override
 	public List<Community> readCountListByCategory(int categoryId) {
 		return communityRepository.readCountListByCategory(categoryId);
 	}
-
+	
 	@Override
-	public List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber) {
-		return communityRepository.getReplyCommentList(communityCommentMasterNumber);
+	public List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber,
+			int communityBoardId) {
+		return communityRepository.getReplyCommentList(communityCommentMasterNumber, communityBoardId);
 	}
 
 	@Override
@@ -172,13 +173,17 @@ public class CommunityService implements ICommunityService {
 		communityRepository.insertReplyCommunityComment(comment);
 	}
 	
-	@Override
 	@Transactional
 	public void deleteCommunityReply(CommunityComment comment) {
 		communityRepository.minusCommunityReplyNumber(comment.getCommunityBoardId());
 		communityRepository.deleteCommunityReply(comment);
 	}
 
+	@Override
+	public void deleteCommunityReReplyComment(CommunityComment comment) {
+		communityRepository.deleteCommunityReReplyComment(comment);
+	}
+	
 	
 	
 

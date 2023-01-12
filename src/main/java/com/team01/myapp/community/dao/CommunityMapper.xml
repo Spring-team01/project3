@@ -386,7 +386,7 @@
 		]]>
 	</update>
 
-	<select id="getReplyCommentList" parameterType= "int" resultType="com.team01.myapp.community.model.CommunityComment">
+	<select id="getReplyCommentList" parameterType= "map" resultType="com.team01.myapp.community.model.CommunityComment">
 		<![CDATA[
 			select
 					rownum as "rnum",
@@ -431,10 +431,11 @@
 				        from community left outer join c_comment
 				        on community.c_board_id = c_comment.C_BOARD_ID
 				        where c_comment.CC_MASTER_NUMBER = #{communityCommentMasterNumber} and
-                                c_comment.CC_REPLY_NUMBER >= 1
+                                c_comment.CC_REPLY_NUMBER >= 1 and
+                                c_comment.C_BOARD_ID = #{communityBoardId}
 				        order by CC_REPLY_NUMBER asc ) t
 				        join u_file f
-				        on t.U_ID = f.U_ID)m
+				        on t.U_ID = f.U_ID ) m
 				        join users u
 				        on m.U_ID = u.U_ID
 		
@@ -480,5 +481,14 @@
    	 	where C_BOARD_ID = #{communityBoardId}
 		]]>
 	</update>
-		
+	
+	<delete id ="deleteCommunityReReplyComment" parameterType="com.team01.myapp.community.model.CommunityComment">
+		<![CDATA[
+			delete from c_comment
+			where C_BOARD_ID = #{communityBoardId}
+			and CC_MASTER_NUMBER = #{communityCommentMasterNumber}
+			and CC_REPLY_NUMBER = #{communityCommentReplyNumber}
+		]]>
+	</delete>
+	
 </mapper>

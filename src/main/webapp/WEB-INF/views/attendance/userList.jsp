@@ -10,7 +10,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 
-<script src="fullcalendar/lib/locales-all.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
@@ -88,16 +88,25 @@ document.addEventListener('DOMContentLoaded', function() {
 	            </div>
 	     		<div class="mainview d-flex">
 	     		</div>
-	     			<div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
-	     				<div>
-	     					<h1>나의 출석</h1>
-	     					<c:forEach items = "${attendanceList}" var="list">
-	     							<c:if test="${((fn:substring(list.leaveTime,0,2) - fn:substring(list.attTime,0,2)) * 60) + (fn:substring(list.leaveTime,3,5) - fn:substring(list.attTime,3,5)) > 240}">
-	     							 </c:if>
-	     					</c:forEach>
-	     				<div id="calendar">
-	     				</div>
-	     			</div>
+	     		<div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
+					<div class="card my-4">
+						<div
+							class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+							<div
+								class="bg-gradient-dark shadow-success border-radius-lg pt-4 pb-3">
+								<h6 class="text-white text-capitalize ps-3">나의 출석</h6>
+							</div>
+						</div>
+						<div class="card-body px-0 pb-2">
+							<div class="table-responsive p-0">
+								<table class="table align-items-center mb-0 text-center">
+								</table>
+								<div style="padding:50px">
+									<div id="calendar"></div>
+								</div>
+							</div>
+						</div>
+					</div>
 	     		</div>
 	     	</div>
 	    	<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />       

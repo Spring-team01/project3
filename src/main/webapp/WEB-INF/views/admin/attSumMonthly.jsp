@@ -32,11 +32,7 @@
                <div class="row-lg-9">
                   <div class="container-fluid py-4">
                      <div class="row">
-                        <div class="form-inline m-2 justify-content-start "> 
-                           <button onclick = "location.href = '<c:url value='/admin/attsummonthly/1'/>'" class="badge badge-sm bg-gradient-success">c언어</button>
-                           <button onclick = "location.href = '<c:url value='/admin/attsummonthly/2'/>'" class="badge badge-sm bg-gradient-danger">python</button>
-                           <button onclick = "location.href = '<c:url value='/admin/attsummonthly/3'/>'" class="badge badge-sm bg-gradient-info">java</button>
-                           </div>
+                        
                         <div class="col-12">
 
                            <div class="card my-4">
@@ -44,99 +40,36 @@
                                  class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                  <div
                                     class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">${attSummaryVo.subjectName}  월별 요약</h6>
+                                    <h6 class="text-white text-capitalize ps-3">${subjectName} 학생 월별 근태 조회</h6>
                                  </div>
                               </div>
                               <div class="card-body px-0 pb-2">
-                                 <div class="table-responsive p-0">
+                                 
+                                 <div class="table-responsive px-5 text-center">
                                     <table
                                        class="table align-items-center justify-content-center mb-0">
-                                       <thead>
+                                       <thead class="table-dark">
                                           <tr>
-                                             <td>출근</td>
-                                             <td>지각</td>
-                                             <td>결근</td>
-                                             <td>휴가</td>
+                                             <td><b>이름</b></td>
+                                             <td><b>지각</b></td>
+                                             <td><b>결근</b></td>
+                                             <td><b>휴가</b></td>
                                           </tr>
                                        </thead>
-                                       <tbody>
+                                       <tbody >
+                                       <c:forEach var="sumMonthlyVo" items="${sumMonthlyVo}">
                                           <tr>
-                                             <td>${attSummaryVo.attendanceSum}</td>
-                                             <td>${attSummaryVo.lateSum}</td>
-                                             <td>${attSummaryVo.absenceSum}</td>
-                                             <td>${attSummaryVo.leaveSum}</td>
+                                             <td>${sumMonthlyVo.userName}</td>
+                                             <td>${sumMonthlyVo.lateSum}</td>
+                                             <td>${sumMonthlyVo.absenceSum}</td>
+                                             <td>${sumMonthlyVo.leaveSum}</td>
                                           </tr>
+										</c:forEach>
                                        </tbody>
                                     </table>
                                  </div>
                               </div>
-
                            </div>
-                           <div class="m-2" style="height: 50px"></div>
-                           <div class="card my-4">
-                              <div
-                                 class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                 <div
-                                    class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">학생 근태 조회</h6>
-                                 </div>
-                              </div>
-                              <div class="card-body px-0 pb-2">
-                                 <div class="table-responsive p-0">
-                                    <table
-                                       class="table align-items-center justify-content-center mb-0">
-                                       <thead>
-                                          <tr>
-                                             <td>이름</td>
-                                             <td>지각</td>
-                                             <td>결근</td>
-                                             <td>휴가</td>
-                                             <td>과목</td>
-
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr>
-                                             <td>이연희</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>c언어</td>
-
-                                          </tr>
-                                          <tr>
-                                             <td>김태희</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>c언어</td>
-
-                                          </tr>
-                                          <tr>
-                                             <td>이예승</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>c언어</td>
-
-                                          </tr>
-                                          <tr>
-                                             <td>강지성</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>0</td>
-                                             <td>c언어</td>
-
-                                          </tr>
-
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-
-                           </div>
-
-
                         </div>
                      </div>
 

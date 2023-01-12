@@ -19,7 +19,17 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 <!-- CSS Files -->
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
-
+<style>
+#boardcontent{
+width: 300px;
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 1;
+-webkit-box-orient: vertical;
+}	
+</style>
+</head>
   
 <body>
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
@@ -90,7 +100,7 @@
 												</div>
 												</td>
 												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold" style="width: 100px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a href='<c:url value="/board/view/${board.boardId}/${seq}"/>'>${board.title}</a></h6></td>
-												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold" style="width: 300px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a href='<c:url value="/board/view/${board.boardId}/${seq}"/>'>${board.content}</a></h6></td>
+												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold" id="boardcontent"><a href='<c:url value="/board/view/${board.boardId}/${seq}"/>'>${board.content}</a></h6></td>
 												<td class="pc"><h6 class="text-secondary text-xs font-weight-bold"><fmt:formatDate value="${board.writeDate}" pattern="YYYY-MM-dd"/></h6></td>
 												<td class="pc text-center"><span class="text-secondary text-xs font-weight-bold">${board.readCount}</span></td>
 											</tr>

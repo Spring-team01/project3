@@ -13,6 +13,7 @@ public class BoardComment {
 	private int boardId;
 	private int bcMasterNo;
 	private int bcReplyStep;
+	private int userFileId;
 	
 }
 

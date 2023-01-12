@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:setBundle basename="i18n/board" />
 <%@ taglib prefix="jk" tagdir="/WEB-INF/tags"%>
+<% pageContext.setAttribute("replaceChar", "\n"); %>
 
 <!DOCTYPE html>
 <html>
@@ -23,12 +24,13 @@
 <script>
 	
 	function viewReplyComment(i) {
+		let communityBoardId= $("#communityBoardId").val();
 		
 		$.ajax({
 			url : "/myapp/community/getreplycomment/",
 			type : "GET",
 			datatype : "html",
-			data : {communityCommentMasterNumber : i},
+			data : {communityCommentMasterNumber : i, communityBoardId : communityBoardId},
 			success : function(data) {
 				$('#replyComment'+i).toggle()
 				$('#replyComment'+i).html(data);
@@ -41,7 +43,7 @@
 		let communityBoardId= $("#communityBoardId").val();
 		let communityCommentMasterNumber = i;
 		$.ajax({
-			url : "/myapp/community/rereply/delete/",
+			url : "/myapp/community/reply/delete",
 			type : "POST",
 			data : {communityCommentMasterNumber : i , communityBoardId : communityBoardId},
 			success : function(data){
@@ -54,7 +56,6 @@
 			}
 		});
 	}
-	
 	
 	
 </script>
@@ -103,17 +104,13 @@
 										</td>
 									</tr>
 								</c:if>
-								<p class="fs-5 mb-4">${community.communityContent}</p>
+								<div class="fs-5 mb-4" style="white-space: pre;">${fn: replace(community.communityContent, replaceChar, "") }</div>
 							</figure>
 						</article>
 						<section class="mb-5">
 							<div class="card bg-light">
-								<c:set var="userId" value="${sessionUserId}" />
-
-
-
 								<div class="card-body">
-									<c:if test="${sessionScope.userType eq 'ADMIN' || userId eq community.usersId}">
+									<c:if test="${sessionScope.userId eq 'ADMIN' || id eq community.usersId}">
 										<a type="button" href="<c:url value='/community/communityUpdate/${community.communityBoardId}'/>" class="btn btn-dark shadow"> 글 수정 </a>
 										<a type="button" href="<c:url value='/community/delete/${community.communityBoardId}'/>" class="btn btn-dark shadow">글 삭제</a>
 										<input type="hidden" name="communityBoardId" value="${community.communityBoardId}">
@@ -133,7 +130,10 @@
 														<div class="d-flex justify-content-around">
 															<div>
 																<div class="flex-shrink-0">
+																<!-- 유저 프로필 사진 -->
+																<%-- 
 																	<img class="rounded-circle" src='<c:url value="/admin/userdetail/userfile/${commentList.userFileId}"/>' alt="..." style="width: 50px; height: 50px;" />
+																 --%>
 																</div>
 															</div>
 															<div class="ms-3">
@@ -144,15 +144,18 @@
 																<input id="replyButton${commentList.communityCommentMasterNumber}" type="button" 
 																onclick="viewReplyComment(${commentList.communityCommentMasterNumber})" 
 																class="btn btn-sm btn-dark shadow" value="댓글 보기">
-
-																<c:set var="userId" value="${sessionUserId}" />
-																<c:if test="${userId eq commentList.userId}">
+																
+																<c:if test="${sessionScope.userId eq commentList.userId}">
 																	<input id="deleteReplyButton${commentList.communityCommentMasterNumber}" type="submit" 
 																	onclick="deleteReplyComment(${commentList.communityCommentMasterNumber})" 
 																	class="btn btn-sm btn-dark shadow" value="댓글 삭제">
 																</c:if>
-
+																<input type="hidden" id="userId" name="userId" 
+																value="${sessionScope.userId}">
 															</div>
+																<div>
+																	<img src='<c:url value="/images/threedots.svg"/>' class="dropbtn icons btn-right showLeft m-2" onclick="showDropdown(${commentList.communityCommentNo})">
+																 </div>
 														</div>
 														<div id="replyComment${commentList.communityCommentMasterNumber}"></div>
 													</div>

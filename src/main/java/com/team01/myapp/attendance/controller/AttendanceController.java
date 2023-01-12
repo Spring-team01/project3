@@ -27,6 +27,7 @@ public class AttendanceController {
 	// 출근
 	@RequestMapping("/attendance")
 	public String checkAttendance(Attendance attendance, HttpSession session, Model model) {
+		
 		Date date = new Date();
 		
 		// attendance userId 담기
@@ -79,7 +80,6 @@ public class AttendanceController {
 				String checkAttTime = attendanceService.selectAttTime(attDate, userId);
 				
 				if(checkAttTime == null) { 
-					
 					// 휴가인데 출근 시간이 없는데 출근을 누르는 경우 (조퇴일때)
 					attendanceService.updateAttendance(userId, updateDate, choice);
 				} else {
@@ -95,7 +95,9 @@ public class AttendanceController {
 					choice = "출근";
 				}
 				attendanceService.updateAttendance(userId, updateDate, choice);
-			} 
+			} else {
+				model.addAttribute("message", "출근을 이미 누르셨습니다.");
+			}
 		}
 			
 		String attTime = attendanceService.selectAttTime(attDate, userId);
