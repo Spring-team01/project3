@@ -45,7 +45,7 @@
                               <div class="card-body px-0 pb-2">
                                  <div class="table-responsive p-0">
                                     <table
-                                       class="table align-items-center justify-content-center mb-0">
+                                       class="table align-items-center justify-content-center mb-0 text-center" >
                                        <thead>
                                           <tr>
                                              <td>이름</td>
@@ -56,15 +56,17 @@
                                           </tr>
                                        </thead>
                                        <tbody>
-                                       <c:forEach var="sumDatilyVo" items="${sumDatilyVo}">
+                                       <c:forEach var="sumDailyVo" items="${sumDailyVo}">
                                           <tr>
-                                             <td>${sumDatilyVo.userName}</td>
-                                             <td>${sumDatilyVo.attTime}</td>
+                                             <td>${sumDailyVo.userName}</td>
                                              <td>
-                                             	<c:if test="${empty sumDatilyVo.leaveTime}">-</c:if>
-                                             	${sumDatilyVo.leaveTime}
+                                             <c:if test="${empty sumDailyVo.attTime}">-</c:if>
+                                             ${sumDailyVo.attTime}</td>
+                                             <td>
+                                             	<c:if test="${empty sumDailyVo.leaveTime}">-</c:if>
+                                             	${sumDailyVo.leaveTime}
                                              </td>
-                                             <td>${sumDatilyVo.status}</td>
+                                             <td>${sumDailyVo.status}</td>
 
                                           </tr>
                                           </c:forEach>
