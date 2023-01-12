@@ -34,7 +34,8 @@ public interface ICommunityService {
 	
 	List<Community> readCountListByCategory(int categoryId);
 	
-	List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber);
+	List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber, 
+					int communityBoardId);
 	
 	void insertReplyCommunityComment(CommunityComment comment);
 	void deleteCommunityReply(CommunityComment comment);

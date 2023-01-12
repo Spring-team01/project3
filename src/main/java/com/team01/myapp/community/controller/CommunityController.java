@@ -55,7 +55,7 @@ public class CommunityController {
 			community.setCommunityTitle(Jsoup.clean(community.getCommunityTitle(), Whitelist.basic()));
 			community.setCommunityContent(Jsoup.clean(community.getCommunityContent(), Whitelist.basic()));
 
-			community.setCommunityContent(community.getCommunityContent().replace("\r\n", "<br>"));
+			community.setCommunityContent(community.getCommunityContent().replaceAll("\r\n","<br>"));
 			community.setUsersId((String) session.getAttribute("userId"));
 			community.setUserName((String) session.getAttribute("userName"));
 			community.setCommunityEmail((String) session.getAttribute("email"));
@@ -246,9 +246,11 @@ public class CommunityController {
 	
 	//대댓글 조회하기
 	@RequestMapping(value="/community/getreplycomment", method=RequestMethod.GET)
-	public String getReplyCommnet(@RequestParam int communityCommentMasterNumber, Model model) {
+	public String getReplyCommnet(@RequestParam int communityCommentMasterNumber, @RequestParam int communityBoardId, Model model) {
 		
-		List<CommunityComment> replyCommentList= communityService.getReplyCommentList(communityCommentMasterNumber);
+		List<CommunityComment> replyCommentList= communityService.getReplyCommentList(communityCommentMasterNumber, 
+												communityBoardId);
+				
 		model.addAttribute("replyCommentList", replyCommentList);
 		model.addAttribute("communityCommentMasterNumber", communityCommentMasterNumber);
 		return "community/communityReply";
@@ -259,7 +261,6 @@ public class CommunityController {
 	@ResponseBody
 	public String writeReplyComment(CommunityComment comment, HttpSession session) {
 		comment.setUserId((String) session.getAttribute("userId"));	
-		System.out.println(comment.toString());
 		communityService.insertReplyCommunityComment(comment);
 		
 		return "1";

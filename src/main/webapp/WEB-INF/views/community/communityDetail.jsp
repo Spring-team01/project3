@@ -23,12 +23,13 @@
 <script>
 	
 	function viewReplyComment(i) {
+		let communityBoardId= $("#communityBoardId").val();
 		
 		$.ajax({
 			url : "/myapp/community/getreplycomment/",
 			type : "GET",
 			datatype : "html",
-			data : {communityCommentMasterNumber : i},
+			data : {communityCommentMasterNumber : i, communityBoardId : communityBoardId},
 			success : function(data) {
 				$('#replyComment'+i).toggle()
 				$('#replyComment'+i).html(data);
@@ -41,7 +42,7 @@
 		let communityBoardId= $("#communityBoardId").val();
 		let communityCommentMasterNumber = i;
 		$.ajax({
-			url : "/myapp/community/rereply/delete/",
+			url : "/myapp/community/reply/delete",
 			type : "POST",
 			data : {communityCommentMasterNumber : i , communityBoardId : communityBoardId},
 			success : function(data){
@@ -103,7 +104,7 @@
 										</td>
 									</tr>
 								</c:if>
-								<p class="fs-5 mb-4">${community.communityContent}</p>
+								<div class="fs-5 mb-4" style="white-space: pre;">${community.communityContent}</div>
 							</figure>
 						</article>
 						<section class="mb-5">
@@ -133,7 +134,10 @@
 														<div class="d-flex justify-content-around">
 															<div>
 																<div class="flex-shrink-0">
+																<!-- 유저 프로필 사진 -->
+																<%-- 
 																	<img class="rounded-circle" src='<c:url value="/admin/userdetail/userfile/${commentList.userFileId}"/>' alt="..." style="width: 50px; height: 50px;" />
+																 --%>
 																</div>
 															</div>
 															<div class="ms-3">

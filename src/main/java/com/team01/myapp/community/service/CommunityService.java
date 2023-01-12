@@ -161,8 +161,9 @@ public class CommunityService implements ICommunityService {
 	}
 
 	@Override
-	public List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber) {
-		return communityRepository.getReplyCommentList(communityCommentMasterNumber);
+	public List<CommunityComment> getReplyCommentList(int communityCommentMasterNumber,
+			int communityBoardId) {
+		return communityRepository.getReplyCommentList(communityCommentMasterNumber, communityBoardId);
 	}
 
 	@Override
