@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:setBundle basename="i18n/board" />
-<%@ taglib prefix="jk" tagdir="/WEB-INF/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -32,17 +31,19 @@
 	}
 	
 	
-	function deleteReReplyButton(i){
+	function deleteReReplyComment(i){
 		let communityBoardId= $("#communityBoardId").val();
 		let communityCommentReplyNumber = $("#communityCommentReplyNumber").val();
-		
+		let communityCommentMasterNumber =$("#communityCommentMasterNumber").val();
 		console.log(communityBoardId);
 		console.log(communityCommentReplyNumber);
+		console.log(communityCommentMasterNumber);
+		
 		
 		$.ajax({
-			url : "/myapp/community/rereply/delete",
+			url : "/myapp/community/replycomment/delete/",
 			type : "POST",
-			data : {communityCommentMasterNumber : i , communityBoardId : communityBoardId, communityCommentReplyNumber : communityCommentReplyNumber},
+			data : {communityCommentMasterNumber : communityCommentMasterNumber , communityBoardId : communityBoardId, communityCommentReplyNumber : communityCommentReplyNumber},
 			success : function(data){
 				if(data==0) {
 			           alert("댓글 삭제 실패");
@@ -80,13 +81,15 @@
 							${replyCommentList.communityCommentContent}
 						</div>
 						<div class="ms-auto">
-						<c:set var="userId" value="${sessionUserId}" />
-						<c:if test="${userId eq commentList.userId}">
+						<c:set var="id" value="${sessionUserId}" />
+						<c:if test="${id eq commentList.userId}">
 							<input id="deleteReReplyButton${commentList.communityCommentMasterNumber}" 
-							type="button" onclick="deleteReplyComment(${commentList.communityCommentMasterNumber})" 
+							type="button" onclick="deleteReReplyComment(${commentList.communityCommentMasterNumber})" 
 							class="btn btn-sm btn-dark shadow" value="대댓글 삭제">
 							<input type="hidden" id="communityCommentReplyNumber" name="communityCommentReplyNumber" 
-							value="${commentList.communityBoardId}">
+							value="${replyCommentList.communityCommentReplyNumber}">
+							<input type="hidden" id="communityCommentMasterNumber" name="communityCommentMasterNumber" 
+							value="${replyCommentList.communityCommentMasterNumber}">
 							
 						</c:if>
 						</div>

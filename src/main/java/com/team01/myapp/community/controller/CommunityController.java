@@ -233,8 +233,7 @@ public class CommunityController {
 
 	// 댓글 작성
 	@RequestMapping(value = "/community/reply/comment", method = RequestMethod.POST)
-	public String writeCommunityReply(CommunityComment comment, BindingResult result, RedirectAttributes redirectAttrs,
-			HttpSession session, Community community) {
+	public String writeCommunityReply(CommunityComment comment, BindingResult result, RedirectAttributes redirectAttrs, HttpSession session, Community community) {
 		comment.setUserId((String) session.getAttribute("userId"));
 		communityService.writeCommunityReply(comment);
 		
@@ -252,7 +251,7 @@ public class CommunityController {
 	
 	//대댓글 조회하기
 	@RequestMapping(value="/community/getreplycomment", method=RequestMethod.GET)
-	public String getReplyCommnet(@RequestParam int communityCommentMasterNumber, @RequestParam int communityBoardId, Model model) {
+	public String getReplyCommnet(@RequestParam int communityCommentMasterNumber, @RequestParam int communityBoardId, Model model, HttpSession session) {
 		
 		List<CommunityComment> replyCommentList= communityService.getReplyCommentList(communityCommentMasterNumber, 
 												communityBoardId);
@@ -266,18 +265,15 @@ public class CommunityController {
 	@RequestMapping(value="/community/writereplycomment", method=RequestMethod.POST)
 	@ResponseBody
 	public String writeReplyComment(CommunityComment comment, HttpSession session) {
-		
 		communityService.insertReplyCommunityComment(comment);
-		
 		return "1";
 	}
 	
 	//대댓글 삭제하기
-	@RequestMapping(value="/community/rereply/delete", method=RequestMethod.POST)
+	@RequestMapping(value="/community/replycomment/delete", method=RequestMethod.POST)
 	@ResponseBody
 	public String deleteCommunityReReply(CommunityComment comment) {
-		
-		System.out.println(comment.toString());
+		communityService.deleteCommunityReReplyComment(comment);
 		return "1";
 	}
 	

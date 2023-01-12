@@ -47,5 +47,5 @@ public interface ICommunityRepository {
 	
 	void insertReplyCommunityComment(CommunityComment comment);
 	void deleteCommunityReply(CommunityComment comment);
-	
+	void deleteCommunityReReplyComment(CommunityComment comment);
 }

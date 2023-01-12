@@ -25,6 +25,7 @@
 	
 	function viewReplyComment(i) {
 		let communityBoardId= $("#communityBoardId").val();
+		console.log(communityBoardId);
 		
 		$.ajax({
 			url : "/myapp/community/getreplycomment/",
@@ -110,12 +111,8 @@
 						</article>
 						<section class="mb-5">
 							<div class="card bg-light">
-								<c:set var="userId" value="${sessionUserId}" />
-
-
-
 								<div class="card-body">
-									<c:if test="${sessionScope.userType eq 'ADMIN' || userId eq community.usersId}">
+									<c:if test="${sessionScope.userId eq 'ADMIN' || id eq community.usersId}">
 										<a type="button" href="<c:url value='/community/communityUpdate/${community.communityBoardId}'/>" class="btn btn-dark shadow"> 글 수정 </a>
 										<a type="button" href="<c:url value='/community/delete/${community.communityBoardId}'/>" class="btn btn-dark shadow">글 삭제</a>
 										<input type="hidden" name="communityBoardId" value="${community.communityBoardId}">
@@ -150,14 +147,13 @@
 																onclick="viewReplyComment(${commentList.communityCommentMasterNumber})" 
 																class="btn btn-sm btn-dark shadow" value="댓글 보기">
 
-																<c:set var="userId" value="${sessionUserId}" />
-																<c:if test="${userId eq commentList.userId}">
+																<c:if test="${sessionScope.userId eq commentList.userId}">
 																	<input id="deleteReplyButton${commentList.communityCommentMasterNumber}" type="submit" 
 																	onclick="deleteReplyComment(${commentList.communityCommentMasterNumber})" 
 																	class="btn btn-sm btn-dark shadow" value="댓글 삭제">
 																</c:if>
 																<input type="hidden" id="userId" name="userId" 
-																value="${sessionUserId}">
+																value="${sessionScope.userId}">
 
 															</div>
 														</div>

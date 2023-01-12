@@ -481,5 +481,14 @@
    	 	where C_BOARD_ID = #{communityBoardId}
 		]]>
 	</update>
-		
+	
+	<delete id ="deleteCommunityReReplyComment" parameterType="com.team01.myapp.community.model.CommunityComment">
+		<![CDATA[
+			delete from c_comment
+			where C_BOARD_ID = #{communityBoardId}
+			and CC_MASTER_NUMBER = #{communityCommentMasterNumber}
+			and CC_REPLY_NUMBER = #{communityCommentReplyNumber}
+		]]>
+	</delete>
+	
 </mapper>

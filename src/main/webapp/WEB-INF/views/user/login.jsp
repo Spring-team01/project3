@@ -27,12 +27,12 @@
 
 					<small style="color:red"> <fmt:message key="${not empty message ? message : 'BLANK'}"/></small>
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-						<input class="input100" type="text" name="userid" id="id" placeholder="Username">
+						<input class="input100" type="text" name="userid" id="id" placeholder="Username" value="201668003">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" type="password" name="password" id="pw" placeholder="Password">
+						<input class="input100" type="password" name="password" id="pw" placeholder="Password" value="1234">
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
 

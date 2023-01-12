@@ -39,4 +39,5 @@ public interface ICommunityService {
 	
 	void insertReplyCommunityComment(CommunityComment comment);
 	void deleteCommunityReply(CommunityComment comment);
+	void deleteCommunityReReplyComment(CommunityComment comment);
 }
