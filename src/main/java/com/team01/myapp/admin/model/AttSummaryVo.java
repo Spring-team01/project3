@@ -1,5 +1,7 @@
 package com.team01.myapp.admin.model;
 
+import java.sql.Timestamp;
+
 import lombok.Data;
 
 @Data
@@ -8,9 +10,8 @@ public class AttSummaryVo {
 	private int absenceSum;//결근
 	private int leaveSum;//휴가
 	private int attendanceSum;//출근
-	private int yetSum;//미출근
 	private int totalCountBySubject;//전체 인원 수
-	private String subjectName;
-	
-	
+	private String subjectName;//과목명
+	private String userName;//유저 이름
+
 }
