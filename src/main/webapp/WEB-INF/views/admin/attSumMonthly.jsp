@@ -33,9 +33,9 @@
                   <div class="container-fluid py-4">
                      <div class="row">
                         <div class="form-inline m-2 justify-content-start "> 
-                           <button onclick = "location.href = '<c:url value='/admin/attsummary/1'/>'" class="badge badge-sm bg-gradient-success">c언어</button>
-                           <button onclick = "location.href = '<c:url value='/admin/attsummary/2'/>'" class="badge badge-sm bg-gradient-danger">python</button>
-                           <button onclick = "location.href = '<c:url value='/admin/attsummary/3'/>'" class="badge badge-sm bg-gradient-info">java</button>
+                           <button onclick = "location.href = '<c:url value='/admin/attsummonthly/1'/>'" class="badge badge-sm bg-gradient-success">c언어</button>
+                           <button onclick = "location.href = '<c:url value='/admin/attsummonthly/2'/>'" class="badge badge-sm bg-gradient-danger">python</button>
+                           <button onclick = "location.href = '<c:url value='/admin/attsummonthly/3'/>'" class="badge badge-sm bg-gradient-info">java</button>
                            </div>
                         <div class="col-12">
 
@@ -44,7 +44,7 @@
                                  class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                  <div
                                     class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">월별 요약</h6>
+                                    <h6 class="text-white text-capitalize ps-3">${attSummaryVo.subjectName}  월별 요약</h6>
                                  </div>
                               </div>
                               <div class="card-body px-0 pb-2">
