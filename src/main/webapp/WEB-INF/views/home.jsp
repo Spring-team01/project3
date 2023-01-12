@@ -68,6 +68,73 @@ html, body {
 				}
 			});
 		});
+		
+		document.addEventListener('DOMContentLoaded', function() {
+			var calendarEl = document.getElementById('calendar');
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+				headerToolbar : {
+		            left : 'prev,next today',
+		            center : 'title',
+		            right : 'dayGridMonth'
+		         },
+		        locale: "ko",
+				initialView: 'dayGridMonth',
+				events: [
+							{
+								title : '예시',
+								start : '2023-01-01',
+								backgroundColor : '#ffc107',
+								borderColor : '#ffc107'
+							},
+							// end 에는 끝 시간을 넣으면 그 시간까지 일정이 잡힘
+							{
+								title : '예시',
+								start : '2023-01-02',
+								end : '2023-01-05',
+								backgroundColor : '#ffc107',
+								borderColor : '#ffc107',
+								display : 'auto'
+							},
+							// display 타입 종류 
+							{
+								title : '예시',
+								start : '2023-01-09',
+								backgroundColor : '#ffc107',
+								borderColor : '#ffc107',
+								display : 'auto'
+							},
+							{
+								title : '예시',
+								start : '2023-01-10',
+								backgroundColor : '#ffc107',
+								borderColor : '#ffc107',
+								display : 'block'
+							},
+							{
+								title : '예시',
+								start : '2023-01-11',
+								backgroundColor : '#ffc107',
+								borderColor : '#ffc107',
+								display : 'list-item'
+							},
+							{
+								title : '예시',
+								start : '2023-01-12',
+								backgroundColor : '#ffc107',
+								borderColor : '#ffc107',
+								display : 'background'
+							},
+							{
+								title : '예시',
+								start : '2023-01-13',
+								backgroundColor : '#ffc107',
+								borderColor : '#ffc107',
+								display : 'none'
+							}
+				]
+			});
+			calendar.render();
+		});
 	</script>
 
 	<!-- sidebar 토글 -->
@@ -105,7 +172,25 @@ html, body {
 			    <div class="row">
 				    <!-- 출석 미니뷰 -->
 					<div class="col-6 col-md">
-						<div id="attendanceMiniView" style="width:100%; height:100%">
+						<div id="attendanceMiniView" style="width:100%; height:25%">
+						</div>
+						<div class="card mb-5">
+							<div
+								class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+								<div
+									class="bg-gradient-dark shadow-success border-radius-lg pt-4 pb-3">
+									<h6 class="text-white text-capitalize ps-3">나의 출석</h6>
+								</div>
+							</div>
+							<div class="card-body px-0 pb-2">
+								<div class="table-responsive p-0">
+									<table class="table align-items-center mb-0 text-center">
+									</table>
+									<div style="padding:0px 50px; margin-bottom:20px">
+										<div id="calendar"></div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					

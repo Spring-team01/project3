@@ -26,7 +26,7 @@ public class AttendanceScheduler {
 		attendanceService.checkOut(today);
 	}
 	
-	@Scheduled(cron = "0 59 23 * * 1-7")
+	@Scheduled(cron = "0 59 23 * * 1-5")
 	public void getStudentStatus2() {
 		Date date = new Date();
 		

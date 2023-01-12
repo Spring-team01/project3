@@ -7,30 +7,16 @@
 
 <!DOCTYPE html>
 <html>
-<!--     Fonts and icons     -->
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-<!-- Nucleo Icons -->
-<link href="<c:url value="/static/css/nucleo-icons.css"/>" rel="stylesheet" />
-<link href="<c:url value="/static/css/nucleo-svg.css"/>" rel="stylesheet" />
-<!-- Font Awesome Icons -->
-<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-<!-- Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-<!-- CSS Files -->
-<link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
-
-
-
-<body>
 	<div class="card my-4">
-	<div class="card-body px-0 pb-2">
 		<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-			<div class="bg-gradient-dark shadow-success border-radius-lg pt-4 pb-3">
+			<div
+				class="bg-gradient-dark shadow-success border-radius-lg pt-4 pb-3">
 				<h6 class="text-white text-capitalize ps-3">커뮤니티 게시판</h6>
 			</div>
-
+		</div>
+		<div class="card-body px-0 pb-2">
 			<div class="table-responsive p-0">
-				<table class="table align-items-center mb-0">
+				<table class="table align-items-center mb-0 text-center">
 					<thead>
 						<tr align="center">
 							<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">글번호</th>
@@ -57,7 +43,4 @@
 				</table>
 			</div>
 		</div>
-		</div>
 	</div>
-</body>
-</html>
