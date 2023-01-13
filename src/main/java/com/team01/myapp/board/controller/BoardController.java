@@ -186,30 +186,20 @@ public class BoardController {
 	//삭제
 	@RequestMapping(value="/board/delete/{boardId}", method=RequestMethod.GET)
 	public String deleteArticle(@PathVariable int boardId, Model model) {
+		
 		Board board =boardService.selectArticle(boardId);
-		model.addAttribute("boardId",boardId);
-		model.addAttribute("categoryId",board.getCategoryId());
-		return "board/delete";
-	}
-	@RequestMapping(value="/board/delete",method=RequestMethod.POST)
-	public String deleteArticle(Board board, BindingResult result, HttpSession session, Model model) {
 		try {
-			String dbpw = boardService.getPassword(board.getBoardId());
-			
-			if(dbpw.equals(board.getPassword())) {
-				boardService.deleteArticle(board.getBoardId());
-				return "redirect:/board/"+board.getCategoryId()+"/1";
-			}else {
-				model.addAttribute("message", "WRONG_PASSWORD_NOT_DELETED");
-				return "redirect:/board/"+board.getCategoryId()+"/"+(Integer)session.getAttribute("page");
-			}
+			boardService.deleteArticle(board.getBoardId());
+			model.addAttribute("boardId",boardId);
+			model.addAttribute("categoryId",board.getCategoryId());
+			return "redirect:/board/"+board.getCategoryId()+"/1";
 		}catch(Exception e) {
 			model.addAttribute("message", e.getMessage());
 			e.printStackTrace();
 			return "redirect:/board/"+board.getCategoryId()+"/1";
-			
 		}
 	}
+	
 	
 	//관리자 삭제
 	@RequestMapping(value="/board/admin/delete/{boardId}", method=RequestMethod.GET)

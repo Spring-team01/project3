@@ -15,6 +15,12 @@
                    </a>
                 </li> 
                 <li>
+                    <a href="<c:url value='/admin/report/list'/>" type="button" class="homebtn">
+                        <span class="icon"><i class="fa fa-exclamation-triangle"></i></i></span>
+                        <span class="item">게시글 신고 목록</span>
+                    </a>
+                </li>
+                <li>
                		<a href="#" type="button" class="dropdown-btn">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">학생조회</span>
@@ -48,3 +54,5 @@
                 </li>
             </ul>
         </div>
+        
+         <script type="text/javascript" src="<c:url value="/static/js/sidebar.js"/>"></script>

@@ -8,6 +8,7 @@
 
 <!DOCTYPE html>
 <html>
+
 <style>
 .tab_menu {
 	position: relative;
@@ -67,12 +68,6 @@
 			
 		});
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 </script>
@@ -175,10 +170,6 @@
 						</div>
 					</div>
 				</div>
-
-
-
-
 			</div>
 		</div>
 	</div>

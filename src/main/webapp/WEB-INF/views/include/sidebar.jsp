@@ -13,6 +13,12 @@
                     </a>
                     
                 </li>
+                <li>
+                    <a href="<c:url value='/report/list'/>" type="button" class="homebtn">
+                        <span class="icon"><i class="fa fa-exclamation-triangle"></i></i></span>
+                        <span class="item">게시글 신고 목록</span>
+                    </a>
+                </li>
             </c:if>
             <c:if test="${sessionScope.userType eq 'USER'}">
                 <li>
@@ -69,3 +75,6 @@
                 
             </ul>
         </div>
+        
+      <script type="text/javascript" src="<c:url value="/static/js/sidebar.js"/>"></script>
+        

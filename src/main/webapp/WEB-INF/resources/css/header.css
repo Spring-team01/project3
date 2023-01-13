@@ -9,22 +9,10 @@
 	z-index:10;
 }
 
-#image-box {
-	width : 120px;
-	overflow: hidden;
-}
 
-#image-content {
-	width : 100%;
-	height : 100%;
-}
-
-#name-box{
-	width: 300px;
-}
-#name-content{
+#logo{
 	margin-top:5px;
-	width:300px;
+	width:245px;
 }
 #button-box {
 	display: flex;
