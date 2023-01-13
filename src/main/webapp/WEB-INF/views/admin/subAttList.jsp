@@ -42,7 +42,8 @@
 									<button onclick = "location.href = '<c:url value='/admin/subattendancelist/1?resultNumber=2'/>'" class="badge badge-sm bg-gradient-info">미처리 목록</button>
 									<button onclick = "location.href = '<c:url value='/admin/subattendancelist/1'/>'" class="badge badge-sm bg-gradient-warning">전체 목록</button>
 									
-								</div>
+							</div>
+							</div>
 					        <div class="col-12">
 					          <div class="card my-4">
 					            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -52,7 +53,7 @@
 					            </div>
 					            <div class="card-body px-0 pb-2">
 					              <div class="table-responsive p-0">
-					                <table class="table align-items-center justify-content-center mb-0">
+					                <table class="table align-items-center justify-content-center mb-0 table-hover">
 					                  <thead>
 					                    <tr>
 					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">처리결과</th>
@@ -66,7 +67,7 @@
 					                  </thead>
 					                  <tbody>
 										<c:forEach var="reason" items="${subAttList}">
-											<tr>
+											<tr onClick="location.href='<c:url value="/admin/reasondetail/${reason.subAttNo}"/>'">
 												<td class="text-xs font-weight-bold mb-0 text-center">${reason.result}</td>
 												<td class="text-xs font-weight-bold mb-0 text-center">${reason.subAttNo}</td>
 												
@@ -74,9 +75,8 @@
 													<p class="text-xs font-weight-bold mb-0 text-center">${reason.userName}</p>
 													<p class="text-xs font-weight-bold mb-0 text-center">${reason.userId}</p>
 												</td>
-												<td class="pc"><h6 class="text-xs font-weight-bold mb-0 text-center">
-												<a href='<c:url value="/admin/reasondetail/${reason.subAttNo}"/>'>${reason.title}</a></h6></td>
-												<td class="pc"><h6 class="text-xs font-weight-bold mb-0 text-center">${reason.writeDate}</h6></td>
+												<td class="text-xs font-weight-bold mb-0 text-center">${reason.title}</td>
+												<td class="text-xs font-weight-bold mb-0 text-center">${reason.writeDate}</td>
 												<td class="text-center">
 													<c:choose>
 													<c:when test="${reason.subStatus eq '조퇴'}"><span class="badge badge-sm bg-gradient-success">조퇴</span></c:when>
@@ -113,9 +113,10 @@
 	
 									<c:if test="${pager.groupNo < pager.totalGroupNo }">
 										<a href="${pager.endPageNo+1}?resultNumber=${resultNumber}" type="button" class="btn btn-muted shadow">▶</a>
-	
 									</c:if>
+									<c:if test="${pager.pageNo < pager.totalPageNo}">
 									<a href="${pager.totalPageNo}?resultNumber=${resultNumber}" type="button" class="btn btn-muted shadow">▶▶</a>
+									</c:if>
 								</div>
 								<div class="flex-fulfill"></div>
 								
@@ -124,7 +125,7 @@
 					          </div>
 					        </div>
 					      </div>
-					        </div>
+					        
 					</div>
 	    		</div>
 	        </div>

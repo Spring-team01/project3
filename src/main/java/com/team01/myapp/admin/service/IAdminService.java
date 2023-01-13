@@ -21,7 +21,7 @@ public interface IAdminService {
 	void updateUser(User user, UserUploadFile file);
 	void updateUser(User user);
 	SubAttendance selectSubAttendanceDetail(int subAttNo);
-	Pager SubAttendanceListPage(String pageNo, Pager pager, int resultNum);
+	Pager SubAttendanceListPage(String pageNo, int resultNum);
 	void updateStatus(SubAttendance subAttendance, int result);
 	AttSummaryVo attsumMonthly(int subjectId);
 	AttSummaryVo attSumDaily(int subjectId);

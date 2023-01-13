@@ -115,7 +115,9 @@
 										<a href="${pager.endPageNo+1}?resultNumber=${resultNumber}" type="button" class="btn btn-muted shadow">▶</a>
 	
 									</c:if>
+									<c:if test="${pager.pageNo < pager.totalPageNo}">
 									<a href="${pager.totalPageNo}?resultNumber=${resultNumber}" type="button" class="btn btn-muted shadow">▶▶</a>
+								</c:if>
 								</div>
 								<div class="flex-fulfill"></div>
 								
@@ -129,7 +131,7 @@
 	    		</div>
 	        </div>
         </div>
- <jsp:include page="/WEB-INF/views/include/sidebar.jsp" />       
+ <jsp:include page="/WEB-INF/views/include/adminsidebar.jsp" />       
     </div>
     </div>
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
