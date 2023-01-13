@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team01.myapp.admin.model.Reports;
 import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.model.BoardComment;
 import com.team01.myapp.board.model.BoardUploadFile;
-import com.team01.myapp.board.model.Reports;
 import com.team01.myapp.board.service.IBoardService;
 import com.team01.myapp.util.Pager;
 
@@ -280,15 +280,11 @@ public class BoardController {
 	//댓글 신고 기능
 	@RequestMapping("/board/comment/report")
 	public @ResponseBody String reportComment(Reports report, BindingResult result, HttpSession session) {
+		report.setUserId((String)session.getAttribute("userId"));
 		boardService.reportComment(report);
 		return "1";
 	}
 	
-	//대댓글 신고 기능
-		@RequestMapping(value="/board/nestedcomment/report}", method=RequestMethod.GET)
-		public @ResponseBody String reportNestedComment(Reports report, BindingResult result, HttpSession session) {
-			boardService.reportNestedComment(report);
-			return "1";
-		}
+	
 	
 }

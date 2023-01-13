@@ -311,6 +311,7 @@
 		    b.BOARD_ID			AS "boardId",
 		    c.U_ID          AS "userId",
 		    BC_REPLY_NO	AS "bcReplyNo",
+		    BC_MASTER_NO AS "bcMasterNo",
 		    BC_CONTENT	AS "bcContent",
 		    BC_WRITE_DATE AS "bcWriteDate",
 		    u.U_FILE_ID AS "userFileId"
@@ -335,6 +336,7 @@
 		    b.BOARD_ID			AS "boardId",
 		    c.U_ID          AS "userId",
 		    BC_REPLY_NO	AS "bcReplyNo",
+		    BC_MASTER_NO AS "bcMasterNo",
 		    BC_CONTENT	AS "bcContent",
 		    BC_WRITE_DATE AS "bcWriteDate",
 		    u.U_FILE_ID AS "userFileId"
@@ -398,11 +400,14 @@
 		]]>
 	</select>
 	
+	<!-- 댓글 신고기능 -->
 	<select id="insertReportComment" resultType="com.team01.myapp.board.model.Reports">
 		INSERT INTO
 		REPORTS
-			(RP_REPORT_NO, RP_BOARD_ID, RP_CONTENT, RP_COMMENT_NO, RP_MASTER_NO, RP_STATUS, RP_TYPE, RP_WRITE_DATE, USER_ID)
+			(RP_REPORT_NO, RP_BOARD_ID, RP_CONTENT, RP_COMMENT_NO, RP_MASTER_NO, RP_TYPE, RP_WRITE_DATE, USER_ID)
 		VALUES
-			(seq_rp_no.nextval, #{rpBoardId},#{rpContent}, #{rpCommentNo}, #{rpMasterNo}, #{rpStatus}, #{rpType},SYSDATE, #{userId})
+			(seq_rp_no.nextval, #{rpBoardId},#{rpContent}, #{rpCommentNo}, #{rpMasterNo}, #{rpType}, SYSDATE, #{userId})
 	</select>
+	
+	
 </mapper>

@@ -27,4 +27,6 @@ public interface IAdminService {
 	AttSummaryVo attSumDaily(int subjectId);
 	List<AttSummaryVo> attsumMonthlyByuser(int subjectId);
 	List<AttSumDailyVo> attSumDailyByuser(int subjectId);
+	
+	List<SubAttList> getReportList(int resultNum, Pager pager);
 }

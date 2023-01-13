@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.team01.myapp.admin.model.Reports;
 import com.team01.myapp.board.dao.IBoardRepository;
 import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.model.BoardComment;
 import com.team01.myapp.board.model.BoardUploadFile;
-import com.team01.myapp.board.model.Reports;
 import com.team01.myapp.board.service.IBoardService;
 import com.team01.myapp.util.Pager;
 
@@ -203,16 +203,12 @@ public class BoardService implements IBoardService {
 	public List<Board> getBoardMiniList() {
 		return boardRepository.selectBoardMiniList();
 	}
-
+	
+	//댓글 신고 기능! 
 	@Override
 	public void reportComment(Reports report) {
 		boardRepository.insertReportComment(report);
 	}
 
-	@Override
-	public void reportNestedComment(Reports report) {
-		boardRepository.insertReportNestedComment(report);
-	}
-	
 	 
 }
