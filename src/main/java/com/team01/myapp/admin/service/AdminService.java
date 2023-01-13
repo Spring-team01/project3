@@ -100,13 +100,7 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
-	public List<SubAttList> getSubAttListbyRNum(int resultNum, String pageNo) {
-		// 전체 행수
-		int totalSubNum = adminRepository.selectTotalSubAttListByPNum(resultNum);
-		//현재 페이지 
-		int pagerNo = Integer.parseInt(pageNo);
-		Pager pager = new Pager(5, 5, totalSubNum, pagerNo);
-		
+	public List<SubAttList> getSubAttListbyRNum(int resultNum, Pager pager) {
 		int end = pager.getPageNo() * pager.getRowsPerPage();
 		int start = (pager.getPageNo() - 1) * pager.getRowsPerPage() + 1;
 		return adminRepository.selectSubAttListbyRNum(start, end, resultNum);

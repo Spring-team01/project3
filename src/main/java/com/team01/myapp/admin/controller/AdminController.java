@@ -110,7 +110,6 @@ public class AdminController {
 				file.setUserFileSize(mfile.getSize());
 				file.setUserFileContentType(mfile.getContentType());
 				file.setUserFileData(mfile.getBytes());
-				System.out.println("으악" + file.getUserId());
 				logger.info("/admin/update : " + file.toString());
 
 				adminService.updateUser(user, file);
@@ -125,19 +124,13 @@ public class AdminController {
 	}
 
 	// 휴가 목록 조회
-	// resultNum = 0 -> 전체 목록 출력
-	// resultNum = 1 -> 처리 목록 출력
-	// resultNum = 2 -> 미처리 목록 출력
 	@RequestMapping(value = "/admin/subattendancelist/{pageNo}", method = RequestMethod.GET)
 	public String getSubAttendanceList(@PathVariable String pageNo,
 			@RequestParam(value = "resultNumber", required = false, defaultValue = "0") String resultNumber,
-			Model model, Pager pager, HttpSession session) {
-
-		session.setAttribute("pageNo", pageNo);
+			Model model) {
 		int resultNum = Integer.parseInt(resultNumber);
-	
-		List<SubAttList> subAttList = adminService.getSubAttListbyRNum(resultNum, pageNo);
-
+		Pager pager = adminService.SubAttendanceListPage(pageNo, resultNum);
+		List<SubAttList> subAttList = adminService.getSubAttListbyRNum(resultNum, pager);
 		model.addAttribute("subAttList", subAttList);
 		model.addAttribute("pager", pager);
 		model.addAttribute("resultNumber", resultNumber);
@@ -160,8 +153,8 @@ public class AdminController {
 		model.addAttribute("attSumDailyTotal", attSumDailyTotal);
 
 		pager = adminService.SubAttendanceListPage("1", 1);
-		//List<SubAttList> subAttList = adminService.getSubAttListbyRNum(1, pager);
-		//model.addAttribute("subAttList", subAttList);
+		List<SubAttList> subAttList = adminService.getSubAttListbyRNum(1, pager);
+		model.addAttribute("subAttList", subAttList);
 
 		return "admin/adminHome";
 	}

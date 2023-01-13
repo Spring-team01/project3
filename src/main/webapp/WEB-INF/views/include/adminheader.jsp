@@ -9,7 +9,7 @@
 	<div class="d-flex justify-content-start align-items-center" >
 		<div>
 			<div class="ml-4">
-			<a href="<c:url value="/home"/>">
+			<a href="<c:url value="/admin/adminhome"/>">
 				<img id="logo" src="<c:url value="/static/images/univLogoFinal.png"/>"/>
 			</a>
 			</div>

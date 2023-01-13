@@ -14,7 +14,7 @@ import com.team01.myapp.util.Pager;
 public interface IAdminService {
 	Pager returnPage(String pageNo, Pager pager, int subjectId);
 	List<UserList> getUserListBySubject(int subjectId, Pager pager);
-	List<SubAttList> getSubAttListbyRNum(int resultNum, String pageNo);
+	List<SubAttList> getSubAttListbyRNum(int resultNum, Pager pager);
 	void insertUserFile(UserUploadFile file);
 	User getUser(String userId);
 	UserUploadFile getFile(String userFileId);
