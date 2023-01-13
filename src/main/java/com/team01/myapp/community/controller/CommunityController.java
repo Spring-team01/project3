@@ -144,10 +144,10 @@ public class CommunityController {
 			HttpSession session) {
 		try {
 			// XSSS 대응
+			community.setCommunityContent(community.getCommunityContent().replace("\r\n", "<br>"));
 			community.setCommunityTitle(Jsoup.clean(community.getCommunityTitle(), Whitelist.basic()));
 			community.setCommunityContent(Jsoup.clean(community.getCommunityContent(), Whitelist.basic()));
 
-			community.setCommunityContent(community.getCommunityContent().replace("\r\n", "<br>"));
 			community.setUsersId((String) session.getAttribute("userId"));
 			community.setUserName((String) session.getAttribute("userName"));
 			community.setCommunityEmail((String) session.getAttribute("email"));
@@ -286,9 +286,15 @@ public class CommunityController {
 	public String example(HttpSession session, Community community, Model model) {
 		
 		community.setUserName((String) session.getAttribute("userName"));
-		List<Community> communityList = communityService.readCountListByCategory(1);
+		List<Community> communityListTab1 = communityService.readCountListByCategory(1);
+		List<Community> communityListTab2 = communityService.getCommunityListByTabNo2(1);
+		List<Community> communityListTab3 = communityService.getCommunityListByTabNo3(1);
+		
+		
 		model.addAttribute("sessionUserId", (String) session.getAttribute("userId"));
-		model.addAttribute("communityList", communityList);
+		model.addAttribute("communityListTab1", communityListTab1);
+		model.addAttribute("communityListTab2", communityListTab2);
+		model.addAttribute("communityListTab3", communityListTab3);
 		
 		return "community/communityMiniView";
 	}
