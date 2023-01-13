@@ -50,7 +50,7 @@ html, body {
 		/* 출석 */
 		$(document).ready(function() {
 			$.ajax({
-				url : "/myapp/attendance/attendanceMiniView",
+				url : "/myapp/attendance/attendanceminiview",
 				type : "GET",
 				datatype : "html",
 				success : function(data) {
@@ -67,6 +67,18 @@ html, body {
 				datatype : "html",
 				success : function(data) {
 					$('#boardMiniView').html(data);
+				}
+			});
+		});
+		
+		/* test */
+		$(document).ready(function() {
+			$.ajax({
+				url : "/myapp/attendance/homeminiview",
+				type : "GET",
+				datatype : "html",
+				success : function(data) {
+					$('#homeMiniView').html(data);
 				}
 			});
 		});
@@ -195,8 +207,10 @@ html, body {
 					</div>
 					
 					<!-- 커뮤니티 미니뷰 -->
-					<div class="col-6 col-md">
-						<div id="communityMiniView" style="width: 100%; height: 100%">
+					<div class="col-6 col-md row">
+						<div id="communityMiniView" style="width: 100%; height: 50%">
+						</div>
+						<div id="homeMiniView" style="width:100%; height:50%">
 						</div>
 					</div>
 				</div>
