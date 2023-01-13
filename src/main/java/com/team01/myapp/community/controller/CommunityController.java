@@ -299,7 +299,29 @@ public class CommunityController {
 		return "community/communityMiniView";
 	}
 	
+	@RequestMapping(value="/community/toastui", method = RequestMethod.GET)
+	public String toastUi(Community community) {
+		
+		return "community/toastUi";
+	}
 	
+	@RequestMapping(value="/community/toastui/write", method = RequestMethod.POST)
+	public String toastUiWrite(Community community, Model model) {
+		System.out.println(community.toString());
+		
+		model.addAttribute("community", community);
+		
+		return "community/toastUiViewer";
+	}
+	
+	@RequestMapping(value="/community/toastui/view", method = RequestMethod.GET)
+	public String toastUiView(Community community, Model model) {
+		System.out.println(community.toString());
+		
+		model.addAttribute("community", community);
+		
+		return "community/toastUiViewer";
+	}
 	
 
 }

@@ -88,7 +88,7 @@
 				<div class="table-responsive p-0">
 					<div class="cont_area">
 						<div id="tab1" class="cont">
-							<table class="table align-items-center mb-0 text-center">
+							<table class="table align-items-center mb-0 text-center table-hover">
 								<thead>
 									<tr align="center">
 										<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">글번호</th>
@@ -99,7 +99,7 @@
 								</thead>
 								<tbody>
 									<c:forEach var="community" items="${communityListTab1}">
-										<tr>
+										<tr onClick="location.href='<c:url value='/community/communityDetail/${community.communityBoardId}'/>'">
 											<td>
 												<h3 align="center" class="text-xs font-weight-bold mb-0">${community.communityBoardId}</h3>
 											</td>
@@ -115,9 +115,9 @@
 							</table>
 						</div>
 						<div id="tab2" class="cont" style="display: none;">
-							<table class="table align-items-center mb-0 text-center">
+							<table class="table align-items-center mb-0 text-center table-hover">
 								<thead>
-									<tr align="center">
+									<tr align="center" >
 										<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">글번호</th>
 										<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">게시글 제목</th>
 										<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">조회수</th>
@@ -126,7 +126,7 @@
 								</thead>
 								<tbody>
 									<c:forEach var="community2" items="${communityListTab2}">
-										<tr>
+										<tr onClick="location.href='<c:url value='/community/communityDetail/${community.communityBoardId}'/>'">
 											<td>
 												<h3 align="center" class="text-xs font-weight-bold mb-0">${community2.communityBoardId}</h3>
 											</td>
@@ -142,7 +142,7 @@
 							</table>
 						</div>
 						<div id="tab3" class="cont" style="display: none;">
-							<table class="table align-items-center mb-0 text-center" >
+							<table class="table align-items-center mb-0 text-center table-hover" >
 								<thead>
 									<tr align="center">
 										<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">글번호</th>
@@ -153,7 +153,7 @@
 								</thead>
 								<tbody>
 									<c:forEach var="community3" items="${communityListTab3}">
-										<tr>
+										<tr onClick="location.href='<c:url value='/community/communityDetail/${community.communityBoardId}'/>'">
 											<td>
 												<h3 align="center" class="text-xs font-weight-bold mb-0">${community3.communityBoardId}</h3>
 											</td>

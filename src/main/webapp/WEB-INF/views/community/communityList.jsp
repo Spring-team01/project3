@@ -48,7 +48,7 @@
 						</div>
 						<div class="card-body px-0 pb-2">
 							<div class="table-responsive p-0">
-								<table class="table align-items-center mb-0">
+								<table class="table align-items-center mb-0 table-hover">
 									<thead>
 										<tr align="center">
 											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">글번호</th>
@@ -61,7 +61,7 @@
 									</thead>
 									<tbody>
 										<c:forEach var="community" items="${communityList}">
-											<tr>
+											<tr onClick="location.href='<c:url value='/community/communityDetail/${community.communityBoardId}'/>'">
 												<td>
 													<h3 align="center" class="text-xs font-weight-bold mb-0">${community.communityBoardId}</h3>
 												</td>
