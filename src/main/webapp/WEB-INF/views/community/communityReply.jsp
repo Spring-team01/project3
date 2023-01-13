@@ -109,9 +109,7 @@
 					<div class="d-flex mb-3 ml-5">
 						<!-- Parent comment-->
 						<div class="flex-shrink-0 fix-comment-hidden">
-						<%-- 유저 프로필 사진
 							<img class="rounded-circle" src='<c:url value="/admin/userdetail/userfile/${replyCommentList.userFileId}"/>' alt="..." style="width: 50px; height: 50px;" />
-						 --%>
 						</div>
 						<div class="ms-3 fix-comment-hidden">
 							<div class="fw-bold">${replyCommentList.userName}</div>
