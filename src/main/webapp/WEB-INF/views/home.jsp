@@ -146,6 +146,18 @@ html, body {
 					</p>
 				</div>
 			</div>
+			<div class="welcome d-flex justify-content-around align-items-center pt-2" style="background:#1c2326; margin-top:0px">
+					<div class="p-2 " style="text-align:center">
+						<h6><FONT color="#f0f0f0">'학습은 경험이다' - Albert Einstein</FONT></h6>
+						<h6><FONT color="#f0f0f0">사회 문제 해결을 통해 교육이 이루어지는 플랫폼 IC-PBL</FONT></h6>
+						<h6><FONT color="#f0f0f0">한양에서 대학 교육이 산업과 사회를 만납니다.</FONT></h6>
+					</div>
+					<div class="p-2" style="text-align:center">
+						<video style="width:500px; height:195px" autoplay muted>
+							<source src="<c:url value="/static/videos/video.mp4"/>" type="video/mp4">
+						</video>
+					</div>
+			</div>
 			<!-- 메인 컨테이너 (메인에 넣을 것은 이 안에 작성) -->
 			<div class="container-fluid" style="background-color:white; margin:25px; width:95%; min-height: 800px;">
 				
