@@ -347,7 +347,6 @@
 	<insert id="insertNestedComment" parameterType="com.team01.myapp.board.model.BoardComment">
 		INSERT INTO
 			B_COMMENT
-		B_COMMENT
 			(BC_REPLY_NO, BC_CONTENT, BC_WRITE_DATE, U_ID, BOARD_ID, BC_MASTER_NO, BC_REPLY_STEP)
 		VALUES
 			(#{bcReplyNo}, #{bcContent}, SYSDATE, #{userId}, #{boardId}, #{bcMasterNo},1)
@@ -397,5 +396,13 @@
 		    )
 		WHERE RNUM <= 4
 		]]>
+	</select>
+	
+	<select id="insertReportComment" resultType="com.team01.myapp.board.model.Reports">
+		INSERT INTO
+		REPORTS
+			(RP_REPORT_NO, RP_BOARD_ID, RP_CONTENT, RP_COMMENT_NO, RP_MASTER_NO, RP_STATUS, RP_TYPE, RP_WRITE_DATE, USER_ID)
+		VALUES
+			(seq_rp_no.nextval, #{rpBoardId},#{rpContent}, #{rpCommentNo}, #{rpMasterNo}, #{rpStatus}, #{rpType},SYSDATE, #{userId})
 	</select>
 </mapper>
