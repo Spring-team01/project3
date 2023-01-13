@@ -155,7 +155,8 @@ html, body {
 				<div class="align-self-center" id="userInfo">
 					<h2 style="color:white;">${userName} 님    환영합니다.</h2>
 					<p>${major}
-						${grade}학년 <a href="/user/update"><i class="material-icons">settings</i></a>
+						${grade}학년 
+						<%-- <a href="/myapp/admin/update/${userId}"><i class="material-icons">settings</i></a> --%>
 					</p>
 				</div>
 			</div>

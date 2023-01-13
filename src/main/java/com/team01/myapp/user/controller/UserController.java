@@ -1,6 +1,6 @@
 package com.team01.myapp.user.controller;
 
-import java.text.SimpleDateFormat;
+import java.text.SimpleDateFormat; 
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,6 +29,11 @@ public class UserController {
 	@Autowired
 	IAttendanceService attendanceService;
 
+	@RequestMapping(value="/user/login", method=RequestMethod.GET)
+	public String login() {
+		return "user/login";
+	}
+	
 	@RequestMapping(value="/user/login", method=RequestMethod.POST)
 	public String login(String userid, String password, HttpSession session, Model model) {
 		User user = userService.selectUser(userid);
@@ -82,21 +88,25 @@ public class UserController {
 		return "user/login";
 	}
 	
-	@RequestMapping(value="/user/login", method=RequestMethod.GET)
-	public String login() {
-		return "user/login";
-	}
-	
-	@RequestMapping(value="/user/update", method=RequestMethod.GET)
-	public String userUpdate() {
-		return "user/login";
-	}
-	
 	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session, HttpServletRequest request) {
 		session.invalidate(); //로그아웃
 		return "user/login";
 	}
+	
+	
+	@RequestMapping(value="/user/update/{userId}", method=RequestMethod.GET)
+	public String updateUser(@PathVariable String userId, Model model) {
+		User user = userService.selectUser(userId);
+		model.addAttribute("user", user);
+		return "user/updateUser";
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 }
