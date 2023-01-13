@@ -43,7 +43,7 @@
 	const contents_article = document.querySelectorAll('.tab_menu_article .cont_area_article .cont')
 	let activeCont_article = ''; // 현재 활성화 된 컨텐츠 (기본:#tab1 활성화)
 
-	for (var i = 0; i < tabList.length; i++) {
+	for (var i = 0; i < tabList_article.length; i++) {
 		tabList_article[i].querySelector('.btn').addEventListener('click', function(e) {
 			e.preventDefault();
 			for (var j = 0; j < tabList_article.length; j++) {

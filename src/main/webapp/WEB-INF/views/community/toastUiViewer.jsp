@@ -20,7 +20,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 <!-- CSS Files -->
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
-
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <style>
  .dropbtn {
   background-color: #f9f9f9;
@@ -99,9 +99,7 @@
 		});
 	}
 	
-	
-	
-	
+	 
 </script>
 
 
@@ -148,10 +146,18 @@
 										</td>
 									</tr>
 								</c:if>
-								
-								<div class="fs-5 mb-4" style="white-space: pre;">${fn: replace(community.communityContent, replaceChar, "") }</div>
-							
-							
+								<div id="editor"></div>
+									<script>
+									const Editor = toastui.Editor;
+									 
+									const editor = new Editor({
+										  el: document.querySelector('#editor'),
+										  height: '600px',
+										  initialEditType: 'markdown',
+										  previewStyle: 'vertical'
+										});
+									
+									</script>
 							</figure>
 						</article>
 						<section class="mb-5">

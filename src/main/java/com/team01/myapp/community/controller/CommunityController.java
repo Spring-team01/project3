@@ -299,15 +299,42 @@ public class CommunityController {
 		return "community/communityMiniView";
 	}
 	
+	
+	
+	
+	
+	
+	/*
 	@RequestMapping(value="/community/toastui", method = RequestMethod.GET)
 	public String toastUi(Community community) {
-		
 		return "community/toastUi";
 	}
 	
 	@RequestMapping(value="/community/toastui/write", method = RequestMethod.POST)
-	public String toastUiWrite(Community community, Model model) {
-		System.out.println(community.toString());
+	public String toastUiWrite(Community community, Model model, HttpSession session, RedirectAttributes redirectAttrs) {
+	try {
+		community.setUsersId((String) session.getAttribute("userId"));
+		community.setUserName((String) session.getAttribute("userName"));
+		community.setCommunityEmail((String) session.getAttribute("email"));
+		
+		MultipartFile mfile = community.getFile();
+		
+		if (mfile != null && !mfile.isEmpty()) {
+			CommunityFile file = new CommunityFile();
+			file.setCommunityFileName(mfile.getOriginalFilename());
+			file.setCommunityFileSize(mfile.getSize());
+			file.setCommunityFileContentType(mfile.getContentType());
+			file.setCommunityFileData(mfile.getBytes());
+			communityService.writeCommunity(community, file);
+
+		} else {
+			communityService.writeCommunity(community);
+		}
+
+	} catch (Exception e) {
+		e.printStackTrace();
+		redirectAttrs.addFlashAttribute("message", e.getMessage());
+	}
 		
 		model.addAttribute("community", community);
 		
@@ -322,6 +349,24 @@ public class CommunityController {
 		
 		return "community/toastUiViewer";
 	}
-	
-
+	@RequestMapping(value="/community/toastui/view/{communityBoardId}", method = RequestMethod.GET)
+	public String toastUiView(@PathVariable int communityBoardId ,Community community, Model model, HttpSession session) {
+		community = communityService.readCommunityDetail(communityBoardId);
+		community.setUserName((String) session.getAttribute("userName"));
+		List<CommunityComment> commentList = communityService.getCommunityComment(communityBoardId);
+		
+		String content = community.getCommunityContent().replace("<br>", "\r\n");
+		community.setCommunityContent(content);
+		
+		
+		model.addAttribute("community", community);
+		model.addAttribute("commentList", commentList);
+		model.addAttribute("sessionUserId", (String) session.getAttribute("userId"));
+		
+		
+		model.addAttribute("community", community);
+		
+		return "community/toastUiViewer";
+	}
+*/
 }
