@@ -313,5 +313,15 @@ public class CommunityController {
 		
 		return "community/toastUiViewer";
 	}
+	
+	@RequestMapping(value="/community/toastui/view", method = RequestMethod.GET)
+	public String toastUiView(Community community, Model model) {
+		System.out.println(community.toString());
+		
+		model.addAttribute("community", community);
+		
+		return "community/toastUiViewer";
+	}
+	
 
 }

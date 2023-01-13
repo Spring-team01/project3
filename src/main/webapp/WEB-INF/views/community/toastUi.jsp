@@ -21,7 +21,10 @@
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
+<script>
+	
 
+</script>
 
 
 <body>
@@ -45,7 +48,7 @@
 								<h6 class="text-white text-capitalize ps-3">커뮤니티 게시글 작성</h6>
 							</div>
 						</div>
-						<form id="write" name="write" action="<c:url value='/community/toastui/write'/>" method="post" enctype="multipart/form-data">
+						<form id="write" name="write"  enctype="multipart/form-data">
 							<div class="card-body px-0 pb-2">
 
 								<div class="input-group-prepend">
@@ -54,9 +57,9 @@
 								<div class="input-group-prepend">
 									<textarea class="form-control" rows="3" id="communityPassword" name="communityPassword" placeholder="게시글 비밀번호" required></textarea>
 								</div>
-								<div id="communityContent">
 								<!-- toastUi -->
 									<div id="editor"></div>
+									<div id="contents"></div>
 										<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 										<script>
 											const Editor = toastui.Editor;
@@ -65,20 +68,34 @@
 												el : document.querySelector('#editor'),
 												height : '500px',
 												initialEditType : 'markdown',
-												previewStyle : 'vertical',
-												hooks : {
-													
-													
-												}
-												
+												previewStyle : 'vertical'
 												
 											});
 											editor.getMarkdown();
 											
+											function writeToastUi(){
+												let communityTitle = $("#communityTitle").val();
+												let communityPassword = $("#communityPassword").val();
+												document.querySelector('#contents').insertAdjacentHTML('afterbegin' ,editor.getHTML());
+										        
+										        let communityContent = editor.getHTML();
+										        
+										        $.ajax({
+													url : "/myapp/community/toastui/write",
+													type : "POST",
+													data : {communityTitle : communityTitle , communityPassword : communityPassword,
+														communityContent : communityContent},
+														
+													success : function(data){
+													  let url =  "/myapp/community/toastui/view";
+													  location.reload(url);
+													}
+												});
+											}
 											
 										</script>
 									
-								</div>
+									
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="">Upload</span>
@@ -90,7 +107,8 @@
 								</div>
 							</div>
 							<div align="center">
-								<input type="submit" class="btn btn-dark shadow" value="작성"> <a type="button" href="<c:url value='/community/communityList//1/1'/>" class="btn btn-dark shadow">글 목록</a>
+								<input type="button" onclick="writeToastUi()" class="btn btn-dark shadow" value="작성"> 
+								<a type="button" href="<c:url value='/community/communityList//1/1'/>" class="btn btn-dark shadow">글 목록</a>
 							</div>
 						</form>
 					</div>
