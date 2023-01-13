@@ -144,7 +144,7 @@
 												<img src='<c:url value="/files/${community.communityBoardId}"/>' class="img-fluid rounded">
 												<br>
 											</c:if>
-											<a href='<c:url value="/files/${community.communityBoardId}"/>'>${community.communityFileName} </a>
+											<a href='<c:url value="/files/${community.communityBoardId}"/>'>파일 다운로드 : ${community.communityFileName} </a>
 										</td>
 									</tr>
 								</c:if>

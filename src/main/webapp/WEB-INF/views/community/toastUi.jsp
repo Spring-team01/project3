@@ -59,7 +59,6 @@
 								</div>
 								<!-- toastUi -->
 									<div id="editor"></div>
-									<div id="contents"></div>
 										<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 										<script>
 											const Editor = toastui.Editor;
