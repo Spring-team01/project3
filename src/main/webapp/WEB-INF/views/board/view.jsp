@@ -290,6 +290,7 @@ ${message}
 													<div class="d-flex align-items-center mb-3">
 														<div>
 															<div class="flex-shrink-0">
+															
 																<img class="rounded-circle" 
 																src='<c:url value="/admin/userdetail/userfile/${commentOne.userFileId}"/>' 
 																alt="..."  style="width: 50px; height: 50px;"/>

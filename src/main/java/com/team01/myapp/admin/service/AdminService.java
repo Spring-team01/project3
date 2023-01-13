@@ -55,7 +55,7 @@ public class AdminService implements IAdminService {
 
 	@Override
 	public UserUploadFile getFile(String userFileId) {
-		return adminRepository.selectFile(userFileId);
+			return adminRepository.selectFile(userFileId);
 	}
 
 	@Override

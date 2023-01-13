@@ -71,6 +71,9 @@ public class AdminController {
 	public ResponseEntity<byte[]> getuserFile(@PathVariable String userFileId) {
 		UserUploadFile file = adminService.getFile(userFileId);
 		logger.info("getFile" + file.toString());
+		if(file.getUserFileName() == null){
+			file = adminService.getFile("2");
+		}
 		final HttpHeaders headers = new HttpHeaders();
 		String[] mtypes = file.getUserFileContentType().split("/");
 		headers.setContentType(new MediaType(mtypes[0], mtypes[1]));
