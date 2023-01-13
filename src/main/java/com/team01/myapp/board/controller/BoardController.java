@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.model.BoardComment;
 import com.team01.myapp.board.model.BoardUploadFile;
+import com.team01.myapp.board.model.Reports;
 import com.team01.myapp.board.service.IBoardService;
 import com.team01.myapp.util.Pager;
 
@@ -263,11 +264,9 @@ public class BoardController {
 	//대댓글 작성 기능 
 	@RequestMapping(value="/board/reply/write", method = RequestMethod.POST) 
 	public @ResponseBody String writeNestedReply(BoardComment comment, BindingResult result, HttpSession session) {
-		System.out.println(comment.getBoardId());
-		logger.info("/board/reply/write/{bcReplyNo} " + comment.toString());
+		logger.info("/board/reply/write/" + comment.toString());
 		comment.setUserId((String) session.getAttribute("userId"));	
 		boardService.writeNestedReply(comment);
-		System.out.println("서비스 성공ㅎ");
 	return "1";
 	}
 	
@@ -278,5 +277,18 @@ public class BoardController {
 		return "1";
 	}
 	
+	//댓글 신고 기능
+	@RequestMapping("/board/comment/report")
+	public @ResponseBody String reportComment(Reports report, BindingResult result, HttpSession session) {
+		boardService.reportComment(report);
+		return "1";
+	}
+	
+	//대댓글 신고 기능
+		@RequestMapping(value="/board/nestedcomment/report}", method=RequestMethod.GET)
+		public @ResponseBody String reportNestedComment(Reports report, BindingResult result, HttpSession session) {
+			boardService.reportNestedComment(report);
+			return "1";
+		}
 	
 }

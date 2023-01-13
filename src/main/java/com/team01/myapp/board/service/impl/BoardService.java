@@ -10,6 +10,7 @@ import com.team01.myapp.board.dao.IBoardRepository;
 import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.model.BoardComment;
 import com.team01.myapp.board.model.BoardUploadFile;
+import com.team01.myapp.board.model.Reports;
 import com.team01.myapp.board.service.IBoardService;
 import com.team01.myapp.util.Pager;
 
@@ -201,6 +202,16 @@ public class BoardService implements IBoardService {
 	@Override
 	public List<Board> getBoardMiniList() {
 		return boardRepository.selectBoardMiniList();
+	}
+
+	@Override
+	public void reportComment(Reports report) {
+		boardRepository.insertReportComment(report);
+	}
+
+	@Override
+	public void reportNestedComment(Reports report) {
+		boardRepository.insertReportNestedComment(report);
 	}
 	
 	 

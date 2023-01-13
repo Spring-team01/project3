@@ -151,7 +151,7 @@ html, body {
 					<p class="sm"><FONT color="#f0f0f0">'학습은 경험이다' - Albert Einstein <br>사회 문제 해결을 통해 교육이 이루어지는 플랫폼 <br>한국대학교에서 교육이 산업과 사회를 만납니다. </FONT></p>
 				</div> -->
 				<div>
-					<video style="width:500px; height:318px" autoplay muted>
+					<video style="width:500px; height:318px" autoplay muted loop>
 						<source src="<c:url value="/static/videos/HankookUniv.mp4"/>" type="video/mp4">
 					</video>
 				</div>
