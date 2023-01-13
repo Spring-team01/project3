@@ -83,12 +83,12 @@
 										        $.ajax({
 													url : "/myapp/community/toastui/write",
 													type : "POST",
+													asynce : false,
 													data : {communityTitle : communityTitle , communityPassword : communityPassword,
 														communityContent : communityContent},
 														
 													success : function(data){
-													  let url =  "/myapp/community/toastui/view";
-													  location.reload(url);
+														location.href="/myapp/community/toastui/view/"
 													}
 												});
 											}
