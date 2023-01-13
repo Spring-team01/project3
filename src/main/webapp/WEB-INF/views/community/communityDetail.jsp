@@ -175,9 +175,7 @@
 															<div>
 																<div class="flex-shrink-0">
 																<!-- 유저 프로필 사진 -->
-																<%-- 
 																	<img class="rounded-circle" src='<c:url value="/admin/userdetail/userfile/${commentList.userFileId}"/>' alt="..." style="width: 50px; height: 50px;" />
-																 --%>
 																</div>
 															</div>
 															<div class="ms-3">
