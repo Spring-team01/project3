@@ -1,27 +1,26 @@
 @charset "UTF-8";
 
 .date {
-	font-size : 25px;
+	font-size : 20px;
 	color : #444C38;
 	text-align : center;
 	margin-right:20px;
+	text-align : center;
 }
 
 .time {
-	
-	font-size : 25px;
+	font-size : 20px;
 	font-weight : bold;
 	color : #444C38;
 	text-align : center;
 }
 .clock-sub-box{
-	width: 370px;
+	width: 350px;
 	height : 55px;
 	text-align : center;
 	justify-content: center;
-	margin-top:20px;
-	margin-left:80px;
-	padding: 5px;
+	margin-left:100px;
+	padding-top: 10px;
 	border-radius:10px;
 	box-shadow:0 2px 4px 0 rgba(0,0,0,0.1), 0 3px 10px 0 rgba(0,0,0,0.08);
 	border:2px solid gray;

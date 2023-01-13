@@ -346,7 +346,8 @@ ${message}
 								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
 								<a href='<c:url value="/board/update/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="UPDATE"/></button></a>
-								<a href='<c:url value="/board/delete/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="DELETE"/></button></a>
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#deleteFun"><fmt:message key="DELETE"/></button>
 							</c:if>
 							<c:if test="${sessionScope.userType!='ADMIN' && board.userId!=sessionScope.userId}">
 								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
@@ -355,29 +356,36 @@ ${message}
 							<c:if test="${sessionScope.userType=='ADMIN'}">
 								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
-								<a href='<c:url value="/board/admin/delete/${board.boardId}"/>'><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#adminDeleteModal"><fmt:message key="DELETE"/></button></a>
+								<%-- <a href='<c:url value="/board/admin/delete/${board.boardId}"/>'><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal"><fmt:message key="DELETE"/></button></a> --%>
 							</c:if>
 							
 							<!-- Modal -->
-							<div class="modal fade" id="adminDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal fade" id="deleteFun" tabindex="-1" aria-labelledby="deleteFunLabel" aria-hidden="true">
 							  <div class="modal-dialog">
 							    <div class="modal-content">
 							      <div class="modal-header">
-							        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							        <h5 class="modal-title" id="deleteFunLabel">게시글 삭제</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
 							      </div>
-							      <div class="modal-body">
-							        ...
+							      <div class="modal-body text-left">
+							       정말 삭제하시겠습니까? 
 							      </div>
 							      <div class="modal-footer">
-							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							        <button type="button" class="btn btn-primary">Save changes</button>
+							        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+							        <a type="button" class="btn btn-primary" href= '<c:url value="/board/delete/${board.boardId}"/>'>삭제</a>
 							      </div>
 							    </div>
 							  </div>
 							</div>
+							
 						</div>
 					</div>  
+					
+					
+					
+					
 					<!-- Card end -->
 				</div>
     		</div>
@@ -385,9 +393,10 @@ ${message}
 	</div>
 </div>
 </div>
- <jsp:include page="/WEB-INF/views/include/sidebar.jsp" />       
+ <jsp:include page="/WEB-INF/views/include/sidebar.jsp" />    
+ <jsp:include page="/WEB-INF/views/include/footer.jsp" />   
 </div>
 </div>
-<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+
 </body>
 </html>

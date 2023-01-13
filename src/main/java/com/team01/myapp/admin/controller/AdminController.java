@@ -238,6 +238,11 @@ public class AdminController {
 		return "admin/attSumDaily";
 	}
 	
+	@RequestMapping("/admin/report/list")
+	public String reportList(Model model) {
+		return "admin/reportList";
+	}
+	
 
 	
 

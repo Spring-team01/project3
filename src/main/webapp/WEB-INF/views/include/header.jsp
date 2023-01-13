@@ -33,25 +33,20 @@
 </div>
 
 <div class="header" id="header-bar">
-	<div class="row" >
-		<div class="col-1">
-			<div id="image-box">
+	<div class="d-flex justify-content-between align-items-center" >
+		<div>
+			<div class="ml-4">
 			<a href="<c:url value="/home"/>">
-				<img id="image-content" src="<c:url value="/static/images/univlogo.png"/>"/>
+				<img id="logo" src="<c:url value="/static/images/univLogoFinal.png"/>"/>
 			</a>
 			</div>
 		</div>
-		<div class="col-3">
-			<div id="name-box">
-				<img id="name-content" src="<c:url value="/static/images/univname.png"/>"/>
+		<div id="clock-box">
+			<div class="clock-sub-box">
+			<span id="date" class="date"></span><span id="time" class="time"></span>
 			</div>
 		</div>
-		<div class="col-3" id="clock-box">
-		<div class="clock-sub-box">
-		<span id="date" class="date"></span><span id="time" class="time"></span>
-		</div>
-		</div>
-		<div class="col-5" id="button-box">
+		<div id="button-box">
 			<div class="button-sub-box">
 				<form action="<c:url value='/attendance'/>" method="post" enctype="multipart/form-data">
 					<button class="btn btn-lg btn-dark mt-4" style="white-space:nowrap;">
@@ -89,6 +84,5 @@
 		</div>
 	</div>
 	<div class="shadow"id="black-bar">
-		
 	</div>
 </div>

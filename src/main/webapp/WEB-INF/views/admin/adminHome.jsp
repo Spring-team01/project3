@@ -145,12 +145,11 @@
 					</div>
 
 				</div>
+				<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 			</div>
-
 			<jsp:include page="/WEB-INF/views/include/adminsidebar.jsp" />
 		</div>
 	</div>
 
-	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>
