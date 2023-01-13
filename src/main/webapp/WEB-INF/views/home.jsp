@@ -135,38 +135,38 @@ html, body {
 				</div>
 
 			<!-- 00님 환영합니다 -->	
-			<div class="welcome d-flex align-items-center">
-				<div class="profile p-5 my-5">
+			<div class="welcome shadow d-flex justify-content-between">
+			<div class="d-flex p-2">
+			<div class="profile pt-4">
 					<img src="<c:url value="/static/images/profile2.jpeg"/>" alt="profile_picture">
 				</div>
-				<div class="p-2 m-4 align-self-center" id="userInfo">
-					<h2 style="color:white; padding-top:20px;">${userName} 님    환영합니다.</h2>
+				<div class="align-self-center" id="userInfo">
+					<h2 style="color:white;">${userName} 님    환영합니다.</h2>
 					<p>${major}
 						${grade}학년 <a href="/user/update"><i class="material-icons">settings</i></a>
 					</p>
 				</div>
 			</div>
-			<div class="welcome d-flex justify-content-around align-items-center pt-2" style="background:#1c2326; margin-top:0px">
-					<div class="p-2 " style="text-align:center">
-						<h6><FONT color="#f0f0f0">'학습은 경험이다' - Albert Einstein</FONT></h6>
-						<h6><FONT color="#f0f0f0">사회 문제 해결을 통해 교육이 이루어지는 플랫폼 IC-PBL</FONT></h6>
-						<h6><FONT color="#f0f0f0">한양에서 대학 교육이 산업과 사회를 만납니다.</FONT></h6>
-					</div>
-					<div class="p-2" style="text-align:center">
-						<video style="width:500px; height:195px" autoplay muted>
-							<source src="<c:url value="/static/videos/video.mp4"/>" type="video/mp4">
-						</video>
-					</div>
+				<!-- <div class="pt-5 " style="text-align:center">
+					<p class="sm"><FONT color="#f0f0f0">'학습은 경험이다' - Albert Einstein <br>사회 문제 해결을 통해 교육이 이루어지는 플랫폼 <br>한국대학교에서 교육이 산업과 사회를 만납니다. </FONT></p>
+				</div> -->
+				<div>
+					<video style="width:500px; height:318px" autoplay muted>
+						<source src="<c:url value="/static/videos/HankookUniv.mp4"/>" type="video/mp4">
+					</video>
+				</div>
+			
+				
 			</div>
 			<!-- 메인 컨테이너 (메인에 넣을 것은 이 안에 작성) -->
-			<div class="container-fluid" style="background-color:white; margin:25px; width:95%; min-height: 800px;">
-				
+			<div class="container-fluid" style="background-color:white; margin:25px; width:95%; min-height: 200px;">
 				<!-- 공지사항 4개 -->
 				<div class="container-fluid py-4">
 			      <div class="row" id="boardMiniView">
 			      <!-- 공지사항 forEach  -->
 			      </div>
 			    </div>
+			
 			    <div class="row">
 				    <!-- 출석 미니뷰 -->
 					<div class="col-6 col-md">
@@ -200,6 +200,7 @@ html, body {
 						</div>
 					</div>
 				</div>
+				
 			</div>
 			<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 			</div>
