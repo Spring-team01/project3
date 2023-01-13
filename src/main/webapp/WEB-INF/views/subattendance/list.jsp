@@ -34,7 +34,7 @@
 				</div>
 				<div class="mainview d-flex"></div>
 
-				<div class="container-fluid" style="background-color: white; margin: 50px; width: 92%; min-height: 600px;">
+				<div class="container-fluid py-4" style="background-color: white; margin: 50px; width: 92%; min-height: 600px;">
 					<div class="card my-4">
 						<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
 							<div class="bg-gradient-secondary shadow-secondary border-radius-lg pt-4 pb-3">
@@ -43,7 +43,7 @@
 						</div>
 						<div class="card-body px-0 pb-2">
 							<div class="table-responsive p-0">
-								<table class="table align-items-center mb-0">
+								<table class="table table-hover align-items-center mb-0">
 									<thead>
 										<tr align="center">
 											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">글번호</th>
@@ -56,7 +56,7 @@
 									</thead>
 									<tbody>
 										<c:forEach var="subAttendance" items="${subAttendanceList}">
-											<tr>
+											<tr onClick="location.href='<c:url value='/subattendance/view/${subAttendance.subAttNo}'/>'">
 												<td>
 													<p class="text-xs font-weight-bold mb-0 text-center">${subAttendance.subAttNo}</p>
 												</td>
@@ -70,26 +70,22 @@
 												</td>
 												<td class="pc text-center">
 													<h6 class="text-secondary text-xs font-weight-bold">
-														<a href='<c:url value="/subattendance/view/${subAttendance.subAttNo}"/>'>${subAttendance.subAttendanceTitle}</a>
+														${subAttendance.subAttendanceTitle}
 													</h6>
 												</td>
 												<td class="pc text-center">
 													<h6 class="text-secondary text-xs font-weight-bold">
-														<a href='<c:url value="/subattendance/view/${subAttendance.subAttNo}"/>'>
-															<fmt:formatDate pattern="yyyy-MM-dd" value="${subAttendance.subAttTime}"/>
-														</a>
+														<fmt:formatDate pattern="yyyy-MM-dd" value="${subAttendance.subAttTime}"/>
 													</h6>
 												</td>
 												<td class="pc text-center">
 													<h6 class="text-secondary text-xs font-weight-bold">
-														<a href='<c:url value="/subattendance/view/${subAttendance.subAttNo}"/>'>
-															<fmt:formatDate pattern="yyyy-MM-dd" value="${subAttendance.subAttDate}"/>
-														</a>
+														<fmt:formatDate pattern="yyyy-MM-dd" value="${subAttendance.subAttDate}"/>
 													</h6>
 												</td>
 												<td class="pc text-center">
 													<h6 class="text-secondary text-xs font-weight-bold">
-														<a href='<c:url value="/subattendance/view/${subAttendance.subAttNo}"/>'>${subAttendance.result}</a>
+														${subAttendance.result}
 													</h6>
 												</td>
 											</tr>
