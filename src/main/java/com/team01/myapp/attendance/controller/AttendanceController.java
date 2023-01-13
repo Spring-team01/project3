@@ -173,7 +173,7 @@ public class AttendanceController {
 	}
 	
 	// Home View
-	@RequestMapping(value="/attendance/attendanceMiniView")
+	@RequestMapping(value="/attendance/attendanceminiview")
 	public String attendanceMini(Attendance attendance, HttpSession session, Model model) {
 		
 		String userId = (String) session.getAttribute("userId");
@@ -208,6 +208,11 @@ public class AttendanceController {
 		model.addAttribute("AbsenteeismCount", AbsenteeismCount);
 		
 		return "attendance/attendanceMiniView";
+	}
+	
+	@RequestMapping(value="/attendance/homeminiview")
+	public String homeMini(Attendance attendance, HttpSession session, Model model) {
+		return "attendance/homeMiniView";
 	}
 	
 }

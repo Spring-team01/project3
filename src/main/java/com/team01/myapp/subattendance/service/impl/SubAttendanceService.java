@@ -59,7 +59,7 @@ public class SubAttendanceService implements ISubAttendanceService {
 					pageNo = "1";
 				}
 				int pagerNo = Integer.parseInt(pageNo);
-				pager = new Pager(5, 5, totalBoardNum, pagerNo);
+				pager = new Pager(10, 5, totalBoardNum, pagerNo);
 		return pager;
 	}
 
