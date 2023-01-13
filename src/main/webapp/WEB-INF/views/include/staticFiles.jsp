@@ -52,8 +52,5 @@
 <!-- CSS Files -->
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
-<script src="fullcalendar/lib/locales-all.js"></script>	
-
-
 
 </head>
