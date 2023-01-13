@@ -176,4 +176,10 @@ public class AdminService implements IAdminService {
 		return attSummaryList;
 	}
 
+	@Override
+	public List<SubAttList> getReportList(int resultNum, Pager pager) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

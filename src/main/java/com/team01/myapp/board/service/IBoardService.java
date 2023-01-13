@@ -2,9 +2,9 @@ package com.team01.myapp.board.service;
 
 import java.util.List;
 
+import com.team01.myapp.admin.model.Reports;
 import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.model.BoardUploadFile;
-import com.team01.myapp.board.model.Reports;
 import com.team01.myapp.board.model.BoardComment;
 import com.team01.myapp.util.Pager;
 
@@ -55,7 +55,6 @@ public interface IBoardService {
 	
 	//댓글 신고 
 	void reportComment(Reports report);
-	void reportNestedComment(Reports report);
 	
 	
 	

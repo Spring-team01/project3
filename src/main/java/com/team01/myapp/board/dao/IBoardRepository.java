@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.team01.myapp.admin.model.Reports;
 import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.model.BoardComment;
 import com.team01.myapp.board.model.BoardUploadFile;
-import com.team01.myapp.board.model.Reports;
 
 public interface IBoardRepository {
 	// 시퀀스 역할
@@ -63,8 +63,5 @@ public interface IBoardRepository {
 	
 	//댓글 신고 기능
 	void insertReportComment(Reports report);
-	
-	//대댓글 신고 기능
-	void insertReportNestedComment(Reports report);
 	
 }

@@ -1,4 +1,4 @@
-package com.team01.myapp.board.model;
+package com.team01.myapp.admin.model;
 
 import java.sql.Date;
 
@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Reports {
 	private int rpReportNo;
-	private int rpBoardNo;
+	private int rpBoardId;
 	private String rpContent;
 	private int rpCommentNo;
 	private int rpMasterNo;

@@ -35,6 +35,7 @@ import com.team01.myapp.admin.model.UserInsert;
 import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
 import com.team01.myapp.admin.service.IAdminService;
+import com.team01.myapp.board.model.Board;
 import com.team01.myapp.util.Pager;
 
 @Controller
@@ -246,10 +247,23 @@ public class AdminController {
 		model.addAttribute("sumDailyVo", sumDailyVo);
 		return "admin/attSumDaily";
 	}
-
-	@RequestMapping("/admin/report/list")
-	public String reportList(Model model) {
+	// 신고 목록 조회
+	@RequestMapping("/admin/report/list/{pageNo}")
+	public String reportList(@PathVariable String pageNo,
+			@RequestParam(value = "resultNumber", required = false, defaultValue = "0") String resultNumber,
+			Model model, Pager pager) {
+		int resultNum = Integer.parseInt(resultNumber);
+		//1. 페이징 객체 만들기
+		pager = adminService.SubAttendanceListPage(pageNo,resultNum);
+		
+		//2. 페이지 리스트 만들기
+		List<SubAttList> subAttList = adminService.getReportList(resultNum, pager);
+		
+		model.addAttribute("subAttList", subAttList);
+		model.addAttribute("pager", pager);
+		model.addAttribute("resultNumber", resultNumber);
 		return "admin/reportList";
 	}
+	
 
 }

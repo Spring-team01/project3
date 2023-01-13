@@ -191,6 +191,29 @@
 			
 		})
 	}
+	/* 댓글 신고~ */
+	function reportComment(i,j){
+		let repoortContent = $("#reportContent"+i).val();
+		console.log(i);
+		$.ajax({
+			 type : 'POST',
+	         url : "/myapp/board/comment/report",
+	         data : {rpBoardId: j,rpCommentNo: i, rpContent: repoortContent, rpMasterNo: i, rpType: '댓글'},
+	         error : function() {
+	            alert('통신실패!');
+	         },
+	         success : function(data) {
+	            if(data==0) {
+	               alert("신고 실패하였습니다.");
+	            } else if(data==1) {
+	            	alert("신고가 접수되었습니다.");       	
+	            	location.reload();
+	            }
+	         }
+	      });
+	}
+	
+	
 </script>
 
 <body>
@@ -313,9 +336,36 @@ ${message}
 																    	<a onclick="deleteComment(${commentOne.bcReplyNo})">삭제하기</a>
 																    </c:if>
 																    <c:if test="${commentOne.userId ne sessionScope.userId}">
-																    	<a href="#report ">신고하기</a>
+																    	<a type="button" data-toggle="modal" data-target="#reportFun${commentOne.bcReplyNo}">신고하기</a>
 																    </c:if> 
 																    </div>
+																    
+																    <!-- 신고용 모달 -->
+																	<div class="modal fade" id="reportFun${commentOne.bcReplyNo}" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+																	  <div class="modal-dialog">
+																	    <div class="modal-content">
+																	      <div class="modal-header">
+																	        <h5 class="modal-title" id="commentModalLabel">댓글 신고</h5>
+																	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	          <span aria-hidden="true">&times;</span>
+																	        </button>
+																	      </div>
+																	      <div class="modal-body">
+																	        <form>
+																	          <div class="form-group text-left">
+																	            <h6>신고 내용:</h6>
+																	            <textarea class="form-control" id="reportContent${commentOne.bcReplyNo}"></textarea>
+																	          </div>
+																	        </form>
+																	      </div>
+																	      <div class="modal-footer">
+																	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+																	        <button type="button"  onclick="reportComment(${commentOne.bcReplyNo},${commentOne.boardId})"class="btn btn-primary">보내기</button>
+																	      </div>
+																	    </div>
+																	  </div>
+																	</div>
+																	
 																 </div>
 																<button type="button" onclick="viewReReply(${commentOne.bcReplyNo})" class="btn btn-sm btn-dark shadow">답글</button>
 												             </div>
