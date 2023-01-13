@@ -316,7 +316,7 @@
 		    u.U_FILE_ID AS "userFileId"
 		FROM u_file u, BOARD b LEFT OUTER JOIN B_COMMENT c 
 		    ON b.BOARD_ID=c.BOARD_ID 
-		WHERE b.BOARD_ID=#{boardId} AND BC_REPLY_STEP=0 and u.u_Id = b.u_id
+		WHERE b.BOARD_ID=#{boardId} AND BC_REPLY_STEP=0 and u.u_Id = c.u_id
 		ORDER BY BC_WRITE_DATE DESC
 	</select>
 	
@@ -340,7 +340,7 @@
 		    u.U_FILE_ID AS "userFileId"
 		FROM u_file u, BOARD b LEFT OUTER JOIN B_COMMENT c 
 		    ON b.BOARD_ID=c.BOARD_ID 
-		WHERE c.BC_MASTER_NO=#{bcReplyNo} AND BC_REPLY_STEP=1 and u.u_Id = b.u_id
+		WHERE c.BC_MASTER_NO=#{bcReplyNo} AND BC_REPLY_STEP=1 and u.u_Id = c.u_id
 		ORDER BY BC_WRITE_DATE DESC
 	</select>
 	
