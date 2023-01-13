@@ -43,6 +43,7 @@ public class AdminController {
 
 	@Autowired
 	IAdminService adminService;
+
 	// 1. select
 	// 과목별 학생 목록 조회
 	@RequestMapping(value = "/admin/userlist/{subjectId}/{pageNo}", method = RequestMethod.GET)
@@ -50,6 +51,7 @@ public class AdminController {
 			Pager pager) {
 		pager = adminService.returnPage(pageNo, pager, subjectId);
 		List<UserList> userList = adminService.getUserListBySubject(subjectId, pager);
+		
 		model.addAttribute("userList", userList);
 		model.addAttribute("pager", pager);
 		return "admin/userList";
@@ -126,38 +128,42 @@ public class AdminController {
 	public String getSubAttendanceList(@PathVariable String pageNo,
 			@RequestParam(value = "resultNumber", required = false, defaultValue = "0") String resultNumber,
 			Model model, Pager pager) {
-
 		int resultNum = Integer.parseInt(resultNumber);
-		// 페이징 객체
-		pager = adminService.SubAttendanceListPage(pageNo, pager, resultNum);
-
+		//1. 페이징 객체 만들기
+		pager = adminService.SubAttendanceListPage(pageNo,resultNum);
+		
+		//2. 페이지 리스트 만들기
 		List<SubAttList> subAttList = adminService.getSubAttListbyRNum(resultNum, pager);
+		
 		model.addAttribute("subAttList", subAttList);
 		model.addAttribute("pager", pager);
 		model.addAttribute("resultNumber", resultNumber);
 
 		return "admin/subAttList";
 	}
+	
+	
+
 	// 관리자 홈
-		@RequestMapping(value = "/admin/adminhome", method = RequestMethod.GET)
-		public String adminhome(Model model, Pager pager) {
-			List<AttSummaryVo> attSumDailyTotal = new ArrayList<AttSummaryVo>();
-			AttSummaryVo attSumDaily1 = adminService.attSumDaily(1);
-			AttSummaryVo attSumDaily2 = adminService.attSumDaily(2);
-			AttSummaryVo attSumDaily3 = adminService.attSumDaily(3);
-			
-			attSumDailyTotal.add(attSumDaily1);
-			attSumDailyTotal.add(attSumDaily2);
-			attSumDailyTotal.add(attSumDaily3);
-			
-			model.addAttribute("attSumDailyTotal", attSumDailyTotal);
-			
-			pager = adminService.SubAttendanceListPage("1", pager, 1);
-			List<SubAttList> subAttList = adminService.getSubAttListbyRNum(1, pager);
-			model.addAttribute("subAttList", subAttList);
-			
-			return "admin/adminHome";
-		}
+	@RequestMapping(value = "/admin/adminhome", method = RequestMethod.GET)
+	public String adminhome(Model model, Pager pager) {
+		List<AttSummaryVo> attSumDailyTotal = new ArrayList<AttSummaryVo>();
+		AttSummaryVo attSumDaily1 = adminService.attSumDaily(1);
+		AttSummaryVo attSumDaily2 = adminService.attSumDaily(2);
+		AttSummaryVo attSumDaily3 = adminService.attSumDaily(3);
+
+		attSumDailyTotal.add(attSumDaily1);
+		attSumDailyTotal.add(attSumDaily2);
+		attSumDailyTotal.add(attSumDaily3);
+
+		model.addAttribute("attSumDailyTotal", attSumDailyTotal);
+
+		pager = adminService.SubAttendanceListPage("1", 1);
+		List<SubAttList> subAttList = adminService.getSubAttListbyRNum(1, pager);
+		model.addAttribute("subAttList", subAttList);
+
+		return "admin/adminHome";
+	}
 
 	@RequestMapping(value = "/admin/file", method = RequestMethod.POST)
 	public String insertFile(UserInsert userInsert, BindingResult result, RedirectAttributes redirectAttrs,
@@ -220,7 +226,7 @@ public class AdminController {
 		return "admin/attSum";
 	}
 
-	//학생 월별 조회
+	// 학생 월별 조회
 	@RequestMapping(value = "/admin/attsummonthly/{subjectId}", method = RequestMethod.GET)
 	public String attSumMonthly(@PathVariable int subjectId, Model model) {
 		List<AttSummaryVo> sumMonthlyVo = adminService.attsumMonthlyByuser(subjectId);
@@ -229,7 +235,7 @@ public class AdminController {
 		return "admin/attSumMonthly";
 	}
 
-	//학생 일별 조회
+	// 학생 일별 조회
 	@RequestMapping(value = "/admin/attsumdaily/{subjectId}", method = RequestMethod.GET)
 	public String attSumDaily(@PathVariable int subjectId, Model model) {
 		List<AttSumDailyVo> sumDailyVo = adminService.attSumDailyByuser(subjectId);
@@ -237,13 +243,10 @@ public class AdminController {
 		model.addAttribute("sumDailyVo", sumDailyVo);
 		return "admin/attSumDaily";
 	}
-	
+
 	@RequestMapping("/admin/report/list")
 	public String reportList(Model model) {
 		return "admin/reportList";
 	}
-	
-
-	
 
 }

@@ -13,12 +13,6 @@
                     </a>
                     
                 </li>
-                <li>
-                    <a href="<c:url value='/report/list'/>" type="button" class="homebtn">
-                        <span class="icon"><i class="fa fa-exclamation-triangle"></i></i></span>
-                        <span class="item">게시글 신고 목록</span>
-                    </a>
-                </li>
             </c:if>
             <c:if test="${sessionScope.userType eq 'USER'}">
                 <li>
@@ -44,7 +38,7 @@
                  </c:if>
                 <li>
                 	<a href="#" type="button" class="dropdown-btn" >
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="icon"><i class="far fa-list-alt"></i></span>
                         <span class="item">강의게시판</span>
                         <i class="fa fa-caret-down"></i>
                     </a>

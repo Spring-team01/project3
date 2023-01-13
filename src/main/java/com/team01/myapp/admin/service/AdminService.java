@@ -90,14 +90,12 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
-	public Pager SubAttendanceListPage(String pageNo, Pager pager, int resultNum) {
+	public Pager SubAttendanceListPage(String pageNo, int resultNum) {
 		// 전체 행수
 		int totalSubNum = adminRepository.selectTotalSubAttListByPNum(resultNum);
-		/*
-		 * if (pageNo == null) { pageNo = "1"; }
-		 */
+		//현재 페이지 
 		int pagerNo = Integer.parseInt(pageNo);
-		pager = new Pager(5, 5, totalSubNum, pagerNo);
+		Pager pager = new Pager(5, 5, totalSubNum, pagerNo);
 		return pager;
 	}
 
