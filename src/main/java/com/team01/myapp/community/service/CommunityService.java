@@ -183,6 +183,16 @@ public class CommunityService implements ICommunityService {
 	public void deleteCommunityReReplyComment(CommunityComment comment) {
 		communityRepository.deleteCommunityReReplyComment(comment);
 	}
+
+	@Override
+	public List<Community> getCommunityListByTabNo2(int categoryId) {
+		return communityRepository.getCommunityListByTabNo2(categoryId);
+	}
+
+	@Override
+	public List<Community> getCommunityListByTabNo3(int categoryId) {
+		return communityRepository.getCommunityListByTabNo3(categoryId);
+	}
 	
 	
 	
