@@ -48,10 +48,11 @@ public class AdminController {
 	// 과목별 학생 목록 조회
 	@RequestMapping(value = "/admin/userlist/{subjectId}/{pageNo}", method = RequestMethod.GET)
 	public String getUserListBySubject(@PathVariable int subjectId, @PathVariable String pageNo, Model model,
-			Pager pager) {
+			Pager pager, HttpSession session) {
+		session.setAttribute("pageNo", pageNo);
 		pager = adminService.returnPage(pageNo, pager, subjectId);
 		List<UserList> userList = adminService.getUserListBySubject(subjectId, pager);
-		
+
 		model.addAttribute("userList", userList);
 		model.addAttribute("pager", pager);
 		return "admin/userList";
@@ -127,22 +128,19 @@ public class AdminController {
 	@RequestMapping(value = "/admin/subattendancelist/{pageNo}", method = RequestMethod.GET)
 	public String getSubAttendanceList(@PathVariable String pageNo,
 			@RequestParam(value = "resultNumber", required = false, defaultValue = "0") String resultNumber,
-			Model model, Pager pager) {
+			Model model, Pager pager, HttpSession session) {
+
+		session.setAttribute("pageNo", pageNo);
 		int resultNum = Integer.parseInt(resultNumber);
-		//1. 페이징 객체 만들기
-		pager = adminService.SubAttendanceListPage(pageNo,resultNum);
-		
-		//2. 페이지 리스트 만들기
-		List<SubAttList> subAttList = adminService.getSubAttListbyRNum(resultNum, pager);
-		
+	
+		List<SubAttList> subAttList = adminService.getSubAttListbyRNum(resultNum, pageNo);
+
 		model.addAttribute("subAttList", subAttList);
 		model.addAttribute("pager", pager);
 		model.addAttribute("resultNumber", resultNumber);
 
 		return "admin/subAttList";
 	}
-	
-	
 
 	// 관리자 홈
 	@RequestMapping(value = "/admin/adminhome", method = RequestMethod.GET)
@@ -159,8 +157,8 @@ public class AdminController {
 		model.addAttribute("attSumDailyTotal", attSumDailyTotal);
 
 		pager = adminService.SubAttendanceListPage("1", 1);
-		List<SubAttList> subAttList = adminService.getSubAttListbyRNum(1, pager);
-		model.addAttribute("subAttList", subAttList);
+		//List<SubAttList> subAttList = adminService.getSubAttListbyRNum(1, pager);
+		//model.addAttribute("subAttList", subAttList);
 
 		return "admin/adminHome";
 	}
