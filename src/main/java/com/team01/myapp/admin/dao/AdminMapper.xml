@@ -430,4 +430,83 @@
 		from users u, subject s
 		where u_id=#{userId} and u.subject_id = s.subject_id 
 	</select>	
+	
+	<select id="selectTotalReportCountByPNum" parameterType="int" resultType="int">
+		<![CDATA[
+			select count(*) from reports
+		]]>
+			<if test="resultNum ==1">
+			where result != '미처리'
+			</if>
+			<if test="resultNum ==2">
+			where result = '미처리'
+			</if>
+	</select>
+	
+	<select id="selectTotalReportList" parameterType="map" resultType="com.team01.myapp.admin.model.Reports">
+		<![CDATA[
+		select 
+		    rownum,
+		    RP_REPORT_NO AS "rpReportNo",
+		    RP_BOARD_ID AS "rpBoardId",
+		    RP_CONTENT AS "rpContent",
+		    RP_COMMENT_NO AS "rpCommentNo",
+		    RP_MASTER_NO AS "rpMasterNo",
+		    RP_STATUS AS "rpStatus",
+		    RP_TYPE AS "rpType",
+		    USER_ID AS "userId",
+		    RP_WRITE_DATE AS "rpWriteDate"
+		    from(
+		        select 
+		            rownum as rnum,
+		            RP_REPORT_NO,
+		            RP_BOARD_ID,
+		            RP_CONTENT,
+		            RP_COMMENT_NO,
+		            RP_MASTER_NO,
+		            RP_STATUS,
+		            RP_TYPE,
+		            USER_ID,
+		            RP_WRITE_DATE 
+		        from(
+		        select      RP_REPORT_NO,
+		            RP_BOARD_ID,
+		            RP_CONTENT,
+		            RP_COMMENT_NO,
+		            RP_MASTER_NO,
+		            RP_STATUS,
+		            RP_TYPE,
+		            USER_ID,
+		            RP_WRITE_DATE 
+		                from(
+		                    select 
+		                       RP_REPORT_NO,
+		                        RP_BOARD_ID,
+		                        RP_CONTENT,
+		                        RP_COMMENT_NO,
+		                        RP_MASTER_NO,
+		                        RP_STATUS,
+		                        RP_TYPE,
+		                        USER_ID,
+		                        RP_WRITE_DATE 
+		                
+		                    from reports
+		                    ]]>
+				            <if test="resultNum == 1">
+				            and  RP_STATUS != '미처리'
+				            </if>
+				            
+				            <if test="resultNum == 2">
+				            and  RP_STATUS ='미처리'
+				            </if>
+						            
+					<![CDATA[        
+					        )
+					        order by RP_WRITE_DATE desc
+					        ) 
+					        where rownum <=#{end}
+					        ) 
+					        where rnum >= #{start}
+					]]>
+			</select>
 </mapper>

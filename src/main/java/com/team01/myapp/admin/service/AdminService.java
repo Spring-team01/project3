@@ -12,6 +12,7 @@ import com.team01.myapp.admin.dao.IAdminRepository;
 import com.team01.myapp.admin.model.AttSumDailyVo;
 import com.team01.myapp.admin.model.AttSummaryVo;
 import com.team01.myapp.admin.model.Names;
+import com.team01.myapp.admin.model.Reports;
 import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.admin.model.User;
@@ -177,9 +178,20 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
-	public List<SubAttList> getReportList(int resultNum, Pager pager) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Reports> getReportList(int resultNum, Pager pager) {
+		int end = pager.getPageNo() * pager.getRowsPerPage();
+		int start = (pager.getPageNo() - 1) * pager.getRowsPerPage() + 1;
+		return adminRepository.selectTotalReportList(start, end, resultNum);
+	}
+
+	@Override
+	public Pager getReprtListPage(String pageNo, int resultNum) {
+		// 전체 행수
+		int totalSubNum = adminRepository.selectTotalReportCountByPNum(resultNum);
+		//현재 페이지 
+		int pagerNo = Integer.parseInt(pageNo);
+		Pager pager = new Pager(5, 5, totalSubNum, pagerNo);
+		return pager;
 	}
 
 }

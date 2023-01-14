@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.team01.myapp.admin.model.AttSumDailyVo;
 import com.team01.myapp.admin.model.AttSummaryVo;
+import com.team01.myapp.admin.model.Reports;
 import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.admin.model.User;
@@ -28,5 +29,6 @@ public interface IAdminService {
 	List<AttSummaryVo> attsumMonthlyByuser(int subjectId);
 	List<AttSumDailyVo> attSumDailyByuser(int subjectId);
 	
-	List<SubAttList> getReportList(int resultNum, Pager pager);
+	List<Reports> getReportList(int resultNum, Pager pager);
+	Pager getReprtListPage(String pageNo, int resultNum);
 }
