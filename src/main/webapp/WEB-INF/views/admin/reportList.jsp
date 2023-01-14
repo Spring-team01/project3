@@ -55,36 +55,33 @@
 					                <table class="table align-items-center justify-content-center mb-0">
 					                  <thead>
 					                    <tr>
-					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">처리결과</th>
 					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">글번호</th>
 					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">작성자</th>
-					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">제목</th>
+					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">내용</th>
 					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작성날짜</th>
 					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">신고종류</th>
+					                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">처리결과</th>
 					                     
 					                    </tr>
 					                  </thead>
 					                  <tbody>
 										<c:forEach var="report" items="${reportList}">
 											<tr>
-												<td class="text-xs font-weight-bold mb-0 text-center">${report.result}</td>
-												<td class="text-xs font-weight-bold mb-0 text-center">${report.rpBoardId}</td>
+												<td class="text-xs font-weight-bold mb-0 text-center">${report.rpReportNo}</td>
 												
 												<td class="pc">
-													<p class="text-xs font-weight-bold mb-0 text-center">${report.userName}</p>
 													<p class="text-xs font-weight-bold mb-0 text-center">${report.userId}</p>
 												</td>
-												<td class="pc"><h6 class="text-xs font-weight-bold mb-0 text-center">
-												<a href='<c:url value="/admin/reasondetail/${report.subAttNo}"/>'>${report.title}</a></h6></td>
-												<td class="pc"><h6 class="text-xs font-weight-bold mb-0 text-center">${report.writeDate}</h6></td>
+												<td class="pc"><h6 class="text-xs font-weight-bold mb-0 text-center">${report.rpContent }</h6></td>
+												<td class="pc"><h6 class="text-xs font-weight-bold mb-0 text-center">${report.rpWriteDate}</h6></td>
 												<td class="text-center">
 													<c:choose>
-													<c:when test="${report.subStatus eq '조퇴'}"><span class="badge badge-sm bg-gradient-success">조퇴</span></c:when>
-													<c:when test="${report.subStatus eq '공가'}"><span class="badge badge-sm bg-gradient-info">공가</span></c:when>
-													<c:when test="${report.subStatus eq '외출'}"><span class="badge badge-sm bg-gradient-warning">외출</span></c:when>
-													<c:when test="${report.subStatus eq '경조사'}"><span class="badge badge-sm bg-gradient-secondary">경조사</span></c:when>
+													<c:when test="${report.rpType eq '게시글'}"><span class="badge badge-sm bg-gradient-success">게시글</span></c:when>
+													<c:when test="${report.rpType eq '댓글'}"><span class="badge badge-sm bg-gradient-info">댓글</span></c:when>
+													<c:when test="${report.rpType eq '대댓글'}"><span class="badge badge-sm bg-gradient-warning">대댓글</span></c:when>
 													</c:choose>
 												</td>
+												<td class="text-xs font-weight-bold mb-0 text-center">${report.rpStatus}</td>
 											</tr>
 										</c:forEach>
 					                  </tbody>

@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team01.myapp.admin.model.AttSumDailyVo;
 import com.team01.myapp.admin.model.AttSummaryVo;
+import com.team01.myapp.admin.model.Reports;
 import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.admin.model.User;
@@ -35,7 +36,6 @@ import com.team01.myapp.admin.model.UserInsert;
 import com.team01.myapp.admin.model.UserList;
 import com.team01.myapp.admin.model.UserUploadFile;
 import com.team01.myapp.admin.service.IAdminService;
-import com.team01.myapp.board.model.Board;
 import com.team01.myapp.util.Pager;
 
 @Controller
@@ -245,12 +245,11 @@ public class AdminController {
 			Model model, Pager pager) {
 		int resultNum = Integer.parseInt(resultNumber);
 		//1. 페이징 객체 만들기
-		pager = adminService.SubAttendanceListPage(pageNo,resultNum);
+		pager = adminService.getReprtListPage(pageNo,resultNum);
 		
 		//2. 페이지 리스트 만들기
-		List<SubAttList> subAttList = adminService.getReportList(resultNum, pager);
-		
-		model.addAttribute("subAttList", subAttList);
+		List<Reports> reportList = adminService.getReportList(resultNum, pager);
+		model.addAttribute("reportList", reportList);
 		model.addAttribute("pager", pager);
 		model.addAttribute("resultNumber", resultNumber);
 		return "admin/reportList";

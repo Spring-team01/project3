@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.team01.myapp.admin.model.AttSumDailyVo;
 import com.team01.myapp.admin.model.AttSummaryVo;
 import com.team01.myapp.admin.model.Names;
+import com.team01.myapp.admin.model.Reports;
 import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.admin.model.User;
@@ -61,4 +62,8 @@ public interface IAdminRepository {
 	Names selectNames(int userId);
 
 	AttSummaryVo selectSumByuser(@Param("userId")int userId, @Param("subjectId")int subjectId);
+	
+	//리포트 리스트 갯수 가져오기
+	int selectTotalReportCountByPNum(int resultNum);
+	List<Reports> selectTotalReportList(@Param("start") int start, @Param("end") int end, @Param("resultNum") int resultNum);
 }

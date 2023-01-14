@@ -401,7 +401,7 @@
 	</select>
 	
 	<!-- 댓글 신고기능 -->
-	<select id="insertReportComment" resultType="com.team01.myapp.board.model.Reports">
+	<select id="insertReportComment" resultType="com.team01.myapp.admin.model.Reports">
 		INSERT INTO
 		REPORTS
 			(RP_REPORT_NO, RP_BOARD_ID, RP_CONTENT, RP_COMMENT_NO, RP_MASTER_NO, RP_TYPE, RP_WRITE_DATE, USER_ID)

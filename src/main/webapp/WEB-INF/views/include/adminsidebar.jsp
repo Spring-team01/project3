@@ -34,7 +34,7 @@
                  
                 </li>   
                 <li>
-                    <a href="<c:url value='/admin/report/list'/>" type="button" class="homebtn">
+                    <a href="<c:url value='/admin/report/list/1'/>" type="button" class="homebtn">
                         <span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
                         <span class="item">게시글 신고 목록</span>
                     </a>
