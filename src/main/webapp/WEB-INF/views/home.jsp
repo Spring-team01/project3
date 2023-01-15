@@ -150,13 +150,13 @@ html, body {
 			<div class="welcome shadow d-flex justify-content-between">
 			<div class="d-flex p-2">
 			<div class="profile pt-4">
-					<img src="<c:url value="/static/images/profile2.jpeg"/>" alt="profile_picture">
+					<img src='<c:url value="/admin/userdetail/userfile/${userFileId}"/>'>
 				</div>
 				<div class="align-self-center" id="userInfo">
 					<h2 style="color:white;">${userName} 님    환영합니다.</h2>
 					<p>${major}
 						${grade}학년 
-						<%-- <a href="/myapp/admin/update/${userId}"><i class="material-icons">settings</i></a> --%>
+						<a href="<c:url value="/user/update/${userId}"/>"><i class="material-icons">settings</i></a>
 					</p>
 				</div>
 			</div>

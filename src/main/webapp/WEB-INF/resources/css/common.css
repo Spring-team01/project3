@@ -38,10 +38,6 @@
 		  border-radius: 50%;
 		}
 		
-		
-		
-		
-		
 		.wrapper .sidebar ul li a{
 		  display: block;
 		  padding: 13px 30px;
@@ -137,8 +133,8 @@
 			height: 200px;
 			width:100%;
 			background: #0f3443;  /* fallback for old browsers */
-			background: -webkit-linear-gradient(to left, #34e89e,#0f3443);  /* Chrome 10-25, Safari 5.1-6 */
-			background: linear-gradient(to left, #34e89e,#0f3443); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+			background: -webkit-linear-gradient(to left, #49B1F2,#0f3443);  /* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to left, #49B1F2,#0f3443); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 			border-radius: 5px;
 			margin-top:120px;
 		}
