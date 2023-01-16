@@ -222,6 +222,5 @@ html, body {
 			<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 		</div>
 	</div>
-	
 </body>
 </html>

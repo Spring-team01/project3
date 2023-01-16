@@ -137,6 +137,7 @@
 					</div>
 	    		</div>
 	        </div>
+<jsp:include page="/WEB-INF/views/include/footer.jsp" />
         </div>
  <jsp:include page="/WEB-INF/views/include/sidebar.jsp" />       
     </div>
@@ -163,6 +164,5 @@
 	});
 </script>
  
-<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>
