@@ -76,7 +76,6 @@ public class UserController {
 
 					session.setAttribute("attTime", attTime);
 					session.setAttribute("leaveTime", leaveTime);
-
 					if (user.getUserType().equals("USER")) {
 						return "redirect:/home";
 					} else {
