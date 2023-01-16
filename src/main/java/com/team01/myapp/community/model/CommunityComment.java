@@ -22,4 +22,6 @@ public class CommunityComment {
 	private byte[] userFileData;
 	private int rnum;
 	
+	private String rpContent;
+	private String rpType;
 }

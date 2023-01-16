@@ -554,6 +554,27 @@
 		]]>
 	</select>
 	
+	<!-- 댓글 정보 가져오기  -->
+	<select id="getCommentForReport" parameterType="int" resultType="com.team01.myapp.community.model.CommunityComment">
+		<![CDATA[
+			select  CC_CONTENT as "communityCommentContent", 
+					C_BOARD_ID as "communityBoardId", 
+					CC_REPLY_NUMBER as "communityCommentReplyNumber", 
+					CC_MASTER_NUMBER as "communityCommentMasterNumber"
+			from c_comment
+			where CC_COMMENT_NO = #{communityCommentNo}
+		]]>
+	</select>
 	
+	<!-- 댓글 신고기능 -->
+	<insert id="insertReportComment" parameterType="com.team01.myapp.community.model.CommunityComment">
+		<![CDATA[
+		INSERT INTO
+		REPORTS
+			(RP_REPORT_NO, RP_BOARD_ID, RP_CONTENT, RP_COMMENT_NO, RP_MASTER_NO, RP_TYPE, RP_WRITE_DATE, USER_ID,RP_TARGET)
+		VALUES
+			(seq_rp_no.nextval, #{communityBoardId},#{rpContent}, #{communityCommentNo}, #{communityCommentReplyNumber}, #{rpType}, SYSDATE, #{userId}, #{communityCommentContent})
+		]]>
+	</insert>
 	
 </mapper>

@@ -15,7 +15,7 @@
 		console.log(i);
 		$.ajax({
 			type:'GET',
-			url: "/myapp/board/comment/delete/"+i,
+			url: "/myapp/community/reply/delete/"+i,
 			error: function(){
 				alert('통신 실패 ');
 				console.log('댓글삭제 실패');
@@ -41,7 +41,7 @@
 		console.log(i);
 		$.ajax({
 			type:'GET',
-			url: "/myapp/board/nestedcomment/delete/"+i,
+			url: "/myapp/community/replycomment/delete"+i,
 			error: function(){
 				alert('통신 실패');
 				console.log('대댓글삭제 실패');
@@ -62,6 +62,62 @@
 			}
 		})
 	}
+	
+	/* delete Community Comment */
+	function deleteCommunityComment(i,j) {
+		console.log(i);
+		console.log(j);
+		$.ajax({
+			type:'GET',
+			url: "/myapp/community/admin/reply/delete/"+i,
+			error: function(){
+				alert('통신 실패 ');
+				console.log('댓글삭제 실패');
+			},
+			success: function(data){
+				if(data==1){
+					alert("댓글이 삭제되었습니다 ")
+					location.reload();
+				}
+			}
+		})
+		$.ajax({
+			type:'GET',
+			url:"/myapp/admin/report/update/"+j,
+			success: function(){
+				alert('업데이트 통신 성공');
+			}
+		})
+	}
+	/* delete Community NestedComment */
+	function deleteCommunityReplyComment(i,j) {
+		console.log(i);
+		console.log(j);
+		$.ajax({
+			type:'GET',
+			url: "/myapp/community/admin/replycomment/delete/"+i,
+			error: function(){
+				alert('통신 실패 ');
+				console.log('댓글삭제 실패');
+			},
+			success: function(data){
+				if(data==1){
+					alert("댓글이 삭제되었습니다 ")
+					location.reload();
+				}
+			}
+		})
+		$.ajax({
+			type:'GET',
+			url:"/myapp/admin/report/update/"+j,
+			success: function(){
+				alert('업데이트 통신 성공');
+			}
+		})
+	}
+	
+	
+	
 	</script>
 </head>
 <body>
@@ -134,6 +190,8 @@
 													<c:when test="${report.rpType eq '게시글'}"><span class="badge badge-sm bg-gradient-success">게시글</span></c:when>
 													<c:when test="${report.rpType eq '댓글'}"><span class="badge badge-sm bg-gradient-info">댓글</span></c:when>
 													<c:when test="${report.rpType eq '대댓글'}"><span class="badge badge-sm bg-gradient-warning">대댓글</span></c:when>
+													<c:when test="${report.rpType eq 'C댓글'}"><span class="badge badge-sm bg-gradient-warning">C댓글</span></c:when>
+													<c:when test="${report.rpType eq 'C대댓글'}"><span class="badge badge-sm bg-gradient-warning">C대댓글</span></c:when>
 													</c:choose>
 												</td>
 												
@@ -142,6 +200,8 @@
 													<c:when test="${report.rpType eq '게시글'}"><a  class="btn btn-sm ml-3">삭제</a></c:when>
 													<c:when test="${report.rpType eq '댓글'}"><a onclick="deleteAdminComment(${report.rpCommentNo},${report.rpReportNo})"  class="btn btn-sm ml-3">삭제</a></c:when>
 													<c:when test="${report.rpType eq '대댓글'}"><a onclick="deleteAdminNestedComment(${report.rpCommentNo},${report.rpReportNo})"  class="btn btn-sm ml-3">삭제</a></c:when>
+													<c:when test="${report.rpType eq 'C댓글'}"><a onclick="deleteCommunityComment(${report.rpCommentNo},${report.rpReportNo})"  class="btn btn-sm ml-3">삭제</a></c:when>
+													<c:when test="${report.rpType eq 'C대댓글'}"><a onclick="deleteCommunityReplyComment(${report.rpCommentNo},${report.rpReportNo})"  class="btn btn-sm ml-3">삭제</a></c:when>
 													</c:choose>
 												</td>
 												<td class="text-xs font-weight-bold mb-0 text-center">${report.rpStatus}</td>

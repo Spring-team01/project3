@@ -16,4 +16,6 @@ public class Reports {
 	private Date rpWriteDate;
 	private String userId;
 	private String rpTarget;
+	
+	
 }

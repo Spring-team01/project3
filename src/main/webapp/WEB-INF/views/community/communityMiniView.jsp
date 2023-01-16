@@ -78,11 +78,11 @@
 		</div>
 	</div>
 	<div class="container" style="margin: 0em; padding: 0em; ">
-		<div class="tab_menu" >
-			<ul class="list" >
-				<li class="is_on"><a href="#tab1" class="btn">조회수 높은 순</a></li>
-				<li><a href="#tab2" class="btn">댓글 많은 순</a></li>
-				<li><a href="#tab3" class="btn">최신 순</a></li>
+		<div class="tab_menu" style="justify-content: center;">
+			<ul class="list" style="margin : auto;">
+				<li class="is_on"><a href="#tab1" class="btn" style="margin-bottom: 0.5em;">조회수 순</a></li>
+				<li><a href="#tab2" class="btn" style="margin-bottom: 0.5em;">댓글 순</a></li>
+				<li><a href="#tab3" class="btn" style="margin-bottom: 0.5em;">최신 순</a></li>
 			</ul>
 			<div class="card-body px-0 pb-2 pt-0">
 				<div class="table-responsive p-0">
@@ -91,7 +91,7 @@
 						<div id="tab1" class="cont">
 							<table class="table align-items-center mb-0 text-center table-hover">
 								<thead>
-									<tr align="center">
+									<tr align="justify">
 										<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">글번호</th>
 										<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">게시글 제목</th>
 										<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">조회수</th>
@@ -127,7 +127,7 @@
 								</thead>
 								<tbody>
 									<c:forEach var="community2" items="${communityListTab2}">
-										<tr onClick="location.href='<c:url value='/community/communityDetail/${community.communityBoardId}'/>'">
+										<tr onClick="location.href='<c:url value='/community/communityDetail/${community2.communityBoardId}'/>'">
 											<td>
 												<h3 align="center" class="text-xs font-weight-bold mb-0">${community2.communityBoardId}</h3>
 											</td>
@@ -154,7 +154,7 @@
 								</thead>
 								<tbody>
 									<c:forEach var="community3" items="${communityListTab3}">
-										<tr onClick="location.href='<c:url value='/community/communityDetail/${community.communityBoardId}'/>'">
+										<tr onClick="location.href='<c:url value='/community/communityDetail/${community3.communityBoardId}'/>'">
 											<td>
 												<h3 align="center" class="text-xs font-weight-bold mb-0">${community3.communityBoardId}</h3>
 											</td>

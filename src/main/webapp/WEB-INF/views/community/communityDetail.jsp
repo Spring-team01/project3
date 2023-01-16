@@ -4,7 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:setBundle basename="i18n/board" />
 <%@ taglib prefix="jk" tagdir="/WEB-INF/tags"%>
-<% pageContext.setAttribute("replaceChar", "\n"); %>
+<%
+	pageContext.setAttribute("replaceChar", "\n");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -22,44 +24,46 @@
 <link id="pagestyle" href="<c:url value="/static/css/material-dashboard.css"/>" rel='stylesheet' />
 
 <style>
- .dropbtn {
-  background-color: #f9f9f9;
-  color: white;
-  padding: 0px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
+.dropbtn {
+	background-color: #f9f9f9;
+	color: white;
+	padding: 0px;
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
 }
 
 .dropdown {
-  position: relative;
-  display: inline-block;
+	position: relative;
+	display: inline-block;
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+	display: none;
+	position: absolute;
+	background-color: white;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
 }
 
 .dropdown-content a {
-  color: black;
-  padding: 0px 0px;
-  text-decoration: none;
-  display: block;
+	color: black;
+	padding: 0px 0px;
+	text-decoration: none;
+	display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {
+	background-color: #f1f1f1
+}
 
 .dropdown:hover .dropdown-content {
-  display: block;
+	display: block;
 }
 
 .dropdown:hover .dropbtn {
-  background-color: #3e8e41;
+	background-color: #3e8e41;
 }
 </style>
 
@@ -97,6 +101,28 @@
 			       }
 			}
 		});
+	}
+	/* 댓글 신고~ */
+	function reportComment(i){
+		let reportContent = $("#reportContent"+i).val();
+		console.log(i);
+		console.log(reportContent);
+		$.ajax({
+			 type : 'POST',
+	         url : "/myapp/community/comment/report",
+	         data : {communityCommentContent: reportContent, communityCommentNo : i},
+	         error : function() {
+	            alert('통신실패!');
+	         },
+	         success : function(data) {
+	            if(data==0) {
+	               alert("신고 실패하였습니다.");
+	            } else if(data==1) {
+	            	alert("신고가 접수되었습니다.");       	
+	            	location.reload();
+	            }
+	         }
+	      });
 	}
 	
 	
@@ -174,7 +200,7 @@
 														<div class="d-flex justify-content-around">
 															<div>
 																<div class="flex-shrink-0">
-																<!-- 유저 프로필 사진 -->
+																	<!-- 유저 프로필 사진 -->
 																	<img class="rounded-circle" src='<c:url value="/admin/userdetail/userfile/${commentList.userFileId}"/>' alt="..." style="width: 50px; height: 50px;" />
 																</div>
 															</div>
@@ -183,26 +209,47 @@
 																${commentList.communityCommentContent}
 															</div>
 															<div class="ms-auto">
-																<input id="replyButton${commentList.communityCommentMasterNumber}" type="button" 
-																onclick="viewReplyComment(${commentList.communityCommentMasterNumber})" 
-																class="btn btn-sm btn-dark shadow" value="댓글 보기">
-																
+																<input id="replyButton${commentList.communityCommentMasterNumber}" type="button" onclick="viewReplyComment(${commentList.communityCommentMasterNumber})" class="btn btn-sm btn-dark shadow" value="댓글 보기">
+
 																<c:if test="${sessionScope.userId eq commentList.userId}">
-																	<input id="deleteReplyButton${commentList.communityCommentMasterNumber}" type="submit" 
-																	onclick="deleteReplyComment(${commentList.communityCommentMasterNumber})" 
-																	class="btn btn-sm btn-dark shadow" value="댓글 삭제">
+																	<input id="deleteReplyButton${commentList.communityCommentMasterNumber}" type="submit" onclick="deleteReplyComment(${commentList.communityCommentMasterNumber})" class="btn btn-sm btn-dark shadow" value="댓글 삭제">
 																</c:if>
-																	<input type="hidden" id="userId" name="userId" 
-																	value="${sessionScope.userId}">
+																<input type="hidden" id="userId" name="userId" value="${sessionScope.userId}">
+															</div>
+															<c:if test="${sessionScope.userId ne commentList.userId}">
+																<div class="dropdown">
+																	<img src='<c:url value="/images/threedots.svg"/>' class="dropbtn">
+																	<div class="dropdown-content">
+																		<a type="button" data-toggle="modal" data-target="#reportFun${commentList.communityCommentNo}">신고하기</a>
+																	</div>
 																</div>
-															<c:if test="${sessionScope.userId ne commentList.userId}">	
-															<div class="dropdown"> 
-																<img src='<c:url value="/images/threedots.svg"/>' class="dropbtn">
-																<div class="dropdown-content">
-																 	<a href="">신고하기</a>
+																<!-- 신고용 모달 -->
+																<div class="modal fade" id="reportFun${commentList.communityCommentNo}" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+																	<div class="modal-dialog">
+																		<div class="modal-content">
+																			<div class="modal-header">
+																				<h5 class="modal-title" id="commentModalLabel">댓글 신고</h5>
+																				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																					<span aria-hidden="true">&times;</span>
+																				</button>
+																			</div>
+																			<div class="modal-body">
+																				<form>
+																					<div class="form-group text-left">
+																						<h6>신고 내용:</h6>
+																						<textarea class="form-control" id="reportContent${commentList.communityCommentNo}"></textarea>
+																					</div>
+																				</form>
+																			</div>
+																			<div class="modal-footer">
+																				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+																				<button type="button" onclick="reportComment(${commentList.communityCommentNo})" class="btn btn-primary">보내기</button>
+																			</div>
+																		</div>
+																	</div>
 																</div>
-															 </div>
-															 </c:if>
+
+															</c:if>
 														</div>
 														<div id="replyComment${commentList.communityCommentMasterNumber}"></div>
 													</div>
@@ -215,7 +262,7 @@
 						</section>
 					</div>
 				</div>
-	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+				<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 			</div>
 			<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 		</div>
