@@ -193,12 +193,13 @@ public class AdminService implements IAdminService {
 	@Override
 	public void updateReportStatus(int rpReportNo) {
 		adminRepository.updateReportStatus(rpReportNo);
-
+	}
+	
+	@Override
 	public void insertUserFile(UserUploadFile file) {
 		file.setUserId("000000001");
 		file.setUserFileId(adminRepository.selectMaxFileId() + 1);
 		adminRepository.insertUserFile(file);
-
 
 	}
 
