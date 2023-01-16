@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team01.myapp.admin.dao.IAdminRepository">
 
-	<!-- 유저 리스트 -->
+	<!--과목별 학생 목록 조회 -->
 	<select id="selectTotalCategoryListNum" resultType="int"
 		parameterType="int">
 		<![CDATA[
@@ -98,20 +98,21 @@
 	]]>
 	</select>
 
+	<!--휴가 목록 조회 -->
 	<select id="selectTotalSubAttListByPNum" resultType="int"
 		parameterType="int">
 		<![CDATA[
 			select count(*) from sub_attendance 
 		]]>
-			<if test="resultNum ==1">
+		<if test="resultNum ==1">
 			where result != '미처리'
-			</if>
-			<if test="resultNum ==2">
+		</if>
+		<if test="resultNum ==2">
 			where result = '미처리'
-			</if>
-			
+		</if>
+
 	</select>
-	
+
 	<select id="selectSubAttListbyRNum" parameterType="map"
 		resultType="com.team01.myapp.admin.model.SubAttList">
 		<![CDATA[
@@ -156,13 +157,13 @@
 				            from users u, sub_attendance s 
 				            where u.u_id = s.u_id
 				            ]]>
-				            <if test="resultNum == 1">
-				            and result != '미처리'
-				            </if>
-				            
-				            <if test="resultNum == 2">
-				            and result ='미처리'
-				            </if>
+		<if test="resultNum == 1">
+			and result != '미처리'
+		</if>
+
+		<if test="resultNum == 2">
+			and result ='미처리'
+		</if>
 				            
 				<![CDATA[        
 				        )
@@ -175,27 +176,7 @@
 
 	</select>
 
-	<select id="selectMaxFileId" parameterType="int"
-		resultType="int">
-	<![CDATA[
-		SELECT
-			NVL(MAX(U_file_id),0) AS "userFileId"
-		FROM U_FILE
-	]]>
-	</select>
-
-	<insert id="insertUserFile"
-		parameterType="com.team01.myapp.admin.model.UserUploadFile">
-	<![CDATA[	
-		INSERT INTO
-		U_FILE
-			(U_FILE_ID, U_ID, U_FILE_NAME, U_FILE_SIZE, U_FILE_CONTENT_TYPE, U_FILE_DATA)
-		VALUES
-			(#{userFileId}, #{userId}, #{userFileName}, #{userFileSize}, #{userFileContentType}, #{userFileData})
-	]]>
-	</insert>
-
-	<!-- 수정하기 -->
+	<!-- 학생정보수정 -->
 	<update id="updateUser"
 		parameterType="com.team01.myapp.admin.model.User">
 	<![CDATA[
@@ -222,17 +203,7 @@
 	]]>
 	</update>
 
-	<insert id="insertFileData"
-		parameterType="com.team01.myapp.admin.model.UserUploadFile">
-	<![CDATA[	
-		INSERT INTO
-		u_file
-			(u_file_id, u_id, u_file_name, u_file_size, u_file_content_type, u_file_data)
-		VALUES
-			(SEQ_U_FILE_ID.nextval, #{userId}, #{userFileName}, #{userFileSize}, #{userFileContentType}, #{userFileData})
-	]]>
-	</insert>
-
+	<!--휴가상세조회-->
 	<select id="selectSubAttendanceDetail" parameterType="int"
 		resultType="com.team01.myapp.admin.model.SubAttendance">
 		<![CDATA[
@@ -256,177 +227,364 @@
 			WHERE SUB_ATTENDANCE.SUB_ATT_NO = #{subAttNo}
 		]]>
 	</select>
-	
+
+	<!--휴가 처리-->
 	<update id="updateSubatt" parameterType="map">
-	
-		UPDATE 
-			sub_attendance
-		SET 
-			<if test="result==1">
-			result='승인'	
-			</if>
-			<if test="result==2">
-			result='거절'	
-			</if>
-		WHERE 
-			sub_att_no=#{subAttNo}
-	
+
+		UPDATE
+		sub_attendance
+		SET
+		<if test="result==1">
+			result='승인'
+		</if>
+		<if test="result==2">
+			result='거절'
+		</if>
+		WHERE
+		sub_att_no=#{subAttNo}
+
 	</update>
-	
+
 	<update id="updateAtt" parameterType="map">
-		UPDATE 
-			attendance
-		SET 
-			status='휴가'	
-			<if test='subStatus == "조퇴"'>
+		UPDATE
+		attendance
+		SET
+		status='휴가'
+		<if test='subStatus == "조퇴"'>
 			,
 			leave_time = #{subLeaveTime}
-			</if>
-			<if test='subStatus == "경조사" or subStatus == "공가"'>
+		</if>
+		<if test='subStatus == "경조사" or subStatus == "공가"'>
 			,
 			att_time = #{subAttTime},
 			leave_time = #{subLeaveTime}
-			</if>
-				
-		WHERE 
-			att_no=#{attNo}
+		</if>
+
+		WHERE
+		att_no=#{attNo}
 	</update>
 	
+	<!--전체 출결 조회-->
 	<select id="selectAttSumMonthly" parameterType="int"
 		resultType="com.team01.myapp.admin.model.AttSummaryVo">
-		
+
 		select
-		    (SELECT
-		    count(*)
-		    FROM attendance
-		    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='출근' and subject_id=#{subjectId}) as "attendanceSum",
-		    
-		    (SELECT
-		    count(*)
-		    FROM attendance
-		    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='휴가' and subject_id=#{subjectId}) as "leaveSum",
-		    
-		    (SELECT
-		    count(*)
-		    FROM attendance
-		    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='지각' and subject_id=#{subjectId}) as "lateSum",
-		    
-		    (SELECT
-		    count(*)
-		    FROM attendance
-		    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='결근' and subject_id=#{subjectId}) as "absenceSum",
-	    
-	    	(SELECT
-	        subject_name	   
-		    FROM subject
-		    WHERE subject_id=#{subjectId})  as "subjectName"
-	    
-	    from dual
-		
+		(SELECT
+		count(*)
+		FROM attendance
+		WHERE TO_CHAR(att_date,
+		'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='출근'
+		and
+		subject_id=#{subjectId}) as "attendanceSum",
+
+		(SELECT
+		count(*)
+		FROM
+		attendance
+		WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM')
+		and status ='휴가'
+		and subject_id=#{subjectId}) as "leaveSum",
+
+		(SELECT
+		count(*)
+		FROM attendance
+		WHERE TO_CHAR(att_date, 'YYMM') =
+		TO_CHAR(sysdate, 'YYMM') and status ='지각'
+		and subject_id=#{subjectId})
+		as "lateSum",
+
+		(SELECT
+		count(*)
+		FROM attendance
+		WHERE TO_CHAR(att_date,
+		'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='결근'
+		and
+		subject_id=#{subjectId}) as "absenceSum",
+
+		(SELECT
+		subject_name
+		FROM
+		subject
+		WHERE subject_id=#{subjectId}) as "subjectName"
+
+		from dual
+
 	</select>
-	
+
 	<select id="selectAttSumDaily" parameterType="int"
 		resultType="com.team01.myapp.admin.model.AttSummaryVo">
-		
+
 		select
-		    (SELECT
-		    count(*)
-		    FROM attendance
-		    WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and status ='출근' and subject_id=#{subjectId}) as "attendanceSum",
-		    
-		    (SELECT
-		    count(*)
-		    FROM attendance
-		    WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and status ='휴가' and subject_id=#{subjectId}) as "leaveSum",
-		    
-		    (SELECT
-		    count(*)
-		    FROM attendance
-		    WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and status ='지각' and subject_id=#{subjectId}) as "lateSum",
-		    
-		    (SELECT
-		    count(*)
-		    FROM attendance
-		    WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and status ='결근' and subject_id=#{subjectId}) as "absenceSum",
-		    
-		    (SELECT
-		    count(*)
-		    FROM attendance
-		    WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and status ='미출석' and subject_id=#{subjectId}) as "yetSum",
-	    
-	    	(SELECT
-	        subject_name	   
-		    FROM subject
-		    WHERE subject_id=#{subjectId})  as "subjectName"
-	    from dual
-		
+		(SELECT
+		count(*)
+		FROM attendance
+		WHERE TO_CHAR(att_date,
+		'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and status
+		='출근' and
+		subject_id=#{subjectId}) as "attendanceSum",
+
+		(SELECT
+		count(*)
+		FROM
+		attendance
+		WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate,
+		'YYMMDD') and status
+		='휴가' and subject_id=#{subjectId}) as "leaveSum",
+
+		(SELECT
+		count(*)
+		FROM attendance
+		WHERE TO_CHAR(att_date, 'YYMMDD') =
+		TO_CHAR(sysdate, 'YYMMDD') and status
+		='지각' and
+		subject_id=#{subjectId}) as "lateSum",
+
+		(SELECT
+		count(*)
+		FROM attendance
+		WHERE TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD') and
+		status
+		='결근' and subject_id=#{subjectId}) as "absenceSum",
+
+		(SELECT
+		count(*)
+		FROM attendance
+		WHERE TO_CHAR(att_date, 'YYMMDD') =
+		TO_CHAR(sysdate, 'YYMMDD') and status
+		='미출석' and
+		subject_id=#{subjectId}) as "yetSum",
+
+		(SELECT
+		subject_name
+		FROM subject
+		WHERE subject_id=#{subjectId}) as "subjectName"
+		from dual
+
 	</select>
-	
-	<select id="selectTotalCountBySubject" parameterType="int" resultType="int">
+
+	<select id="selectTotalCountBySubject" parameterType="int"
+		resultType="int">
 		SELECT
-		    count(*)
+		count(*)
 		FROM users
 		WHERE subject_id = #{subjectId}
-	</select>	
-	
-	<select id="selectUserIdsBySub" parameterType="int" resultType="int">
+	</select>
+
+	<select id="selectUserIdsBySub" parameterType="int"
+		resultType="int">
 		select u_id
-		from  users
+		from users
 		where subject_id = #{subjectId}
 	</select>
-	
-	<select id="selectSumByuser" parameterType="int" resultType="com.team01.myapp.admin.model.AttSummaryVo" >
-			select
-				(SELECT
-			    u_name
-			    FROM users
-			    WHERE u_id =#{userId})as "userName",
-			    
-			    (SELECT
-			    subject_name
-			    FROM subject
-			    WHERE subject_id =#{subjectId})as "subjectName",
-			    							
-			    (SELECT
-			    count(*)
-			    FROM attendance
-			    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='출근' and subject_id=1 AND u_id =#{userId}) as "attendanceSum",
-			    
-			    (SELECT
-			    count(*)
-			    FROM attendance
-			    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='휴가' and subject_id=1 AND u_id =#{userId}) as "leaveSum",
-			    
-			    (SELECT
-			    count(*)
-			    FROM attendance
-			    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='지각' and subject_id=1 AND u_id =#{userId}) as "lateSum",
-			    
-			    (SELECT
-			    count(*)
-			    FROM attendance
-			    WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='결근' and subject_id=1 AND u_id =#{userId}) as "absenceSum"
-    
-   		from dual
+
+	<select id="selectSumByuser" parameterType="int"
+		resultType="com.team01.myapp.admin.model.AttSummaryVo">
+		select
+		(SELECT
+		u_name
+		FROM users
+		WHERE u_id =#{userId})as
+		"userName",
+
+		(SELECT
+		subject_name
+		FROM subject
+		WHERE subject_id
+		=#{subjectId})as "subjectName",
+
+		(SELECT
+		count(*)
+		FROM attendance
+		WHERE
+		TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='출근'
+		and subject_id=1 AND u_id =#{userId}) as "attendanceSum",
+
+		(SELECT
+		count(*)
+		FROM attendance
+		WHERE TO_CHAR(att_date, 'YYMM') =
+		TO_CHAR(sysdate, 'YYMM') and status ='휴가'
+		and subject_id=1 AND u_id
+		=#{userId}) as "leaveSum",
+
+		(SELECT
+		count(*)
+		FROM attendance
+		WHERE
+		TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate, 'YYMM') and status ='지각'
+		and subject_id=1 AND u_id =#{userId}) as "lateSum",
+
+		(SELECT
+		count(*)
+		FROM attendance
+		WHERE TO_CHAR(att_date, 'YYMM') = TO_CHAR(sysdate,
+		'YYMM') and status ='결근'
+		and subject_id=1 AND u_id =#{userId}) as
+		"absenceSum"
+
+		from dual
 	</select>
-	
-	<select id="selectSumDailyByuser" parameterType="int" resultType="com.team01.myapp.admin.model.AttSumDailyVo" >
-		select 
+
+	<select id="selectSumDailyByuser" parameterType="int"
+		resultType="com.team01.myapp.admin.model.AttSumDailyVo">
+		select
 		TO_CHAR(att_time, 'hh24:mi:ss') as "attTime",
-		TO_CHAR(leave_time, 'hh24:mi:ss') as "leaveTime",
+		TO_CHAR(leave_time,
+		'hh24:mi:ss') as "leaveTime",
 		status,
-		u_name as "userName",
-		subject_name as "subjectName"
-		from attendance a, users u, subject s
-		where a.u_id =#{userId} 
-		    and  TO_CHAR(att_date, 'YYMMDD') = TO_CHAR(sysdate, 'YYMMDD')
-		    and u.u_id=a.u_id
-		    and u.subject_id=s.subject_id
+		u_name as
+		"userName",
+		subject_name
+		as "subjectName"
+		from attendance a, users u,
+		subject s
+		where a.u_id
+		=#{userId}
+		and TO_CHAR(att_date, 'YYMMDD') =
+		TO_CHAR(sysdate, 'YYMMDD')
+		and u.u_id=a.u_id
+		and
+		u.subject_id=s.subject_id
 	</select>
-	
-	<select id="selectUserName" parameterType="int" resultType="string">
-		select u_name
-		from users
-		where u_id=#{userId}
-	</select>	
+
+	<select id="selectNames" parameterType="int"
+		resultType="com.team01.myapp.admin.model.Names">
+		select u_name as "userName",
+		subject_name as "subjectName"
+		from users u, subject s
+		where u_id=#{userId} and u.subject_id =
+		s.subject_id
+	</select>
+
+	<select id="selectTotalReportCountByPNum" parameterType="int"
+		resultType="int">
+		<![CDATA[
+			select count(*) from reports
+		]]>
+
+			<if test="resultNum ==1">
+			where rp_status != '미처리'
+			</if>
+			<if test="resultNum ==2">
+			where rp_status = '미처리'
+			</if>
+
+	</select>
+
+	<select id="selectTotalReportList" parameterType="map"
+		resultType="com.team01.myapp.admin.model.Reports">
+		<![CDATA[
+		select 
+		    rownum,
+		    RP_REPORT_NO AS "rpReportNo",
+		    RP_BOARD_ID AS "rpBoardId",
+		    RP_CONTENT AS "rpContent",
+		    RP_COMMENT_NO AS "rpCommentNo",
+		    RP_MASTER_NO AS "rpMasterNo",
+		    RP_STATUS AS "rpStatus",
+		    RP_TARGET AS "rpTarget",
+		    RP_TYPE AS "rpType",
+		    USER_ID AS "userId",
+		    RP_WRITE_DATE AS "rpWriteDate"
+		    from(
+		        select 
+		            rownum as rnum,
+		            RP_REPORT_NO,
+		            RP_BOARD_ID,
+		            RP_CONTENT,
+		            RP_COMMENT_NO,
+		            RP_TARGET,
+		            RP_MASTER_NO,
+		            RP_STATUS,
+		            RP_TYPE,
+		            USER_ID,
+		            RP_WRITE_DATE 
+		        from(
+		        select      RP_REPORT_NO,
+		            RP_BOARD_ID,
+		            RP_CONTENT,
+		            RP_COMMENT_NO,
+		            RP_MASTER_NO,
+		            RP_STATUS,
+		            RP_TARGET,
+		            RP_TYPE,
+		            USER_ID,
+		            RP_WRITE_DATE 
+		                from(
+		                    select 
+		                       RP_REPORT_NO,
+		                        RP_BOARD_ID,
+		                        RP_CONTENT,
+		                        RP_COMMENT_NO,
+		                        RP_MASTER_NO,
+		                        RP_STATUS,
+		                        RP_TARGET,
+		                        RP_TYPE,
+		                        USER_ID,
+		                        RP_WRITE_DATE 
+		                
+		                    from reports
+		                    ]]>
+
+				            <if test="resultNum == 1">
+				           	where  RP_STATUS != '미처리'
+				            </if>
+				            
+				            <if test="resultNum == 2">
+				            where  RP_STATUS ='미처리'
+				            </if>
+
+						            
+					<![CDATA[        
+					        )
+					        order by RP_WRITE_DATE desc
+					        ) 
+					        where rownum <=#{end}
+					        ) 
+					        where rnum >= #{start}
+					]]>
+
+			</select>
+			<update id="updateReportStatus" parameterType="int">
+			<![CDATA[
+				UPDATE 
+					REPORTS
+				SET 
+					RP_STATUS='처리'
+				WHERE 
+					RP_REPORT_NO=#{rpReportNo}
+			]]>
+			</update>
+			
+
+	<select id="selectMaxFileId" parameterType="int"
+		resultType="int">
+	<![CDATA[
+		SELECT
+			NVL(MAX(U_file_id),0) AS "userFileId"
+		FROM U_FILE
+	]]>
+	</select>
+
+	<insert id="insertUserFile"
+		parameterType="com.team01.myapp.admin.model.UserUploadFile">
+	<![CDATA[	
+		INSERT INTO
+		U_FILE
+			(U_FILE_ID, U_ID, U_FILE_NAME, U_FILE_SIZE, U_FILE_CONTENT_TYPE, U_FILE_DATA)
+		VALUES
+			(#{userFileId}, #{userId}, #{userFileName}, #{userFileSize}, #{userFileContentType}, #{userFileData})
+	]]>
+	</insert>
+	<insert id="insertFileData"
+		parameterType="com.team01.myapp.admin.model.UserUploadFile">
+	<![CDATA[	
+		INSERT INTO
+		u_file
+			(u_file_id, u_id, u_file_name, u_file_size, u_file_content_type, u_file_data)
+		VALUES
+			(SEQ_U_FILE_ID.nextval, #{userId}, #{userFileName}, #{userFileSize}, #{userFileContentType}, #{userFileData})
+	]]>
+	</insert>
+
 </mapper>

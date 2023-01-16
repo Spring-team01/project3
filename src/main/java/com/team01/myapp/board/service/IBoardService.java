@@ -2,6 +2,7 @@ package com.team01.myapp.board.service;
 
 import java.util.List;
 
+import com.team01.myapp.admin.model.Reports;
 import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.model.BoardUploadFile;
 import com.team01.myapp.board.model.BoardComment;
@@ -9,17 +10,20 @@ import com.team01.myapp.util.Pager;
 
 public interface IBoardService { 
 	
+	//과목이름 가져오기
+	String selectSubjectName(int subjectId);
+	
 	//리스트 
-	Pager returnPage(String pageNo, Pager pager);
-	List<Board> getTotalArticleList(Pager pager);
+	Pager returnPage(String pageNo, Pager pager, int subjectId);
+	List<Board> getTotalArticleList(Pager pager, int subjectId);
 	
 	//카테고리별 리스트 
-	Pager returnCategoryPage(int categoryId, String pageNo, Pager pager);
-	List<Board> getArticleListByCategory(int categoryId, Pager pager);
+	Pager returnCategoryPage(int categoryId, String pageNo, Pager pager, int subjectId);
+	List<Board> getArticleListByCategory(int categoryId, Pager pager, int subjectId);
 	
 	//검색 리스트 
-	Pager returnSearchPage(String keyword, String pageNo, Pager pager);
-	List<Board> getSearchArticleList(String keyword, Pager pager);
+	Pager returnSearchPage(String keyword, String pageNo, Pager pager, int subjectId);
+	List<Board> getSearchArticleList(String keyword, Pager pager, int subjectId);
 	
 	//읽기 
 	Board selectArticle(int boardId);
@@ -51,6 +55,13 @@ public interface IBoardService {
 	
 	//메인 미니뷰 가져오기 
 	List<Board> getBoardMiniList();
+	
+	//댓글 신고 
+	void reportComment(Reports report);
+
+
+	
+	
 	
 	
 	

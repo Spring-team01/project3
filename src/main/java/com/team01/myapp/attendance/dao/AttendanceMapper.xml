@@ -166,5 +166,15 @@
 			AND TO_CHAR(att_date, 'YYYYMMDD') = #{today}
 		]]>
 	</select>
+	
+	<insert id="insertUser" parameterType="map">
+		<![CDATA[
+			INSERT INTO
+			attendance
+			(att_no, att_date, att_time, leave_time, status, u_id, subject_id)
+			VALUES
+			(seq_att_no.NEXTVAL, '20230116', '20230116 09:00:00', '20230116 18:00:00', '출근', #{userId}, #{subjectId})
+		]]>
+	</insert>
 		
 </mapper>

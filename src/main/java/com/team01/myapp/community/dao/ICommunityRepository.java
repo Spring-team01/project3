@@ -48,4 +48,9 @@ public interface ICommunityRepository {
 	void insertReplyCommunityComment(CommunityComment comment);
 	void deleteCommunityReply(CommunityComment comment);
 	void deleteCommunityReReplyComment(CommunityComment comment);
+	
+	//Mini view 탭 query
+	List<Community> getCommunityListByTabNo2(int categoryId);
+	List<Community> getCommunityListByTabNo3(int categoryId);
+	
 }

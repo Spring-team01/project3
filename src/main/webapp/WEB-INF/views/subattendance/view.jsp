@@ -107,6 +107,7 @@
 									<c:if test="${(filetype eq '.JPG') or (filetype eq 'JPEG') or (filetype eq '.PNG') or (filetype eq '.GIF')}">
 										<img src='<c:url value="/SubAttendanceFile/${subAttendance.fileId}"/>' class="img-thumbnail"><br>
 									</c:if>
+										누르시면 파일 다운로드 할 수 있습니다 : 
 									<a href='<c:url value="/SubAttendanceFile/${subAttendance.fileId}"/>'>
 										${subAttendance.fileName} (<fmt:formatNumber>${subAttendance.fileSize}</fmt:formatNumber>byte)
 									</a>
@@ -127,10 +128,10 @@
 					</div>
 	    		</div>
 	        </div>
+<jsp:include page="/WEB-INF/views/include/footer.jsp" />
         </div>
  <jsp:include page="/WEB-INF/views/include/sidebar.jsp" />       
     </div>
     </div>
-<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>

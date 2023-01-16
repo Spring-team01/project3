@@ -13,9 +13,9 @@
        	<p class="text-sm m-1 ms-auto" style="color:#f0f0f0"><fmt:formatDate value="${articleOne.writeDate}" pattern="YYYY-MM-DD"></fmt:formatDate></p>
        </div>
      </div>
-     <div class="card-footer p-2 mx-1">
+     <div class="card-body p-2 mx-1">
      <div>
-      <h5 id="cardNewsHead" class="mb-0">${articleOne.title}</h5>
+      	<h5 id="cardNewsHead" class="mb-0">${articleOne.title}</h5>
      </div>
      	<h6 id="cardNewsbody">${articleOne.content}</h6>
      	<hr class="dark horizontal my-0">

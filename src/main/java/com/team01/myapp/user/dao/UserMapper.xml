@@ -4,21 +4,29 @@
 
 <mapper namespace="com.team01.myapp.user.dao.IUserRepository">
 
-	<select id="selectUser" parameterType="string" resultType="com.team01.myapp.user.User">
+	<select id="selectUser" parameterType="string" resultType="com.team01.myapp.user.model.User">
 	<![CDATA[
 		SELECT 
-			u_id as "userId",
-			u_name as "userName",
-			major,
-			grade,
-			phone,
-			u_type as "userType",
-			password,
-			email,
-			subject_id as "subjectId" 
-		FROM 
-			users 
-		WHERE u_id=#{userid}
+		     u.u_id as "userId",
+		     u_name as "userName",
+		     major,
+		     grade,
+		     phone,
+		     u_type as "userType",
+		     password,
+		     email,
+		     u.subject_id as "subjectId", 
+		     s.subject_name as "subjectName",
+		     f.u_file_id as "userFileId",
+		     f.u_file_name as "userFileName",
+		     f.u_file_size as "userFileSize",
+		     f.u_file_content_type as "userFileContentType" 
+		     
+		  FROM 
+			subject s
+		     , users u LEFT OUTER JOIN u_file f
+				    ON u.u_id =f.u_id
+		  WHERE u.u_id = #{userId} and u.subject_id = s.subject_id 
 	]]>
 	</select>
 	
@@ -31,6 +39,33 @@
 		WHERE u_id=#{userid}
 	]]>
 	</select>
+	
+	<!--학생 정보 수정-->
+	<update id="updateUser"
+		parameterType="com.team01.myapp.admin.model.User">
+	<![CDATA[
+		UPDATE 
+			users
+		SET 
+			u_name=#{userName}, grade=#{grade}, password=#{password},
+			EMAIL=#{email}, phone=#{phone}
+		WHERE 
+			u_id=#{userId}
+	]]>
+	</update>
+
+	<update id="updateFileData"
+		parameterType="com.team01.myapp.admin.model.UserUploadFile">
+	<![CDATA[
+		UPDATE 
+			u_file
+		SET 
+			u_file_name=#{userFileName}, u_file_size=#{userFileSize},
+			u_file_content_type=#{userFileContentType},u_file_data=#{userFileData}			
+		WHERE 
+			u_id=#{userId}
+	]]>
+	</update>
 	
 	
 </mapper>

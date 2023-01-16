@@ -27,21 +27,16 @@
 		}
 		
 		.wrapper .profile{
-		  margin-bottom: 30px;
+		  margin: 30px;
 		  text-align: center;
 		}
 		
 		.wrapper .profile img{
 		  display: block;
-		  width: 150px;
-		  height: 150px;
+		  width: 120px;
+		  height: 120px;
 		  border-radius: 50%;
-		  margin: 0 auto;
 		}
-		
-		
-		
-		
 		
 		.wrapper .sidebar ul li a{
 		  display: block;
@@ -87,11 +82,11 @@
 		  background: #0f3443;
 		  height: 50px;
 		  position: fixed;
-		  top:120px;
+		  top:135px;
 		  border-bottom-right-radius:10px;
 		  align-items: center;
 		  padding: 0 20px;
-		  z-index:10;
+		  z-index:7;
 		
 		 
 		}
@@ -127,20 +122,19 @@
 		  padding: 0;
 		}
 		.welcome {
-			height: 200px;
+			height: 300px;
 			width:100%;
-			background: #0f3443;  /* fallback for old browsers */
-			background: -webkit-linear-gradient(to left, #34e89e,#0f3443);  /* Chrome 10-25, Safari 5.1-6 */
-			background: linear-gradient(to left, #34e89e,#0f3443); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-			border-radius: 5px;
+			background: #0f3443; 
+			background: -webkit-linear-gradient(to left, #34e89e,#0f3443);
+			background: linear-gradient(to left, #34e89e,#0f3443); 
 			margin-top:120px;
 		}
 		.welcome1 {
 			height: 200px;
 			width:100%;
 			background: #0f3443;  /* fallback for old browsers */
-			background: -webkit-linear-gradient(to left, #34e89e,#0f3443);  /* Chrome 10-25, Safari 5.1-6 */
-			background: linear-gradient(to left, #34e89e,#0f3443); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+			background: -webkit-linear-gradient(to left, #49B1F2,#0f3443);  /* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to left, #49B1F2,#0f3443); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 			border-radius: 5px;
 			margin-top:120px;
 		}
@@ -206,25 +200,6 @@
 		  line-height: 28px;
 		}
 		
-		.welcome {
-			height: 200px;
-			width:100%;
-			background: #0f3443;  /* fallback for old browsers */
-			background: -webkit-linear-gradient(to left, #34e89e,#0f3443);  /* Chrome 10-25, Safari 5.1-6 */
-			background: linear-gradient(to left, #34e89e,#0f3443); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-			border-radius: 5px;
-			margin-top:120px;
-		}
-		
-		.welcome1 {
-			height: 200px;
-			width:100%;
-			background: #0f3443;  /* fallback for old browsers */
-			background: -webkit-linear-gradient(to left, #2ee0f7,#0f3443);  /* Chrome 10-25, Safari 5.1-6 */
-			background: linear-gradient(to left, #2ee0f7,#0f3443); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-			border-radius: 5px;
-			margin-top:120px;
-		}
 		.welcome h1, .welcome p {
 			color: white;
 		}

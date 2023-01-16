@@ -1,83 +1,35 @@
 <%@ page contentType="text/html; charset=utf-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!-- sidebar script -->
-  <script>
-   var hamburger = document.querySelector(".hamburger");
-		hamburger.addEventListener("click", function(){
-		document.querySelector(".main").classList.toggle("active");
-	})
-	
-	var dropdown = document.getElementsByClassName("dropdown-btn");
-	var i;
-	
-	for (i = 0; i < dropdown.length; i++) {
-	  dropdown[i].addEventListener("click", function() {
-	    
-	    var dropdownContent = this.nextElementSibling;
-	    if (dropdownContent.style.display === "block") {
-	      dropdownContent.style.display = "none";
-	    } else {
-	      dropdownContent.style.display = "block";
-	    }
-	  });
-	}
-  </script>
 <!-- FOOTER -->
-<footer class="footer" style="width:100%; position : relative;">
-    <div class="footer_container d-flex">
-            <div class="p-2">
-                <div class="col">
-                   
-                 </div>
-            </div>
-            
-            <div class="p-2">
-                <div class="col">
-                   <h5>[ Contact us ]</h5>
-                   <ul>
-                        <li>Phone: 010 1234 5678</li>
-                        <li>Email: <a href="mailto:xxx@yyy.com" title="Email Us">xxx@yyy.com</a></li>
-                        <li><a href="http://www.yourhost.com">http://www.yourhost.com</a></li>
-                   </ul>
-                 </div>
-            </div>
-            
-            <div class="p-2">
-                <div class="col">
-                    <h5>[ Mailing list ]</h5>
-                    <p>Sign up if you would like to receive</p>
-                    <form action='#' method="post" class="form-horizontal form-light">
-                        <div class="input-group">
-                            <input type="email" name="email" class="form-control" placeholder="Your email address..." required>
-                            <span class="input-group-btn">
-                                <input type="submit" class="btn btn-base" value="GO!">
-                            </span>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            
-            <div class="p-2">
-                <div class="col col-social-icons">
-                    <h5>[ Follow us ]</h5>
-                    <ul>
-                    	<li> <a href="#"><i class="fa fa-facebook"></i>페이스북 </a></li>
-	                    <li><a href="#"><i class="fa fa-google-plus"></i>구글 </a></li>
-	                    <li>  <a href="#"><i class="fa fa-linkedin"></i>링크드인 </a></li>
-	                    <li><a href="#"><i class="fa fa-twitter"></i>트위터 </a></li>
-                    </ul>
-                </div>
+<footer class="footer" style="width: 100%; position: relative; ">
+	<div class="footer_container d-flex justify-content-around align-items-center pt-2" style="background:#1c2326;">
+			<div class="p-2 " style="text-align:center">
+				<h6><FONT color="#f0f0f0">대학정보공시</FONT></h6>
 			</div>
-
-			<div class="p-2">
-                <div class="col">
-                    <h5>[ About us ]</h5>
-                    <p class="no-margin">
-                    Java developer specialist group community. It something special for your.
-                    <a href="<c:url value="/"/>" class="btn btn-block btn-base btn-icon fa-check"><span>Try it now</span></a>
-                    </p>
-                </div>
-            </div>
-        </div>
+			<p>|</p>
+			<div class=" p-2 " style="text-align:center">
+				<h6><FONT color="#f0f0f0">정보공개</FONT></h6>
+			</div>
+			<p>|</p>
+			<div class=" p-2 " style="text-align:center">
+				<h6><FONT color="#f0f0f0">개인정보처리방침</FONT></h6>
+			</div>
+			<p>|</p>
+			<div class=" p-2 " style="text-align:center">
+				<h6><FONT color="#f0f0f0">사이트맵</FONT></h6>
+			</div>
+	</div>
+	
+	<div class="footer_container ">
+		<div style="width:80%" class="d-flex justify-content-around align-items-center">
+			<div class="m-1">
+				<img id="name-content" style="width:150px;" src="<c:url value="/static/images/logoWhite.png"/>"/>
+			</div>
+			<div class="p-3 mt-2">
+				<p style="color:#949494;"><b>서울특별시 종로구 창경궁로 260 한국 대학교 T.02-1234-1234</b><br>
+				COPYIGHT BY KOREA UNIVERSITY ALL RIGHTS RESERVED.</p>
+			</div>
+		</div>
+	</div>
 </footer>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.team01.myapp.admin.model.Reports;
 import com.team01.myapp.board.model.Board;
 import com.team01.myapp.board.model.BoardComment;
 import com.team01.myapp.board.model.BoardUploadFile;
@@ -14,16 +15,20 @@ public interface IBoardRepository {
 	int selectMaxFileId();
 	int selectMaxReplyNo();
 	
+	//과목이름 가져오기
+	String selectSubjectName(int subjectId);
+	
 	//리스트 기능 
-	int selectTotalArticleCount();
-	List<Board> selectTotalArticleList(@Param("start")int start, @Param("end") int end);
+	int selectTotalArticleCount(int subjectId);
+	List<Board> selectTotalArticleList(@Param("start")int start, @Param("end") int end, @Param("subjectId") int subjectId);
 
-	int selectCategoryArticleCount(int categoryId);
-	List<Board> selectArticleListByCategory(@Param("categoryId") int categoryId, @Param("start") int start, @Param("end") int end);
+	//카테고리별 리스트 기능
+	int selectCategoryArticleCount(@Param("categoryId") int categoryId, @Param("subjectId") int subjectId);
+	List<Board> selectArticleListByCategory(@Param("categoryId") int categoryId, @Param("start") int start, @Param("end") int end, @Param("subjectId") int subjectId);
 	
 	//검색 리스트 기능
-	int selectSearchArticleCount(String keyword);
-	List<Board> selectSearchArticleList(@Param("keyword") String keyword, @Param("start") int start, @Param("end") int end);
+	int selectSearchArticleCount(@Param("keyword") String keyword, @Param("subjectId") int subjectId);
+	List<Board> selectSearchArticleList(@Param("keyword") String keyword, @Param("start") int start, @Param("end") int end, @Param("subjectId")int subjectId);
 	
 	//읽기 기능 
 	void updateReadCount(int boardId);
@@ -59,5 +64,8 @@ public interface IBoardRepository {
 	
 	//메인 미니뷰 기능 
 	List<Board> selectBoardMiniList();
+	
+	//댓글 신고 기능
+	void insertReportComment(Reports report);
 	
 }

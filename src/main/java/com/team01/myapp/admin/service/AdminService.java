@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.team01.myapp.admin.dao.IAdminRepository;
 import com.team01.myapp.admin.model.AttSumDailyVo;
 import com.team01.myapp.admin.model.AttSummaryVo;
+import com.team01.myapp.admin.model.Names;
+import com.team01.myapp.admin.model.Reports;
 import com.team01.myapp.admin.model.SubAttList;
 import com.team01.myapp.admin.model.SubAttendance;
 import com.team01.myapp.admin.model.User;
@@ -24,7 +26,6 @@ public class AdminService implements IAdminService {
 	@Autowired
 	IAdminRepository adminRepository;
 
-	// 1. select
 	// 과목별 학생 목록 조회
 	@Override
 	public Pager returnPage(String pageNo, Pager pager, int subjectId) {
@@ -57,14 +58,7 @@ public class AdminService implements IAdminService {
 		return adminRepository.selectFile(userFileId);
 	}
 
-	@Override
-	public void insertUserFile(UserUploadFile file) {
-		file.setUserId("000000001");
-		file.setUserFileId(adminRepository.selectMaxFileId() + 1);
-		adminRepository.insertUserFile(file);
-
-	}
-
+	// 학생 정보 수정
 	@Override
 	public void updateUser(User user) {
 		adminRepository.updateUser(user);
@@ -85,20 +79,14 @@ public class AdminService implements IAdminService {
 
 	}
 
+	// 휴가 목록 조회
 	@Override
-	public SubAttendance selectSubAttendanceDetail(int subAttNo) {
-		return adminRepository.selectSubAttendanceDetail(subAttNo);
-	}
-
-	@Override
-	public Pager SubAttendanceListPage(String pageNo, Pager pager, int resultNum) {
+	public Pager SubAttendanceListPage(String pageNo, int resultNum) {
 		// 전체 행수
 		int totalSubNum = adminRepository.selectTotalSubAttListByPNum(resultNum);
-		/*
-		 * if (pageNo == null) { pageNo = "1"; }
-		 */
+		// 현재 페이지
 		int pagerNo = Integer.parseInt(pageNo);
-		pager = new Pager(5, 5, totalSubNum, pagerNo);
+		Pager pager = new Pager(5, 5, totalSubNum, pagerNo);
 		return pager;
 	}
 
@@ -109,6 +97,13 @@ public class AdminService implements IAdminService {
 		return adminRepository.selectSubAttListbyRNum(start, end, resultNum);
 	}
 
+	// 휴가 상세 조회
+	@Override
+	public SubAttendance selectSubAttendanceDetail(int subAttNo) {
+		return adminRepository.selectSubAttendanceDetail(subAttNo);
+	}
+
+	// 휴가 처리
 	@Transactional
 	@Override
 	public void updateStatus(SubAttendance subAttendance, int result) {
@@ -123,10 +118,9 @@ public class AdminService implements IAdminService {
 		}
 		// 승인 거절 상관없이 업데이트
 		adminRepository.updateSubatt(result, subAttNo);
-
 	}
 
-	// 전체 출결용
+	// 전체 출결조회
 	@Override
 	public AttSummaryVo attsumMonthly(int subjectId) {
 		return adminRepository.selectAttSumMonthly(subjectId);
@@ -140,7 +134,7 @@ public class AdminService implements IAdminService {
 		return attSummaryVo;
 	}
 
-	// 개인 출결용
+	// 학생 월별 출결 조회
 	@Transactional
 	@Override
 	public List<AttSummaryVo> attsumMonthlyByuser(int subjectId) {
@@ -154,6 +148,8 @@ public class AdminService implements IAdminService {
 		}
 		return attSummaryList;
 	}
+
+	// 학생 일별 출결 조회
 	@Transactional
 	@Override
 	public List<AttSumDailyVo> attSumDailyByuser(int subjectId) {
@@ -161,22 +157,52 @@ public class AdminService implements IAdminService {
 		List<AttSumDailyVo> attSummaryList = new ArrayList<AttSumDailyVo>();
 		for (int userId : userIds) {
 			AttSumDailyVo attSumDailyVo = adminRepository.selectSumDailyByuser(userId);
-			if(attSumDailyVo!=null) {
+			if (attSumDailyVo != null) {
 				attSummaryList.add(attSumDailyVo);
-			}else {
-				String userName = adminRepository.selectUserName(userId);
+			} else {
+				Names names = adminRepository.selectNames(userId);
 				AttSumDailyVo attSumDailyVo1 = new AttSumDailyVo();
-				
-				attSumDailyVo1.setUserName(userName);
+				attSumDailyVo1.setUserName(names.getUserName());
+				attSumDailyVo1.setSubjectName(names.getSubjectName());
 				attSumDailyVo1.setAttTime("-");
 				attSumDailyVo1.setLeaveTime("-");
 				attSumDailyVo1.setStatus("미출근");
-				
+
 				attSummaryList.add(attSumDailyVo1);
 			}
-
 		}
 		return attSummaryList;
+	}
+
+	// 신고 목록 조회
+	@Override
+	public List<Reports> getReportList(int resultNum, Pager pager) {
+		int end = pager.getPageNo() * pager.getRowsPerPage();
+		int start = (pager.getPageNo() - 1) * pager.getRowsPerPage() + 1;
+		return adminRepository.selectTotalReportList(start, end, resultNum);
+	}
+
+	@Override
+	public Pager getReportListPage(String pageNo, int resultNum) {
+		// 전체 행수
+		int totalSubNum = adminRepository.selectTotalReportCountByPNum(resultNum);
+		// 현재 페이지
+		int pagerNo = Integer.parseInt(pageNo);
+		Pager pager = new Pager(5, 5, totalSubNum, pagerNo);
+		return pager;
+	}
+
+	@Override
+	public void updateReportStatus(int rpReportNo) {
+		adminRepository.updateReportStatus(rpReportNo);
+	}
+	
+	@Override
+	public void insertUserFile(UserUploadFile file) {
+		file.setUserId("000000001");
+		file.setUserFileId(adminRepository.selectMaxFileId() + 1);
+		adminRepository.insertUserFile(file);
+
 	}
 
 }

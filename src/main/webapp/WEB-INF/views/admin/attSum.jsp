@@ -43,8 +43,10 @@
                               <div
                                  class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                  <div
-                                    class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3"> <a href='<c:url value="/admin/attsummonthly/1"/>'>${attSumMonthly.subjectName} 월별 요약</a></h6>
+                                    class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-4 pl-3 text-white"
+                                    
+                                     onclick="location.href='<c:url value="/admin/attsummonthly/${subjectId}"/>'">
+                                    ${attSumMonthly.subjectName} 월별 요약
                                  </div>
                               </div>
                               <div class="card-body px-0 pb-2">
@@ -74,9 +76,10 @@
                            <div class="card my-4">
                               <div
                                  class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                 <div
-                                    class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3"><a href='<c:url value="/admin/attsumdaily/1"/>'>${attSumDaily.subjectName} 일별 요약</a></h6>
+                                  <div
+                                    class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-4 pl-3 text-white"
+                                     onclick="location.href='<c:url value="/admin/attsumdaily/${subjectId}"/>'">
+                                    ${attSumDaily.subjectName} 일별 요약
                                  </div>
                               </div>
                               <div class="card-body px-0 pb-2">

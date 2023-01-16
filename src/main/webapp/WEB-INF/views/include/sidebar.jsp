@@ -38,7 +38,7 @@
                  </c:if>
                 <li>
                 	<a href="#" type="button" class="dropdown-btn" >
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="icon"><i class="far fa-list-alt"></i></span>
                         <span class="item">강의게시판</span>
                         <i class="fa fa-caret-down"></i>
                     </a>
@@ -69,3 +69,6 @@
                 
             </ul>
         </div>
+        
+      <script type="text/javascript" src="<c:url value="/static/js/sidebar.js"/>"></script>
+        

@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login V3</title>
+	<title>한국대학교 로그인</title>
 	<meta charset="UTF-8">
 	<jsp:include page="/WEB-INF/views/include/colorlib.jsp" />
 </head>
@@ -18,7 +18,7 @@
 				
 				<form action="<c:url value='/user/login'/>" method="post" class="login100-form validate-form">
 					<span class="login100-form-logo">
-						<img  src="<c:url value='/images/logo1.png'/>" width="170px" >
+						<img  src="<c:url value='/images/logoOnly2.png'/>" width="150px" >
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
@@ -42,8 +42,6 @@
 							Login
 						</button>
 					</div>
-
-				
 				</form>
 			</div>
 		</div>

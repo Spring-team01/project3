@@ -26,16 +26,16 @@
 				<div class="mainview d-flex"></div>
 
 				 <div class="container-fluid" style="background-color:white; margin:50px; width:92%; min-height: 600px;">
-
+					<div class="container-fluid py-4">
 					<div class="card my-4">
 						<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-							<div class="bg-gradient-secondary shadow-primary border-radius-lg pt-4 pb-3">
+							<div class="bg-gradient-info shadow-primary border-radius-lg pt-4 pb-3">
 								<h6 class="text-white text-capitalize ps-3">학생 목록</h6>
 							</div>
 						</div>
 						<div class="card-body px-0 pb-2">
 							<div class="table-responsive p-0">
-								<table class="table align-items-center mb-0">
+								<table class="table align-items-center mb-0 table-hover">
 									<thead>
 										<tr>
 											<th class="text-center text-uppercase text-secondary text-sm font-weight-bolder opacity-7">학번</th>
@@ -48,24 +48,13 @@
 									</thead>
 									<tbody>
 										<c:forEach var="user" items="${userList}">
-											<tr>
-												
-												<td>
-													<h3 align="center" class="text-md font-weight-bold mb-0"><a style="color: black" href="<c:url value='/admin/userdetail/${user.userId}'/>" > ${user.userId}</a> </h3>
-												</td>
-												<td>
-													<h3 align="center" class="text-md font-weight-bold mb-0">${user.userName}</h3>
-													
-												</td>
-												<td>
-													<h3 align="center" class="text-md font-weight-bold mb-0">${user.major}</h3>
-												</td>
-												<td>
-													<h3 align="center" class="text-md font-weight-bold mb-0">${user.grade}</h3>
-												</td>
-												<td>
-													<h3 align="center" class="text-md font-weight-bold mb-0">${user.subjectName}</h3>
-												</td>
+											<tr onClick="location.href='<c:url value='/admin/userdetail/${user.userId}'/>'">
+												<td class="text-xs font-weight-bold mb-0 text-center">${user.userId} </td>
+												<td class="text-xs font-weight-bold mb-0 text-center">${user.userName} </td>
+												<td class="text-xs font-weight-bold mb-0 text-center">${user.major} </td>
+												<td class="text-xs font-weight-bold mb-0 text-center">${user.grade} </td>
+												<td class="text-xs font-weight-bold mb-0 text-center">${user.subjectName} </td>
+											
 											
 												
 											</tr>
@@ -96,11 +85,15 @@
 									<c:if test="${pager.groupNo < pager.totalGroupNo }">
 										<a href="${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
 									</c:if>
+									<c:if test="${pager.pageNo < pager.totalPageNo}">
 									<a href="${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+									</c:if>
+								
 								</div>
 								</div>	
 							</div>
 						</div>
+					</div>
 					</div>
 				</div>
 			</div>
