@@ -118,7 +118,8 @@
 											</div>
 
 										    <div class="mt-3">
-											    <button type="submit" class="btn btn-primary">확정</button>
+											    <button type="submit" class="btn btn-primary shadow">확정</button>
+											    <a type="button" href="<c:url value='/subattendance/1'/>" class="btn btn-primary shadow">뒤로</a>
 										    </div>
 										    
 										</div>
