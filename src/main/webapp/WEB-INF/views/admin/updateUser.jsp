@@ -38,7 +38,8 @@
 									<div class="col-6">
 										<div class="input-group">
 											<label class="label">학번</label> 
-											<input class="input--style-4" type="text" id="userId" name="userId" value="${user.userId}" readonly>
+											<input class="input--style-4" type="text" id="userId" name="userId" value="${user.userId}" 
+											style=" background-color:#E7E9EC;" readonly>
 										</div>
 									</div>
 									<div class="col-6">
@@ -55,14 +56,19 @@
 												<label class="label">학년</label>
 												<div
 													class="p-t-10 rs-select2 js-select-simple select--no-search">
-													<select id="grade" name="grade">
-														
-														<option value="1">1학년</option>
-														<option value="2">2학년</option>
-														<option value="3">3학년</option>
-														<option value="4">4학년</option>
-													</select>
-													<div class="select-dropdown"></div>
+													
+														<c:if test="${userType == 'ADMIN'}">
+														<select id="grade" name="grade">
+															<option value=1 <c:if test="${user.grade == 1}">selected </c:if>>1학년</option>
+															<option value=2 <c:if test="${user.grade == 2}">selected </c:if>>2학년</option>
+															<option value=3 <c:if test="${user.grade == 3}">selected</c:if>>3학년</option>
+															<option value=4 <c:if test="${user.grade == 4}">selected</c:if>>4학년</option>
+														</select>
+														<div class="select-dropdown"></div>
+														</c:if>
+														<c:if test="${userType == 'USER'}">
+														${user.grade}학년
+														</c:if>
 												</div>
 											</div>
 
@@ -74,13 +80,16 @@
 												<label class="label">과목</label>
 												<div class="p-t-10">
 													<label class="radio-container">c언어 <input
-														type="radio" checked="checked" value="1" name="subjectId"> <span
+														type="radio"  value="1" name="subjectId"
+														<c:if test="${user.subjectName == 'c언어'}">checked="checked"</c:if>> <span
 														class="checkmark"></span>
 													</label> <label class="radio-container" >python <input
-														type="radio" value="2" name="subjectId"> <span
+														type="radio" value="2" name="subjectId"
+														<c:if test="${user.subjectName == 'python'}">checked="checked"</c:if>> <span
 														class="checkmark"></span>
 													</label> <label class="radio-container">java <input
-														type="radio" value="3" name="subjectId"> <span
+														type="radio" value="3" name="subjectId"
+														<c:if test="${user.subjectName == 'java'}">checked="checked"</c:if>> <span
 														class="checkmark"></span>
 													</label>
 												</div>

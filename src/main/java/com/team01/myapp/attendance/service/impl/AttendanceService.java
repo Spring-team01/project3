@@ -95,5 +95,18 @@ public class AttendanceService implements IAttendanceService {
 	public String selectSubjectName(int subjectId) {
 		return AttendanceRepository.selectSubjectName(subjectId);
 	}
+
+	@Override
+	public void ex() {
+		// 출근 넣어주기
+		List<Attendance> list = AttendanceRepository.selectCheckOutAttNoSubjectId("20230116");
+		
+		System.out.println(list.get(0).getUserId());
+		
+		for(int i=0; i<list.size(); i++) {
+			AttendanceRepository.insertUser(list.get(i).getUserId(), list.get(i).getSubjectId());
+		}
+		
+	}
 	
 }

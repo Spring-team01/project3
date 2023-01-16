@@ -35,4 +35,6 @@ public interface IAttendanceRepository {
 	List<Attendance> selectCheck(String userId);
 	
 	String selectSubjectName(int subjectId);
+	
+	void insertUser(@Param("userId") String userId, @Param("subjectId") int subjectId);
 }
