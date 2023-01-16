@@ -22,9 +22,9 @@ public class BoardService implements IBoardService {
 	
 	//모든 페이지 페이징처리
 	@Override
-	public Pager returnPage(String pageNo, Pager pager) {
+	public Pager returnPage(String pageNo, Pager pager, int subjectId) {
 		// pager
-				int totalBoardNum = ((int)boardRepository.selectTotalArticleCount());
+				int totalBoardNum = ((int)boardRepository.selectTotalArticleCount(subjectId));
 				
 				if (pageNo == null) {
 					pageNo = "1";
@@ -36,9 +36,9 @@ public class BoardService implements IBoardService {
 	
 	//카테고리별 페이징처리 
 	@Override
-	public Pager returnCategoryPage(int categoryId, String pageNo, Pager pager) {
+	public Pager returnCategoryPage(int categoryId, String pageNo, Pager pager, int subjectId) {
 		// pager
-				int totalBoardNum = ((int)boardRepository.selectCategoryArticleCount(categoryId));
+				int totalBoardNum = ((int)boardRepository.selectCategoryArticleCount(categoryId, subjectId));
 				
 				if (pageNo == null) {
 					pageNo = "1";
@@ -50,10 +50,10 @@ public class BoardService implements IBoardService {
 	
 	//검색별 페이징 처리
 	@Override
-	public Pager returnSearchPage(String keyword, String pageNo, Pager pager) {
+	public Pager returnSearchPage(String keyword, String pageNo, Pager pager, int subjectId) {
 		//pager
 			String skeyword = "%"+keyword+"%";
-			int totalBoardNum = ((int)boardRepository.selectSearchArticleCount(skeyword));
+			int totalBoardNum = ((int)boardRepository.selectSearchArticleCount(skeyword, subjectId));
 			
 			if (pageNo == null) {
 				pageNo = "1";
@@ -65,28 +65,28 @@ public class BoardService implements IBoardService {
 	
 	//리스트 가져오기 
 	@Override
-	public List<Board> getTotalArticleList(Pager pager) {
+	public List<Board> getTotalArticleList(Pager pager, int subjectId) {
 		int end = pager.getPageNo() * pager.getRowsPerPage();
 		int start = (pager.getPageNo()-1)* pager.getRowsPerPage()+1;
 		
-		return boardRepository.selectTotalArticleList(start, end);
+		return boardRepository.selectTotalArticleList(start, end, subjectId);
 	}
 	
 
 	@Override
-	public List<Board> getArticleListByCategory(int categoryId, Pager pager) {
+	public List<Board> getArticleListByCategory(int categoryId, Pager pager, int subjectId) {
 		int end = pager.getPageNo() * pager.getRowsPerPage();
 		int start = (pager.getPageNo()-1)* pager.getRowsPerPage()+1;
 		
-		return boardRepository.selectArticleListByCategory(categoryId, start, end);
+		return boardRepository.selectArticleListByCategory(categoryId, start, end, subjectId);
 	}
 	@Override
-	public List<Board> getSearchArticleList(String keyword, Pager pager){
+	public List<Board> getSearchArticleList(String keyword, Pager pager, int subjectId){
 		String skeyword = "%"+keyword+"%";
 		int end = pager.getPageNo() * pager.getRowsPerPage();
 		int start = (pager.getPageNo()-1)* pager.getRowsPerPage()+1;
 		
-		return boardRepository.selectSearchArticleList(skeyword, start, end);
+		return boardRepository.selectSearchArticleList(skeyword, start, end, subjectId);
 	}
 
 	
@@ -209,6 +209,13 @@ public class BoardService implements IBoardService {
 	public void reportComment(Reports report) {
 		boardRepository.insertReportComment(report);
 	}
+
+	@Override
+	public String selectSubjectName(int subjectId) {
+		return boardRepository.selectSubjectName(subjectId);
+	}
+
+
 
 	 
 }

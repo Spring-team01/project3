@@ -436,10 +436,10 @@
 			select count(*) from reports
 		]]>
 			<if test="resultNum ==1">
-			where result != '미처리'
+			where rp_status != '미처리'
 			</if>
 			<if test="resultNum ==2">
-			where result = '미처리'
+			where rp_status = '미처리'
 			</if>
 	</select>
 	
@@ -453,6 +453,7 @@
 		    RP_COMMENT_NO AS "rpCommentNo",
 		    RP_MASTER_NO AS "rpMasterNo",
 		    RP_STATUS AS "rpStatus",
+		    RP_TARGET AS "rpTarget",
 		    RP_TYPE AS "rpType",
 		    USER_ID AS "userId",
 		    RP_WRITE_DATE AS "rpWriteDate"
@@ -463,6 +464,7 @@
 		            RP_BOARD_ID,
 		            RP_CONTENT,
 		            RP_COMMENT_NO,
+		            RP_TARGET,
 		            RP_MASTER_NO,
 		            RP_STATUS,
 		            RP_TYPE,
@@ -475,6 +477,7 @@
 		            RP_COMMENT_NO,
 		            RP_MASTER_NO,
 		            RP_STATUS,
+		            RP_TARGET,
 		            RP_TYPE,
 		            USER_ID,
 		            RP_WRITE_DATE 
@@ -486,6 +489,7 @@
 		                        RP_COMMENT_NO,
 		                        RP_MASTER_NO,
 		                        RP_STATUS,
+		                        RP_TARGET,
 		                        RP_TYPE,
 		                        USER_ID,
 		                        RP_WRITE_DATE 
@@ -493,11 +497,11 @@
 		                    from reports
 		                    ]]>
 				            <if test="resultNum == 1">
-				            and  RP_STATUS != '미처리'
+				           	where  RP_STATUS != '미처리'
 				            </if>
 				            
 				            <if test="resultNum == 2">
-				            and  RP_STATUS ='미처리'
+				            where  RP_STATUS ='미처리'
 				            </if>
 						            
 					<![CDATA[        
@@ -509,4 +513,15 @@
 					        where rnum >= #{start}
 					]]>
 			</select>
+			<update id="updateReportStatus" parameterType="int">
+			<![CDATA[
+				UPDATE 
+					REPORTS
+				SET 
+					RP_STATUS='처리'
+				WHERE 
+					RP_REPORT_NO=#{rpReportNo}
+			]]>
+			</update>
+			
 </mapper>

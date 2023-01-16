@@ -15,16 +15,20 @@ public interface IBoardRepository {
 	int selectMaxFileId();
 	int selectMaxReplyNo();
 	
+	//과목이름 가져오기
+	String selectSubjectName(int subjectId);
+	
 	//리스트 기능 
-	int selectTotalArticleCount();
-	List<Board> selectTotalArticleList(@Param("start")int start, @Param("end") int end);
+	int selectTotalArticleCount(int subjectId);
+	List<Board> selectTotalArticleList(@Param("start")int start, @Param("end") int end, @Param("subjectId") int subjectId);
 
-	int selectCategoryArticleCount(int categoryId);
-	List<Board> selectArticleListByCategory(@Param("categoryId") int categoryId, @Param("start") int start, @Param("end") int end);
+	//카테고리별 리스트 기능
+	int selectCategoryArticleCount(@Param("categoryId") int categoryId, @Param("subjectId") int subjectId);
+	List<Board> selectArticleListByCategory(@Param("categoryId") int categoryId, @Param("start") int start, @Param("end") int end, @Param("subjectId") int subjectId);
 	
 	//검색 리스트 기능
-	int selectSearchArticleCount(String keyword);
-	List<Board> selectSearchArticleList(@Param("keyword") String keyword, @Param("start") int start, @Param("end") int end);
+	int selectSearchArticleCount(@Param("keyword") String keyword, @Param("subjectId") int subjectId);
+	List<Board> selectSearchArticleList(@Param("keyword") String keyword, @Param("start") int start, @Param("end") int end, @Param("subjectId")int subjectId);
 	
 	//읽기 기능 
 	void updateReadCount(int boardId);

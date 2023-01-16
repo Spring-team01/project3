@@ -239,13 +239,13 @@ public class AdminController {
 		return "admin/attSumDaily";
 	}
 	// 신고 목록 조회
-	@RequestMapping("/admin/report/list/{pageNo}")
+	@RequestMapping("/admin/reportlist/{pageNo}")
 	public String reportList(@PathVariable String pageNo,
 			@RequestParam(value = "resultNumber", required = false, defaultValue = "0") String resultNumber,
 			Model model, Pager pager) {
 		int resultNum = Integer.parseInt(resultNumber);
 		//1. 페이징 객체 만들기
-		pager = adminService.getReprtListPage(pageNo,resultNum);
+		pager = adminService.getReportListPage(pageNo,resultNum);
 		
 		//2. 페이지 리스트 만들기
 		List<Reports> reportList = adminService.getReportList(resultNum, pager);
@@ -254,6 +254,9 @@ public class AdminController {
 		model.addAttribute("resultNumber", resultNumber);
 		return "admin/reportList";
 	}
-	
+	@RequestMapping("/admin/report/update/{rpReportNo}")
+	public void updateReport(@PathVariable int rpReportNo, Model model) {
+		adminService.updateReportStatus(rpReportNo);
+	}
 
 }

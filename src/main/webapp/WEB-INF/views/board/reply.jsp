@@ -11,11 +11,12 @@
 
 function reportNestedComment(i,j,k){
 	let repoortContent = $("#reportNestedContent"+i).val();
+	let rpTarget =$("#rpTarget"+i).val();
 	console.log(i);
 	$.ajax({
 		 type : 'POST',
          url : "/myapp/board/comment/report",
-         data : {rpBoardId: j,rpCommentNo: i, rpContent: repoortContent, rpMasterNo: k, rpType: '대댓글'},
+         data : {rpBoardId: j,rpCommentNo: i, rpContent: repoortContent, rpMasterNo: k, rpType: '대댓글', rpTarget: rpTarget},
          error : function() {
             alert('통신실패!');
          },
@@ -56,6 +57,7 @@ function reportNestedComment(i,j,k){
 					</div>
 					<div class="d-flex">
 						<div style="text-align: left">
+						<input type="hidden" id="rpTarget${reply.bcReplyNo}" value="${reply.bcContent}">
 						${reply.bcContent}
 						</div>
 						

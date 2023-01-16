@@ -185,13 +185,18 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
-	public Pager getReprtListPage(String pageNo, int resultNum) {
+	public Pager getReportListPage(String pageNo, int resultNum) {
 		// 전체 행수
 		int totalSubNum = adminRepository.selectTotalReportCountByPNum(resultNum);
 		//현재 페이지 
 		int pagerNo = Integer.parseInt(pageNo);
 		Pager pager = new Pager(5, 5, totalSubNum, pagerNo);
 		return pager;
+	}
+
+	@Override
+	public void updateReportStatus(int rpReportNo) {
+		adminRepository.updateReportStatus(rpReportNo);
 	}
 
 }

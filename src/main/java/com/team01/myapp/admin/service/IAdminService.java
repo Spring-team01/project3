@@ -30,5 +30,6 @@ public interface IAdminService {
 	List<AttSumDailyVo> attSumDailyByuser(int subjectId);
 	
 	List<Reports> getReportList(int resultNum, Pager pager);
-	Pager getReprtListPage(String pageNo, int resultNum);
+	Pager getReportListPage(String pageNo, int resultNum);
+	void updateReportStatus(int rpReportNo);
 }
