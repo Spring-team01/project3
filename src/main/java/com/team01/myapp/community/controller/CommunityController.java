@@ -3,10 +3,8 @@ package com.team01.myapp.community.controller;
 import java.nio.charset.Charset;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
@@ -27,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team01.myapp.admin.model.Reports;
 import com.team01.myapp.community.model.Community;
 import com.team01.myapp.community.model.CommunityComment;
 import com.team01.myapp.community.model.CommunityFile;
@@ -58,7 +57,7 @@ public class CommunityController {
 			community.setUsersId((String) session.getAttribute("userId"));
 			community.setUserName((String) session.getAttribute("userName"));
 			community.setCommunityEmail((String) session.getAttribute("email"));
-			
+
 			System.out.println(community.toString());
 			// 카테고리 아이디 임시로 1
 			community.setCommunityCategoryId(1);
@@ -86,7 +85,7 @@ public class CommunityController {
 
 	@RequestMapping(value = "/community/communityList/{categoryId}/{pageNo}", method = RequestMethod.GET)
 	public String getCommunityListByCategory(@PathVariable int categoryId, @PathVariable String pageNo, Model model,
-		Pager pager, HttpSession session, Community community) {
+			Pager pager, HttpSession session, Community community) {
 		pager = communityService.returnPage(pageNo, pager);
 		community.setUserName((String) session.getAttribute("userName"));
 		List<Community> communityList = communityService.getCommunityListByCategory(categoryId, pager);
@@ -103,11 +102,10 @@ public class CommunityController {
 		Community community = communityService.readCommunityDetail(communityBoardId);
 		community.setUserName((String) session.getAttribute("userName"));
 		List<CommunityComment> commentList = communityService.getCommunityComment(communityBoardId);
-		
+
 		String content = community.getCommunityContent().replace("<br>", "\r\n");
 		community.setCommunityContent(content);
-		
-		
+
 		model.addAttribute("community", community);
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("sessionUserId", (String) session.getAttribute("userId"));
@@ -191,7 +189,7 @@ public class CommunityController {
 			community.setUsersId((String) session.getAttribute("userId"));
 			community.setUserName((String) session.getAttribute("userName"));
 			String dbpw = communityService.getPassword(community.getCommunityBoardId());
-			
+
 			if (dbpw.equals(community.getCommunityPassword())) {
 				communityService.deleteCommunity(community.getCommunityBoardId());
 				return "redirect:/community/communityList/1/1";
@@ -206,11 +204,8 @@ public class CommunityController {
 			return "redirect:/community/communityList/1/1";
 		}
 	}
-	
-	
-	
-	
-	@RequestMapping(value="/community/search/{pageNo}")
+
+	@RequestMapping(value = "/community/search/{pageNo}")
 	public String search(@RequestParam(required = false, defaultValue = "") String keyword, @PathVariable String pageNo,
 			Pager pager, HttpSession session, Model model, Community community) {
 		try {
@@ -233,145 +228,93 @@ public class CommunityController {
 
 	// 댓글 작성
 	@RequestMapping(value = "/community/reply/comment", method = RequestMethod.POST)
-	public String writeCommunityReply(CommunityComment comment, BindingResult result, RedirectAttributes redirectAttrs, HttpSession session, Community community) {
+	public String writeCommunityReply(CommunityComment comment, BindingResult result, RedirectAttributes redirectAttrs,
+			HttpSession session, Community community) {
 		comment.setUserId((String) session.getAttribute("userId"));
 		communityService.writeCommunityReply(comment);
-		
+
 		return "redirect:/community/communityDetail/" + (community.getCommunityBoardId());
 	}
-	//댓글 삭제
-	@RequestMapping(value="/community/reply/delete", method=RequestMethod.POST)
+
+	// 댓글 삭제
+	@RequestMapping(value = "/community/reply/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteCommunityReply(CommunityComment comment) {
 		communityService.deleteCommunityReply(comment);
 		return "1";
 	}
-	
-	
-	
-	//대댓글 조회하기
-	@RequestMapping(value="/community/getreplycomment", method=RequestMethod.GET)
-	public String getReplyCommnet(@RequestParam int communityCommentMasterNumber, @RequestParam int communityBoardId, Model model, HttpSession session) {
-		
-		List<CommunityComment> replyCommentList= communityService.getReplyCommentList(communityCommentMasterNumber, 
-												communityBoardId);
-				
+
+	// 대댓글 조회하기
+	@RequestMapping(value = "/community/getreplycomment", method = RequestMethod.GET)
+	public String getReplyCommnet(@RequestParam int communityCommentMasterNumber, @RequestParam int communityBoardId,
+			Model model, HttpSession session) {
+
+		List<CommunityComment> replyCommentList = communityService.getReplyCommentList(communityCommentMasterNumber,
+				communityBoardId);
+
 		model.addAttribute("replyCommentList", replyCommentList);
 		model.addAttribute("communityCommentMasterNumber", communityCommentMasterNumber);
 		return "community/communityReply";
 	}
-	
-	//대댓글 작성하기
-	@RequestMapping(value="/community/writereplycomment", method=RequestMethod.POST)
+
+	// 대댓글 작성하기
+	@RequestMapping(value = "/community/writereplycomment", method = RequestMethod.POST)
 	@ResponseBody
 	public String writeReplyComment(CommunityComment comment, HttpSession session) {
 		communityService.insertReplyCommunityComment(comment);
 		return "1";
 	}
-	
-	//대댓글 삭제하기
-	@RequestMapping(value="/community/replycomment/delete", method=RequestMethod.POST)
+
+	// 대댓글 삭제하기
+	@RequestMapping(value = "/community/replycomment/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteCommunityReReply(CommunityComment comment) {
 		communityService.deleteCommunityReReplyComment(comment);
 		return "1";
 	}
-	
-	
-	
-	
-	
+
 	// Home View
 	@RequestMapping(value = "/community/communityMiniView")
 	public String example(HttpSession session, Community community, Model model) {
-		
+
 		community.setUserName((String) session.getAttribute("userName"));
 		List<Community> communityListTab1 = communityService.readCountListByCategory(1);
 		List<Community> communityListTab2 = communityService.getCommunityListByTabNo2(1);
 		List<Community> communityListTab3 = communityService.getCommunityListByTabNo3(1);
-		
-		
+
 		model.addAttribute("sessionUserId", (String) session.getAttribute("userId"));
 		model.addAttribute("communityListTab1", communityListTab1);
 		model.addAttribute("communityListTab2", communityListTab2);
 		model.addAttribute("communityListTab3", communityListTab3);
-		
+
 		return "community/communityMiniView";
 	}
-	
-	
-	
-	
-	
-	
-	/*
-	@RequestMapping(value="/community/toastui", method = RequestMethod.GET)
-	public String toastUi(Community community) {
-		return "community/toastUi";
-	}
-	
-	@RequestMapping(value="/community/toastui/write", method = RequestMethod.POST)
-	public String toastUiWrite(Community community, Model model, HttpSession session, RedirectAttributes redirectAttrs) {
-	try {
-		community.setUsersId((String) session.getAttribute("userId"));
-		community.setUserName((String) session.getAttribute("userName"));
-		community.setCommunityEmail((String) session.getAttribute("email"));
-		
-		MultipartFile mfile = community.getFile();
-		
-		if (mfile != null && !mfile.isEmpty()) {
-			CommunityFile file = new CommunityFile();
-			file.setCommunityFileName(mfile.getOriginalFilename());
-			file.setCommunityFileSize(mfile.getSize());
-			file.setCommunityFileContentType(mfile.getContentType());
-			file.setCommunityFileData(mfile.getBytes());
-			communityService.writeCommunity(community, file);
 
-		} else {
-			communityService.writeCommunity(community);
-		}
+	// 댓글 신고 기능
+	@RequestMapping("/community/comment/report")
+	public @ResponseBody String reportComment(CommunityComment comment, BindingResult result, HttpSession session) {
+		comment.setUserId((String) session.getAttribute("userId"));
+		communityService.reportComment(comment);
 
-	} catch (Exception e) {
-		e.printStackTrace();
-		redirectAttrs.addFlashAttribute("message", e.getMessage());
+		return "1";
 	}
-		
-		model.addAttribute("community", community);
-		
-		return "community/toastUiViewer";
+
+	// 댓글 삭제
+	@RequestMapping(value = "/community/admin/reply/delete/{rpCommentNo}", method = RequestMethod.GET)
+	@ResponseBody
+	public String adminDeleteCommunityReply(@PathVariable int rpCommentNo) {
+		CommunityComment comment = communityService.getComment(rpCommentNo);
+		communityService.deleteCommunityReply(comment);
+		return "1";
 	}
-	
-	@RequestMapping(value="/community/toastui/view", method = RequestMethod.GET)
-	public String toastUiView(Community community, Model model) {
-		System.out.println(community.toString());
+
+	// 대댓글 삭제하기
+	@RequestMapping(value = "/community/admin/replycomment/delete/{rpCommentNo}", method = RequestMethod.GET)
+	@ResponseBody
+	public String adminDeleteCommunityReReply(@PathVariable int rpCommentNo) {
 		
-		model.addAttribute("community", community);
-		
-		return "community/toastUiViewer";
+		CommunityComment comment = communityService.getComment(rpCommentNo);
+		communityService.deleteCommunityReReplyComment(comment);
+		return "1";
 	}
-	@RequestMapping(value="/community/toastui/view/{communityBoardId}", method = RequestMethod.GET)
-	public String toastUiView(@PathVariable int communityBoardId ,Community community, Model model, HttpSession session) {
-		community = communityService.readCommunityDetail(communityBoardId);
-		community.setUserName((String) session.getAttribute("userName"));
-		List<CommunityComment> commentList = communityService.getCommunityComment(communityBoardId);
-		
-		String content = community.getCommunityContent().replace("<br>", "\r\n");
-		community.setCommunityContent(content);
-		
-		
-		model.addAttribute("community", community);
-		model.addAttribute("commentList", commentList);
-		model.addAttribute("sessionUserId", (String) session.getAttribute("userId"));
-		
-		
-		model.addAttribute("community", community);
-		
-		return "community/toastUiViewer";
-	}
-*/
-	
-	
-	
-	
-	
 }

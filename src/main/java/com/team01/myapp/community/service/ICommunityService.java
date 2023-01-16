@@ -45,5 +45,9 @@ public interface ICommunityService {
 	List<Community> getCommunityListByTabNo2(int categoryId);
 	List<Community> getCommunityListByTabNo3(int categoryId);
 	
+	//댓글 신고 기능
+	void reportComment(CommunityComment comment);
 	
+	//댓글 조회
+	CommunityComment getComment(int rpCommentNo);
 }

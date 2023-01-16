@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.team01.myapp.admin.model.Reports;
 import com.team01.myapp.community.dao.ICommunityRepository;
 import com.team01.myapp.community.model.Community;
 import com.team01.myapp.community.model.CommunityComment;
@@ -195,9 +197,32 @@ public class CommunityService implements ICommunityService {
 	}
 	
 	
-	
+	@Override
+	public void reportComment(CommunityComment comment) {
+		int communityCommentNo = comment.getCommunityCommentNo();
+		CommunityComment searchComment =communityRepository.getCommentForReport(communityCommentNo);
+		//신고자, 신고 내용 넣기.
+		searchComment.setRpContent(comment.getCommunityCommentContent());
+		searchComment.setUserId(comment.getUserId());
+		searchComment.setCommunityCommentNo(communityCommentNo);
+		
+		if((int)searchComment.getCommunityCommentReplyNumber()>0) {
+			searchComment.setRpType("C대댓글");
+		} else {
+			searchComment.setRpType("C댓글");
+		}
+		
+		
+		
+		communityRepository.insertReportComment(searchComment);
+		
+	}
 
-	
+	@Override
+	public CommunityComment getComment(int rpCommentNo) {
+		
+		return communityRepository.getCommentForReport(rpCommentNo);
+	}
 	
 	
 	
