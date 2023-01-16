@@ -27,4 +27,6 @@ public interface IAttendanceService {
 	List<Attendance> selectCheck(String userId);
 	
 	String selectSubjectName(int subjectId);
+	
+	void ex();
 }

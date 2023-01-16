@@ -36,5 +36,10 @@ public class AttendanceScheduler {
 		
 		attendanceService.checkOut2(today);
 	}
+	
+//	@Scheduled(cron = "* * * * * *")
+//	public void ex() {
+//		attendanceService.ex();
+//	}
 
 }
