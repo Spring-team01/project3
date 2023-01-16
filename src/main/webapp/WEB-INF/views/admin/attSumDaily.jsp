@@ -47,7 +47,7 @@
                                     <table
                                        class="table align-items-center justify-content-center mb-0 text-center" >
                                        <thead>
-                                          <tr>
+                                          <tr class="table-dark">
                                              <td>이름</td>
                                              <td>IN</td>
                                              <td>OUT</td>
@@ -66,7 +66,13 @@
                                              	<c:if test="${empty sumDailyVo.leaveTime}">-</c:if>
                                              	${sumDailyVo.leaveTime}
                                              </td>
-                                             <td>${sumDailyVo.status}</td>
+                                            	 <c:choose>
+													<c:when test="${sumDailyVo.status eq '출근'}"><td class="text-success">${sumDailyVo.status}</td></c:when>
+													<c:when test="${sumDailyVo.status eq '결근'}"><td class="text-danger">${sumDailyVo.status}</td></c:when>
+													<c:when test="${sumDailyVo.status eq '지각'}"><td class="text-warning">${sumDailyVo.status}</td></c:when>
+													<c:when test="${sumDailyVo.status eq '휴가'}"><td class="text-info">${sumDailyVo.status}</td></c:when>
+													<c:when test="${sumDailyVo.status eq '미출근'}"><td class="text-dark">${sumDailyVo.status}</td></c:when>
+												</c:choose>
 
                                           </tr>
                                           </c:forEach>

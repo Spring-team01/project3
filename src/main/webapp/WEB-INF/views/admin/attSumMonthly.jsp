@@ -60,9 +60,10 @@
                                        <c:forEach var="sumMonthlyVo" items="${sumMonthlyVo}">
                                           <tr>
                                              <td>${sumMonthlyVo.userName}</td>
-                                             <td>${sumMonthlyVo.lateSum}</td>
-                                             <td>${sumMonthlyVo.absenceSum}</td>
-                                             <td>${sumMonthlyVo.leaveSum}</td>
+                                            
+                                             <td  <c:if test="${sumMonthlyVo.lateSum>0}">class="text-warning font-weight-bold"</c:if>>${sumMonthlyVo.lateSum}회</td>
+                                             <td  <c:if test="${sumMonthlyVo.absenceSum>0}">class="text-danger font-weight-bold"</c:if>>${sumMonthlyVo.absenceSum}회</td>
+                                             <td  <c:if test="${sumMonthlyVo.leaveSum>0}">class="text-info font-weight-bold"</c:if>>${sumMonthlyVo.leaveSum}회</td>
                                           </tr>
 										</c:forEach>
                                        </tbody>

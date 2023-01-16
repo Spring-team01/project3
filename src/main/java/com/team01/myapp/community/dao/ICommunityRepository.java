@@ -53,4 +53,8 @@ public interface ICommunityRepository {
 	List<Community> getCommunityListByTabNo2(int categoryId);
 	List<Community> getCommunityListByTabNo3(int categoryId);
 	
+	//댓글 신고 기능
+	void insertReportComment(CommunityComment comment);
+	CommunityComment getCommentForReport(@Param("communityCommentNo")int communityCommentNo);
+	
 }

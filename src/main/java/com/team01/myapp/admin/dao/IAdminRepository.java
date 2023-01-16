@@ -60,9 +60,4 @@ public interface IAdminRepository {
 
 	void updateReportStatus(int rpReportNo);
 
-	//뭔지머르는 애들
-	void insertUserFile(UserUploadFile file);
-	void insertFileData(UserUploadFile file);
-	int selectMaxFileId();
-
 }
