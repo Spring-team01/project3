@@ -351,10 +351,12 @@
 		    BC_MASTER_NO AS "bcMasterNo",
 		    BC_CONTENT	AS "bcContent",
 		    BC_WRITE_DATE AS "bcWriteDate",
-		    u.U_FILE_ID AS "userFileId"
-		FROM u_file u, BOARD b LEFT OUTER JOIN B_COMMENT c 
-		    ON b.BOARD_ID=c.BOARD_ID 
-		WHERE b.BOARD_ID=#{boardId} AND BC_REPLY_STEP=0 and u.u_Id = c.u_id
+		    f.U_FILE_ID AS "userFileId",
+		    u.U_Name AS "userName"
+		FROM u_file f, users u, 
+		    BOARD b LEFT OUTER JOIN B_COMMENT c 
+		    ON b.BOARD_ID=c.BOARD_ID
+		WHERE f.u_Id = c.u_id and u.u_id = c.u_id and b.BOARD_ID=#{boardId}
 		ORDER BY BC_WRITE_DATE DESC
 	</select>
 	
@@ -376,10 +378,11 @@
 		    BC_MASTER_NO AS "bcMasterNo",
 		    BC_CONTENT	AS "bcContent",
 		    BC_WRITE_DATE AS "bcWriteDate",
-		    u.U_FILE_ID AS "userFileId"
-		FROM u_file u, BOARD b LEFT OUTER JOIN B_COMMENT c 
+		    f.U_FILE_ID AS "userFileId",
+		    u.U_NAME AS "userName"
+		FROM u_file f, users u, BOARD b LEFT OUTER JOIN B_COMMENT c 
 		    ON b.BOARD_ID=c.BOARD_ID 
-		WHERE c.BC_MASTER_NO=#{bcReplyNo} AND BC_REPLY_STEP=1 and u.u_Id = c.u_id
+		WHERE BC_REPLY_STEP=1 AND f.u_Id = c.u_id AND u.u_id = c.u_id AND c.BC_MASTER_NO=#{bcReplyNo}
 		ORDER BY BC_WRITE_DATE DESC
 	</select>
 	
