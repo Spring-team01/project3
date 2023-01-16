@@ -127,7 +127,7 @@
 		$.ajax({
 	         type : 'POST',
 	         url : "/myapp/board/comment/update",
-	         data : {replyId: i, bcContent: replyContent, },
+	         data : {replyId: i, bcContent: replyContent},
 	         error : function() {
 	            alert('통신실패!');
 	         }
@@ -165,7 +165,7 @@
 			},
 			success: function(data){
 				if(data==1){
-					alert("게시글이 삭제되었습니다 ")
+					alert("댓글이 삭제되었습니다 ")
 					location.reload();
 				}
 			}
@@ -194,11 +194,13 @@
 	/* 댓글 신고~ */
 	function reportComment(i,j){
 		let repoortContent = $("#reportContent"+i).val();
-		console.log(i);
+		let rpTarget=$("#bcContent"+i).val();
+		
+		console.log(rpTarget);
 		$.ajax({
 			 type : 'POST',
 	         url : "/myapp/board/comment/report",
-	         data : {rpBoardId: j,rpCommentNo: i, rpContent: repoortContent, rpMasterNo: i, rpType: '댓글'},
+	         data : {rpBoardId: j,rpCommentNo: i, rpContent: repoortContent, rpMasterNo: i, rpType: '댓글', rpTarget: rpTarget},
 	         error : function() {
 	            alert('통신실패!');
 	         },
@@ -321,7 +323,7 @@ ${message}
 														</div>
 														<div class="flex-fill mx-3 text-left">
 															<div class="fw-bold">${commentOne.userId}</div>
-															${commentOne.bcContent}
+															<input type="hidden" id="bcContent${commentOne.bcReplyNo}" value="${commentOne.bcContent}">${commentOne.bcContent}
 														</div>
 														<div class="ms-auto">
 															<div class="d-flex flex-column text-right">
@@ -407,8 +409,9 @@ ${message}
 							<c:if test="${sessionScope.userType =='ADMIN'}">
 								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
+
+								<!-- Button trigger modal -->
 								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#deleteFun"><fmt:message key="DELETE"/></button>
-								<%-- <a href='<c:url value="/board/admin/delete/${board.boardId}"/>'><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal"><fmt:message key="DELETE"/></button></a> --%>
 							</c:if>
 							
 							<!-- Modal -->
@@ -434,9 +437,6 @@ ${message}
 							
 						</div>
 					</div>  
-					
-					
-					
 					
 					<!-- Card end -->
 				</div>

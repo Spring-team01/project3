@@ -41,9 +41,12 @@ public class BoardController {
 	//모든 리스트 가져오기 
 	@RequestMapping(value="/boardlist/{pageNo}", method = RequestMethod.GET)
 	public String getListAll(@PathVariable String pageNo, HttpSession session, Model model, Pager pager) {
-		pager = boardService.returnPage(pageNo, pager);
+		int subjectId = (Integer) session.getAttribute("subjectId");
+		pager = boardService.returnPage(pageNo, pager, subjectId);
+		String subjectName = boardService.selectSubjectName(subjectId);
 		
-		List<Board> boardList = boardService.getTotalArticleList(pager);
+		List<Board> boardList = boardService.getTotalArticleList(pager, subjectId);
+		model.addAttribute("subjectName", subjectName);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pager",pager);
 		
@@ -54,9 +57,13 @@ public class BoardController {
 	@RequestMapping(value="/board/{categoryId}/{pageNo}",  method = RequestMethod.GET)
 	public String getListByCategory(@PathVariable int categoryId, @PathVariable String pageNo, HttpSession session, Model model, Pager pager) {
 		
-		pager = boardService.returnCategoryPage(categoryId, pageNo, pager);
+		int subjectId = (Integer) session.getAttribute("subjectId");
+		String subjectName = boardService.selectSubjectName(subjectId);
+
+		pager = boardService.returnCategoryPage(categoryId, pageNo, pager, subjectId);
+		List<Board> boardList = boardService.getArticleListByCategory(categoryId,pager, subjectId);
 		
-		List<Board> boardList = boardService.getArticleListByCategory(categoryId, pager);
+		model.addAttribute("subjectName", subjectName);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pager",pager);
 		
@@ -100,7 +107,7 @@ public class BoardController {
 
 	//쓰기 
 	@RequestMapping(value="/board/write/{categoryId}", method=RequestMethod.GET)
-	public String writeArticle(@PathVariable int categoryId, Model model) {
+	public String writeArticle(@PathVariable int categoryId, Model model ) {
 		model.addAttribute("categoryId", categoryId);
 		return "board/write";
 	}
@@ -116,6 +123,7 @@ public class BoardController {
 			content = content.replace("\n", "<br>");
 			board.setContent(Jsoup.clean(content, Whitelist.basic()));
 			
+			board.setSubjectId((Integer) session.getAttribute("subjectId")); 
 			board.setUserId((String) session.getAttribute("userId"));
 			board.setEmail((String) session.getAttribute("email"));
 			MultipartFile mfile = board.getFile();
@@ -204,15 +212,15 @@ public class BoardController {
 	
 	//관리자 삭제
 	@RequestMapping(value="/board/admin/delete/{boardId}", method=RequestMethod.GET)
-	public String deleteAdminArticle(@PathVariable int boardId, Model model) {
+	public @ResponseBody String deleteAdminArticle(@PathVariable int boardId, Model model) {
 		Board board =boardService.selectArticle(boardId);
 		try {
 			boardService.deleteArticle(board.getBoardId());
-			return "redirect:/board/"+board.getCategoryId()+"/1";
+			return "1";
 		}catch(Exception e) {
 			model.addAttribute("message", e.getMessage());
 			e.printStackTrace();
-			return "redirect:/board/"+board.getCategoryId()+"/1";
+			return "1";
 			
 		}
 	}
@@ -222,8 +230,13 @@ public class BoardController {
 	@RequestMapping("/board/search/{pageNo}")
 	public String search(@RequestParam(required=false, defaultValue="") String keyword, @PathVariable String pageNo, HttpSession session, Model model, Pager pager) {
 		try {
-			pager = boardService.returnSearchPage(keyword, pageNo, pager);
-			List<Board> boardList = boardService.getSearchArticleList(keyword, pager);
+			int subjectId = (Integer) session.getAttribute("subjectId");
+			String subjectName = boardService.selectSubjectName(subjectId);
+			
+			pager = boardService.returnSearchPage(keyword, pageNo, pager,subjectId);
+			List<Board> boardList = boardService.getSearchArticleList(keyword, pager, subjectId);
+			
+			model.addAttribute("subjectName", subjectName);
 			model.addAttribute("boardList", boardList);
 			model.addAttribute("pager", pager);
 			model.addAttribute("keyword", keyword);

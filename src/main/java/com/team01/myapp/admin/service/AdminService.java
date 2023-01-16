@@ -181,7 +181,7 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
-	public Pager getReprtListPage(String pageNo, int resultNum) {
+	public Pager getReportListPage(String pageNo, int resultNum) {
 		// 전체 행수
 		int totalSubNum = adminRepository.selectTotalReportCountByPNum(resultNum);
 		// 현재 페이지
@@ -191,10 +191,14 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
+	public void updateReportStatus(int rpReportNo) {
+		adminRepository.updateReportStatus(rpReportNo);
+
 	public void insertUserFile(UserUploadFile file) {
 		file.setUserId("000000001");
 		file.setUserFileId(adminRepository.selectMaxFileId() + 1);
 		adminRepository.insertUserFile(file);
+
 
 	}
 

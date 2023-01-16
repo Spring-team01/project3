@@ -18,6 +18,7 @@ public class Board {
 	private int readCount;
 	private String userId;
 	private int page;
+	private int subjectId;
 	
 	//file 게시판 입력양식에 file이 있다 spring에 multipartfile 임
 	private MultipartFile file;

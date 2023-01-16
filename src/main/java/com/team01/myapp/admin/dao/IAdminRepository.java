@@ -55,11 +55,14 @@ public interface IAdminRepository {
 
 	// 리포트 리스트 갯수 가져오기
 	int selectTotalReportCountByPNum(int resultNum);
-	List<Reports> selectTotalReportList(@Param("start") int start, @Param("end") int end,
-			@Param("resultNum") int resultNum);
-	
+
+	List<Reports> selectTotalReportList(@Param("start") int start, @Param("end") int end, @Param("resultNum") int resultNum);
+
+	void updateReportStatus(int rpReportNo);
+
 	//뭔지머르는 애들
 	void insertUserFile(UserUploadFile file);
 	void insertFileData(UserUploadFile file);
 	int selectMaxFileId();
+
 }
