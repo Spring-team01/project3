@@ -404,9 +404,10 @@ ${message}
 								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
 							</c:if>
-							<c:if test="${sessionScope.userType=='ADMIN'}">
+							<c:if test="${sessionScope.userType =='ADMIN'}">
 								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
+								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#deleteFun"><fmt:message key="DELETE"/></button>
 								<%-- <a href='<c:url value="/board/admin/delete/${board.boardId}"/>'><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal"><fmt:message key="DELETE"/></button></a> --%>
 							</c:if>
 							
