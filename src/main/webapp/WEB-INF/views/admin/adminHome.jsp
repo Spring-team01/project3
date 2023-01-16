@@ -116,7 +116,11 @@
 														<tbody>
 															<c:forEach var="reason" items="${subAttList}">
 																<tr>
-																	<td class="text-xs font-weight-bold mb-0 text-center">${reason.result}</td>
+																	<c:choose>
+																		<c:when test="${reason.result eq '승인'}"><td class="text-xs font-weight-bold mb-0 text-center text-info">${reason.result}</td></c:when>
+																		<c:when test="${reason.result eq '반려'}"><td class="text-xs font-weight-bold mb-0 text-center text-danger">${reason.result}</td></c:when>
+																		<c:when test="${reason.result eq '미처리'}"><td class="text-xs font-weight-bold mb-0 text-center text-dark">${reason.result}</td></c:when>
+																	</c:choose>
 																	<td class="text-xs font-weight-bold mb-0 text-center">${reason.subAttNo}</td>
 
 																	<td class="pc">

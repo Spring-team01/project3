@@ -238,7 +238,7 @@
 			result='승인'
 		</if>
 		<if test="result==2">
-			result='거절'
+			result='반려'
 		</if>
 		WHERE
 		sub_att_no=#{subAttNo}
@@ -555,36 +555,5 @@
 					RP_REPORT_NO=#{rpReportNo}
 			]]>
 			</update>
-			
-
-	<select id="selectMaxFileId" parameterType="int"
-		resultType="int">
-	<![CDATA[
-		SELECT
-			NVL(MAX(U_file_id),0) AS "userFileId"
-		FROM U_FILE
-	]]>
-	</select>
-
-	<insert id="insertUserFile"
-		parameterType="com.team01.myapp.admin.model.UserUploadFile">
-	<![CDATA[	
-		INSERT INTO
-		U_FILE
-			(U_FILE_ID, U_ID, U_FILE_NAME, U_FILE_SIZE, U_FILE_CONTENT_TYPE, U_FILE_DATA)
-		VALUES
-			(#{userFileId}, #{userId}, #{userFileName}, #{userFileSize}, #{userFileContentType}, #{userFileData})
-	]]>
-	</insert>
-	<insert id="insertFileData"
-		parameterType="com.team01.myapp.admin.model.UserUploadFile">
-	<![CDATA[	
-		INSERT INTO
-		u_file
-			(u_file_id, u_id, u_file_name, u_file_size, u_file_content_type, u_file_data)
-		VALUES
-			(SEQ_U_FILE_ID.nextval, #{userId}, #{userFileName}, #{userFileSize}, #{userFileContentType}, #{userFileData})
-	]]>
-	</insert>
 
 </mapper>
