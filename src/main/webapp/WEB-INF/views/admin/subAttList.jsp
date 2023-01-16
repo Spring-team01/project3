@@ -66,23 +66,28 @@
 					                    </tr>
 					                  </thead>
 					                  <tbody>
-										<c:forEach var="reason" items="${subAttList}">
-											<tr onClick="location.href='<c:url value="/admin/reasondetail/${reason.subAttNo}"/>'">
-												<td class="text-xs font-weight-bold mb-0 text-center">${reason.result}</td>
-												<td class="text-xs font-weight-bold mb-0 text-center">${reason.subAttNo}</td>
+										<c:forEach var="subatt" items="${subAttList}">
+											<tr onClick="location.href='<c:url value="/admin/subattdetail/${subatt.subAttNo}"/>'">
+											<c:choose>
+											<c:when test="${subatt.result eq '승인'}"><td class="text-xs font-weight-bold mb-0 text-center text-info">${subatt.result}</td></c:when>
+											<c:when test="${subatt.result eq '반려'}"><td class="text-xs font-weight-bold mb-0 text-center text-danger">${subatt.result}</td></c:when>
+											<c:when test="${subatt.result eq '미처리'}"><td class="text-xs font-weight-bold mb-0 text-center text-dark">${subatt.result}</td></c:when>
+											</c:choose>
+												
+												<td class="text-xs font-weight-bold mb-0 text-center">${subatt.subAttNo}</td>
 												
 												<td class="pc">
-													<p class="text-xs font-weight-bold mb-0 text-center">${reason.userName}</p>
-													<p class="text-xs font-weight-bold mb-0 text-center">${reason.userId}</p>
+													<p class="text-xs font-weight-bold mb-0 text-center">${subatt.userName}</p>
+													<p class="text-xs font-weight-bold mb-0 text-center">${subatt.userId}</p>
 												</td>
-												<td class="text-xs font-weight-bold mb-0 text-center">${reason.title}</td>
-												<td class="text-xs font-weight-bold mb-0 text-center">${reason.writeDate}</td>
+												<td class="text-xs font-weight-bold mb-0 text-center">${subatt.title}</td>
+												<td class="text-xs font-weight-bold mb-0 text-center">${subatt.writeDate}</td>
 												<td class="text-center">
 													<c:choose>
-													<c:when test="${reason.subStatus eq '조퇴'}"><span class="badge badge-sm bg-gradient-success">조퇴</span></c:when>
-													<c:when test="${reason.subStatus eq '공가'}"><span class="badge badge-sm bg-gradient-info">공가</span></c:when>
-													<c:when test="${reason.subStatus eq '외출'}"><span class="badge badge-sm bg-gradient-warning">외출</span></c:when>
-													<c:when test="${reason.subStatus eq '경조사'}"><span class="badge badge-sm bg-gradient-secondary">경조사</span></c:when>
+													<c:when test="${subatt.subStatus eq '조퇴'}"><span class="badge badge-sm bg-gradient-success">조퇴</span></c:when>
+													<c:when test="${subatt.subStatus eq '공가'}"><span class="badge badge-sm bg-gradient-info">공가</span></c:when>
+													<c:when test="${subatt.subStatus eq '외출'}"><span class="badge badge-sm bg-gradient-warning">외출</span></c:when>
+													<c:when test="${subatt.subStatus eq '경조사'}"><span class="badge badge-sm bg-gradient-secondary">경조사</span></c:when>
 													</c:choose>
 												</td>
 											</tr>

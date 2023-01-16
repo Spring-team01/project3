@@ -161,11 +161,11 @@ public class AdminController {
 	}
 
 	// 휴가 상세 조회
-	@RequestMapping(value = "/admin/reasondetail/{subAttNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/subattdetail/{subAttNo}", method = RequestMethod.GET)
 	public String getReason(@PathVariable int subAttNo, Model model) {
 		SubAttendance subAttendance = adminService.selectSubAttendanceDetail(subAttNo);
 		model.addAttribute("subAttendance", subAttendance);
-		return "admin/reasonDetail";
+		return "admin/subattDetail";
 	}
 
 	// 휴가 처리
@@ -239,33 +239,4 @@ public class AdminController {
 		session.invalidate();
 		return "user/login";
 	}
-
-	/*
-	 * @RequestMapping(value = "/admin/attendancestatus/month", method =
-	 * RequestMethod.GET) public String statusMonthlyList(Model model) { return
-	 * "admin/attendanceStatus";
-	 * 
-	 * }
-	 */
-
-	/*
-	 * @RequestMapping(value = "/admin/file", method = RequestMethod.POST) public
-	 * String insertFile(UserInsert userInsert, BindingResult result,
-	 * RedirectAttributes redirectAttrs, HttpSession session) { try { MultipartFile
-	 * mfile = userInsert.getFile(); UserUploadFile file = new UserUploadFile();
-	 * file.setUserFileName(mfile.getOriginalFilename());
-	 * file.setUserFileSize(mfile.getSize());
-	 * file.setUserFileContentType(mfile.getContentType());
-	 * file.setUserFileData(mfile.getBytes()); logger.info("/board/write : " +
-	 * file.toString());
-	 * 
-	 * adminService.insertUserFile(file); } catch (Exception e) {
-	 * e.printStackTrace(); }
-	 * 
-	 * return "admin/adminHome";
-	 * 
-	 * }
-	 */
-
-
 }

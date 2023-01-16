@@ -98,9 +98,11 @@
 						</tr>
 						<tr>
 							<td width="20%">승인 결과</td>
-							<td>
-								${subAttendance.result}
-							</td>
+						<c:choose>
+							<c:when test="${subAttendance.result eq '승인'}"><td class="text-info font-weight-bold">${subAttendance.result}</td></c:when>
+							<c:when test="${subAttendance.result eq '반려'}"><td class="text-danger font-weight-bold">${subAttendance.result}</td></c:when>
+							<c:when test="${subAttendance.result eq '미처리'}"><td class="text-dark font-weight-bold">${subAttendance.result}</td></c:when>
+						</c:choose>
 						</tr>	
 						<c:if test="${subAttendance.fileId != 0}">
 							<tr>

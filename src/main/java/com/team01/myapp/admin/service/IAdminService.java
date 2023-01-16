@@ -42,6 +42,5 @@ public interface IAdminService {
 	Pager getReportListPage(String pageNo, int resultNum);
 	void updateReportStatus(int rpReportNo);
 
-	void insertUserFile(UserUploadFile file);
 
 }
