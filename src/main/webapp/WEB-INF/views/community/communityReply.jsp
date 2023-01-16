@@ -146,7 +146,7 @@
 								<input type="hidden" id="communityCommentMasterNumber" name="communityCommentMasterNumber" value="${replyCommentList.communityCommentMasterNumber}">
 							</c:if>
 						</div>
-						<c:if test="${sessionScope.userId ne commentList.userId}">
+						<c:if test="${id ne commentList.userId}">
 							<div class="dropdown">
 								<img src='<c:url value="/images/threedots.svg"/>' class="dropbtn">
 								<div class="dropdown-content">
