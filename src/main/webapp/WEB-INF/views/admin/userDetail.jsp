@@ -154,16 +154,9 @@ body {
 					<div class="container emp-profile">
 						<form method="post">
 							<div class="row">
-								<div  class="col-md-4 align-self-center">
+								<div class="col-md-4 align-self-center">
 									<div class="profile-img ">
-										<c:if test="${!empty user.userFileName}">
-												<img src='<c:url value="/admin/userdetail/userfile/${user.userFileId}"/>'><br></c:if>
-												
-											
-											<c:if test="${empty user.userFileName}">
-												<img src="<c:url value="/images/default.png"/>">
-											</c:if>
-											
+										<img src='<c:url value="/admin/userdetail/userfile/${user.userFileId}"/>'><br>
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -184,65 +177,66 @@ body {
 										<div class="col-md-4">
 
 											<input type="button" class="profile-edit-btn"
-												onclick = "location.href = '<c:url value="/admin/update/${user.userId}"/>' " name="btnAddMore" value="Edit Profile" />
+												onclick="location.href = '<c:url value="/admin/update/${user.userId}"/>' "
+												name="btnAddMore" value="Edit Profile" />
 										</div>
 									</div>
 									<div class="row">
-								
-									<div class="tab-content profile-tab" id="myTabContent">
-										<div class="tab-pane fade show active" id="home"
-											role="tabpanel" aria-labelledby="home-tab">
-											<div class="row">
-												<div class="col-md-6">
-													<label>학번</label>
+
+										<div class="tab-content profile-tab" id="myTabContent">
+											<div class="tab-pane fade show active" id="home"
+												role="tabpanel" aria-labelledby="home-tab">
+												<div class="row">
+													<div class="col-md-6">
+														<label>학번</label>
+													</div>
+													<div class="col-md-6">
+														<p>${user.userId}</p>
+													</div>
 												</div>
-												<div class="col-md-6">
-													<p>${user.userId}</p>
+												<div class="row">
+													<div class="col-md-6">
+														<label>학년</label>
+													</div>
+													<div class="col-md-6">
+														<p>${user.grade}학년</p>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-6">
+														<label>Email</label>
+													</div>
+													<div class="col-md-6">
+														<p>${user.email}</p>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-6">
+														<label>Phone</label>
+													</div>
+													<div class="col-md-6">
+														<p>${user.phone}</p>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-6">
+														<label>수강과목</label>
+													</div>
+													<div class="col-md-6">
+														<p>${user.subjectName}</p>
+													</div>
 												</div>
 											</div>
-											<div class="row">
-												<div class="col-md-6">
-													<label>학년</label>
-												</div>
-												<div class="col-md-6">
-													<p>${user.grade}학년</p>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-6">
-													<label>Email</label>
-												</div>
-												<div class="col-md-6">
-													<p>${user.email}</p>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-6">
-													<label>Phone</label>
-												</div>
-												<div class="col-md-6">
-													<p>${user.phone}</p>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-6">
-													<label>수강과목</label>
-												</div>
-												<div class="col-md-6">
-													<p>${user.subjectName}</p>
-												</div>
-											</div>
+
 										</div>
-										
+
 									</div>
-								
-							</div>
 								</div>
 
 
 
 							</div>
-							
+
 						</form>
 					</div>
 				</div>

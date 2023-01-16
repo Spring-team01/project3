@@ -45,15 +45,38 @@ public class AdminController {
 	@Autowired
 	IAdminService adminService;
 
-	// 1. select
+	// 관리자 홈
+	@RequestMapping(value = "/admin/adminhome", method = RequestMethod.GET)
+	public String adminhome(Model model, Pager pager) {
+		List<AttSummaryVo> attSumDailyTotal = new ArrayList<AttSummaryVo>();
+		AttSummaryVo attSumDaily1 = adminService.attSumDaily(1);
+		AttSummaryVo attSumDaily2 = adminService.attSumDaily(2);
+		AttSummaryVo attSumDaily3 = adminService.attSumDaily(3);
+
+		attSumDailyTotal.add(attSumDaily1);
+		attSumDailyTotal.add(attSumDaily2);
+		attSumDailyTotal.add(attSumDaily3);
+
+		model.addAttribute("attSumDailyTotal", attSumDailyTotal);
+
+		pager = adminService.SubAttendanceListPage("1", 0);
+		List<SubAttList> subAttList = adminService.getSubAttListbyRNum(0, pager);
+		model.addAttribute("subAttList", subAttList);
+		
+		pager = adminService.getReprtListPage("1", 0);
+
+		List<Reports> reportList = adminService.getReportList(0, pager);
+		model.addAttribute("reportList", reportList);
+
+		return "admin/adminHome";
+	}
+
 	// 과목별 학생 목록 조회
 	@RequestMapping(value = "/admin/userlist/{subjectId}/{pageNo}", method = RequestMethod.GET)
 	public String getUserListBySubject(@PathVariable int subjectId, @PathVariable String pageNo, Model model,
-			Pager pager, HttpSession session) {
-		session.setAttribute("pageNo", pageNo);
+			Pager pager) {
 		pager = adminService.returnPage(pageNo, pager, subjectId);
 		List<UserList> userList = adminService.getUserListBySubject(subjectId, pager);
-
 		model.addAttribute("userList", userList);
 		model.addAttribute("pager", pager);
 		return "admin/userList";
@@ -67,12 +90,13 @@ public class AdminController {
 		return "admin/userDetail";
 	}
 
-	// 사진 조회
+	// 학생 사진 조회
 	@RequestMapping("/admin/userdetail/userfile/{userFileId}")
 	public ResponseEntity<byte[]> getuserFile(@PathVariable String userFileId) {
 		UserUploadFile file = adminService.getFile(userFileId);
 		logger.info("getFile" + file.toString());
-		if(file.getUserFileName() == null){
+		// 기본 이미지
+		if (file.getUserFileName() == null) {
 			file = adminService.getFile("2");
 		}
 		final HttpHeaders headers = new HttpHeaders();
@@ -83,7 +107,7 @@ public class AdminController {
 		return new ResponseEntity<byte[]>(file.getUserFileData(), headers, HttpStatus.OK);
 	}
 
-	// 2. update
+	// 학생 정보 수정
 	@RequestMapping(value = "/admin/update/{userId}", method = RequestMethod.GET)
 	public String updateUser(@PathVariable String userId, Model model) {
 		User user = adminService.getUser(userId);
@@ -91,8 +115,9 @@ public class AdminController {
 		return "admin/updateUser";
 	}
 
+	// 학생 정보 수정
 	@RequestMapping(value = "/admin/update", method = RequestMethod.POST)
-	public String updateUser(User user, BindingResult result, RedirectAttributes redirectAttrs, HttpSession session) {
+	public String updateUser(User user, BindingResult result, RedirectAttributes redirectAttrs) {
 		logger.info("/admin/update " + user.toString());
 		try {
 			user.setUserId(Jsoup.clean(user.getUserId(), Whitelist.basic()));
@@ -102,17 +127,13 @@ public class AdminController {
 			user.setPassword(Jsoup.clean(user.getPassword(), Whitelist.basic()));
 
 			MultipartFile mfile = user.getFile();
-			System.out.println(mfile.getOriginalFilename());
 
 			if (mfile != null && !mfile.isEmpty()) {
-				logger.info("/admin/update: " + mfile.getOriginalFilename());
 				UserUploadFile file = new UserUploadFile();
 				file.setUserFileName(mfile.getOriginalFilename());
 				file.setUserFileSize(mfile.getSize());
 				file.setUserFileContentType(mfile.getContentType());
 				file.setUserFileData(mfile.getBytes());
-				logger.info("/admin/update : " + file.toString());
-
 				adminService.updateUser(user, file);
 			} else {
 				adminService.updateUser(user);
@@ -139,60 +160,7 @@ public class AdminController {
 		return "admin/subAttList";
 	}
 
-	// 관리자 홈
-	@RequestMapping(value = "/admin/adminhome", method = RequestMethod.GET)
-	public String adminhome(Model model, Pager pager) {
-		List<AttSummaryVo> attSumDailyTotal = new ArrayList<AttSummaryVo>();
-		AttSummaryVo attSumDaily1 = adminService.attSumDaily(1);
-		AttSummaryVo attSumDaily2 = adminService.attSumDaily(2);
-		AttSummaryVo attSumDaily3 = adminService.attSumDaily(3);
-
-		attSumDailyTotal.add(attSumDaily1);
-		attSumDailyTotal.add(attSumDaily2);
-		attSumDailyTotal.add(attSumDaily3);
-
-		model.addAttribute("attSumDailyTotal", attSumDailyTotal);
-
-		pager = adminService.SubAttendanceListPage("1", 1);
-		List<SubAttList> subAttList = adminService.getSubAttListbyRNum(1, pager);
-		model.addAttribute("subAttList", subAttList);
-
-		return "admin/adminHome";
-	}
-
-	@RequestMapping(value = "/admin/file", method = RequestMethod.POST)
-	public String insertFile(UserInsert userInsert, BindingResult result, RedirectAttributes redirectAttrs,
-			HttpSession session) {
-		try {
-			MultipartFile mfile = userInsert.getFile();
-			UserUploadFile file = new UserUploadFile();
-			file.setUserFileName(mfile.getOriginalFilename());
-			file.setUserFileSize(mfile.getSize());
-			file.setUserFileContentType(mfile.getContentType());
-			file.setUserFileData(mfile.getBytes());
-			logger.info("/board/write : " + file.toString());
-
-			adminService.insertUserFile(file);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return "admin/adminHome";
-
-	}
-
-	@RequestMapping(value = "/admin/attendancestatus/month", method = RequestMethod.GET)
-	public String statusMonthlyList(Model model) {
-		return "admin/attendanceStatus";
-
-	}
-
-	@RequestMapping(value = "/admin/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session, HttpServletRequest request) {
-		session.invalidate();
-		return "user/login";
-	}
-
+	// 휴가 상세 조회
 	@RequestMapping(value = "/admin/reasondetail/{subAttNo}", method = RequestMethod.GET)
 	public String getReason(@PathVariable int subAttNo, Model model) {
 		SubAttendance subAttendance = adminService.selectSubAttendanceDetail(subAttNo);
@@ -200,6 +168,7 @@ public class AdminController {
 		return "admin/reasonDetail";
 	}
 
+	// 휴가 처리
 	// result = 1 -> 승인
 	// result = 2 -> 반려
 	@RequestMapping(value = "/admin/updatestatus/{subAttNo}/{result}", method = RequestMethod.GET)
@@ -221,7 +190,7 @@ public class AdminController {
 		return "admin/attSum";
 	}
 
-	// 학생 월별 조회
+	// 학생 출결 월별 조회
 	@RequestMapping(value = "/admin/attsummonthly/{subjectId}", method = RequestMethod.GET)
 	public String attSumMonthly(@PathVariable int subjectId, Model model) {
 		List<AttSummaryVo> sumMonthlyVo = adminService.attsumMonthlyByuser(subjectId);
@@ -230,7 +199,7 @@ public class AdminController {
 		return "admin/attSumMonthly";
 	}
 
-	// 학생 일별 조회
+	// 학생 출결 일별 조회
 	@RequestMapping(value = "/admin/attsumdaily/{subjectId}", method = RequestMethod.GET)
 	public String attSumDaily(@PathVariable int subjectId, Model model) {
 		List<AttSumDailyVo> sumDailyVo = adminService.attSumDailyByuser(subjectId);
@@ -238,25 +207,65 @@ public class AdminController {
 		model.addAttribute("sumDailyVo", sumDailyVo);
 		return "admin/attSumDaily";
 	}
+
 	// 신고 목록 조회
 	@RequestMapping("/admin/reportlist/{pageNo}")
 	public String reportList(@PathVariable String pageNo,
 			@RequestParam(value = "resultNumber", required = false, defaultValue = "0") String resultNumber,
 			Model model, Pager pager) {
 		int resultNum = Integer.parseInt(resultNumber);
+
 		//1. 페이징 객체 만들기
 		pager = adminService.getReportListPage(pageNo,resultNum);
 		
 		//2. 페이지 리스트 만들기
+
 		List<Reports> reportList = adminService.getReportList(resultNum, pager);
 		model.addAttribute("reportList", reportList);
 		model.addAttribute("pager", pager);
 		model.addAttribute("resultNumber", resultNumber);
 		return "admin/reportList";
 	}
+
 	@RequestMapping("/admin/report/update/{rpReportNo}")
 	public void updateReport(@PathVariable int rpReportNo, Model model) {
 		adminService.updateReportStatus(rpReportNo);
 	}
+
+
+	// 로그아웃
+	@RequestMapping(value = "/admin/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session, HttpServletRequest request) {
+		session.invalidate();
+		return "user/login";
+	}
+
+	/*
+	 * @RequestMapping(value = "/admin/attendancestatus/month", method =
+	 * RequestMethod.GET) public String statusMonthlyList(Model model) { return
+	 * "admin/attendanceStatus";
+	 * 
+	 * }
+	 */
+
+	/*
+	 * @RequestMapping(value = "/admin/file", method = RequestMethod.POST) public
+	 * String insertFile(UserInsert userInsert, BindingResult result,
+	 * RedirectAttributes redirectAttrs, HttpSession session) { try { MultipartFile
+	 * mfile = userInsert.getFile(); UserUploadFile file = new UserUploadFile();
+	 * file.setUserFileName(mfile.getOriginalFilename());
+	 * file.setUserFileSize(mfile.getSize());
+	 * file.setUserFileContentType(mfile.getContentType());
+	 * file.setUserFileData(mfile.getBytes()); logger.info("/board/write : " +
+	 * file.toString());
+	 * 
+	 * adminService.insertUserFile(file); } catch (Exception e) {
+	 * e.printStackTrace(); }
+	 * 
+	 * return "admin/adminHome";
+	 * 
+	 * }
+	 */
+
 
 }

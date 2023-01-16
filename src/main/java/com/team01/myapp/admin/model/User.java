@@ -19,6 +19,7 @@ public class User {
 	private int subjectId;
 	private String subjectName;
 	
+	//유저 프로필 사진 정보 가져오기
 	private MultipartFile file;
 
 	private int userFileId;
