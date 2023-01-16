@@ -13,4 +13,5 @@ public class BoardReComment {
 	private int boardId;
 	private int bcMasterNo;
 	private int bcReplyStep;
+	private String userName;
 }

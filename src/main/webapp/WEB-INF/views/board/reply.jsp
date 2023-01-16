@@ -52,7 +52,7 @@ function reportNestedComment(i,j,k){
 				</div>
 				<div class="ms-3  flex-fill">
 					<div class="d-flex "> 
-						<div class="fw-bold">${reply.userId}&nbsp;&nbsp;</div>
+						<div class="fw-bold">${reply.userName}&nbsp;&nbsp;</div>
 						<span class=" ms-auto small text-muted"><fmt:formatDate value="${reply.bcWriteDate}" pattern="yyyy.MM.dd"/></span> 
 					</div>
 					<div class="d-flex">

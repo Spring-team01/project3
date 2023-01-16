@@ -14,6 +14,7 @@ public class BoardComment {
 	private int bcMasterNo;
 	private int bcReplyStep;
 	private int userFileId;
+	private String userName;
 	
 }
 
