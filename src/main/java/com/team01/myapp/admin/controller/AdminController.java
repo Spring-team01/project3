@@ -63,7 +63,7 @@ public class AdminController {
 		List<SubAttList> subAttList = adminService.getSubAttListbyRNum(0, pager);
 		model.addAttribute("subAttList", subAttList);
 		
-		pager = adminService.getReprtListPage("1", 0);
+		pager = adminService.getReportListPage("1", 0);
 
 		List<Reports> reportList = adminService.getReportList(0, pager);
 		model.addAttribute("reportList", reportList);
