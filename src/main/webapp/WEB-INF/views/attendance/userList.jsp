@@ -108,10 +108,10 @@ document.addEventListener('DOMContentLoaded', function() {
 						</div>
 					</div>
 	     		</div>
+	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	     	</div>
 	    	<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />       
 	    </div>
 	</div>
-	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>

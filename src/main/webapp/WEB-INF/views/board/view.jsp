@@ -322,7 +322,7 @@ ${message}
 															</div>
 														</div>
 														<div class="flex-fill mx-3 text-left">
-															<div class="fw-bold">${commentOne.userId}</div>
+															<div class="fw-bold">${commentOne.userName}</div>
 															<input type="hidden" id="bcContent${commentOne.bcReplyNo}" value="${commentOne.bcContent}">${commentOne.bcContent}
 														</div>
 														<div class="ms-auto">
@@ -444,9 +444,9 @@ ${message}
    		</div>
 	</div>
 </div>
+ <jsp:include page="/WEB-INF/views/include/footer.jsp" />   
 </div>
  <jsp:include page="/WEB-INF/views/include/sidebar.jsp" />    
- <jsp:include page="/WEB-INF/views/include/footer.jsp" />   
 </div>
 </div>
 
