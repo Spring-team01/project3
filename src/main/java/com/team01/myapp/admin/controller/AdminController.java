@@ -162,7 +162,7 @@ public class AdminController {
 
 	// 휴가 상세 조회
 	@RequestMapping(value = "/admin/subattdetail/{subAttNo}", method = RequestMethod.GET)
-	public String getReason(@PathVariable int subAttNo, Model model) {
+	public String getSubAttDetail(@PathVariable int subAttNo, Model model) {
 		SubAttendance subAttendance = adminService.selectSubAttendanceDetail(subAttNo);
 		model.addAttribute("subAttendance", subAttendance);
 		return "admin/subattDetail";
@@ -175,7 +175,7 @@ public class AdminController {
 	public String updateStatus(@PathVariable int subAttNo, @PathVariable int result, Model model) {
 		SubAttendance subAttendance = adminService.selectSubAttendanceDetail(subAttNo);
 		adminService.updateStatus(subAttendance, result);
-		return "redirect:/admin/subattendancelist/1";
+		return "redirect:/admin/subattdetail/"+subAttNo;
 
 	}
 
