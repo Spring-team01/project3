@@ -39,7 +39,7 @@ public class AttendanceController {
 		
 		String attDate = simpleDateFormat1.format(date);
 		
-		String choice = attendanceService.selectAtterdanceCheck(attDate, userId);
+		String choice = attendanceService.selectAttendanceCheck(attDate, userId);
 		
 		// 현재 시간 생성
 		SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("HH");
@@ -84,7 +84,6 @@ public class AttendanceController {
 					attendanceService.updateAttendance(userId, updateDate, choice);
 				} else {
 					model.addAttribute("message", "이미 출근을 누르셨습니다.");
-					return "/home";
 				} 
 			} else if(choice.equals("미출석")) {
 				if(time == 8) {
@@ -128,7 +127,7 @@ public class AttendanceController {
 		String userId = (String) session.getAttribute("userId");
 		
 		// 행이 있는지 체크 ( 출근을 했는지 안 했는지)
-		String choice = attendanceService.selectAtterdanceCheck(attDate2, userId);
+		String choice = attendanceService.selectAttendanceCheck(attDate2, userId);
 		
 		// 퇴근을 눌렀는지 확인하기 위한 leaveTime 생성 (null 또는 값이 있음)
 		String leaveTime = attendanceService.selectLeaveTime(attDate2, userId);
@@ -142,7 +141,6 @@ public class AttendanceController {
 			if(leaveTime == null) {
 				if(time < 18) {
 					model.addAttribute("message", "아직 퇴근 시간 전 입니다.");
-					return "/home";
 				} else {
 					attendanceService.updateLeaveCheck(attDate1, userId);
 					leaveTime = attendanceService.selectLeaveTime(attDate2, userId);
@@ -150,11 +148,9 @@ public class AttendanceController {
 				}
 			} else {
 				model.addAttribute("message", "이미 퇴근을 누르셨습니다.");
-				return "/home";
 			}
 		} else {
 			model.addAttribute("message", "아직 출근을 하지 않으셨습니다.");
-			return "/home";
 		}
 		return "/home";
 	}

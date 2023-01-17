@@ -8,7 +8,7 @@ import com.team01.myapp.attendance.model.AttendanceList;
 public interface IAttendanceService {
 	List<Attendance> selectAttendanceList();
 	
-	String selectAtterdanceCheck(String attDate, String userId);
+	String selectAttendanceCheck(String attDate, String userId);
 	void insertAttendance(Attendance attendance);
 	
 	void updateAttendance(String userId, String attDate, String choice);

@@ -28,8 +28,8 @@ public class AttendanceService implements IAttendanceService {
 	}
 	
 	@Override
-	public String selectAtterdanceCheck(String attDate, String userId) {
-		return AttendanceRepository.selectAtterdanceCheck(attDate, userId);
+	public String selectAttendanceCheck(String attDate, String userId) {
+		return AttendanceRepository.selectAttendanceCheck(attDate, userId);
 	}
 	
 	@Override

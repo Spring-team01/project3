@@ -10,7 +10,7 @@ import com.team01.myapp.attendance.model.AttendanceList;
 public interface IAttendanceRepository {
 	List<Attendance> selectAttendanceList();
 	
-	String selectAtterdanceCheck(@Param("attDate") String attDate, @Param("userId") String userId);
+	String selectAttendanceCheck(@Param("attDate") String attDate, @Param("userId") String userId);
 	void insertAttendance(Attendance attendance);
 	
 	void updateAttendance(@Param("userId") String userId, @Param("attDate") String attDate, @Param("choice") String choice);
