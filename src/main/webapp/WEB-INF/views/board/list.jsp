@@ -54,7 +54,7 @@ display: -webkit-box;
 						<!--템플릿  -->
 						<div class="container-fluid py-4">
 						<div class="board_content">
-						<form class="form-inline m-2 justify-content-end" action="<c:url value='/board/search/${pager.pageNo}'/>" method="get">
+						<form class="form-inline m-2 justify-content-end" action="<c:url value='/board/search/${pager.pageNo}'/>" id="listmenu" method="get">
 							<input type="text" name="keyword" class="form-control" placeholder="Search" style="border: 1px solid gray; width:200px; height:35px; padding:0px 10px;">
 							<input type="submit" class="btn btn-warning m-1" value="<fmt:message key="SEARCH"/>">
 						</form>

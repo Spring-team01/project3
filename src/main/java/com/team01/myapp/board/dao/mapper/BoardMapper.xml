@@ -356,7 +356,7 @@
 		FROM u_file f, users u, 
 		    BOARD b LEFT OUTER JOIN B_COMMENT c 
 		    ON b.BOARD_ID=c.BOARD_ID
-		WHERE f.u_Id = c.u_id and u.u_id = c.u_id and b.BOARD_ID=#{boardId}
+		WHERE f.u_Id = c.u_id and u.u_id = c.u_id and b.BOARD_ID=#{boardId} and BC_REPLY_STEP =0
 		ORDER BY BC_WRITE_DATE DESC
 	</select>
 	
