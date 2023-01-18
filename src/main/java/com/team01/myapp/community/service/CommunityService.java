@@ -197,7 +197,7 @@ public class CommunityService implements ICommunityService {
 	}
 	
 	
-	@Override
+	@Transactional
 	public void reportComment(CommunityComment comment) {
 		int communityCommentNo = comment.getCommunityCommentNo();
 		CommunityComment searchComment =communityRepository.getCommentForReport(communityCommentNo);

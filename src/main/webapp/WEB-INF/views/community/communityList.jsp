@@ -90,7 +90,6 @@
 
 
 												<td class="align-middle">
-														<%-- <c:set var="userId" value="${sessionUserId}" /> --%>
 														<c:if test="${sessionScope.userId eq community.usersId}">
 															<a href="<c:url value='/community/communityUpdate/${community.communityBoardId}'/>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> Edit </a>
 														</c:if>
