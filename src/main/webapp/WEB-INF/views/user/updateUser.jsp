@@ -33,7 +33,7 @@
 						<div class="card-body">
 							<h2 class="title">사용자 정보 수정</h2>
 							
-							<form method="POST" action="<c:url value='/admin/update'/>" enctype="multipart/form-data">
+							<form method="POST" action="<c:url value='/user/update'/>" enctype="multipart/form-data">
 								 <div class="row row-space">
 									<div class="col-6">
 										<div class="input-group">
