@@ -83,7 +83,9 @@
 		$.ajax({
 			url : "/myapp/community/replycomment/delete/",
 			type : "POST",
-			data : {communityCommentMasterNumber : communityCommentMasterNumber , communityBoardId : communityBoardId, communityCommentReplyNumber : communityCommentReplyNumber},
+			data : {communityCommentMasterNumber : communityCommentMasterNumber , 
+				communityBoardId : communityBoardId, 
+				communityCommentReplyNumber : communityCommentReplyNumber},
 			success : function(data){
 				if(data==0) {
 			           alert("댓글 삭제 실패");
@@ -139,14 +141,13 @@
 							${replyCommentList.communityCommentContent}
 						</div>
 						<div class="ms-auto">
-							<c:set var="id" value="${sessionUserId}" />
-							<c:if test="${id eq commentList.userId}">
+							<c:if test="${sessionScope.userId eq replyCommentList.userId}">
 								<input id="deleteReReplyButton${commentList.communityCommentMasterNumber}" type="button" onclick="deleteReReplyComment(${commentList.communityCommentMasterNumber})" class="btn btn-sm btn-dark shadow" value="대댓글 삭제">
 								<input type="hidden" id="communityCommentReplyNumber" name="communityCommentReplyNumber" value="${replyCommentList.communityCommentReplyNumber}">
 								<input type="hidden" id="communityCommentMasterNumber" name="communityCommentMasterNumber" value="${replyCommentList.communityCommentMasterNumber}">
 							</c:if>
 						</div>
-						<c:if test="${id ne commentList.userId}">
+						<c:if test="${sessionScope.userId ne replyCommentList.userId}">
 							<div class="dropdown">
 								<img src='<c:url value="/images/threedots.svg"/>' class="dropbtn">
 								<div class="dropdown-content">
