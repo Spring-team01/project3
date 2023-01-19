@@ -21,7 +21,8 @@
 
 .tab_menu_article .list_article li.is_on .btn {
 	font-weight: bold;
-	color: green;
+	color: black;
+	background-color: 
 }
 
 .tab_menu_article .list_article .btn {
@@ -30,10 +31,10 @@
 	top: 25px;
 	left: 0;
 	background: #555;
-	color: #fff;
+	color: black;
 	text-align: center;
 	width: 250px;
-	height: 100px;
+	height: 90px;
 	line-height: 100px;
 }
 }
@@ -68,21 +69,21 @@
 </script>
 
 
-	<div class="welcome d-flex justify-content-around align-items-center pt-2" style="background:#1c2326; margin-top:0px; width:100%; height:100%">
-			<div class="p-2 " style="text-align:center; width:100%; height:100%">
-				<img src="<c:url value="/static/images/ex.PNG"/>" style="width:100%; height:100%">
+	<div class="welcome d-flex justify-content-around align-items-center pt-2 shadow" style="background:#eeeeee; border-radius:10px; margin-top:0px; width:100%; height:100%">
+			<div class="p-2 " style="text-align:center; width:100%; height:100%;">
+				<img src="<c:url value="/static/images/cardNews.png"/>" style="width:100%; height:100%;  border-radius:10px;">
 			</div>
 			<div class="p-2 " style="text-align:center; width:100%; height:100%">
 				<div class="tab_menu_article" >
-					<ul class="list_article" id="articleButton" >
+					<ul class="list_article" id="articleButton" style="border: 1px solid gray; padding:5px 30px; border-radius:5px;">
 						<li class="is_on">
-							<a href="#article_tab1" class="btn">
-								<FONT color="#f0f0f0">기관/학과 소식</FONT>
+							<a href="#article_tab1" class="btn mx-1">
+								<FONT color="black">기관/학과 소식</FONT>
 							</a>
 						</li>
 						<li>
-							<a href="#article_tab2" class="btn">
-								<FONT color="#f0f0f0">정보 공개</FONT>
+							<a href="#article_tab2" class="btn mx-1">
+								<FONT color="black">정보 공개</FONT>
 							</a>
 						</li>
 					</ul>
@@ -91,12 +92,19 @@
 							<div class="cont_area_article" id="articleContent">
 								<div id="article_tab1" class="cont">
 									<table class="table align-items-center mb-0 text-center">
-										<h6> 내용 1 </h6>
+									<tr>
+									<td><h4> 공공기관 청년인턴 모집 </h4><br/>
+									<h6>컴퓨터 공학부 1학기 공공기관 청년인턴을 모집합니다. 2023년 1월 19일부터 학부사무실에서 접수 가능합니다. 많은 관심부탁드립니다. </h6>
+									<br>
+									<h6>Tel: 02-1234-1234 담당자: 이화영 </h6></td>
+									</tr>	
 									</table>
 								</div>
 								<div id="article_tab2" class="cont" style="display: none;">
 									<table class="table align-items-center mb-0 text-center">
-										<h6> 내용 2 </h6>
+									<tr>
+									<td><h4> 2022년 4분기 정보공개공시  </h4><br/><h6>컴퓨터 공학부 2022년 4분기 정보 공개 공시를 공지게시판에 게시하였습니다.</h6><br><h6> Tel: 02-1234-1234 담당자: 이지혁 </h6></td>
+									</tr>		
 									</table>
 								</div>
 							</div>

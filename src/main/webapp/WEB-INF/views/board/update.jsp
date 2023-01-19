@@ -100,7 +100,8 @@
 								      <label class="control-label col-sm-2" for="photo"><fmt:message key="FILE"/><fmt:message key="FILESIZE_ERROR"/></label>
 								      <div class="col-sm-8">
 								      	<input type="hidden" name="boardFileId" value="${board.boardFileId}">
-								        <input type="file" name="file">${board.boardFileName}
+								        <input type="file" name="file"> 
+								        <c:if test="${!empty board.boardFileName}"> <p><b>기존 파일: ${board.boardFileName}</b></p></c:if> 
 								      </div>
 								    </div>
 									<div class="form-group">
@@ -124,10 +125,10 @@
     </div>
 <script>
 // Add the following code if you want the name of the file appear on select
-$(".custom-file-input").on("change", function() {
+/* $(".custom-file-input").on("change", function() {
   var boardFileName = $(this).val().split("\\").pop();
   $(this).siblings(".custom-file-label").addClass("selected").html(boardFileName);
-});
+}); */
 </script>
  
 </body>
