@@ -2,452 +2,453 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team01.myapp.board.dao.IBoardRepository">
 
-	<select id="selectTotalArticleCount" resultType="int" parameterType="int">
-	<![CDATA[
-		SELECT COUNT(BOARD_ID) AS "count"
-		FROM BOARD
-	]]>
-	<if test="subjectId != 0">
-		where subject_id = #{subjectId} OR subject_id = 0
-	</if>
-	</select>
-	
-	<select id="selectCategoryArticleCount" parameterType="map" resultType="int">
-	<![CDATA[
-		SELECT COUNT(BOARD_ID) AS "count"
-		FROM BOARD
-		WHERE CATEGORY_ID = #{categoryId} 
-	]]>
-	<if test="subjectId != 0">
-		and subject_id = #{subjectId} OR subject_id = 0
-	</if>
-	</select>
-	
-	<select id="selectMaxArticleNo" resultType="int">
-	<![CDATA[
-		SELECT
-			NVL(MAX(BOARD_ID),0) AS "articleNo"
-		FROM BOARD
-	]]>
-	</select>
-	
-	<select id="selectMaxFileId" resultType="int">
-	<![CDATA[
-		SELECT
-			NVL(MAX(B_FILE_ID),0) AS "boardFileId"
-		FROM B_FILE
-	]]>
-	</select>
-	
-	<select id="selectMaxReplyNo" resultType="int">
-	<![CDATA[
-		SELECT
-			NVL(MAX(BC_REPLY_NO),0) AS "bcReplyNo"
-		FROM B_COMMENT
-	]]>
-	</select>
-	
-	<select id="selectSearchArticleCount" parameterType="map" resultType="int">
-		SELECT COUNT(BOARD_ID) AS "count"
-		FROM BOARD
-		WHERE 
-			TITLE LIKE #{keyword}
-			OR
-			CONTENT LIKE #{keyword}
-			OR
-			WRITER LIKE #{keyword}
-		<if test="subjectId != 0">
-			and subject_id = #{subjectId} OR subject_id = 0
-		</if>
-	</select>
-	
-	<!-- 과목이름 가져오기 -->
-	<select id="selectSubjectName" parameterType="int" resultType="string">
-		<![CDATA[
-			SELECT SUBJECT_NAME
-			FROM SUBJECT
-			WHERE SUBJECT_ID = #{subjectId}
-		]]>
-	</select>
-	
-	<!-- 리스트 불러오기 -->
-	<select id="selectTotalArticleList" parameterType="hashmap" resultType="com.team01.myapp.board.model.Board">
-		<![CDATA[
-		select 
-			 rownum,
-		     BOARD_ID as "boardId", 
-		     CATEGORY_ID as "categoryId",
-		     EMAIL as "email",
+   <select id="selectTotalArticleCount" resultType="int" parameterType="int">
+   <![CDATA[
+      SELECT COUNT(BOARD_ID) AS "count"
+      FROM BOARD
+   ]]>
+   <if test="subjectId != 0">
+      where subject_id IN (#{subjectId}, 0)
+   </if>
+   </select>
+   
+   <select id="selectCategoryArticleCount" parameterType="map" resultType="int">
+   <![CDATA[
+      SELECT COUNT(BOARD_ID) AS "count"
+      FROM BOARD
+      WHERE CATEGORY_ID = #{categoryId} 
+   ]]>
+   <if test="subjectId != 0">
+      and subject_id IN (#{subjectId}, 0)
+   </if>
+   </select>
+   
+   <select id="selectMaxArticleNo" resultType="int">
+   <![CDATA[
+      SELECT
+         NVL(MAX(BOARD_ID),0) AS "articleNo"
+      FROM BOARD
+   ]]>
+   </select>
+   
+   <select id="selectMaxFileId" resultType="int">
+   <![CDATA[
+      SELECT
+         NVL(MAX(B_FILE_ID),0) AS "boardFileId"
+      FROM B_FILE
+   ]]>
+   </select>
+   
+   <select id="selectMaxReplyNo" resultType="int">
+   <![CDATA[
+      SELECT
+         NVL(MAX(BC_REPLY_NO),0) AS "bcReplyNo"
+      FROM B_COMMENT
+   ]]>
+   </select>
+   
+   <select id="selectSearchArticleCount" parameterType="map" resultType="int">
+      SELECT COUNT(BOARD_ID) AS "count"
+      FROM BOARD
+      WHERE 
+         TITLE LIKE #{keyword}
+         OR
+         CONTENT LIKE #{keyword}
+         OR
+         WRITER LIKE #{keyword}
+      <if test="subjectId != 0">
+         and subject_id IN (#{subjectId}, 0)
+      </if>
+   </select>
+   
+   <!-- 과목이름 가져오기 -->
+   <select id="selectSubjectName" parameterType="int" resultType="string">
+      <![CDATA[
+         SELECT SUBJECT_NAME
+         FROM SUBJECT
+         WHERE SUBJECT_ID = #{subjectId}
+      ]]>
+   </select>
+   
+   <!-- 리스트 불러오기 -->
+   <select id="selectTotalArticleList" parameterType="hashmap" resultType="com.team01.myapp.board.model.Board">
+      <![CDATA[
+      select 
+          rownum,
+           BOARD_ID as "boardId", 
+           CATEGORY_ID as "categoryId",
+           EMAIL as "email",
              WRITER as "writer",
-		     PASSWORD as "password",
-		     TITLE as "title",
-		     WRITE_DATE as "writeDate",
-		     READ_COUNT as "readCount",
-		     U_ID as "uId",
-		     CONTENT as "content"
-			from(
-				select 
-					rownum as rnum,
-		            BOARD_ID ,
-				    CATEGORY_ID ,
-				    EMAIL ,
+           PASSWORD as "password",
+           TITLE as "title",
+           WRITE_DATE as "writeDate",
+           READ_COUNT as "readCount",
+           U_ID as "uId",
+           CONTENT as "content"
+         from(
+            select 
+               rownum as rnum,
+                  BOARD_ID ,
+                CATEGORY_ID ,
+                EMAIL ,
                     WRITER,
-				    PASSWORD ,
-				    TITLE ,
-				    WRITE_DATE , 
-				    READ_COUNT ,
-				    U_ID ,
-				    CONTENT 
-				from(
-				select      BOARD_ID ,
-						    CATEGORY_ID ,
-						    EMAIL ,
+                PASSWORD ,
+                TITLE ,
+                WRITE_DATE , 
+                READ_COUNT ,
+                U_ID ,
+                CONTENT 
+            from(
+            select      BOARD_ID ,
+                      CATEGORY_ID ,
+                      EMAIL ,
                             WRITER,
-						    PASSWORD ,
-						    TITLE ,
-						    WRITE_DATE , 
-						    READ_COUNT ,
-						    U_ID ,
-						    CONTENT 
-						from(
-						    select 
-						        BOARD_ID ,
-						        CATEGORY_ID ,
-						        EMAIL  ,
+                      PASSWORD ,
+                      TITLE ,
+                      WRITE_DATE , 
+                      READ_COUNT ,
+                      U_ID ,
+                      CONTENT 
+                  from(
+                      select 
+                          BOARD_ID ,
+                          CATEGORY_ID ,
+                          EMAIL  ,
                                 WRITER,
-						        PASSWORD ,
-						        TITLE ,
-						        WRITE_DATE ,
-						        READ_COUNT ,
-						        U_ID ,
-						        CONTENT
-		                
-				            from board
-				            ]]>
-				            <if test="subjectId != 0">
-								where subject_id = #{subjectId} OR subject_id = 0
-							</if>
-			<![CDATA[
-				        )
-				order by BOARD_ID desc
-				) 
-				where rownum <= #{end}
-				) 
-				where rnum >= #{start}
-			]]>
-	</select>
-	
-	<select id="selectArticleListByCategory" parameterType="map"
-		resultType="com.team01.myapp.board.model.Board">
-		<![CDATA[
-				SELECT
-					BOARD_ID		AS "boardId",
-					CATEGORY_ID		AS "categoryId",
-					WRITER			AS "writer",
-					CONTENT    		AS "content",
-					EMAIL			AS "email",
-					TITLE			AS "title",
-					WRITE_DATE		AS "writeDate",
-					READ_COUNT		AS "readCount",
-					RNUM			AS "seq"
-				FROM (
-					SELECT
-						BOARD_ID,
-						CATEGORY_ID,
-						WRITER,
-						CONTENT,
-						EMAIL,
-						TITLE,
-						WRITE_DATE,
-						READ_COUNT,
-						ROWNUM AS RNUM
-					FROM (
-						SELECT * FROM BOARD
-						WHERE CATEGORY_ID=#{categoryId}
-		]]>
-						<if test="subjectId != 0">
-							AND subject_id = #{subjectId} OR subject_id = 0
-						</if>
-						ORDER BY WRITE_DATE DESC
-						)
-					)
-				WHERE RNUM BETWEEN #{start} AND #{end}
-				
-		
-		
-	</select>
-	
-	
-	<select id="selectSearchArticleList" parameterType="map"
-		resultType="com.team01.myapp.board.model.Board">
-		<![CDATA[
-				SELECT
-					BOARD_ID		AS "boardId",
-					CATEGORY_ID		AS "categoryId",
-					WRITER			AS "writer",
-					CONTENT    		AS "content",
-					EMAIL			AS "email",
-					TITLE			AS "title",
-					WRITE_DATE		AS "writeDate",
-					READ_COUNT		AS "readCount",
-					RNUM			AS "seq"
-				FROM (
-					SELECT
-						BOARD_ID,
-						CATEGORY_ID,
-						WRITER,
-						EMAIL,
-						CONTENT,
-						TITLE,
-						WRITE_DATE,
-						READ_COUNT,
-						ROWNUM AS RNUM
-					FROM (
-						SELECT * FROM BOARD
-						WHERE 
-							TITLE LIKE #{keyword}
-							OR
-							CONTENT LIKE #{keyword}
-						]]>
-						<if test="subjectId != 0">
-							AND subject_id = #{subjectId} OR subject_id = 0
-						</if>
-						ORDER BY WRITE_DATE DESC
-						
-						)
-					)
-				WHERE RNUM BETWEEN #{start} AND #{end}
-		
-	</select>
-	
-	<!-- 읽기 기능 -->
-	
-	<select id="selectArticle" parameterType="int"
-		resultType="com.team01.myapp.board.model.Board">
-	<![CDATA[
-		SELECT
-		    BOARD.BOARD_ID			AS "boardId",
-		    CATEGORY_ID				AS "categoryId",
-		    WRITER					AS "writer",
-		    U_ID					AS "userId",
-		    EMAIL					AS "email",
-		    TITLE					AS "title",
-		    CONTENT					AS "content",
-		    READ_COUNT				AS "readCount",
-		    WRITE_DATE				AS "writeDate",
-		    B_FILE_ID	AS "boardFileId",
-		    B_FILE_NAME AS "boardFileName",
-		    B_FILE_SIZE	AS "boardFileSize",
-		    B_FILE_CONTENT_TYPE AS "boardFileContentType"
-		FROM BOARD LEFT OUTER JOIN B_FILE
-		    ON BOARD.BOARD_ID=B_FILE.BOARD_ID
-		WHERE BOARD.BOARD_ID=#{boardId}
-	]]>
-	</select>
-	
-	<update id="updateReadCount" parameterType="int">
-	<![CDATA[
-		UPDATE BOARD
-			SET READ_COUNT = READ_COUNT+1
-		WHERE BOARD_ID=#{boardId}
-	]]>
-	</update>
-	
-	<select id="getFile" parameterType="int" resultType="com.team01.myapp.board.model.BoardUploadFile">
-	<![CDATA[
-		SELECT 
-			B_FILE_ID		AS "boardFileId",
-			BOARD_ID	AS "boardId",
-			B_FILE_NAME	AS "boardFileName",
-			B_FILE_SIZE	AS "boardFileSize",
-			B_FILE_CONTENT_TYPE AS "boardFileContentType",
-			B_FILE_DATA	AS	"boardFileData"
-		FROM B_FILE
-		WHERE B_FILE_ID=#{boardFileId}			
-	]]>		
-	</select>
-	
-	<!-- 쓰기  -->
-	
-	<insert id="insertArticle" parameterType="com.team01.myapp.board.model.Board">
-	<![CDATA[
-		INSERT INTO
-		BOARD
-			(BOARD_ID, SUBJECT_ID, CATEGORY_ID, WRITER, EMAIL, PASSWORD, TITLE, CONTENT, WRITE_DATE, U_ID, READ_COUNT)
-		VALUES
-			(#{boardId}, #{subjectId}, #{categoryId}, #{writer}, #{email}, #{password}, #{title}, #{content}, SYSDATE, #{userId}, 0)
-	]]>
-	</insert>
-	
-	<insert id="insertFileData"  parameterType="com.team01.myapp.board.model.BoardUploadFile">
-	<![CDATA[	
-		INSERT INTO
-		B_FILE
-			(B_FILE_ID, BOARD_ID, B_FILE_NAME, B_FILE_SIZE, B_FILE_CONTENT_TYPE, B_FILE_DATA)
-		VALUES
-			(#{boardFileId}, #{boardId}, #{boardFileName}, #{boardFileSize}, #{boardFileContentType}, #{boardFileData})
-	]]>
-	</insert>
-	<!-- 수정하기 -->
-	
-	<update id="updateArticle" parameterType="com.team01.myapp.board.model.Board">
-	<![CDATA[
-		UPDATE 
-			BOARD
-		SET 
-			CATEGORY_ID=#{categoryId}, WRITER=#{writer},
-			EMAIL=#{email}, TITLE=#{title},
-			CONTENT=#{content}, WRITE_DATE=SYSDATE
-		WHERE 
-			BOARD_ID=#{boardId}
-	]]>
-	</update>
-	
-	<update id="updateFileData" parameterType="com.team01.myapp.board.model.BoardUploadFile">
-	<![CDATA[
-		UPDATE 
-			B_FILE
-		SET 
-			B_FILE_NAME=#{boardFileName}, B_FILE_SIZE=#{boardFileSize},
-			B_FILE_CONTENT_TYPE=#{boardFileContentType}, B_FILE_DATA=#{boardFileData},
-			BOARD_ID=#{boardId}
-		WHERE 
-			B_FILE_ID=#{boardFileId}
-	]]>
-	</update>
-	
-	<!--  삭제하기  --> 
-	
-	<select id="getPassword" parameterType="int" resultType="string">
-	<![CDATA[
-		SELECT PASSWORD
-		FROM BOARD
-		WHERE BOARD_ID=#{boardId}
-	]]>
-	</select>
-	
-	<delete id="deleteFileData" parameterType="int">
-	<![CDATA[
-		DELETE FROM B_FILE
-		WHERE EXISTS (SELECT BOARD_ID FROM BOARD
-						WHERE BOARD.BOARD_ID=#{boardId} AND BOARD.BOARD_ID = B_FILE.BOARD_ID )
-	]]>
-	</delete>
-	
-	
-	<delete id="deleteArticle" parameterType="int">
-		DELETE FROM 
-			BOARD
-		WHERE 
-			BOARD_ID=#{boardId}
-	</delete>
-	
-	<!-- 리플기능  -->
-	<select id ="selectBoardComment" parameterType="int" resultType="com.team01.myapp.board.model.BoardComment">
-		SELECT
-		    b.BOARD_ID			AS "boardId",
-		    c.U_ID          AS "userId",
-		    BC_REPLY_NO	AS "bcReplyNo",
-		    BC_MASTER_NO AS "bcMasterNo",
-		    BC_CONTENT	AS "bcContent",
-		    BC_WRITE_DATE AS "bcWriteDate",
-		    f.U_FILE_ID AS "userFileId",
-		    u.U_Name AS "userName"
-		FROM u_file f, users u, 
-		    BOARD b LEFT OUTER JOIN B_COMMENT c 
-		    ON b.BOARD_ID=c.BOARD_ID
-		WHERE f.u_Id = c.u_id and u.u_id = c.u_id and b.BOARD_ID=#{boardId} and BC_REPLY_STEP =0
-		ORDER BY BC_WRITE_DATE DESC
-	</select>
-	
-	<insert id="insertComment" parameterType="com.team01.myapp.board.model.BoardComment">
-		INSERT INTO
-			B_COMMENT
-		B_COMMENT
-			(BC_REPLY_NO, BC_CONTENT, BC_WRITE_DATE, U_ID, BOARD_ID, BC_MASTER_NO, BC_REPLY_STEP)
-		VALUES
-			(#{bcReplyNo}, #{bcContent}, SYSDATE, #{userId}, #{boardId},#{bcReplyNo},0)
-	</insert>
-	
-	<!-- 대댓글 기능  -->
-	<select id ="selectNestedComments" parameterType="int" resultType="com.team01.myapp.board.model.BoardComment">
-		SELECT
-		    b.BOARD_ID			AS "boardId",
-		    c.U_ID          AS "userId",
-		    BC_REPLY_NO	AS "bcReplyNo",
-		    BC_MASTER_NO AS "bcMasterNo",
-		    BC_CONTENT	AS "bcContent",
-		    BC_WRITE_DATE AS "bcWriteDate",
-		    f.U_FILE_ID AS "userFileId",
-		    u.U_NAME AS "userName"
-		FROM u_file f, users u, BOARD b LEFT OUTER JOIN B_COMMENT c 
-		    ON b.BOARD_ID=c.BOARD_ID 
-		WHERE BC_REPLY_STEP=1 AND f.u_Id = c.u_id AND u.u_id = c.u_id AND c.BC_MASTER_NO=#{bcReplyNo}
-		ORDER BY BC_WRITE_DATE DESC
-	</select>
-	
-	<insert id="insertNestedComment" parameterType="com.team01.myapp.board.model.BoardComment">
-		INSERT INTO
-			B_COMMENT
-			(BC_REPLY_NO, BC_CONTENT, BC_WRITE_DATE, U_ID, BOARD_ID, BC_MASTER_NO, BC_REPLY_STEP)
-		VALUES
-			(#{bcReplyNo}, #{bcContent}, SYSDATE, #{userId}, #{boardId}, #{bcMasterNo},1)
-	</insert>
-	
-	<!-- 댓글과 대댓글 삭제  -->
-	<delete id="deleteComment" parameterType="int">
-		DELETE FROM B_COMMENT
-		WHERE BC_REPLY_NO = #{bcReplyNo}
-	</delete>
-	
-	<delete id="deleteNestedCommentAlso" parameterType="int">
-		DELETE FROM B_COMMENT
-		WHERE BC_MASTER_NO = #{bcReplyNo} AND BC_REPLY_STEP=1
-	</delete>
-	
-	<select id="selectNestedCommentCount" parameterType="int" resultType="int">
-		SELECT COUNT(BC_REPLY_NO) FROM B_COMMENT
-		WHERE BC_MASTER_NO=#{bcReplyNo} AND BC_REPLY_STEP=1
-	</select>
-	
-	<delete id="deleteNestedComment" parameterType="int">
-		DELETE FROM B_COMMENT
-		WHERE BC_REPLY_NO = #{bcReplyNo} AND BC_REPLY_STEP=1
-	</delete>
-	
-	<!-- 미니뷰 기능 -->
-	<select id="selectBoardMiniList" resultType="com.team01.myapp.board.model.Board">
-	<![CDATA[
-		SELECT
-	    BOARD_ID		AS "boardId",
-	    TITLE			AS "title",
-	   	CONTENT			AS "content",
-	    WRITE_DATE		AS "writeDate"
-		FROM (
-		    SELECT
-		        BOARD_ID,
-		        TITLE,
-		        CONTENT,
-		        WRITE_DATE,
-		        ROWNUM AS RNUM
-		    FROM (
-		        SELECT * FROM BOARD
-		        WHERE CATEGORY_ID=1
-		        ORDER BY WRITE_DATE DESC
-		        )
-		    )
-		WHERE RNUM <= 4
-		]]>
-	</select>
-	
-	<!-- 댓글 신고기능 -->
-	<select id="insertReportComment" resultType="com.team01.myapp.admin.model.Reports">
-		INSERT INTO
-		REPORTS
-			(RP_REPORT_NO, RP_BOARD_ID, RP_CONTENT, RP_COMMENT_NO, RP_MASTER_NO, RP_TYPE, RP_WRITE_DATE, USER_ID,RP_TARGET)
-		VALUES
-			(seq_rp_no.nextval, #{rpBoardId},#{rpContent}, #{rpCommentNo}, #{rpMasterNo}, #{rpType}, SYSDATE, #{userId}, #{rpTarget})
-	</select>
-	
-	
+                          PASSWORD ,
+                          TITLE ,
+                          WRITE_DATE ,
+                          READ_COUNT ,
+                          U_ID ,
+                          CONTENT
+                      
+                        from board
+                        ]]>
+                        <if test="subjectId != 0">
+                        where subject_id IN (#{subjectId}, 0)
+                     </if>
+                  <![CDATA[
+                             )
+                     order by BOARD_ID desc
+                     ) 
+                     where rownum <= #{end}
+                     ) 
+                     where rnum >= #{start}
+                  ]]>
+   </select>
+   
+   <select id="selectArticleListByCategory" parameterType="map"
+      resultType="com.team01.myapp.board.model.Board">
+      <![CDATA[
+            SELECT
+               BOARD_ID      AS "boardId",
+               CATEGORY_ID      AS "categoryId",
+               WRITER         AS "writer",
+               CONTENT          AS "content",
+               EMAIL         AS "email",
+               TITLE         AS "title",
+               WRITE_DATE      AS "writeDate",
+               READ_COUNT      AS "readCount",
+               RNUM         AS "seq"
+            FROM (
+               SELECT
+                  BOARD_ID,
+                  CATEGORY_ID,
+                  WRITER,
+                  CONTENT,
+                  EMAIL,
+                  TITLE,
+                  WRITE_DATE,
+                  READ_COUNT,
+                  ROWNUM AS RNUM
+               FROM (
+                  SELECT * FROM BOARD
+                  WHERE CATEGORY_ID=#{categoryId}
+      ]]>
+                  <if test="subjectId != 0">
+                     AND subject_id IN (#{subjectId}, 0)
+                  </if>
+                  ORDER BY WRITE_DATE DESC
+                  )
+               )
+            WHERE RNUM BETWEEN #{start} AND #{end}
+            
+      
+      
+   </select>
+   
+   
+   <select id="selectSearchArticleList" parameterType="map"
+      resultType="com.team01.myapp.board.model.Board">
+      <![CDATA[
+            SELECT
+               BOARD_ID      AS "boardId",
+               CATEGORY_ID      AS "categoryId",
+               WRITER         AS "writer",
+               CONTENT          AS "content",
+               EMAIL         AS "email",
+               TITLE         AS "title",
+               WRITE_DATE      AS "writeDate",
+               READ_COUNT      AS "readCount",
+               RNUM         AS "seq"
+            FROM (
+               SELECT
+                  BOARD_ID,
+                  CATEGORY_ID,
+                  WRITER,
+                  EMAIL,
+                  CONTENT,
+                  TITLE,
+                  WRITE_DATE,
+                  READ_COUNT,
+                  ROWNUM AS RNUM
+               FROM (
+                  SELECT * FROM BOARD
+                  WHERE 
+                     TITLE LIKE #{keyword}
+                     OR
+                     CONTENT LIKE #{keyword}
+                  ]]>
+                  <if test="subjectId != 0">
+                     AND subject_id IN (#{subjectId}, 0)
+                  </if>
+                  ORDER BY WRITE_DATE DESC
+                  
+                  )
+               )
+            WHERE RNUM BETWEEN #{start} AND #{end}
+      
+   </select>
+   
+   <!-- 읽기 기능 -->
+   
+   <select id="selectArticle" parameterType="int"
+      resultType="com.team01.myapp.board.model.Board">
+   <![CDATA[
+      SELECT
+          BOARD.BOARD_ID         AS "boardId",
+          CATEGORY_ID            AS "categoryId",
+          WRITER               AS "writer",
+          U_ID               AS "userId",
+          EMAIL               AS "email",
+          TITLE               AS "title",
+          CONTENT               AS "content",
+          READ_COUNT            AS "readCount",
+          WRITE_DATE            AS "writeDate",
+          B_FILE_ID   AS "boardFileId",
+          B_FILE_NAME AS "boardFileName",
+          B_FILE_SIZE   AS "boardFileSize",
+          B_FILE_CONTENT_TYPE AS "boardFileContentType"
+      FROM BOARD LEFT OUTER JOIN B_FILE
+          ON BOARD.BOARD_ID=B_FILE.BOARD_ID
+      WHERE BOARD.BOARD_ID=#{boardId}
+   ]]>
+   </select>
+   
+   <update id="updateReadCount" parameterType="int">
+   <![CDATA[
+      UPDATE BOARD
+         SET READ_COUNT = READ_COUNT+1
+      WHERE BOARD_ID=#{boardId}
+   ]]>
+   </update>
+   
+   <select id="getFile" parameterType="int" resultType="com.team01.myapp.board.model.BoardUploadFile">
+   <![CDATA[
+      SELECT 
+         B_FILE_ID      AS "boardFileId",
+         BOARD_ID   AS "boardId",
+         B_FILE_NAME   AS "boardFileName",
+         B_FILE_SIZE   AS "boardFileSize",
+         B_FILE_CONTENT_TYPE AS "boardFileContentType",
+         B_FILE_DATA   AS   "boardFileData"
+      FROM B_FILE
+      WHERE B_FILE_ID=#{boardFileId}         
+   ]]>      
+   </select>
+   
+   <!-- 쓰기  -->
+   
+   <insert id="insertArticle" parameterType="com.team01.myapp.board.model.Board">
+   <![CDATA[
+      INSERT INTO
+      BOARD
+         (BOARD_ID, SUBJECT_ID, CATEGORY_ID, WRITER, EMAIL, PASSWORD, TITLE, CONTENT, WRITE_DATE, U_ID, READ_COUNT)
+      VALUES
+         (#{boardId}, #{subjectId}, #{categoryId}, #{writer}, #{email}, #{password}, #{title}, #{content}, SYSDATE, #{userId}, 0)
+   ]]>
+   </insert>
+   
+   <insert id="insertFileData"  parameterType="com.team01.myapp.board.model.BoardUploadFile">
+   <![CDATA[   
+      INSERT INTO
+      B_FILE
+         (B_FILE_ID, BOARD_ID, B_FILE_NAME, B_FILE_SIZE, B_FILE_CONTENT_TYPE, B_FILE_DATA)
+      VALUES
+         (#{boardFileId}, #{boardId}, #{boardFileName}, #{boardFileSize}, #{boardFileContentType}, #{boardFileData})
+   ]]>
+   </insert>
+   <!-- 수정하기 -->
+   
+   <update id="updateArticle" parameterType="com.team01.myapp.board.model.Board">
+   <![CDATA[
+      UPDATE 
+         BOARD
+      SET 
+         CATEGORY_ID=#{categoryId}, WRITER=#{writer},
+         EMAIL=#{email}, TITLE=#{title},
+         CONTENT=#{content}, WRITE_DATE=SYSDATE
+      WHERE 
+         BOARD_ID=#{boardId}
+   ]]>
+   </update>
+   
+   <update id="updateFileData" parameterType="com.team01.myapp.board.model.BoardUploadFile">
+   <![CDATA[
+      UPDATE 
+         B_FILE
+      SET 
+         B_FILE_NAME=#{boardFileName}, B_FILE_SIZE=#{boardFileSize},
+         B_FILE_CONTENT_TYPE=#{boardFileContentType}, B_FILE_DATA=#{boardFileData},
+         BOARD_ID=#{boardId}
+      WHERE 
+         B_FILE_ID=#{boardFileId}
+   ]]>
+   </update>
+   
+   <!--  삭제하기  --> 
+   
+   <select id="getPassword" parameterType="int" resultType="string">
+   <![CDATA[
+      SELECT PASSWORD
+      FROM BOARD
+      WHERE BOARD_ID=#{boardId}
+   ]]>
+   </select>
+   
+   <delete id="deleteFileData" parameterType="int">
+   <![CDATA[
+      DELETE FROM B_FILE
+      WHERE EXISTS (SELECT BOARD_ID FROM BOARD
+                  WHERE BOARD.BOARD_ID=#{boardId} 
+                  AND BOARD.BOARD_ID = B_FILE.BOARD_ID )
+   ]]>
+   </delete>
+   
+   
+   <delete id="deleteArticle" parameterType="int">
+      DELETE FROM 
+         BOARD
+      WHERE 
+         BOARD_ID=#{boardId}
+   </delete>
+   
+   <!-- 리플기능  -->
+   <select id ="selectBoardComment" parameterType="int" resultType="com.team01.myapp.board.model.BoardComment">
+      SELECT
+          b.BOARD_ID         AS "boardId",
+          c.U_ID          AS "userId",
+          BC_REPLY_NO   AS "bcReplyNo",
+          BC_MASTER_NO AS "bcMasterNo",
+          BC_CONTENT   AS "bcContent",
+          BC_WRITE_DATE AS "bcWriteDate",
+          f.U_FILE_ID AS "userFileId",
+          u.U_Name AS "userName"
+      FROM u_file f, users u, 
+          BOARD b LEFT OUTER JOIN B_COMMENT c 
+          ON b.BOARD_ID=c.BOARD_ID
+      WHERE f.u_Id = c.u_id and u.u_id = c.u_id and b.BOARD_ID=#{boardId} and BC_REPLY_STEP =0
+      ORDER BY BC_WRITE_DATE DESC
+   </select>
+   
+   <insert id="insertComment" parameterType="com.team01.myapp.board.model.BoardComment">
+      INSERT INTO
+         B_COMMENT
+      B_COMMENT
+         (BC_REPLY_NO, BC_CONTENT, BC_WRITE_DATE, U_ID, BOARD_ID, BC_MASTER_NO, BC_REPLY_STEP)
+      VALUES
+         (#{bcReplyNo}, #{bcContent}, SYSDATE, #{userId}, #{boardId},#{bcReplyNo},0)
+   </insert>
+   
+   <!-- 대댓글 기능  -->
+   <select id ="selectNestedComments" parameterType="int" resultType="com.team01.myapp.board.model.BoardComment">
+      SELECT
+          b.BOARD_ID         AS "boardId",
+          c.U_ID          AS "userId",
+          BC_REPLY_NO   AS "bcReplyNo",
+          BC_MASTER_NO AS "bcMasterNo",
+          BC_CONTENT   AS "bcContent",
+          BC_WRITE_DATE AS "bcWriteDate",
+          f.U_FILE_ID AS "userFileId",
+          u.U_NAME AS "userName"
+      FROM u_file f, users u, BOARD b LEFT OUTER JOIN B_COMMENT c 
+          ON b.BOARD_ID=c.BOARD_ID 
+      WHERE BC_REPLY_STEP=1 AND f.u_Id = c.u_id AND u.u_id = c.u_id AND c.BC_MASTER_NO=#{bcReplyNo}
+      ORDER BY BC_WRITE_DATE DESC
+   </select>
+   
+   <insert id="insertNestedComment" parameterType="com.team01.myapp.board.model.BoardComment">
+      INSERT INTO
+         B_COMMENT
+         (BC_REPLY_NO, BC_CONTENT, BC_WRITE_DATE, U_ID, BOARD_ID, BC_MASTER_NO, BC_REPLY_STEP)
+      VALUES
+         (#{bcReplyNo}, #{bcContent}, SYSDATE, #{userId}, #{boardId}, #{bcMasterNo},1)
+   </insert>
+   
+   <!-- 댓글과 대댓글 삭제  -->
+   <delete id="deleteComment" parameterType="int">
+      DELETE FROM B_COMMENT
+      WHERE BC_REPLY_NO = #{bcReplyNo}
+   </delete>
+   
+   <delete id="deleteNestedCommentAlso" parameterType="int">
+      DELETE FROM B_COMMENT
+      WHERE BC_MASTER_NO = #{bcReplyNo} AND BC_REPLY_STEP=1
+   </delete>
+   
+   <select id="selectNestedCommentCount" parameterType="int" resultType="int">
+      SELECT COUNT(BC_REPLY_NO) FROM B_COMMENT
+      WHERE BC_MASTER_NO=#{bcReplyNo} AND BC_REPLY_STEP=1
+   </select>
+   
+   <delete id="deleteNestedComment" parameterType="int">
+      DELETE FROM B_COMMENT
+      WHERE BC_REPLY_NO = #{bcReplyNo} AND BC_REPLY_STEP=1
+   </delete>
+   
+   <!-- 미니뷰 기능 -->
+   <select id="selectBoardMiniList" resultType="com.team01.myapp.board.model.Board">
+   <![CDATA[
+      SELECT
+       BOARD_ID      AS "boardId",
+       TITLE         AS "title",
+         CONTENT         AS "content",
+       WRITE_DATE      AS "writeDate"
+      FROM (
+          SELECT
+              BOARD_ID,
+              TITLE,
+              CONTENT,
+              WRITE_DATE,
+              ROWNUM AS RNUM
+          FROM (
+              SELECT * FROM BOARD
+              WHERE CATEGORY_ID=1
+              ORDER BY WRITE_DATE DESC
+              )
+          )
+      WHERE RNUM <= 4
+      ]]>
+   </select>
+   
+   <!-- 댓글 신고기능 -->
+   <select id="insertReportComment" resultType="com.team01.myapp.admin.model.Reports">
+      INSERT INTO
+      REPORTS
+         (RP_REPORT_NO, RP_BOARD_ID, RP_CONTENT, RP_COMMENT_NO, RP_MASTER_NO, RP_TYPE, RP_WRITE_DATE, USER_ID,RP_TARGET)
+      VALUES
+         (seq_rp_no.nextval, #{rpBoardId},#{rpContent}, #{rpCommentNo}, #{rpMasterNo}, #{rpType}, SYSDATE, #{userId}, #{rpTarget})
+   </select>
+   
+   
 </mapper>
