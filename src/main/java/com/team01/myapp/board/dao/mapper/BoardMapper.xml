@@ -8,7 +8,7 @@
 		FROM BOARD
 	]]>
 	<if test="subjectId != 0">
-		where subject_id = #{subjectId}
+		where subject_id = #{subjectId} OR subject_id = 0
 	</if>
 	</select>
 	
@@ -16,10 +16,10 @@
 	<![CDATA[
 		SELECT COUNT(BOARD_ID) AS "count"
 		FROM BOARD
-		WHERE CATEGORY_ID = #{categoryId}
+		WHERE CATEGORY_ID = #{categoryId} 
 	]]>
 	<if test="subjectId != 0">
-		and subject_id = #{subjectId}
+		and subject_id = #{subjectId} OR subject_id = 0
 	</if>
 	</select>
 	
@@ -57,7 +57,7 @@
 			OR
 			WRITER LIKE #{keyword}
 		<if test="subjectId != 0">
-			and subject_id = #{subjectId}
+			and subject_id = #{subjectId} OR subject_id = 0
 		</if>
 	</select>
 	
@@ -125,7 +125,7 @@
 				            from board
 				            ]]>
 				            <if test="subjectId != 0">
-								where subject_id = #{subjectId}
+								where subject_id = #{subjectId} OR subject_id = 0
 							</if>
 						<![CDATA[
 							        )
@@ -166,7 +166,7 @@
 						WHERE CATEGORY_ID=#{categoryId}
 		]]>
 						<if test="subjectId != 0">
-							AND subject_id = #{subjectId}
+							AND subject_id = #{subjectId} OR subject_id = 0
 						</if>
 						ORDER BY WRITE_DATE DESC
 						)
@@ -210,7 +210,7 @@
 							CONTENT LIKE #{keyword}
 						]]>
 						<if test="subjectId != 0">
-							AND subject_id = #{subjectId}
+							AND subject_id = #{subjectId} OR subject_id = 0
 						</if>
 						ORDER BY WRITE_DATE DESC
 						
@@ -357,7 +357,7 @@
 		FROM u_file f, users u, 
 		    BOARD b LEFT OUTER JOIN B_COMMENT c 
 		    ON b.BOARD_ID=c.BOARD_ID
-		WHERE f.u_Id = c.u_id and u.u_id = c.u_id and b.BOARD_ID=#{boardId}
+		WHERE f.u_Id = c.u_id and u.u_id = c.u_id and b.BOARD_ID=#{boardId} and BC_REPLY_STEP =0
 		ORDER BY BC_WRITE_DATE DESC
 	</select>
 	

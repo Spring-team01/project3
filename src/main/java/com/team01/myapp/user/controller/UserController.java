@@ -43,50 +43,44 @@ public class UserController {
 	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
 	public String login(String userid, String password, HttpSession session, Model model) {
 		User user = userService.selectUser(userid);
-		if (user != null) {
+		if (user != null) {//아이디가 있다면
 			String dbPassword = user.getPassword();
-			if (dbPassword == null) {
-				// 아이디가 없음
-				model.addAttribute("message", "NOT_VALID_USER");
-			} else {
-				// 아이디 있음
-				if (dbPassword.equals(password)) {
-					// 비밀번호 일치
-					session.setAttribute("userId", userid);
-					session.setAttribute("userName", user.getUserName());
-					session.setAttribute("major", user.getMajor());
-					session.setAttribute("grade", user.getGrade());
-					session.setAttribute("phone", user.getPhone());
-					session.setAttribute("userType", user.getUserType());
-					session.setAttribute("password", user.getPassword());
-					session.setAttribute("email", user.getEmail());
-					session.setAttribute("subjectId", user.getSubjectId());
-					session.setAttribute("userFileId", user.getUserFileId());
+			if (dbPassword.equals(password)) {
+				// 비밀번호 일치
+				session.setAttribute("userId", userid);
+				session.setAttribute("userName", user.getUserName());
+				session.setAttribute("major", user.getMajor());
+				session.setAttribute("grade", user.getGrade());
+				session.setAttribute("phone", user.getPhone());
+				session.setAttribute("userType", user.getUserType());
+				session.setAttribute("password", user.getPassword());
+				session.setAttribute("email", user.getEmail());
+				session.setAttribute("subjectId", user.getSubjectId());
+				session.setAttribute("userFileId", user.getUserFileId());
 
-					Date date = new Date();
+				Date date = new Date();
 
-					// 오늘 날짜 데이터 생성
-					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMDD");
-					String today = simpleDateFormat.format(date);
+				// 오늘 날짜 데이터 생성
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMDD");
+				String today = simpleDateFormat.format(date);
 
-					String userId = (String) session.getAttribute("userId");
+				String userId = (String) session.getAttribute("userId");
 
-					String attTime = attendanceService.selectAttTime(today, userId);
-					String leaveTime = attendanceService.selectLeaveTime(today, userId);
+				String attTime = attendanceService.selectAttTime(today, userId);
+				String leaveTime = attendanceService.selectLeaveTime(today, userId);
 
-					session.setAttribute("attTime", attTime);
-					session.setAttribute("leaveTime", leaveTime);
-					if (user.getUserType().equals("USER")) {
-						return "redirect:/home";
-					} else {
-						return "redirect:/admin/adminhome";
-					}
-
+				session.setAttribute("attTime", attTime);
+				session.setAttribute("leaveTime", leaveTime);
+				if (user.getUserType().equals("USER")) {
+					return "redirect:/home";
 				} else {
-					// 비밀번호 불일치
-					model.addAttribute("message", "WRONG_PASSWORD");
+					return "redirect:/admin/adminhome";
 				}
+
+			} else {
+				model.addAttribute("message", "WRONG_PASSWORD");
 			}
+
 		} else {
 			model.addAttribute("message", "USER_NOT_FOUND");
 		}
@@ -137,7 +131,7 @@ public class UserController {
 			session.setAttribute("password", user.getPassword());
 			session.setAttribute("email", user.getEmail());
 			session.setAttribute("subjectId", user.getSubjectId());
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			redirectAttrs.addFlashAttribute("message", e.getMessage());

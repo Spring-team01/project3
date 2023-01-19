@@ -28,8 +28,8 @@ public class UserService implements IUserService {
 	public User getUser(String userId) {
 		return userRepository.selectUser(userId);
 	}
-	
-	//학생 정보 수정
+
+	// 학생 정보 수정
 	@Override
 	public void updateUser(User user) {
 		userRepository.updateUser(user);
@@ -39,16 +39,9 @@ public class UserService implements IUserService {
 	@Transactional
 	public void updateUser(User user, UserUploadFile file) {
 		userRepository.updateUser(user);
-		if (file != null && file.getUserFileName() != null && !file.getUserFileName().equals("")) {
-			file.setUserId(user.getUserId());
-			userRepository.updateFileData(file);
-		} else {
-			userRepository.insertFileData(file);
-		}
+		file.setUserId(user.getUserId());
+		userRepository.updateFileData(file);
 
 	}
-
-
-	
 
 }
