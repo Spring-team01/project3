@@ -127,14 +127,14 @@
 				            <if test="subjectId != 0">
 								where subject_id = #{subjectId}
 							</if>
-			<![CDATA[
-				        )
-				order by BOARD_ID desc
-				) 
-				where rownum <= #{end}
-				) 
-				where rnum >= #{start}
-			]]>
+						<![CDATA[
+							        )
+							order by BOARD_ID desc
+							) 
+							where rownum <= #{end}
+							) 
+							where rnum >= #{start}
+						]]>
 	</select>
 	
 	<select id="selectArticleListByCategory" parameterType="map"
@@ -330,7 +330,8 @@
 	<![CDATA[
 		DELETE FROM B_FILE
 		WHERE EXISTS (SELECT BOARD_ID FROM BOARD
-						WHERE BOARD.BOARD_ID=#{boardId} AND BOARD.BOARD_ID = B_FILE.BOARD_ID )
+						WHERE BOARD.BOARD_ID=#{boardId} 
+						AND BOARD.BOARD_ID = B_FILE.BOARD_ID )
 	]]>
 	</delete>
 	

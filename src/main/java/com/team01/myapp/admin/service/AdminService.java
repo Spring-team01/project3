@@ -68,15 +68,8 @@ public class AdminService implements IAdminService {
 	@Transactional
 	public void updateUser(User user, UserUploadFile file) {
 		adminRepository.updateUser(user);
-		System.out.println("확인!" + file.getUserFileName().equals(""));
-		if (file != null && file.getUserFileName() != null && !file.getUserFileName().equals("")) {
-			file.setUserId(user.getUserId());
-			adminRepository.updateFileData(file);
-		} else {
-			file.setUserId(user.getUserId());
-			adminRepository.insertFileData(file);
-		}
-
+		file.setUserId(user.getUserId());
+		adminRepository.updateFileData(file);
 	}
 
 	// 휴가 목록 조회

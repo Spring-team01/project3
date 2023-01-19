@@ -338,7 +338,8 @@ ${message}
 																    	<a onclick="deleteComment(${commentOne.bcReplyNo})">삭제하기</a>
 																    </c:if>
 																    <c:if test="${commentOne.userId ne sessionScope.userId}">
-																    	<a type="button" data-toggle="modal" data-target="#reportFun${commentOne.bcReplyNo}">신고하기</a>
+																    	<a type="button" data-toggle="modal" 
+																    	data-target="#reportFun${commentOne.bcReplyNo}">신고하기</a>
 																    </c:if> 
 																    </div>
 																    

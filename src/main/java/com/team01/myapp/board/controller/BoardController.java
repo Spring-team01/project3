@@ -267,10 +267,8 @@ public class BoardController {
 	//대댓글 읽기 기능
 	@RequestMapping(value="/board/reply", method=RequestMethod.GET)
 	public String viewNestedReply(@RequestParam int bcReplyNo, Model model) {
-		logger.info("/board/reply:  " + bcReplyNo);
 		List<BoardComment> nestedCommentList = boardService.getNestedComment(bcReplyNo);
 		model.addAttribute("nestedCommentList", nestedCommentList);
-		logger.info("/board/reply}:  " + nestedCommentList);
 		return "board/reply";                             
 	}
 	
