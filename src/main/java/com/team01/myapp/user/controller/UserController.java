@@ -78,11 +78,11 @@ public class UserController {
 				}
 
 			} else {
-				model.addAttribute("message", "비밀번호가 다릅니다.");
+				model.addAttribute("message", "WRONG_PASSWORD");
 			}
 
 		} else {
-			model.addAttribute("message", "사용자가 없습니다. 아이디를 확인하세요.");
+			model.addAttribute("message", "USER_NOT_FOUND");
 		}
 		session.invalidate();
 		return "user/login";
