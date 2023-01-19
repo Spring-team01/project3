@@ -104,8 +104,7 @@
 	         success : function(data) {
 	            if(data==0) {
 	               alert("댓글 작성에 실패하였습니다");
-	            } else if(data==1) {
-	            	alert("댓글 작성 완료!");       	
+	            } else if(data==1) {     	
 	            	location.reload();
 	            }
 	         }
@@ -396,18 +395,18 @@ ${message}
 					</div>
 						<div id="buttons" class="m-5 text-right">
 							<c:if test="${sessionScope.userType!='ADMIN' && board.userId==sessionScope.userId}">
-								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
+								<a href='<c:url value="/board/${categoryId}}/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
 								<a href='<c:url value="/board/update/${board.boardId}"/>'><button type="button" class="btn btn-info"><fmt:message key="UPDATE"/></button></a>
 								<!-- Button trigger modal -->
 								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#deleteFun"><fmt:message key="DELETE"/></button>
 							</c:if>
 							<c:if test="${sessionScope.userType!='ADMIN' && board.userId!=sessionScope.userId}">
-								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
+								<a href='<c:url value="/board/${categoryId}}/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
 							</c:if>
 							<c:if test="${sessionScope.userType =='ADMIN'}">
-								<a href='<c:url value="/boardlist/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
+								<a href='<c:url value="/board/${categoryId}}/1"/>'><button type="button" class="btn btn-info"><fmt:message key="BOARD_LIST"/></button></a>
 								<a href='<c:url value="/board/write/${categoryId}"/>'><button type="button" class="btn btn-info"><fmt:message key="WRITE_NEW_ARTICLE"/></button></a>
 
 								<!-- Button trigger modal -->
