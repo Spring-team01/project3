@@ -130,7 +130,7 @@
 																	<td class="pc"><h6
 																			class="text-xs font-weight-bold mb-0 text-center">
 																			<a
-																				href='<c:url value="/admin/reasondetail/${reason.subAttNo}"/>'>${reason.title}</a>
+																				href='<c:url value="/admin/subattdetail/${reason.subAttNo}"/>'>${reason.title}</a>
 																		</h6></td>
 																	<td class="pc"><h6
 																			class="text-xs font-weight-bold mb-0 text-center">${reason.writeDate}</h6></td>

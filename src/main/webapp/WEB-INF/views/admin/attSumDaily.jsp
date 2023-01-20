@@ -72,6 +72,7 @@
 													<c:when test="${sumDailyVo.status eq '지각'}"><td class="text-warning">${sumDailyVo.status}</td></c:when>
 													<c:when test="${sumDailyVo.status eq '휴가'}"><td class="text-info">${sumDailyVo.status}</td></c:when>
 													<c:when test="${sumDailyVo.status eq '미출근'}"><td class="text-dark">${sumDailyVo.status}</td></c:when>
+													<c:when test="${sumDailyVo.status eq '미출석'}"><td class="text-dark">미출근</td></c:when>
 												</c:choose>
 
                                           </tr>
