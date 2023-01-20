@@ -15,9 +15,8 @@
 		console.log(i);
 		$.ajax({
 			type:'GET',
-			url: "/myapp/community/reply/delete/"+i,
+			url: "/myapp/board/comment/delete/"+i,
 			error: function(){
-				alert('통신 실패 ');
 				console.log('댓글삭제 실패');
 			},
 			success: function(data){
@@ -32,6 +31,7 @@
 			url:"/myapp/admin/report/update/"+j,
 			success: function(){
 				alert('업데이트 통신 성공');
+				
 			}
 		})
 	}
@@ -41,7 +41,7 @@
 		console.log(i);
 		$.ajax({
 			type:'GET',
-			url: "/myapp/community/replycomment/delete"+i,
+			url: "/myapp/board/nestedcomment/delete"+i,
 			error: function(){
 				alert('통신 실패');
 				console.log('대댓글삭제 실패');
